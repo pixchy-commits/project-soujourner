@@ -44,6 +44,16 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 .painted-button:hover::before, .painted-button:hover::after, .painted-button:focus-visible::before, .painted-button:focus-visible::after { opacity: 1; transform: translateX(0); }
 .painted-button:active { transform: scale(.98); }
 
+.game.landing-mode {
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.game.landing-mode > section {
+  width: 100%;
+  height: 100%;
+}
+
 /* Full-screen cutscenes, framed like a film and advanced like a game. */
 .cutscene .landscape { filter: saturate(.55) brightness(.45); }
 .cutscene .vignette { background: radial-gradient(ellipse, transparent, #090d1599); }

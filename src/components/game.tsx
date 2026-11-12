@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
@@ -7,6 +8,7 @@ import gsap from "gsap";
 import { chapters, narrativeMachine } from "@/lib/narrative";
 import { useGameStore } from "@/lib/game-store";
 import Dust from "./dust";
+import LandingGame from "./landing/LandingGame";
 import { useGameEffects } from "@/lib/game-audio";
 import { useNarration } from "@/lib/narration";
 
@@ -69,6 +71,7 @@ export default function Game() {
   const scene = chapters[sceneIndex];
   const menu = state.matches("menu");
   const complete = state.matches("complete");
+  const landing = state.matches("landing");
   const systemReducedMotion = useSyncExternalStore(subscribeToMotion, getMotionPreference, () => false);
   const instant = data.reducedMotion || systemReducedMotion;
 
@@ -78,14 +81,46 @@ export default function Game() {
     if (complete) useGameStore.getState().finish();
   }, [sceneIndex, complete]);
   useEffect(() => {
-    if (instant) return;
+    // The landing game handles its own animations.
+    if (instant || landing) return;
+
     const ctx = gsap.context(() => {
-      gsap.timeline()
-        .fromTo(".scene-enter", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 1, stagger: 0.14, ease: "power2.out", delay: 0.25 })
-        .fromTo(root.current?.querySelectorAll(".dialogue-box") ?? [], { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: 0.6 }, "-=0.3");
+      const sceneElements =
+        root.current?.querySelectorAll(".scene-enter");
+
+      const dialogueElements =
+        root.current?.querySelectorAll(".dialogue-box");
+
+      const timeline = gsap.timeline();
+
+      if (sceneElements?.length) {
+        timeline.fromTo(
+          sceneElements,
+          { opacity: 0, y: 14 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.14,
+            ease: "power2.out",
+            delay: 0.25,
+          }
+        );
+      }
+
+      if (dialogueElements?.length) {
+        timeline.fromTo(
+          dialogueElements,
+          { opacity: 0, y: 25 },
+          { opacity: 1, y: 0, duration: 0.6 },
+          "-=0.3"
+        );
+      }
     }, root);
+
     return () => ctx.revert();
-  }, [state.value, instant]);
+  }, [state.value, instant, landing]);
+
   useEffect(() => {
     if (panel) dialog.current?.showModal();
     else dialog.current?.close();
@@ -134,16 +169,17 @@ export default function Game() {
     });
   }
 
-  return <main ref={root} className={`game ${menu ? "menu" : "cutscene"} scene-${sceneIndex} ${data.reducedMotion ? "motion-off" : ""}`} aria-busy={busy} onClickCapture={(event) => {
+  return <main ref={root} className={`game ${landing ? "landing-mode" : menu ? "menu" : "cutscene"} scene-${sceneIndex} ${data.reducedMotion ? "motion-off" : ""}`} aria-busy={busy} onClickCapture={(event) => {
     if ((event.target as Element).closest("button:not(:disabled)")) effects.click();
   }}>
-    <div className="landscape" aria-hidden="true" />
-    <div className="vignette" aria-hidden="true" />
-    <div className="grain" aria-hidden="true" />
-    <Dust paused={data.reducedMotion || !menu} />
-    <button className="music-button" onClick={toggleAudio} aria-label={muted ? "Enable music" : "Mute music"} aria-pressed={!muted}><MusicIcon muted={muted} /></button>
+    {landing && <LandingGame reducedMotion={instant} onComplete={() => navigate("NEXT")} />}
+    {!landing && <div className="landscape" aria-hidden="true" />}
+    {!landing && <div className="vignette" aria-hidden="true" />}
+    {!landing && <div className="grain" aria-hidden="true" />}
+    {!landing && <Dust paused={data.reducedMotion || !menu} />}
+    {!landing && <button className="music-button" onClick={toggleAudio} aria-label={muted ? "Enable music" : "Mute music"} aria-pressed={!muted}><MusicIcon muted={muted} /></button>}
 
-    {menu ? <section className="title-screen" aria-labelledby="game-title">
+    {landing ? null : menu ? <section className="title-screen" aria-labelledby="game-title">
       <div className="title-lockup scene-enter"><h1 id="game-title">SOJOURNER</h1><p>The Little Rover That Never Came Home</p></div>
       <nav className="game-menu scene-enter" aria-label="Game menu" onKeyDown={(event) => {
         if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
@@ -195,5 +231,3 @@ export default function Game() {
     </dialog>
   </main>;
 }
-
-
