@@ -1,0 +1,14 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="480" height="100" viewBox="0 0 480 100">
+ <defs>
+  <linearGradient id="paper" x2="0" y2="1"><stop stop-color="#fff3cf"/><stop offset=".5" stop-color="#f1d8a1"/><stop offset="1" stop-color="#dba96d"/></linearGradient>
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="3" seed="12" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="1.4"/></filter>
+ </defs>
+ <path d="m13 12 448-3 9 11-4 65-449 7-10-13Z" fill="#371d19" opacity=".65"/>
+ <g filter="url(#rough)">
+  <path d="m12 7 447-3 10 10-5 64-449 7-10-13Z" fill="url(#paper)" stroke="#4a2c25" stroke-width="3"/>
+  <path d="m18 15 432-4 9 9-4 49-432 6-8-10Z" fill="none" stroke="#92613e" stroke-width="1.3"/>
+  <path d="m24 19 418-4M22 21l-1 42" stroke="#fff5db" opacity=".8" stroke-width="2"/>
+  <path d="m25 70 418-7" stroke="#5c3429" opacity=".35"/>
+ </g>
+ <g fill="#674332"><circle cx="31" cy="44" r="2"/><circle cx="443" cy="39" r="2"/></g>
+</svg>

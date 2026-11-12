@@ -9,12 +9,19 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@xstate/react": "^6.1.0",
+    "gsap": "^3.15.1",
+    "howler": "^2.2.4",
     "next": "16.4.6",
+    "pixi.js": "^8.23.0",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "xstate": "^5.33.4",
+    "zustand": "^5.1.0"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "4.3.3",
+    "@types/howler": "^2.2.13",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
