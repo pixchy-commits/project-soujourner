@@ -1,0 +1,17 @@
+.game { width: 100vw; height: 100dvh; min-height: 100svh; margin: 0; color: #fff5e7; font-family: system-ui, -apple-system, sans-serif; }
+.scene { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 0; background: #995c42; cursor: pointer; touch-action: manipulation; user-select: none; outline-offset: 3px; }
+.art { width: 100%; height: 100%; display: block; }
+.top { position: absolute; top: 3.5%; left: 4%; right: 4%; display: flex; align-items: center; gap: 2.3%; }
+.progressLabel { flex: none; font-size: clamp(10px, 1.6vw, 19px); font-weight: 800; letter-spacing: .025em; text-shadow: 0 2px 5px #432619aa; }
+.track { flex: 1; height: clamp(9px, 2.5vw, 22px); border-radius: 99px; background: #5e382b99; position: relative; overflow: hidden; box-shadow: inset 0 1px 3px #2b170f77; }
+.fill { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #ee7946, #f2bf6e 55%, #8ed9a1); transform-origin: left center; transition: transform .08s linear; pointer-events: none; }
+.track i { position: absolute; top: 0; height: 100%; width: 2px; background: #fff9; }
+.percent { flex: none; font-size: clamp(13px, 2vw, 25px); text-shadow: 0 2px 5px #432619aa; }
+.status { position: absolute; top: 16%; width: 100%; text-align: center; font-weight: 900; font-size: clamp(14px, 2.6vw, 31px); color: #ffcb93; text-shadow: 0 2px 7px #5c2c1c; pointer-events: none; }
+.safe { color: #c0f3c8; }
+.angle { position: absolute; bottom: 6%; left: 4%; font-size: clamp(11px, 1.5vw, 18px); font-weight: 650; text-shadow: 0 2px 6px #402416; pointer-events: none; }
+.angle strong { color: #ffd08c; margin-left: 9px; font-size: 1.2em; }
+.instruction { position: absolute; bottom: 6%; left: 24%; width: 60%; text-align: center; font-size: clamp(10px, 1.7vw, 21px); font-weight: 600; font-style: italic; text-shadow: 0 2px 6px #402416; pointer-events: none; }
+.restart { position: absolute; right: 4%; bottom: 5%; border: 1px solid #fff8; border-radius: 8px; background: #35251cbb; color: white; font: inherit; font-size: clamp(11px, 1.3vw, 16px); padding: 6px 10px; cursor: pointer; }
+@media (max-width: 520px) { .scene { border-radius: 0; } .top { left: 3%; right: 3%; gap: 2%; } .progressLabel { font-size: 9px; } .status { top: 18%; } .instruction { left: 29%; width: 57%; bottom: 4%; } .angle { left: 3%; bottom: 4%; font-size: 9px; } }
+@media (prefers-reduced-motion: reduce) { .fill { transition: none; } }
