@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 205 150">
+<!-- Replace this SVG with your own rover illustration. Keep its viewBox or adjust the game image dimensions. -->
+<defs><pattern id="solar" width="14" height="12" patternUnits="userSpaceOnUse"><rect width="14" height="12" fill="#273e54"/><path d="M1 1H13V11H1Z" fill="#496681" stroke="#94a7b7" stroke-width=".5"/></pattern></defs>
+<ellipse cx="96" cy="136" rx="100" ry="10" fill="#493027" opacity=".4"/>
+<path d="M22 100L40 133 88 107 144 133 162 98" stroke="#514a40" stroke-width="7" fill="none"/>
+<g><circle cx="30" cy="125" r="25" fill="#333532" stroke="#9a9280" stroke-width="4"/><circle cx="30" cy="125" r="14" fill="#77776d"/><circle cx="30" cy="125" r="6" fill="#393a36"/><circle cx="93" cy="125" r="25" fill="#333532" stroke="#9a9280" stroke-width="4"/><circle cx="93" cy="125" r="14" fill="#77776d"/><circle cx="93" cy="125" r="6" fill="#393a36"/><circle cx="155" cy="125" r="25" fill="#333532" stroke="#9a9280" stroke-width="4"/><circle cx="155" cy="125" r="14" fill="#77776d"/><circle cx="155" cy="125" r="6" fill="#393a36"/></g>
+<path d="M4 60L38 31H186L160 60Z" fill="url(#solar)" stroke="#b5b8ad" stroke-width="3"/><path d="M4 60H160V105H4Z" fill="#d8d0b9" stroke="#6b675d" stroke-width="3"/><path d="M160 60L186 31V80L160 105Z" fill="#96958b"/><path d="M122 41V4" stroke="#e3dfcd" stroke-width="4"/><circle cx="122" cy="4" r="5" fill="#e3dfcd"/><text x="85" y="86" font-family="sans-serif" font-size="11" font-weight="bold" fill="#484339" text-anchor="middle">SOJOURNER</text>
+</svg>
