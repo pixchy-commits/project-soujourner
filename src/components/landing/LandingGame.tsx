@@ -1,62 +1,41 @@
 "use client";
-import { useLandingGame } from "./useLandingGame";
-import {
-  InstructionHeader,
-  DescentBackground,
-  Craft,
-  ActionButton,
-  Altimeter,
-  Timer,
-  Feedback,
-  Briefing,
-  Tutorial,
-  ResultScreen,
-} from "./parts";
+
+import { useEffect, useRef } from "react";
 import styles from "./LandingGame.module.css";
+
 export type LandingGameProps = {
-  onComplete?: () => void;
-  reducedMotion?: boolean;
+  onComplete?: (result: { stars: number }) => void;
+  onHome?: () => void;
+  className?: string;
 };
-export default function LandingGame({
-  onComplete,
-  reducedMotion = false,
-}: LandingGameProps) {
-  const g = useLandingGame();
-  const v = g.view;
+
+/** Isolated Chapter 1 game. Does not touch the Pathfinding or Rescue Sojo state. */
+export default function LandingGame({ onComplete, onHome, className = "" }: LandingGameProps) {
+  const frameRef = useRef<HTMLIFrameElement>(null);
+  const completeRef = useRef(onComplete);
+  const homeRef = useRef(onHome);
+  useEffect(() => { completeRef.current = onComplete; }, [onComplete]);
+  useEffect(() => { homeRef.current = onHome; }, [onHome]);
+  useEffect(() => {
+    function receive(event: MessageEvent) {
+      if (event.origin !== window.location.origin || event.source !== frameRef.current?.contentWindow) return;
+      const message = event.data;
+      if (!message || message.source !== "sojourner-landing") return;
+      if (message.type === "complete") completeRef.current?.({ stars: Math.max(0, Math.min(3, Number(message.stars) || 0)) });
+      if (message.type === "home") homeRef.current?.();
+    }
+    window.addEventListener("message", receive);
+    return () => window.removeEventListener("message", receive);
+  }, []);
   return (
-    <section className={styles.game} aria-label="Mars landing mini-game">
-      <DescentBackground progress={g.progress} reducedMotion={reducedMotion} />
-      <div className={styles.playfield}>
-        <InstructionHeader index={v.stage} stage={g.stage} />
-        <div className={styles.scene}>
-          <Craft phase={v.craft} />
-        </div>
-        <div className={styles.controls}>
-          <ActionButton
-            stage={g.stage}
-            approach={g.approach}
-            ready={g.ready}
-            late={g.late}
-            holdProgress={v.holdProgress}
-            disabled={v.phase !== "playing" || v.locked}
-            onPress={g.press}
-            onRelease={g.release}
-          />
-          <Timer seconds={g.remaining} />
-        </div>
-        <Feedback message={v.feedback} />
-      </div>
-      <Altimeter
-        stage={g.stage}
-        value={v.value}
-        ready={g.ready}
-        stable={v.stable}
+    <section className={`${styles.container} ${className}`} aria-label="Sojourner Chapter 1: Landing on Mars">
+      <iframe
+        ref={frameRef}
+        className={styles.frame}
+        src="/games/landing.html"
+        title="Sojourner — Chapter 1: Landing on Mars"
+        allow="autoplay"
       />
-      {v.phase === "briefing" && <Briefing onStart={g.startBriefing} />}
-      {v.phase === "tutorial" && <Tutorial onContinue={g.startPlaying} />}
-      {v.phase === "result" && (
-        <ResultScreen onAgain={g.reset} onComplete={onComplete} />
-      )}
     </section>
   );
 }
