@@ -1,10 +1,15 @@
 .game { width: 100vw; height: 100dvh; min-height: 100svh; margin: 0; color: #fff5e7; font-family: system-ui, -apple-system, sans-serif; }
 .scene { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 0; background: #995c42; cursor: pointer; touch-action: manipulation; user-select: none; outline-offset: 3px; }
-.art { width: 100%; height: 100%; display: block; }
+.landscape { position: absolute; inset: 0; background-image: url("/assets/rescue-sojo/rescue-sojo-background.png"); background-position: center center; background-size: cover; background-repeat: no-repeat; pointer-events: none; }
+.safeGround { position: absolute; width: clamp(190px, 28vw, 470px); height: auto; right: 1%; bottom: 9%; pointer-events: none; object-fit: contain; filter: drop-shadow(0 8px 8px #47261b55); }
+.roverPosition { position: absolute; bottom: 13%; width: clamp(120px, 17vw, 290px); aspect-ratio: 1200 / 984; transform: translateX(-50%); pointer-events: none; transition: left 80ms linear; }
+.roverImage { width: 100%; height: 100%; display: block; object-fit: contain; transform-origin: 50% 68%; transition: transform 80ms linear; filter: drop-shadow(0 8px 7px #42241d66); }
+.dustCloud { position: absolute; width: 40%; height: 12%; left: 0; bottom: 0; border-radius: 50%; background: #f4c69a; filter: blur(12px); pointer-events: none; }
+
 .top { position: absolute; top: 3.5%; left: 4%; right: 4%; display: flex; align-items: center; gap: 2.3%; }
 .progressLabel { flex: none; font-size: clamp(10px, 1.6vw, 19px); font-weight: 800; letter-spacing: .025em; text-shadow: 0 2px 5px #432619aa; }
 .track { flex: 1; height: clamp(9px, 2.5vw, 22px); border-radius: 99px; background: #5e382b99; position: relative; overflow: hidden; box-shadow: inset 0 1px 3px #2b170f77; }
-.fill { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #ee7946, #f2bf6e 55%, #8ed9a1); transform-origin: left center; transition: transform .08s linear; pointer-events: none; }
+.fill { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: left center; pointer-events: none; border-radius: inherit; background: linear-gradient(90deg, #ee7946, #f2bf6e 55%, #8ed9a1); transition: transform .08s linear; }
 .track i { position: absolute; top: 0; height: 100%; width: 2px; background: #fff9; }
 .percent { flex: none; font-size: clamp(13px, 2vw, 25px); text-shadow: 0 2px 5px #432619aa; }
 .status { position: absolute; top: 16%; width: 100%; text-align: center; font-weight: 900; font-size: clamp(14px, 2.6vw, 31px); color: #ffcb93; text-shadow: 0 2px 7px #5c2c1c; pointer-events: none; }
@@ -15,3 +20,52 @@
 .restart { position: absolute; right: 4%; bottom: 5%; border: 1px solid #fff8; border-radius: 8px; background: #35251cbb; color: white; font: inherit; font-size: clamp(11px, 1.3vw, 16px); padding: 6px 10px; cursor: pointer; }
 @media (max-width: 520px) { .scene { border-radius: 0; } .top { left: 3%; right: 3%; gap: 2%; } .progressLabel { font-size: 9px; } .status { top: 18%; } .instruction { left: 29%; width: 57%; bottom: 4%; } .angle { left: 3%; bottom: 4%; font-size: 9px; } }
 @media (prefers-reduced-motion: reduce) { .fill { transition: none; } }
+
+@media (max-width: 700px) {
+  .safeGround { width: clamp(165px, 40vw, 260px); right: -6%; bottom: 12%; }
+  .roverPosition { width: clamp(110px, 26vw, 180px); bottom: 16%; }
+}
+@media (prefers-reduced-motion: reduce) { .roverPosition, .roverImage { transition: none; } }
+
+/* Alignment: the left-hand oval inside the safe-ground asset is the actual target.
+   At 100% the rover's wheelbase is centered over that oval, not the flag. */
+.safeGround { width: clamp(260px, 27vw, 440px); right: 0; bottom: 3%; }
+.roverPosition { width: clamp(235px, 25vw, 410px); bottom: 8%; }
+/* Initial clockwise tilt points the rover downhill to the right. */
+.roverImage { transform-origin: 50% 76%; }
+@media (max-width: 700px) {
+  .safeGround { width: clamp(205px, 46vw, 320px); right: -3%; bottom: 6%; }
+  .roverPosition { width: clamp(180px, 38vw, 270px); bottom: 12%; }
+}
+
+/* Full viewport: bypass padding/margins on the parent page layout. */
+.game {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+}
+.scene { inset: 0; margin: 0; border: 0; border-radius: 0; }
+/* The landing oval occupies the left portion of the safe-ground PNG.
+   Its center is aligned with the rover's final wheelbase at 76% of viewport width. */
+.safeGround {
+  width: 30vw;
+  max-width: none;
+  min-width: 0;
+  right: 5%;
+  bottom: 12%;
+}
+.roverPosition {
+  width: 25vw;
+  max-width: none;
+  min-width: 0;
+  bottom: 12%;
+}
+@media (max-width: 700px) {
+  .safeGround { width: 43vw; right: -3%; bottom: 15%; }
+  .roverPosition { width: 35vw; bottom: 15%; }
+}
