@@ -31,7 +31,7 @@
 .dialogue-box { bottom: 9%; width: min(1060px,85vw); min-height: 150px; padding: 30px 34px 45px; border-radius: 20px; background: #202a3cf2; border: 2px solid #8ab7ac; box-shadow: 0 0 0 4px #1b2332,0 0 0 5px #fde59388,0 16px 30px #0004; }
 .dialogue-box::before,.dialogue-box::after { display: none; }
 .speaker { top: -15px; border-radius: 9px; padding: 7px 16px; border: 1px solid #fde593; background: #3a4457; color: #fde593; font: 9px Thunderstrike,sans-serif; letter-spacing: .04em; }
-.dialogue-text { font: 400 clamp(14px,1.2vw,18px)/1.9 GloriaHallelujah,cursive; color: #fff0c8; }
+.dialogue-text { font: 400 clamp(14px,1.2vw,18px)/1.9 var(--font-narrative),sans-serif; color: #fff0c8; }
 .dialogue-prompt { background: #fde593; color: #3a4457; padding: 6px 12px; border-radius: 6px; font: 8px Thunderstrike,sans-serif; letter-spacing: .03em; bottom: 12px; }
 .cutscene-controls { bottom: 8px; }
 .cutscene-controls .game-button { font: 8px Thunderstrike,sans-serif; letter-spacing: .04em; color: #fde593; padding: 8px 14px; }

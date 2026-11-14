@@ -81,21 +81,21 @@
     "approved": false
   },
   "ch01-lander-unfolding/landed-capsule": {
-    "src": null,
+    "src": "/art/scenes/ch01-lander-unfolding/landed-capsule-v2.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch01-lander-unfolding/landed-capsule.webp",
-    "alt": "",
+    "alt": "A vast Martian plain with the closed triangular Pathfinder lander resting among deflated airbags.",
     "objectPosition": "50% 50%",
-    "fit": "cover",
+    "fit": "contain",
     "approved": false
   },
   "ch01-lander-unfolding/open-petals": {
-    "src": null,
+    "src": "/art/scenes/ch01-lander-unfolding/open-petals-v2.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch01-lander-unfolding/open-petals.webp",
-    "alt": "",
+    "alt": "Overhead illustration of Pathfinder with three solar-panel petals open and Sojourner stowed aboard.",
     "objectPosition": "50% 50%",
-    "fit": "cover",
+    "fit": "contain",
     "approved": false
   },
   "ch01-first-look/rover-view": {

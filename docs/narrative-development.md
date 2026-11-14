@@ -22,7 +22,7 @@ The left pane shows:
 
 Changing scenes here does not overwrite story progress. The workspace's image picker stays local to the tab; it does not upload or persist a file.
 
-Page numbers are the PDF viewer's 1-based numbers. Page 7 is Sojourner's face through the window. Page 9 is the landed capsule/airbags followed by Pathfinder unfolding from overhead.
+Page numbers are the PDF viewer's 1-based numbers. Page 7 is the source face-through-window concept, now retired from the playable sequence following the arrival revision. Page 9 is the landed capsule/airbags followed by Pathfinder unfolding from overhead.
 
 ## Source layout
 
@@ -109,13 +109,21 @@ The TV now has a stable wide frame, softer screen treatment, speaker grille, sma
 
 ## Complete pre-landing narrative replacement
 
-Latest storyboard pages 6–7 now use four distinct runtime illustrations:
+Storyboard pages 6–7 initially received four illustrations; the window transition was subsequently retired:
 
 1. `entry-exterior`: exterior-storyboard-v3.webp — capsule entering atmosphere.
 2. `entry-cabin`: cabin-storyboard-v3.webp — rear three-quarter view toward small window.
 3. `entry-eyes`: eyes-storyboard-v3.webp — cartoon delighted face closeup.
-4. `ch01-window-transition/window-glass`: glass-storyboard-v3.webp — outside-looking-in window shot.
+4. `ch01-window-transition/window-glass`: retired from runtime by the later post-landing arrival revision below.
 
-Each reference is based directly on the storyboard, not an older AI render. All four old fallback mappings are removed. Artwork is connected in both game and workspace, but remains subject to team review. Full-frame fit and no automatic camera zoom preserve composition. Picture dissolves replace full-screen black between shots. Supplied dialogue and silent beats are unchanged. Sequence hands off to the landing mechanic immediately afterward; landing gameplay is not implemented here.
+These illustrations use the storyboard as reference and remain subject to team review. The three atmospheric-entry shots now lead directly to the landing mechanic handoff. Picture dissolves replace full-screen black between shots. Supplied dialogue and silent beats are unchanged; landing gameplay is not implemented here.
 
 No build, lint or browser verification was run.
+
+## Post-landing arrival revision
+
+Current order: atmospheric entry -> landing activity -> vast Mars / closed Pathfinder -> overhead opened petals / Sojourner aboard -> hardware activation -> deployment. The former round-window reveal is absent from the playable sequence; saves at its retired checkpoint resume at the landing activity rather than skipping it.
+
+Page 9's two silent shots now use `landed-capsule-v2.webp` and `open-petals-v2.webp`. Both were generated from the latest page 9 storyboard, with the real tetrahedral lander and three hinged petals specified. The wide establishing shot emphasizes the Martian landscape. Both preserve their full composition without automatic zoom. These are connected art candidates, not team-approved assets. No new dialogue or gameplay was added.
+
+Build, lint and browser review were not run, per request.
