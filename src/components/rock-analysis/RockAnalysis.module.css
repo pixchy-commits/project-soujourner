@@ -160,3 +160,17 @@
   width: 150px;
   height: auto;
 }
+
+/* Position step: same fullscreen scale and responsive layout as Calculate. */
+.positionPanel{gap:0}
+.positionHeading{font-size:clamp(29px,2.15vw,37px);font-weight:950;line-height:1.1;margin:4px 0 16px}
+.positionSpeech{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.positionSpeech>div{flex:1;min-width:0;background:#fff3dc;color:#28283b;border-radius:18px;padding:15px 17px;font-size:clamp(17px,1.35vw,23px);font-weight:900;line-height:1.25}
+.positionStatus{background:#f7c64c;color:#302a31;border-radius:17px;padding:15px 17px;margin-bottom:20px;display:flex;flex-direction:column;gap:4px;font-size:clamp(16px,1.2vw,20px)}
+.positionStatus strong{font-weight:950}.positionStatus span{font-weight:800}.positionStatusReady{background:#5bc6bd;color:#183c3b}
+.positionControl{margin-bottom:20px}.positionControlTitle{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:clamp(19px,1.5vw,26px)}.positionControlTitle b{color:#f9c64e}
+.positionControlRow{display:flex;align-items:center;gap:14px}.positionControlRow button{width:clamp(42px,3.8vw,62px);height:clamp(42px,3.8vw,62px);flex:none;border-radius:50%;background:#3e558a;border:3px solid #8ca6dd;color:#fff3df;font-size:32px;font-weight:900;cursor:pointer}.positionControlRow input{width:100%;min-width:0;accent-color:#f8c64e;cursor:pointer}.positionScale{display:flex;justify-content:space-between;gap:6px;margin:6px 0 0 62px;color:#c7bdce;font-size:clamp(12px,.9vw,15px);font-weight:800}
+.positionDots{display:flex;gap:4px;margin:4px 0 12px}.positionDots i{height:13px;flex:1;min-width:0;border-radius:10px;background:#403947}.positionDots .positionDotOn{background:#5bc6bd}
+.positionNote{font-size:clamp(14px,1vw,18px);line-height:1.35;color:#fff0dc;font-weight:800;margin:4px 0 0}.positionPanel .panelBottom{margin-top:auto}.positionPanel .primaryOrange:disabled{opacity:.55;cursor:not-allowed;filter:grayscale(.3)}
+@media(max-width:800px){.positionScene{aspect-ratio:860/740}.positionPanel{min-height:610px}.positionControlRow button{width:48px;height:48px}.positionScale{margin-left:0}}
+@media(max-width:500px){.positionPanel{padding:16px}.positionHeading{font-size:28px}.positionSpeech>div{font-size:17px;padding:12px}.positionControlRow{gap:8px}.positionStatus{padding:12px}.positionDots{gap:2px}}
