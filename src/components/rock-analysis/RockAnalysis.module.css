@@ -174,3 +174,6 @@
 .positionNote{font-size:clamp(14px,1vw,18px);line-height:1.35;color:#fff0dc;font-weight:800;margin:4px 0 0}.positionPanel .panelBottom{margin-top:auto}.positionPanel .primaryOrange:disabled{opacity:.55;cursor:not-allowed;filter:grayscale(.3)}
 @media(max-width:800px){.positionScene{aspect-ratio:860/740}.positionPanel{min-height:610px}.positionControlRow button{width:48px;height:48px}.positionScale{margin-left:0}}
 @media(max-width:500px){.positionPanel{padding:16px}.positionHeading{font-size:28px}.positionSpeech>div{font-size:17px;padding:12px}.positionControlRow{gap:8px}.positionStatus{padding:12px}.positionDots{gap:2px}}
+
+/* Step 3: Run — same layout scale as Position and Calculate. */
+.runHeading{font-size:clamp(29px,2.35vw,43px);margin:5px 0 18px;font-weight:950}.runSpeech{display:flex;align-items:center;gap:14px;margin-bottom:18px}.runSpeech strong{flex:1;min-width:0;background:#fff3dc;color:#29283b;border-radius:20px;padding:17px;font-size:clamp(20px,1.65vw,29px);font-weight:950}.runPanel .progressBox{margin-bottom:18px}.runPanel .task{margin-bottom:12px}.runPanel .panelBottom{margin-top:auto}.runPanel .primaryOrange{min-height:clamp(75px,9vh,100px)}@media(max-width:800px){.runScene{aspect-ratio:860/740}.runPanel{min-height:560px}}@media(max-width:500px){.runSpeech strong{font-size:19px;padding:12px}.runHeading{font-size:30px}}

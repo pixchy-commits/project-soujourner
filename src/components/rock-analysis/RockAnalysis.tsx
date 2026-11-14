@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./RockAnalysis.module.css";
 import Calculation from "./Calculation";
 import Position from "./Position";
+import Run from "./Run";
 
 type Phase = "turn" | "drive" | "failed";
 const TURN_SECONDS = 2.3;
@@ -13,7 +14,7 @@ const clamp = (n: number, a = 0, b = 1) => Math.max(a, Math.min(b, n));
 
 /** The Try it page only. All animation state is local to this minigame. */
 export default function RockAnalysis({ onNext }: { onNext?: () => void }) {
-  const [screen, setScreen] = useState<"try" | "calculate" | "position">("try");
+  const [screen, setScreen] = useState<"try" | "calculate" | "position" | "run">("try");
   const [elapsed, setElapsed] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [muted, setMuted] = useState(true);
@@ -52,11 +53,11 @@ export default function RockAnalysis({ onNext }: { onNext?: () => void }) {
           <span className={screen === "try" ? styles.active : styles.inactive}><b>★</b> Try it</span>
           <span className={screen === "calculate" ? styles.active : styles.inactive}><b>1</b> Calculate</span>
           <span className={screen === "position" ? styles.active : styles.inactive}><b>2</b> Position</span>
-          <span className={styles.inactive}><b>3</b> Run</span>
+          <span className={screen === "run" ? styles.active : styles.inactive}><b>3</b> Run</span>
         </nav>
         <div className={styles.headerRight}><button className={styles.circle} onClick={() => setMuted(x => !x)} aria-label={muted ? "Unmute" : "Mute"}>{muted ? "♪̸" : "♪"}</button><button className={styles.circle} onClick={() => setBright(x => !x)} aria-label="Toggle brightness">☼</button></div>
       </header>
-      {screen === "calculate" ? <Calculation onFinish={() => setScreen("position")} /> : screen === "position" ? <Position onFinish={onNext} /> : <div className={styles.layout}>
+      {screen === "calculate" ? <Calculation onFinish={() => setScreen("position")} /> : screen === "position" ? <Position onFinish={() => setScreen("run")} /> : screen === "run" ? <Run onFinish={onNext} /> : <div className={styles.layout}>
         <section className={styles.scene} aria-label="Sojourner approaching Yogi Rock">
           <svg viewBox="0 0 510 430" className={styles.sceneSvg} role="img" aria-label="Top-down rover approach with distance ruler">
             <defs><linearGradient id="marsGroundTry" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#d77b46"/><stop offset="1" stopColor="#a94e2e"/></linearGradient></defs>
