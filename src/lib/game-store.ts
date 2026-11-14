@@ -4,6 +4,8 @@ import { persist } from "zustand/middleware";
 type GameData = {
   chapter: number;
   completed: boolean;
+  roverProgress: Record<string, { stars: number; best: number }>;
+  setRoverProgress: (progress: Record<string, { stars: number; best: number }>) => void;
   volume: number;
   soundVolume: number;
   reducedMotion: boolean;
@@ -30,5 +32,4 @@ export const useGameStore = create<GameData>()(persist((set) => ({
   setVolume: (volume) => set({ volume }),
   setSoundVolume: (soundVolume) => set({ soundVolume }),
   setReducedMotion: (reducedMotion) => set({ reducedMotion }),
-}), { name: "sojourner-v1", partialize: ({ chapter, completed, volume, soundVolume, reducedMotion, narrationEnabled, narrationVoice, narrationVolume }) => ({ chapter, completed, volume, soundVolume, reducedMotion, narrationEnabled, narrationVoice, narrationVolume }), skipHydration: true }));
-
+}), { name: "sojourner-v1", partialize: ({ chapter, completed, roverProgress, volume, soundVolume, reducedMotion, narrationEnabled, narrationVoice, narrationVolume }) => ({ chapter, completed, roverProgress, volume, soundVolume, reducedMotion, narrationEnabled, narrationVoice, narrationVolume }), skipHydration: true }));

@@ -14,7 +14,8 @@ export const narrativeMachine = setup({
     entry: { on: { NEXT: "window", BACK: "firstSteps" } },
     window: { on: { NEXT: "wonder", BACK: "entry" } },
     wonder: { on: { NEXT: "landing", BACK: "window" } },
-    landing: { on: { NEXT: "complete", BACK: "wonder" } },
+    landing: { on: { NEXT: "rover", BACK: "wonder" } },
+    rover: { on: { NEXT: "complete", BACK: "landing"} },
     complete: { on: { START: "signal", BACK: "wonder" } },
   },
 });
