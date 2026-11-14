@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { gameFlow } from "./flow/machine";
 import { getStep, resolveCheckpoint, type ActivityResult, type Checkpoint } from "./flow/story";
 import { ActivityGate, type ActivityModules } from "./flow/ActivityGate";
+import { narrativeActivities } from "./narrative/missions/BarnacleMission";
 import { getScene } from "./narrative/catalog";
 import type { SceneShot } from "./narrative/types";
 import SceneStage from "./narrative/player/SceneStage";
@@ -141,7 +142,7 @@ export default function Game({ initialCheckpoint, previewMode = false, artOverri
    send({ type: "ACTIVITY_COMPLETE", activityId: result.activityId });
   });
  }
- const Activity = step.kind === "activity" ? activities?.[step.activityId] : undefined;
+ const Activity = step.kind === "activity" ? activities?.[step.activityId] ?? narrativeActivities[step.activityId] : undefined;
  return <main ref={root} className={`game ${title ? "menu" : "cutscene"} ${instant ? "motion-off" : ""}`} aria-busy={busy} onClickCapture={(event) => {
   if ((event.target as Element).closest("button:not(:disabled)")) effects.click();
  }}>
@@ -150,7 +151,7 @@ export default function Game({ initialCheckpoint, previewMode = false, artOverri
   <MusicButton muted={music.muted} onClick={music.toggle} />
   {title ? <TitleScreen ready={ready} hasSave={Boolean(data.checkpoint)} busy={busy} onStart={start} onOpenPanel={setPanel} />
    : scene && shot ? <SceneStage key={shot.kind === "archive" ? "archive-stage" : shot.kind === "illustration" ? "illustration-stage" : `${scene.id}/${shot.id}`} scene={scene} shot={shot} paused={paused} instant={instant} artOverrides={artOverrides} onNext={next} onBack={back} onHome={home} onType={onType} />
-   : playing && step.kind === "activity" ? (Activity ? <Activity onComplete={completeActivity} onExit={home} /> : <ActivityGate title={step.title} activityId={step.activityId} onComplete={completeActivity} onExit={home} />)
+   : playing && step.kind === "activity" ? (Activity ? <Activity key={step.id} onComplete={completeActivity} onExit={home} paused={paused} instant={instant} /> : <ActivityGate title={step.title} activityId={step.activityId} onComplete={completeActivity} onExit={home} />)
    : <section className="ending-screen"><p className="scene-enter">CHAPTERS 1–2</p><h1 className="scene-enter">A little rover.<br />A new beginning.</h1><p className="preview-end scene-enter">END OF NARRATIVE PREVIEW</p><button className="painted-button scene-enter" disabled={busy} onClick={home}><span>TITLE SCREEN</span></button></section>}
   <div ref={curtain} className="scene-curtain" aria-hidden="true" />
   <GamePanels panel={panel} onClose={() => setPanel(null)} muted={music.muted} onToggleMusic={music.toggle} narration={narration} />

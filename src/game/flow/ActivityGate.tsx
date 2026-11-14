@@ -1,6 +1,6 @@
 ﻿import type { ComponentType } from "react";
 import type { ActivityId, ActivityResult } from "./story";
-export type ActivityProps = { onComplete: (result: ActivityResult) => void; onExit: () => void };
+export type ActivityProps = { onComplete: (result: ActivityResult) => void; onExit: () => void; paused?: boolean; instant?: boolean };
 export type ActivityModules = Partial<Record<ActivityId, ComponentType<ActivityProps>>>;
 
 export function ActivityGate({ title, activityId, onComplete, onExit }: ActivityProps & { title: string; activityId: ActivityId }) {

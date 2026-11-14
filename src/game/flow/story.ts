@@ -20,8 +20,8 @@ export const story = [
   { kind: "narrative", id: "ch02-baby-steps", sceneId: "ch02-baby-steps" },
   { kind: "narrative", id: "ch02-earth-flashback", sceneId: "ch02-earth-flashback" },
   { kind: "narrative", id: "ch02-mission-introduction", sceneId: "ch02-mission-introduction" },
-  { kind: "activity", id: "exploration-barnacle-bill", activityId: "exploration-barnacle-bill", title: "Exploring the Rock Garden", sourcePage: 16 },
-  { kind: "activity", id: "rock-analysis", activityId: "rock-analysis", title: "Studying Barnacle Bill", sourcePage: 18 },
+  { kind: "activity", id: "exploration-barnacle-bill", activityId: "exploration-barnacle-bill", title: "Exploring the Rock Garden", sourcePage: 32 },
+  { kind: "activity", id: "rock-analysis", activityId: "rock-analysis", title: "Studying Barnacle Bill", sourcePage: 34 },
   { kind: "narrative", id: "ch02-celebration", sceneId: "ch02-celebration" },
   { kind: "narrative", id: "ch02-mission-briefing", sceneId: "ch02-mission-briefing" },
 ] as const satisfies readonly StoryStep[];

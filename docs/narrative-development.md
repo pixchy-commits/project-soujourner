@@ -2,6 +2,14 @@
 
 # Narrative scenes and artwork
 
+## Barnacle Bill mission-arrival adapter — latest PDF (5), page 33
+
+Home now supplies default narrative adapters for `exploration-barnacle-bill` and `rock-analysis`. The sequence is third-person arrival illustration -> destination marker -> exclamation notification with closer rear view -> first-person mission window -> marked-rock selection -> numbered review step -> explicit gameplay handoff. The two story activity IDs and existing following celebration are preserved. Actual gameplay modules passed through `Game.activities` override these adapters individually.
+
+These adapters stage narrative/UI only. There is no rover-driving physics or chemical-analysis puzzle. Both adapters report `outcome: skipped` when continuing rather than pretending either activity has been completed. No chemical findings or missing spoken lines are invented. UI instructions describe clicks and target selection. Back and Return to Title are available, interaction pauses with the game, and reduced-motion settings disable the camera/popup animation. Targets are positioned against the same contained image canvas across aspect ratios.
+
+Art is under `public/art/scenes/barnacle-arrival/`: `arrival-v1.webp` and `rocks-v1.webp`, generated sequentially from the latest page 33 composition and approved art direction. The arrival image received a wheel-count correction before registration. Art candidates remain pending review. Original dark dialogue styling is retained for instruction panels. No build, lint or browser review was run, per request.
+
 ## Latest first-person layout decision
 
 User confirmed: keep the painted artwork, match the storyboard composition and dialogue placement. The ramp narration now uses a light cyan bottom caption without a speaker tab. The Pathfinder conversation starts with Sojourner's question at the bottom; during Pathfinder's reply, that completed question stays visible while the active reply appears in an upper-right speech bubble with a pointer. Bubblegum Sans, typing effects and supplied wording remain in use. Other scenes retain their existing dialogue style.
