@@ -24,12 +24,9 @@ export const scene = {
       "art": "ch02-mission-introduction/mission-description",
       "missionSheet": {
         "title": "MISSION DESCRIPTION",
-        "duration": "7 Sols — 7 Martian days",
-        "items": [
-          "Climb over tricky rocks",
-          "Press my special X-ray sensor against new rock friends",
-          "Send our findings back to Pathfinder before sunset!"
-        ]
+        "duration": "DURATION: 7 SOLS",
+        "note": "1 Sol is a Martian day.",
+        "items": ["Sol 1", "Sol 2", "Sol 3"]
       },
       "dialogue": {
         "speaker": "SOJOURNER",

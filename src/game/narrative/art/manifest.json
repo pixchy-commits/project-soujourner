@@ -144,73 +144,73 @@
     "approved": false
   },
   "ch02-earth-flashback/construction": {
-    "src": "/art/scenes/ch02-earth-flashback/construction-v1.webp",
+    "src": "/art/scenes/ch02-earth-flashback/construction-v2.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-earth-flashback/construction.webp",
     "alt": "Two smiling engineers work on Sojourner in a warmly lit Earth laboratory.",
     "objectPosition": "50% 50%",
     "fit": "contain",
-    "approved": false
+    "approved": true
   },
   "ch02-earth-flashback/introduction": {
-    "src": "/art/scenes/ch02-earth-flashback/introduction-v1.webp",
+    "src": "/art/scenes/ch02-earth-flashback/introduction-v2.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-earth-flashback/introduction.webp",
-    "alt": "Scientists proudly introduce tiny Sojourner on their laboratory workbench.",
+    "alt": "The same scientists hold Sojourner turned around, showing its single plain rear camera.",
     "objectPosition": "50% 50%",
     "fit": "contain",
-    "approved": false
+    "approved": true
   },
   "ch02-earth-flashback/mission": {
-    "src": "/art/scenes/ch02-earth-flashback/mission-v1.webp",
+    "src": "/art/scenes/ch02-earth-flashback/mission-v2.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-earth-flashback/mission.webp",
-    "alt": "Scientists explain the journey from Earth to Mars using an illustrated projection.",
+    "alt": "Scientists gesture toward a board headed Mission, showing Earth and Mars, as Sojo watches.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
   },
   "ch02-earth-flashback/memory-eyes": {
-    "src": "/art/scenes/ch02-earth-flashback/memory-eyes-v2.webp",
+    "src": "/art/scenes/ch02-earth-flashback/memory-eyes-v3.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-earth-flashback/memory-eyes.webp",
-    "alt": "Sojourner camera eyes sparkle with warm reflections of the scientists.",
+    "alt": "Sojo sparkles with excitement while imagining its mission on Mars in a painted thought cloud.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
   },
   "ch02-mission-introduction/sojo-introduction": {
-    "src": "/art/scenes/ch02-mission-introduction/sojo-introduction-v1.webp",
+    "src": "/art/scenes/ch02-mission-introduction/sojo-frontal-v1.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-mission-introduction/sojo-introduction.webp",
-    "alt": "Sojourner introduces itself in the Martian Rock Garden, with Pathfinder in the distance.",
+    "alt": "Sojo faces the viewer directly in the Rock Garden, with friendly Pathfinder behind to the right.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
   },
   "ch02-mission-introduction/mission-description": {
-    "src": "/art/scenes/ch02-mission-introduction/mission-description-v2.webp",
+    "src": "/art/scenes/ch02-mission-introduction/sojo-frontal-v1.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-mission-introduction/mission-description.webp",
-    "alt": "Sojourner stands beside space for its mission sheet in the Martian Rock Garden.",
+    "alt": "Sojo faces the viewer directly in the Rock Garden, with friendly Pathfinder behind to the right.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
   },
   "ch02-celebration/scientists": {
-    "src": "/art/scenes/ch02-celebration/scientists-v1.webp",
+    "src": "/art/scenes/ch02-celebration/scientists-v2.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-celebration/scientists.webp",
-    "alt": "Mission-control scientists celebrate while Sojourner appears on their monitor.",
+    "alt": "The familiar scientists celebrate Sojo completing its baby steps while watching the Mars monitor.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
   },
   "ch02-mission-briefing/briefing": {
-    "src": "/art/scenes/ch02-celebration/scientists-v1.webp",
+    "src": "/art/scenes/ch02-mission-briefing/briefing-v1.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-mission-briefing/briefing.webp",
-    "alt": "Mission control prepares the next briefing after the celebration.",
+    "alt": "The same mission-control scientists settle into a calm briefing, gesturing toward Sojo on the monitor.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false

@@ -45,6 +45,7 @@ export default function SceneStage({ scene, shot, paused, instant, artOverrides,
     {shot.missionSheet && <aside className={styles.missionSheet} aria-label={shot.missionSheet.title}>
       <h2>{shot.missionSheet.title}</h2>
       <p>{shot.missionSheet.duration}</p>
+      {shot.missionSheet.note && <p>{shot.missionSheet.note}</p>}
       <ul>{shot.missionSheet.items.map(item => <li key={item}>{item}</li>)}</ul>
     </aside>}
     {shot.confetti && !instant && <div className={styles.confetti} aria-hidden="true">{Array.from({length:24},(_,i)=><i key={i} style={{left:`${(i * 37) % 100}%`,animationDelay:`${(i % 7) * -.4}s`,background:i%2 ? "#d4a66b" : "#e1d5b4"}} />)}</div>}

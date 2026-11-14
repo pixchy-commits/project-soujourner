@@ -64,4 +64,9 @@
 .missionSheet ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
 .missionSheet li { position: relative; padding-left: 22px; }
 .missionSheet li::before { content: ''; position: absolute; left: 0; top: 8px; width: 10px; height: 10px; border: 1px solid #3a4457; border-radius: 50%; }
+.stage .missionSheet { left: 4%; top: 8%; width: 29%; max-height: 57%; padding: clamp(14px, 2vw, 30px); background: linear-gradient(105deg, #fff2cf, #f0d8a8); border-radius: 6px 3px 12px 4px; box-shadow: 3px 7px 0 #513f2926, inset 0 0 25px #bb9e8533; transform: rotate(-1deg); }
+.stage .missionSheet h2 { font: 400 clamp(11px, 1.2vw, 21px)/1.35 Thunderstrike, sans-serif; }
+.stage .missionSheet p, .stage .missionSheet li { font-size: clamp(14px, 1.5vw, 24px); }
+.stage .missionSheet li { display: flex; gap: 12px; align-items: center; white-space: nowrap; }
+.stage .missionSheet li::after { content: ''; height: 1px; flex: 1; background: #886b4e88; }
 @media(max-width:650px) { .missionSheet { left: 4%; top: 5%; width: 45%; max-height: 43%; padding: 14px 12px; }.missionSheet h2 { font-size: 9px; margin-bottom: 8px; }.missionSheet p,.missionSheet li { font-size: 14px; }.missionSheet ul { gap: 7px; }.missionSheet li { padding-left: 16px; }.missionSheet li::before { top: 5px; width: 8px; height: 8px; } }
