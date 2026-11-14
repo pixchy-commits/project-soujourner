@@ -728,3 +728,7 @@
   .rv #game .rv-reference-ui .rv-mission-pill #mission {gap:6px!important;}
   .rv #game .rv-reference-ui .rv-mission-pill #mission #mTitle {max-width:105px!important;}
 }
+
+.rv #fbText {
+  color: #000000 !important;
+}

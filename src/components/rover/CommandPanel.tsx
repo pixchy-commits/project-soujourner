@@ -2,6 +2,10 @@ import { memo } from "react";
 function CommandPanel() {
   return <aside id="prog" className="panel" aria-label="Programming panel">
     <div className="rv-control-top"><span className="rv-handle" aria-hidden="true"/><div className="rv-top-buttons"><button type="button" className="rv-help-round" title="Show hint" onClick={() => document.querySelector<HTMLButtonElement>('.rv #hintBtn')?.click()}>♧</button><button type="button" className="rv-next-round" title="More mission guidance" onClick={() => document.querySelector<HTMLButtonElement>('.rv #hintBtn')?.click()}>›</button></div></div>
+    {/* Engine-required elements are kept hidden to preserve the screenshot layout. */}
+    <button type="button" id="hintBtn" hidden aria-hidden="true">Hint</button>
+    <div id="hintDots" hidden><i/><i/><i/></div>
+    <div id="feedback" className="feedback info" hidden role="status" aria-live="polite"><span className="fi">i</span><span id="fbText"/></div>
     <div className="palette" id="palette">
       <button className="cmd L" data-cmd="L" draggable="true" title="Rotate Left (←)"><span className="ic"></span>Left</button>
       <button className="cmd F" data-cmd="F" draggable="true" title="Move Forward (↑)"><span className="ic"></span>Forward</button>

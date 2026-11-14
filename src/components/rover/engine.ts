@@ -163,14 +163,14 @@ function startLevel(i){
   const L=G.L=LEVELS[i];
   G.program=[]; G.hint=0; G.errIdx=-1; G.chipState={};
   G.rover={...L.start}; G.rot=L.start.d*90;
-  $('#mSol').textContent='SOL '+L.sol;
-  $('#mTitle').textContent=L.title;
-  $('#mObj').innerHTML=`<svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="15" fill="none" stroke="#3a1c12" stroke-width="3.5"/><circle cx="20" cy="20" r="7" fill="none" stroke="#3fa9a3" stroke-width="3.5"/>${L.face>=0?`<path d="M20 1 L26 9 H14Z" fill="#ffd84d" stroke="#3a1c12" stroke-width="1.6" transform="rotate(${L.face*90} 20 20)"/>`:''}</svg><span>${L.objective}</span>`;
-  $('#mBest').textContent=L.optimal;
-  $('#gridSize').textContent=`${L.cols} × ${L.rows} · max ${L.maxBlocks} blocks`;
+  if ($('#mSol')) $('#mSol').textContent='SOL '+L.sol;
+  if ($('#mTitle')) $('#mTitle').textContent=L.title;
+  if ($('#mObj')) $('#mObj').innerHTML=`<svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="15" fill="none" stroke="#3a1c12" stroke-width="3.5"/><circle cx="20" cy="20" r="7" fill="none" stroke="#3fa9a3" stroke-width="3.5"/>${L.face>=0?`<path d="M20 1 L26 9 H14Z" fill="#ffd84d" stroke="#3a1c12" stroke-width="1.6" transform="rotate(${L.face*90} 20 20)"/>`:''}</svg><span>${L.objective}</span>`;
+  if ($('#mBest')) $('#mBest').textContent=L.optimal;
+  if ($('#gridSize')) $('#gridSize').textContent=`${L.cols} × ${L.rows} · max ${L.maxBlocks} blocks`;
   show('game');
   layoutBoard();
-  renderSeq(); renderHintDots();
+  renderSeq();
   setFeedback('info', `<b>Tip:</b> ${L.tip}`);
   // Start immediately: no introduction overlay.
 }
@@ -269,14 +269,14 @@ function placeRover(x,y){ // x,y in cell units (fractional during animation)
   updateFacing();
 }
 function drawCompass(){
-  $('#compass').innerHTML=`<circle cx="50" cy="50" r="46" fill="#fff8e6" stroke="#3a1c12" stroke-width="3"/><circle cx="50" cy="50" r="36" fill="none" stroke="rgba(58,28,18,.2)" stroke-width="2" stroke-dasharray="3 4"/>
+  if ($('#compass')) $('#compass').innerHTML=`<circle cx="50" cy="50" r="46" fill="#fff8e6" stroke="#3a1c12" stroke-width="3"/><circle cx="50" cy="50" r="36" fill="none" stroke="rgba(58,28,18,.2)" stroke-width="2" stroke-dasharray="3 4"/>
     <g font-family="Oswald" font-weight="700" font-size="13" fill="#3a1c12" text-anchor="middle"><text x="50" y="17">N</text><text x="88" y="55">E</text><text x="50" y="94">S</text><text x="12" y="55">W</text></g>
     <g id="needle"><path d="M50 22 L62 52 H38Z" fill="#ffd84d" stroke="#3a1c12" stroke-width="2.4" stroke-linejoin="round"/><circle cx="50" cy="56" r="10" fill="#3a1c12"/><circle cx="50" cy="56" r="4" fill="#fbefd0"/></g>`;
   updateFacing();
 }
 function updateFacing(){
   const n=$('#needle'); if(n) n.setAttribute('transform',`rotate(${G.rot} 50 50)`);
-  const d=((Math.round(G.rot/90)%4)+4)%4; $('#facingTxt').textContent=DNAME[d]; const faceLabel=$('#rvFacingDisplay'); if(faceLabel) faceLabel.textContent=['up','right','down','left'][d];
+  const d=((Math.round(G.rot/90)%4)+4)%4; if ($('#facingTxt')) $('#facingTxt').textContent=DNAME[d]; const faceLabel=$('#rvFacingDisplay'); if(faceLabel) faceLabel.textContent=['up','right','down','left'][d];
 }
 
 /* ================= Program editing ================= */
@@ -292,19 +292,42 @@ function renderSeq(){
     </div>`:i+1}</div>`; }
   seq.innerHTML=h;
   const n=G.program.length, full=n>=L.maxBlocks;
-  $('#countTxt').textContent=`${n} / ${L.maxBlocks}`; $('#mBlocks').textContent=`${n}/${L.maxBlocks}`;
-  const bf=$('#barFill'); bf.style.width=(n/L.maxBlocks*100)+'%'; bf.classList.toggle('full',full);
+  if ($('#countTxt')) $('#countTxt').textContent=`${n} / ${L.maxBlocks}`; if ($('#mBlocks')) $('#mBlocks').textContent=`${n}/${L.maxBlocks}`;
+  const bf=$('#barFill'); if (bf) { bf.style.width=(n/L.maxBlocks*100)+'%'; bf.classList.toggle('full',full); }
   root.querySelectorAll('.cmd').forEach(b=>b.setAttribute('aria-disabled',String(G.running||full)));
   $('#runBtn').disabled=G.running; $('#runBtn').textContent=G.running?'Running…':'▶ Run';
   $('#clearBtn').disabled=G.running||!n;
 }
 function edited(){ G.errIdx=-1; G.chipState={}; clearFx(); if(G.L) resetRover(); renderSeq(); }
-function addCmd(c,at){
-  if(G.running) return;
-  if(G.program.length>=G.L.maxBlocks){ sfx('deny'); const ct=$('#counter'); ct.classList.remove('shake'); void ct.offsetWidth; ct.classList.add('shake');
-    setFeedback('warn','No blocks left! Can you find a shorter solution?'); return; }
-  if(at===undefined||at>G.program.length) at=G.program.length;
-  G.program.splice(at,0,c); sfx('add'); edited();
+function addCmd(c, at) {
+  if (G.running) return;
+
+  if (!G.L) {
+    console.error("Cannot add command: mission not initialized");
+    return;
+  }
+
+  if (G.program.length >= G.L.maxBlocks) {
+    sfx("deny");
+
+    const ct = $("#counter");
+    if (ct) {
+      ct.classList.remove("shake");
+      void ct.offsetWidth;
+      ct.classList.add("shake");
+    }
+
+    setFeedback("warn", "No blocks left!");
+    return;
+  }
+
+  if (at === undefined || at > G.program.length) {
+    at = G.program.length;
+  }
+
+  G.program.splice(at, 0, c);
+  sfx("add");
+  edited();
 }
 function delCmd(i){ if(G.running) return; G.program.splice(i,1); sfx('remove'); edited(); }
 function moveCmd(from,to){ if(G.running||from===to) return; to=Math.max(0,Math.min(G.program.length-1,to)); const [c]=G.program.splice(from,1); G.program.splice(to,0,c); sfx('add'); edited(); }
@@ -334,43 +357,27 @@ on(document,'keydown',e=>{
 
 /* ================= Feedback & hints ================= */
 function setFeedback(type,html){
-  const f=$('#feedback'); f.className='feedback '+type; f.querySelector('.fi').textContent=({info:'i',ok:'✓',warn:'!',err:'✕'})[type];
-  $('#fbText').innerHTML=html; f.classList.remove('pop'); void f.offsetWidth; f.classList.add('pop');
+  const f=$('#feedback');
+  if (!f) return; // The redesigned UI may omit the feedback panel.
+  f.className='feedback '+type;
+  const icon=f.querySelector('.fi');
+  if (icon) icon.textContent=({info:'i',ok:'✓',warn:'!',err:'✕'})[type];
+  const body=$('#fbText');
+  if (body) body.innerHTML=html;
+  f.classList.remove('pop'); void f.offsetWidth; f.classList.add('pop');
 }
-function renderHintDots(){ root.querySelectorAll('#hintDots i').forEach((d,i)=>d.classList.toggle('on',i<G.hint)); $('#hintBtn').disabled=G.hint>=3&&false; }
+// Hints were removed from the UI. Keep the map-mark cleanup used by
+// command editing and execution, without requiring hint controls.
 let hintMarks=[];
-function renderHintMarks(){ const S=G.S; $('#marks').innerHTML=hintMarks.map(m=>`<div class="cellMark ${m.cls}" ${m.n?`data-n="${m.n}"`:''} style="left:${m.c*S+4}px;top:${m.r*S+4}px;width:${S-8}px;height:${S-8}px"></div>`).join(''); }
-function clearFx(){ hintMarks=[]; renderHintMarks(); root.querySelectorAll('.rock.hit').forEach(r=>r.classList.remove('hit')); }
-function computeHintBase(){
-  const L=G.L, max=L.maxBlocks; let s={...L.start}, k=0, base={k:0,s:{...L.start}};
-  for(let i=0;i<G.program.length;i++){
-    if(atGoal(L,s)) break;
-    const n=step(s,G.program[i]); if(G.program[i]==='F'&&blocked(L,n.r,n.c)) break;
-    s=n; const rest=solve(L,s); if(rest&&i+1+rest.length<=max) base={k:i+1,s:{...s}};
-  }
-  return {...base, rest:solve(L,base.s)};
+function renderHintMarks(){
+  const marks=$('#marks');
+  if (marks) marks.innerHTML='';
 }
-$('#hintBtn').onclick=()=>{
-  if(G.running) return; ac();
-  G.hint=Math.min(3,G.hint+1); renderHintDots(); sfx('hint');
-  const {k,s,rest}=computeHintBase(), L=G.L;
-  const pre = k<G.program.length ? `Blocks after <b>#${k}</b> take Sojourner off course — try removing them. ` : '';
-  if(!rest||!rest.length){ setFeedback('ok','Your program already reaches the target — press <b>Run Program</b>!'); return; }
-  // cells visited by the remaining route
-  const cells=[]; let t={...s}; rest.forEach(c=>{ t=step(t,c); if(c==='F') cells.push({r:t.r,c:t.c}); });
-  if(G.hint===1){
-    hintMarks=cells.length?[{...cells[0],cls:'hint-cell'}]:[];
-    setFeedback('info',pre+(cells.length?'Hint 1: Drive toward the <b>glowing cell</b>. Which way does the rover need to face to get there?':`Hint 1: You're on the spot — now turn to face ${DNAME[L.face]}.`));
-  } else if(G.hint===2){
-    hintMarks=cells.slice(0,3).map((c,i)=>({...c,cls:i?'hint-path n1':'hint-cell n1',n:i+1}));
-    setFeedback('info',pre+'Hint 2: Follow the <b>numbered cells</b> — that’s the next part of a good route.');
-  } else {
-    hintMarks=cells.slice(0,3).map((c,i)=>({...c,cls:i?'hint-path n1':'hint-cell n1',n:i+1}));
-    const next=rest.slice(0,3);
-    setFeedback('info',pre+`Hint 3: Try adding <span class="miniChips">${next.map(c=>`<span class="${c}">${ICON[c].replace('<svg','<svg width="18" height="18"')}</span>`).join('')}</span> ${k<G.program.length?`after block #${k}`:'next'}.`);
-  }
+function clearFx(){
+  hintMarks=[];
   renderHintMarks();
-};
+  root.querySelectorAll('.rock.hit').forEach(r=>r.classList.remove('hit'));
+}
 
 /* ================= Execution ================= */
 function resetRover(){ G.rover={...G.L.start}; G.rot=G.L.start.d*90; const tr=$('#tracks'); tr.getContext('2d').clearRect(0,0,tr.width,tr.height); $('#rover').className=''; placeRover(); }
@@ -418,6 +425,7 @@ function edgeWarn(s){
 async function run(){
   if(G.running) return; ac();
   const L=G.L;
+  if (!L) return;
   if(!G.program.length){ setFeedback('info','Your program is empty. Click a command block to add it first!'); sfx('deny'); return; }
   const id=++G.runId; G.running=true; G.errIdx=-1; G.chipState={}; clearFx(); resetRover(); renderSeq();
   setFeedback('info','Program uploading to Mars… Sojourner is driving!');
@@ -456,7 +464,7 @@ function success(executed){
   sfx('win');
   const prev=progress[L.idx]; progress[L.idx]={stars:Math.max(stars,prev?prev.stars:0),best:Math.min(used,prev?prev.best:99)}; store.set('progress',progress);
   setFeedback('ok','Mission Complete! Great job!');
-  G.hint=0; renderHintDots();
+  G.hint=0;
   $('#resTitle').textContent='Mission Complete!';
   $('#resSub').textContent=`Sojourner reached ${L.featureName||L.targetName}. Great job, engineer!`;
   $('#resStars').innerHTML=[1,2,3].map(n=>`<span class="s" style="animation-delay:${.25+n*.22}s">${STAR(stars>=n)}</span>`).join('');
@@ -474,7 +482,12 @@ $('#resNext').onclick=()=>{ closeOv('result'); const L=G.L; if(L.idx<LEVELS.leng
 
 let rz; on(window,'resize',()=>{ clearTimeout(rz); rz=setTimeout(()=>{ if(!G.running) layoutBoard(); },120); });
 if (opts.reducedMotion) settings.speed = 'fast';
-assetReady.then(() => { if (!destroyed) startLevel(0); });
+// Initialize synchronously so command clicks never encounter a null mission.
+// Optional PNG loading can finish later without resetting player progress.
+startLevel(0);
+assetReady.then(() => {
+  if (!destroyed && G.L && !G.running) layoutBoard();
+});
 
   return function destroy() {
     destroyed = true;
