@@ -14,7 +14,7 @@ export const scene = {
       "kind": "illustration",
       "art": "ch01-first-look/rover-view",
       "framing": "first-person",
-      "motion": "pan",
+      "motion": "still",
       "dialogue": {
         "speaker": "MISSION ARCHIVE",
         "text": "Fifteen giant bounces later, the airbags deflate and Pathfinder unfolds its petals like a metal flower. Sunlight warms Sojourner’s solar panel. As the little rover looks out at a brand-new world, a warm memory flashes behind its camera eyes…"
@@ -24,8 +24,8 @@ export const scene = {
       "id": "camera-eyes",
       "kind": "illustration",
       "art": "ch01-first-look/camera-eyes",
-      "framing": "closeup",
-      "motion": "push-in"
+      "framing": "wide",
+      "motion": "still"
     }
   ]
 } as const satisfies NarrativeScene;

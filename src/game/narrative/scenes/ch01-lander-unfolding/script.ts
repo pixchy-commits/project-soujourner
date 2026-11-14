@@ -20,6 +20,7 @@ export const scene = {
       "kind": "illustration",
       "art": "ch01-lander-unfolding/open-petals",
       "framing": "overhead",
+      "hotspot": { "label": "Select Sojo", "x": 44, "y": 21, "width": 12, "height": 24 },
       "motion": "still"
     }
   ]

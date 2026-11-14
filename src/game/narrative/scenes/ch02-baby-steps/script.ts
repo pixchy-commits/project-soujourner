@@ -15,7 +15,7 @@ export const scene = {
       "art": "ch02-baby-steps/chapter-card",
       "number": 2,
       "title": "BABY STEPS",
-      "date": "JULY 4, 1997"
+      "date": "JULY 5, 1997"
     }
   ]
 } as const satisfies NarrativeScene;

@@ -22,6 +22,15 @@ export const scene = {
       "id": "mission-description",
       "kind": "illustration",
       "art": "ch02-mission-introduction/mission-description",
+      "missionSheet": {
+        "title": "MISSION DESCRIPTION",
+        "duration": "7 Sols — 7 Martian days",
+        "items": [
+          "Climb over tricky rocks",
+          "Press my special X-ray sensor against new rock friends",
+          "Send our findings back to Pathfinder before sunset!"
+        ]
+      },
       "dialogue": {
         "speaker": "SOJOURNER",
         "text": "Help me climb over tricky rocks, press my special X-ray sensor against new rock friends like Barnacle Bill and Yogi to sniff out what they’re made of, and send our findings back to Pathfinder before sunset!"

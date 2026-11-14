@@ -3,6 +3,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import type { NarrativeScene, SceneShot } from "../types";
 import { Artwork, type ArtOverrides } from "./Artwork";
 import { Dialogue } from "./Dialogue";
+import { RoverViewfinder } from "./RoverViewfinder";
 import styles from "./SceneStage.module.css";
 
 type Props = {
@@ -34,7 +35,18 @@ export default function SceneStage({ scene, shot, paused, instant, artOverrides,
   : shot.kind === "chapter" ? <div className="chapter-card scene-enter"><div className="chapter-photo">{art(shot.art)}</div><p className="chapter-date">{shot.date}</p><div className="chapter-rule" /><h1><span>CHAPTER {shot.number}</span>{shot.title}</h1></div>
   : <div data-illustration className={`${styles.illustration} ${styles[shot.framing ?? "wide"]} scene-enter`}>
     <PictureDissolve visualKey={`${shot.art}/${JSON.stringify(artOverrides ?? {})}`} instant={instant}><div className={`${styles.shotArt} ${motion}`}>{art(shot.art)}</div></PictureDissolve><div className={styles.shade} />
+    {shot.framing === "first-person" && scene.id !== "ch01-first-look" && <RoverViewfinder />}
+    {shot.hotspot && <div className={styles.hotspotSurface}><button
+      className={styles.roverHotspot} disabled={paused} onClick={onNext}
+      aria-label={shot.hotspot.label}
+      style={{ left: `${shot.hotspot.x}%`, top: `${shot.hotspot.y}%`, width: `${shot.hotspot.width}%`, height: `${shot.hotspot.height}%` }}
+    ><span>{shot.hotspot.label}</span></button></div>}
     {shot.caption && <p className={styles.caption}>{shot.caption}</p>}
+    {shot.missionSheet && <aside className={styles.missionSheet} aria-label={shot.missionSheet.title}>
+      <h2>{shot.missionSheet.title}</h2>
+      <p>{shot.missionSheet.duration}</p>
+      <ul>{shot.missionSheet.items.map(item => <li key={item}>{item}</li>)}</ul>
+    </aside>}
     {shot.confetti && !instant && <div className={styles.confetti} aria-hidden="true">{Array.from({length:24},(_,i)=><i key={i} style={{left:`${(i * 37) % 100}%`,animationDelay:`${(i % 7) * -.4}s`,background:i%2 ? "#d4a66b" : "#e1d5b4"}} />)}</div>}
    </div>}
   {shot.dialogue ? <Dialogue key={`${scene.id}/${shot.id}`} line={shot.dialogue} instant={instant} paused={paused} onNext={onNext} onType={onType} />

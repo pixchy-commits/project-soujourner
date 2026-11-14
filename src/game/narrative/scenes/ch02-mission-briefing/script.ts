@@ -13,7 +13,7 @@ export const scene = {
       "id": "briefing",
       "kind": "illustration",
       "art": "ch02-mission-briefing/briefing",
-      "notes": "Final mission command is missing; page 20/21 relationship awaits clarification."
+      "notes": "Separate briefing after the celebration, as confirmed. Final mission command is missing; keep this shot silent."
     }
   ]
 } as const satisfies NarrativeScene;

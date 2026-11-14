@@ -1,0 +1,29 @@
+{
+  "tool": "built-in image_gen",
+  "approved": false,
+  "reference": "Latest PDF (3), pages 6, 11 and 12; page 9 for Pathfinder structure",
+  "prompts": [
+    {
+      "id": "first-look",
+      "refs": [
+        "page-11.png"
+      ],
+      "prompt": "Create ONE standalone wide 16:9 finished 2D narrative-game illustration, no text, no lettering, no UI. Storybook gouache texture, simple graphic shapes, expressive sketch details, warm golden orange Mars, peach yellow sunlight, cool cyan-gray hardware and navy panels. Attached latest storyboard is DIRECT composition reference: draw only narrative picture, never colored slide borders or annotations. Coherent real spacecraft structure. Lower 22 percent low-detail for runtime dialogue. Latest page11 first-person from Sojourner camera height just after deployment. Vast Ares Vallis plain scattered dark rocks, distant low ridges, enormous warm sky. Gentle ultra-wide curved lens feel at corners, subtle small unlabelled camera framing corner marks, NO numbers or words. Tiny narrow navy rover deck edge at bottom, never cockpit, cabin, window or steering wheel. Sun high, expansive wonder. Viewer IS rover, so NO rover body or face visible."
+    },
+    {
+      "id": "friendship",
+      "refs": [
+        "page-12.png",
+        "page-09.png"
+      ],
+      "prompt": "Create ONE standalone wide 16:9 finished 2D narrative-game illustration, no text, no lettering, no UI. Storybook gouache texture, simple graphic shapes, expressive sketch details, warm golden orange Mars, peach yellow sunlight, cool cyan-gray hardware and navy panels. Attached latest storyboard is DIRECT composition reference: draw only narrative picture, never colored slide borders or annotations. Coherent real spacecraft structure. Lower 22 percent low-detail for runtime dialogue. Latest page12 bottom storyboard: first-person Sojourner ground height looking back toward trusted Pathfinder centered middle distance on broad Martian plain. REAL opened Mars Pathfinder: triangular central equipment base, EXACTLY THREE triangular hinged solar petals extending in three directions, gold foil science boxes, one thin IMP camera mast. Wrinkled deflated tan airbags underneath outskirts. NO circular cabin, legs, round windows, giant dish or humanoid. Gentle personality using ONLY two small expressive camera pupils on existing rectangular mast head, do not replace structure with face-body. Faint curved corners echo rover POV. No fake words or branding. Entire lander within middle 60 percent width. No Sojourner seen: viewer IS Sojourner. Match page12 composition with faithful opened three-petal hardware."
+    },
+    {
+      "id": "eyes",
+      "refs": [
+        "page-06.png"
+      ],
+      "prompt": "Create ONE standalone wide 16:9 finished 2D narrative-game illustration, no text, no lettering, no UI. Storybook gouache texture, simple graphic shapes, expressive sketch details, warm golden orange Mars, peach yellow sunlight, cool cyan-gray hardware and navy panels. Attached latest storyboard is DIRECT composition reference: draw only narrative picture, never colored slide borders or annotations. Coherent real spacecraft structure. Lower 22 percent low-detail for runtime dialogue. Page11 planned emotional closeup, page06 RIGHTMOST cartoon storyboard as expression reference. Delighted Sojourner: two oversized VERTICAL OVAL cartoon camera-eyes at front edge of low broad navy solar panel, enormous dark pupils with TWO bold luminous cream highlights each, flexible delighted brows and tiny happy open mouth below. Cool cyan-gray chassis. Closeup only front face and navy panel edge, warm Martian plain gently blurred behind. Eyes are soft expressive cartoon shapes, NOT rigid brass portholes or realistic binocular tubes. No cabin glass, astronaut helmet, hands, added eyes. Heartfelt awe and curiosity. Both eyes complete in upper middle so dialogue will not cover face."
+    }
+  ]
+}

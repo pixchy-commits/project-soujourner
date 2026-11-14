@@ -13,15 +13,15 @@ export const scene = {
       "id": "blink",
       "kind": "illustration",
       "art": "ch02-earth-flashback/blink",
-      "framing": "closeup",
-      "motion": "push-in"
+      "framing": "wide",
+      "motion": "still"
     },
     {
       "id": "construction",
       "kind": "illustration",
       "art": "ch02-earth-flashback/construction",
       "transition": "memory",
-      "motion": "drift"
+      "motion": "still"
     },
     {
       "id": "introduction",
@@ -39,8 +39,8 @@ export const scene = {
       "id": "memory-eyes",
       "kind": "illustration",
       "art": "ch02-earth-flashback/memory-eyes",
-      "framing": "closeup",
-      "motion": "push-in"
+      "framing": "wide",
+      "motion": "still"
     }
   ]
 } as const satisfies NarrativeScene;

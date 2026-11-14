@@ -1,0 +1,67 @@
+{
+  "tool": "built-in image_gen",
+  "approved": false,
+  "source": "NASA Hackathon Visual (3)_compressed.pdf, pages 13–15 and 19–20",
+  "jobs": [
+    {
+      "id": "construction",
+      "ref": "14",
+      "prompt": "Generate ONE standalone wide16:9 narrative-game illustration, NO text, letters, captions, page borders or interface. Use attached latest storyboard ONLY as direct composition reference; never reproduce slide. Whimsical expressive 2D hand-painted storybook gouache, warm nostalgic golden light, simple color blocks with textured paper and fine sketch edges. Muted cool cyan-gray machinery, navy solar panels. Sojourner design: low rectangular chassis under broad flat solar panel, offset bent antenna, two oversized vertical OVAL front camera-eyes with big dark pupils and sparkling cream highlights; small expressive smile. Exactly SIX wheels total, THREE on each side, coherent rocker-bogie suspension. Far wheels may be naturally occluded; never add extra wheels for visibility. One plain rear camera, NEVER rear expressive eyes. No humanoid body. Keep entire main subject and antenna inside safe margins. Bottom22% low detail for runtime dialogue. SHOT page14 upper left: Earth flashback in 1990s rover laboratory, from Sojourner POV looking up at two friendly engineers, one with round glasses, bending gently toward viewer holding tools. A partial narrow navy rover deck bottom foreground only, NO complete rover, viewer is on workbench. Cream lit workshop, test equipment and sketched engineering diagrams without legible writing. Engineers diverse adults in practical light cleanroom coats, expressive storybook faces, warm parent-like affection."
+    },
+    {
+      "id": "naming",
+      "ref": "14",
+      "prompt": "Generate ONE standalone wide16:9 narrative-game illustration, NO text, letters, captions, page borders or interface. Use attached latest storyboard ONLY as direct composition reference; never reproduce slide. Whimsical expressive 2D hand-painted storybook gouache, warm nostalgic golden light, simple color blocks with textured paper and fine sketch edges. Muted cool cyan-gray machinery, navy solar panels. Sojourner design: low rectangular chassis under broad flat solar panel, offset bent antenna, two oversized vertical OVAL front camera-eyes with big dark pupils and sparkling cream highlights; small expressive smile. Exactly SIX wheels total, THREE on each side, coherent rocker-bogie suspension. Far wheels may be naturally occluded; never add extra wheels for visibility. One plain rear camera, NEVER rear expressive eyes. No humanoid body. Keep entire main subject and antenna inside safe margins. Bottom22% low detail for runtime dialogue. SHOT page14 upper right: same nostalgic Earth rover workshop, two friendly scientists introducing tiny Sojourner on a broad workbench. One smiling engineer with round glasses has an open hand toward the rover as if introducing a beloved child. Rover small, fully visible three-quarter FRONT view, exactly3 wheels near side, other wheels naturally occluded. Large cartoon shining oval eyes at FRONT panel edge, small happy mouth; low broad navy rectangular solar deck and bent antenna. No humanoid arms, no rear extra eyes, no round cabin. Warm cream laboratory, soft equipment silhouettes."
+    },
+    {
+      "id": "mission-memory",
+      "ref": "14",
+      "prompt": "Generate ONE standalone wide16:9 narrative-game illustration, NO text, letters, captions, page borders or interface. Use attached latest storyboard ONLY as direct composition reference; never reproduce slide. Whimsical expressive 2D hand-painted storybook gouache, warm nostalgic golden light, simple color blocks with textured paper and fine sketch edges. Muted cool cyan-gray machinery, navy solar panels. Sojourner design: low rectangular chassis under broad flat solar panel, offset bent antenna, two oversized vertical OVAL front camera-eyes with big dark pupils and sparkling cream highlights; small expressive smile. Exactly SIX wheels total, THREE on each side, coherent rocker-bogie suspension. Far wheels may be naturally occluded; never add extra wheels for visibility. One plain rear camera, NEVER rear expressive eyes. No humanoid body. Keep entire main subject and antenna inside safe margins. Bottom22% low detail for runtime dialogue. SHOT page14 lower left: rover POV on an Earth lab bench, two scientists stand on either side pointing lovingly to blank projection of orange Mars and an unlabelled orbit path between tiny Earth and Mars. No words, no invented mission instructions. Tiny top arcs of Sojourner eyes and navy panel barely at bottom indicate POV. Cozy warm1990s science classroom workshop, human faces clearly expressive. Wide composition with both scientists in middle two thirds."
+    },
+    {
+      "id": "memory-eyes",
+      "ref": "14",
+      "prompt": "Generate ONE standalone wide16:9 narrative-game illustration, NO text, letters, captions, page borders or interface. Use attached latest storyboard ONLY as direct composition reference; never reproduce slide. Whimsical expressive 2D hand-painted storybook gouache, warm nostalgic golden light, simple color blocks with textured paper and fine sketch edges. Muted cool cyan-gray machinery, navy solar panels. Sojourner design: low rectangular chassis under broad flat solar panel, offset bent antenna, two oversized vertical OVAL front camera-eyes with big dark pupils and sparkling cream highlights; small expressive smile. Exactly SIX wheels total, THREE on each side, coherent rocker-bogie suspension. Far wheels may be naturally occluded; never add extra wheels for visibility. One plain rear camera, NEVER rear expressive eyes. No humanoid body. Keep entire main subject and antenna inside safe margins. Bottom22% low detail for runtime dialogue. SHOT page14 lower right: closeup of young Sojourner front face on Earth lab workbench, two enormous shiny vertical cartoon oval eyes, joy and innocent wonder, tiny circular happy mouth. Distinct soft reflections of scientists' silhouettes in pupils, not additional faces or eyeballs. Navy solar panel behind, cool pale cyan chassis below. Golden cream laboratory background gently out of focus. Both eyes and eyebrows fully within upper two thirds frame. No rigid brass lenses, no glass capsule, no extra cameras."
+    },
+    {
+      "id": "sojo-introduction",
+      "ref": "15",
+      "prompt": "Generate ONE standalone wide16:9 narrative-game illustration, NO text, letters, captions, page borders or interface. Use attached latest storyboard ONLY as direct composition reference; never reproduce slide. Whimsical expressive 2D hand-painted storybook gouache, warm nostalgic golden light, simple color blocks with textured paper and fine sketch edges. Muted cool cyan-gray machinery, navy solar panels. Sojourner design: low rectangular chassis under broad flat solar panel, offset bent antenna, two oversized vertical OVAL front camera-eyes with big dark pupils and sparkling cream highlights; small expressive smile. Exactly SIX wheels total, THREE on each side, coherent rocker-bogie suspension. Far wheels may be naturally occluded; never add extra wheels for visibility. One plain rear camera, NEVER rear expressive eyes. No humanoid body. Keep entire main subject and antenna inside safe margins. Bottom22% low detail for runtime dialogue. SHOT page15 LEFT panel: front three-quarter view of cute Sojourner on Martian ground introducing itself proudly directly to viewer, both huge shining expressive cartoon eyes and tiny smiling mouth. FULL rover small enough to fit center-left middle50%width, exactly3 near-side wheels in coherent row, far-side wheels naturally occluded. Broad navy solar panel and bent antenna fully in frame. Pathfinder small in distance to upper right: ONLY triangular central lander with exactly THREE triangular opened petals, gold boxes and single thin camera mast, no round body or legs. Vast orange Rock Garden and warm peach sky. No invented props, no labels."
+    },
+    {
+      "id": "mission-description",
+      "ref": "15",
+      "prompt": "Generate ONE standalone wide16:9 narrative-game illustration, NO text, letters, captions, page borders or interface. Use attached latest storyboard ONLY as direct composition reference; never reproduce slide. Whimsical expressive 2D hand-painted storybook gouache, warm nostalgic golden light, simple color blocks with textured paper and fine sketch edges. Muted cool cyan-gray machinery, navy solar panels. Sojourner design: low rectangular chassis under broad flat solar panel, offset bent antenna, two oversized vertical OVAL front camera-eyes with big dark pupils and sparkling cream highlights; small expressive smile. Exactly SIX wheels total, THREE on each side, coherent rocker-bogie suspension. Far wheels may be naturally occluded; never add extra wheels for visibility. One plain rear camera, NEVER rear expressive eyes. No humanoid body. Keep entire main subject and antenna inside safe margins. Bottom22% low detail for runtime dialogue. SHOT page15 RIGHT panel: same friendly Sojourner in Martian Rock Garden, framed on RIGHT HALF, full rover with three wheels on near side and naturally occluded far side, two large sparkling front oval eyes, smiling mouth, low cyan-gray body, navy panel and bent antenna. Small accurate THREE-petal Pathfinder in far right background. LEFT third mostly quiet peach sky and simple distant terrain, intentionally empty for a runtime mission sheet. No text or baked-in sheet. Cute expressive storybook hardware, no rear eyes, no arms."
+    },
+    {
+      "id": "scientists",
+      "ref": "19",
+      "prompt": "Generate ONE standalone wide16:9 narrative-game illustration, NO text, letters, captions, page borders or interface. Use attached latest storyboard ONLY as direct composition reference; never reproduce slide. Whimsical expressive 2D hand-painted storybook gouache, warm nostalgic golden light, simple color blocks with textured paper and fine sketch edges. Muted cool cyan-gray machinery, navy solar panels. Sojourner design: low rectangular chassis under broad flat solar panel, offset bent antenna, two oversized vertical OVAL front camera-eyes with big dark pupils and sparkling cream highlights; small expressive smile. Exactly SIX wheels total, THREE on each side, coherent rocker-bogie suspension. Far wheels may be naturally occluded; never add extra wheels for visibility. One plain rear camera, NEVER rear expressive eyes. No humanoid body. Keep entire main subject and antenna inside safe margins. Bottom22% low detail for runtime dialogue. SHOT page19 celebration: Earth mission control with three happy scientists around a large retro monitor at upper right displaying smiling Sojourner on orange Mars. Short-haired scientist with round glasses foreground center-left, smiling open mouth and raised hands, second scientist behind left, third seated lower right looking up. On monitor only Sojo head and broad panel visible, two big sparkling cartoon eyes and small mouth. Warm nostalgic1990s control room with teal-gray consoles and golden lamps. NO confetti baked in (runtime animates it). No legible lettering or numbers. Human celebration and rover screen form same composition as supplied pencil sketch. Leave bottom22% quiet dark console surface."
+    }
+  ],
+  "edits": [
+    {
+      "id": "blink",
+      "prompt": "Preserve the existing Mars closeup composition; close both cartoon eyelids before the white flash into memory."
+    },
+    {
+      "id": "memory-eyes",
+      "prompt": "Replace full-rover composition with a tight face closeup, two sparkling oval eyes reflecting scientists; exclude wheels, antenna and extra cameras."
+    },
+    {
+      "id": "mission-description",
+      "prompt": "Preserve the introduction character and triangular Pathfinder; move Sojourner to the right and leave the left third empty for the runtime mission sheet."
+    }
+  ],
+  "reused": [
+    {
+      "slot": "ch02-baby-steps/chapter-card",
+      "source": "ch01-lander-unfolding/open-petals-v2.webp"
+    },
+    {
+      "slot": "ch02-mission-briefing/briefing",
+      "source": "ch02-celebration/scientists-v1.webp",
+      "reason": "Consecutive shot of same scientists per storyboard; confetti only runs during celebration."
+    }
+  ]
+}

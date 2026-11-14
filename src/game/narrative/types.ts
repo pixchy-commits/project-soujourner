@@ -10,7 +10,7 @@ type ShotBase = {
  notes?: string;
 };
 export type SceneShot = ShotBase & (
- | { kind: "illustration"; art: ArtId; framing?: "wide" | "closeup" | "first-person" | "overhead"; confetti?: boolean }
+ | { kind: "illustration"; art: ArtId; framing?: "wide" | "closeup" | "first-person" | "overhead"; confetti?: boolean; hotspot?: { label: string; x: number; y: number; width: number; height: number }; missionSheet?: { title: string; duration: string; items: readonly string[] } }
  | { kind: "archive"; art: ArtId; montage?: readonly ArtId[]; label: string; date: string }
  | { kind: "chapter"; art: ArtId; number: number; title: string; date: string }
 );
