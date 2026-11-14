@@ -1,0 +1,227 @@
+{
+  "archive-montage": {
+    "src": "/art/scenes/prologue-identification/pathfinder-v2.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/prologue-archive/archive.webp",
+    "alt": "Pathfinder and Sojourner in the mission archive",
+    "objectPosition": "50% 65%",
+    "fit": "contain",
+    "approved": false
+  },
+  "archive-entry": {
+    "src": "/art/scenes/prologue-identification/pathfinder-v2.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/prologue-archive/spacecraft.webp",
+    "alt": "Illustrated Pathfinder lander on Mars",
+    "objectPosition": "30% 70%",
+    "fit": "cover",
+    "approved": false
+  },
+  "archive-landscape": {
+    "src": "/art/intro-v2/title-landscape-v3.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/prologue-archive/landscape.webp",
+    "alt": "Illustrated Martian plains and Sojourner",
+    "objectPosition": "25% 70%",
+    "fit": "cover",
+    "approved": false
+  },
+  "pathfinder-identification": {
+    "src": "/art/scenes/prologue-identification/pathfinder-v2.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/prologue-identification/pathfinder.webp",
+    "alt": "Pathfinder and Sojourner",
+    "objectPosition": "50% 65%",
+    "fit": "contain",
+    "approved": false
+  },
+  "arrival-card": {
+    "src": "/art/scenes/prologue-identification/pathfinder-v2.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch01-arrival/chapter-card.webp",
+    "alt": "Pathfinder and Sojourner at Mars",
+    "objectPosition": "50% 65%",
+    "fit": "contain",
+    "approved": false
+  },
+  "entry-exterior": {
+    "src": "/art/scenes/ch01-atmospheric-entry/exterior-storyboard-v3.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch01-atmospheric-entry/heat-shield.webp",
+    "alt": "Pathfinder’s entry capsule descending through the atmosphere toward curved Mars",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "entry-cabin": {
+    "src": "/art/scenes/ch01-atmospheric-entry/cabin-storyboard-v3.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch01-atmospheric-entry/cabin.webp",
+    "alt": "Rear three-quarter view across Sojourner’s solar panel toward the small window and Mars",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "entry-eyes": {
+    "src": "/art/scenes/ch01-atmospheric-entry/eyes-storyboard-v3.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch01-atmospheric-entry/eyes-closeup.webp",
+    "alt": "Sojourner’s delighted cartoon camera-eyes sparkling above its open smile",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch01-window-transition/window-glass": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch01-window-transition/window-glass.webp",
+    "alt": "Retired round-cabin concept; replaced by the post-landing tetrahedral lander reveal",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch01-lander-unfolding/landed-capsule": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch01-lander-unfolding/landed-capsule.webp",
+    "alt": "",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch01-lander-unfolding/open-petals": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch01-lander-unfolding/open-petals.webp",
+    "alt": "",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch01-first-look/rover-view": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch01-first-look/rover-view.webp",
+    "alt": "",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch01-first-look/camera-eyes": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch01-first-look/camera-eyes.webp",
+    "alt": "",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch01-pathfinder-friendship/pathfinder": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch01-pathfinder-friendship/pathfinder.webp",
+    "alt": "",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch02-baby-steps/chapter-card": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch02-baby-steps/chapter-card.webp",
+    "alt": "",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch02-earth-flashback/blink": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch02-earth-flashback/blink.webp",
+    "alt": "",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch02-earth-flashback/construction": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch02-earth-flashback/construction.webp",
+    "alt": "",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch02-earth-flashback/introduction": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch02-earth-flashback/introduction.webp",
+    "alt": "",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch02-earth-flashback/mission": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch02-earth-flashback/mission.webp",
+    "alt": "",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch02-earth-flashback/memory-eyes": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch02-earth-flashback/memory-eyes.webp",
+    "alt": "",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch02-mission-introduction/sojo-introduction": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch02-mission-introduction/sojo-introduction.webp",
+    "alt": "",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch02-mission-introduction/mission-description": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch02-mission-introduction/mission-description.webp",
+    "alt": "",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch02-celebration/scientists": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch02-celebration/scientists.webp",
+    "alt": "",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch02-mission-briefing/briefing": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch02-mission-briefing/briefing.webp",
+    "alt": "",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "archive-room": {
+    "src": "/art/scenes/prologue-archive/control-room.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/prologue-archive/control-room.webp",
+    "alt": "A warm illustrated mission archive control room",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  }
+}

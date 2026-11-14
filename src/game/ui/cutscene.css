@@ -1,0 +1,150 @@
+﻿/* Shared retro-space controls from the team's visual kit. */
+.game .painted-button, .game-button {
+  display: inline-flex; justify-content: center; align-items: center; gap: 14px;
+  min-height: 48px; padding: 12px 24px; border: 2px solid #fde593;
+  border-radius: 18px; background: #3a4457; color: #fde593;
+  box-shadow: 0 0 0 2px #3a4457, 0 4px 0 #20273699;
+  font: 400 13px/1.3 Thunderstrike,sans-serif; letter-spacing: .025em;
+  filter: none; text-shadow: none;
+  transition: transform .16s, background .16s;
+}
+.game .painted-button { width: 100%; }
+.game .painted-button span { font: inherit; font-size: 18px; letter-spacing: .025em; transform: none; text-shadow: none; }
+.game .painted-button::before, .game .painted-button::after { content: ''; opacity: 0; }
+.game .painted-button:hover, .game-button:hover { background: #4b6278; transform: translateY(-2px); filter: none; }
+.game .painted-button:active, .game-button:active { transform: translateY(2px); }
+.game-button:disabled { opacity: .55; }
+.game-button-small { min-height: 38px; padding: 8px 16px; border-radius: 12px; font-size: 9px; }
+.game .music-button { border-radius: 50%; background: #3a4457e8; border: 2px solid #fde59399; color: #fde593; box-shadow: 0 3px 0 #20273699; }
+.cutscene .landscape { background: #111621; filter: none; }
+.cutscene .landscape:not(.archive-backdrop) { filter: blur(5px) saturate(.65) brightness(.5); transform: scale(1.025); }
+.cutscene .vignette { background: linear-gradient(0deg,#10152377,transparent 55%),radial-gradient(ellipse,transparent 30%,#10152366); }
+.archive-backdrop { background: #141925; }
+.archive-stage { top: 10%; width: min(1000px,78vw); height: 56%; }
+.monitor-housing { padding: 15px 18px 32px; border-radius: 30px; background: linear-gradient(145deg,#637480,#3a4457 55%,#293342); border: 2px solid #8ab7ac; box-shadow: inset 0 1px 0 #c1f9fd66,0 12px 35px #0006,0 0 0 5px #17202d; }
+.monitor-screen { padding: 28px 18px 25px; border: 5px solid #171c27; border-radius: 18px; background: #111721; }
+.monitor-screen::after { box-shadow: inset 0 0 20px #0008; }
+.monitor-topline { top: 8px; font-size: 8px; color: #a7d6ce; }
+.monitor-location { bottom: 8px; color: #a7d6ce; font-size: 7px; }
+.scanlines { opacity: .08; }
+.crt-shutdown-line { position: absolute; left: 8%; right: 8%; top: 50%; height: 2px; opacity: 0; background: #fff8e4; box-shadow: 0 0 10px #c1f9fd,0 0 24px #fde593; transform: scaleX(.9); pointer-events: none; z-index: 4; }
+.dialogue-box { bottom: 9%; width: min(1060px,85vw); min-height: 150px; padding: 30px 34px 45px; border-radius: 20px; background: #202a3cf2; border: 2px solid #8ab7ac; box-shadow: 0 0 0 4px #1b2332,0 0 0 5px #fde59388,0 16px 30px #0004; }
+.dialogue-box::before,.dialogue-box::after { display: none; }
+.speaker { top: -15px; border-radius: 9px; padding: 7px 16px; border: 1px solid #fde593; background: #3a4457; color: #fde593; font: 9px Thunderstrike,sans-serif; letter-spacing: .04em; }
+.dialogue-text { font: 400 clamp(14px,1.2vw,18px)/1.9 GloriaHallelujah,cursive; color: #fff0c8; }
+.dialogue-prompt { background: #fde593; color: #3a4457; padding: 6px 12px; border-radius: 6px; font: 8px Thunderstrike,sans-serif; letter-spacing: .03em; bottom: 12px; }
+.cutscene-controls { bottom: 8px; }
+.cutscene-controls .game-button { font: 8px Thunderstrike,sans-serif; letter-spacing: .04em; color: #fde593; padding: 8px 14px; }
+.chapter-card { top: 10%; bottom: 26%; width: min(950px,84vw); }
+.chapter-photo { position: relative; background: #242b36; width: 82%; border-radius: 12px; border: 2px solid #fde59388; overflow: hidden; }
+.chapter-date { font: 400 clamp(20px,3vh,35px)/1.5 GloriaHallelujah,cursive; color: #fde593; }
+.chapter-card h1 { font: 400 clamp(24px,3.2vw,51px)/1.4 Thunderstrike,sans-serif; color: #fde593; letter-spacing: .015em; text-shadow: 0 3px #293342; }
+.chapter-card h1 span { font-size: .65em; }
+.game-dialog { background: #202a3c; border-color: #8ab7ac; border-radius: 24px; }
+.game-dialog h2 { font: 400 24px/1.4 Thunderstrike,sans-serif; letter-spacing: .02em; }
+.panel-ornament { display: none; }
+.game-dialog.report-folder { width: min(850px,calc(100vw - 40px)); color: #3a3440; background: linear-gradient(90deg,#ac784b 0 2%,#ce9a62 2% 49.5%,#aa7749 49.5% 50%,#d4a36e 50% 98%,#ac784b 98%); border: 3px solid #825735; border-radius: 8px 20px 20px 8px; box-shadow: 0 18px 80px #0009,inset 0 0 0 10px #e9c38a66; padding: 40px; }
+.report-folder h2 { text-align: left; font-size: 23px; color: #3a3440; }
+.report-folder .reports { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.report-folder .reports article { position: relative; display: block; border: 0; padding: 25px 22px 20px; background: #f5e7bc; color: #3a3440; box-shadow: 2px 4px 10px #5b361c33; transform: rotate(-1deg); }
+.report-folder .reports article:nth-child(even) { transform: rotate(1deg); }
+.report-folder .reports article::before { content: ''; position: absolute; top: -8px; left: 36%; width: 60px; height: 19px; background: #e1cf9699; transform: rotate(-4deg); }
+.report-folder .reports article p { color: #3a3440; font: 13px/1.8 GloriaHallelujah,cursive; }
+.report-folder .reports h3 { color: #3a4457; font-size: 16px; margin: 8px 0 14px; }
+.report-folder .report-number { color: #955128; }
+.report-folder .reports a,.report-folder .report-note { color: #3a3440; }
+.report-folder .close-button { color: #3a3440; }
+@media(max-width:650px) {
+ .archive-stage { width: 90vw; top: 12%; height: 40%; }.monitor-housing { padding: 10px 10px 28px; }.monitor-screen { padding: 25px 10px 22px; }
+ .dialogue-box { width: 88vw; min-height: 190px; bottom: 11%; padding: 25px 20px 40px; }.dialogue-text { font-size: 13px; line-height: 1.8; }
+ .chapter-card { top: 13%; bottom: 27%; }.chapter-card h1 { font-size: 25px; }
+ .game-dialog.report-folder { padding: 28px 24px; }.report-folder .reports { grid-template-columns: 1fr; }
+ .game-button-small { font-size: 7px; }.cutscene-controls { bottom: 10px; }
+}
+@media(max-height:550px) {
+ .archive-stage { height: 45%; top: 8%; width: min(750px,65vw); }.dialogue-box { min-height: 100px; bottom: 12%; padding: 18px 24px 34px; }.dialogue-text { font-size: 12px; line-height: 1.6; }.dialogue-prompt { bottom: 7px; }
+ .chapter-card { top: 6%; bottom: 26%; }.chapter-photo { max-height: 25vh; }.chapter-date { font-size: 18px; margin: 8px 0; }.chapter-card h1 { font-size: 25px; }
+}
+/* Historical opening: one continuous room and television, not a reset per line. */
+.game .archive-stage {
+ top: 10%; width: min(960px,82vw,84.8svh); height: auto; aspect-ratio: 16 / 10;
+ display: block; transform-origin: 50% 50%;
+}
+.game .monitor-housing {
+ position: relative; width:100%; height:100%; padding:18px 22px 53px;
+ border-radius:36px 36px 25px 25px;
+ background:linear-gradient(145deg,#8c9ca1 0%,#64767e 5%,#3a4457 40%,#283244 100%);
+ border:2px solid #c3d8ca;
+ box-shadow:inset 0 2px 0 #e7f1d57a,inset 0 -7px 0 #1d2632,0 3px 0 #17212f,0 18px 40px #0005;
+}
+.game .monitor-screen {
+ border:7px solid #182330; border-radius:30px / 24px;
+ box-shadow:0 0 0 2px #b8c6af77,inset 0 0 14px #0005;
+}
+.game .monitor-screen::after { background:linear-gradient(125deg,#d0eff710,transparent 40%); box-shadow:inset 0 0 18px #02071266; }
+.game .scanlines { opacity:.035; }
+.game .monitor-base { height:25px; bottom:13px; left:32px; right:32px; display:flex; gap:16px; align-items:center; }
+.tv-speaker { display:flex; gap:4px; height:14px; width:65px; }
+.tv-speaker span { display:block; flex:1; border-radius:3px; background:#162333; box-shadow:0 1px #9db7b444; }
+.game .monitor-base .tv-brand { display:block; width:auto; height:auto; border:0; background:none; font:7px Thunderstrike,sans-serif; letter-spacing:1px; color:#c4d2be; margin-right:auto; }
+.tv-knobs { display:flex; gap:12px; }
+.game .monitor-base .tv-knobs i { position:relative; display:block; width:21px; height:21px; background:#c7d2bb; border:2px solid #162333; border-radius:50%; box-shadow:1px 2px 0 #111b27; margin:0; }
+.tv-knobs i::after { content:''; position:absolute; top:2px; left:8px; width:2px; height:7px; background:#344454; transform:rotate(25deg); }
+.game .monitor-base .tv-power { width:5px; height:5px; border:0; border-radius:50%; background:#fde593; box-shadow:0 0 7px #ffe09b88; }
+.tv-aerial { position:absolute; top:-24px; left:50%; width:85px; height:28px; transform:translateX(-50%); z-index:-1; }
+.tv-aerial i { position:absolute; bottom:0; left:50%; width:3px; height:35px; border-radius:4px; background:#8ab7ac; transform-origin:bottom; transform:rotate(-52deg); }
+.tv-aerial i:last-child { transform:rotate(52deg); }
+.game .archive-backdrop { filter:brightness(.85); }
+.game .archive-backdrop>div { animation:room-settle 1.1s ease-out both; }
+@keyframes room-settle { from { opacity:.6; } to { opacity:1; } }
+.game .monitor-topline { letter-spacing:1px; font:8px var(--mono); }
+.game .monitor-location { font:8px var(--mono); letter-spacing:1px; }
+@media(max-width:650px) {
+ .game .archive-stage { top:15%; width:90vw; max-height:40svh; }
+ .game .monitor-housing { padding:10px 10px 36px; border-radius:22px; }
+ .game .monitor-screen { border-width:4px; border-radius:18px; }
+ .game .monitor-base { bottom:7px; left:18px; right:18px; height:19px; gap:9px; }
+ .game .monitor-base .tv-knobs i { width:15px; height:15px; }
+ .tv-knobs i::after { left:5px; height:5px; top:1px; }
+ .game .monitor-base .tv-brand { font-size:5px; letter-spacing:.5px; }
+ .tv-speaker { width:38px; height:9px; gap:2px; }.tv-knobs { gap:7px; }
+ .game .monitor-topline,.game .monitor-location { font-size:6px; }
+}
+@media(max-height:550px) {
+ .game .archive-stage { top:8%; width:min(650px,68vw,76svh); max-height:48svh; }
+ .game .monitor-housing { padding:8px 10px 29px; border-radius:20px; }
+ .game .monitor-screen { border-width:4px; border-radius:16px; }
+ .game .monitor-base { bottom:5px; height:17px; }
+ .game .monitor-base .tv-knobs i { width:13px; height:13px; }
+ .game .monitor-topline,.game .monitor-location { font-size:5px; }
+}
+@media(prefers-reduced-motion:reduce) { .game .archive-backdrop>div { animation:none; } }
+
+/* Use the control room's built-in display, not a second television on top. */
+.game .archive-stage {
+ top: 13%; left: 15%; width: 70%; height: 61%; max-height: none;
+ aspect-ratio: auto; transform-origin: 50% 50%;
+}
+.game .archive-stage .monitor-housing {
+ padding: 0; border: 0; border-radius: 28px; background: #101722;
+ box-shadow: none; overflow: hidden;
+}
+.game .archive-stage .monitor-screen {
+ padding: 0; border: 0; border-radius: 28px; background: #101722;
+ box-shadow: inset 0 0 35px #0006;
+}
+.game .archive-stage .monitor-base,
+.game .archive-stage .monitor-screw,
+.game .archive-stage .tv-aerial { display: none; }
+.game .archive-stage .monitor-topline { z-index: 3; top: 12px; left: 20px; right: 20px; padding: 7px 10px; background: #111b28b3; border-radius: 5px; }
+.game .archive-stage .monitor-location { z-index: 3; left: 20px; bottom: 12px; padding: 5px 10px; background: #111b28b3; border-radius: 5px; }
+.game .archive-stage .crt-shutdown-line { z-index: 5; }
+@media(max-width:650px) {
+ .game .archive-stage { left: 7%; width: 86%; top: 16%; height: 39%; max-height: none; }
+ .game .archive-stage .monitor-housing,.game .archive-stage .monitor-screen { border-radius: 16px; }
+ .game .archive-stage .monitor-topline { top: 8px; left: 8px; right: 8px; }
+ .game .archive-stage .monitor-location { left: 8px; bottom: 8px; }
+}
+@media(max-height:550px) and (min-width:651px) {
+ .game .archive-stage { left: 17%; width: 66%; top: 12%; height: 49%; max-height: none; }
+}

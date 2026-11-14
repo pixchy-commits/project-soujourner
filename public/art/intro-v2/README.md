@@ -1,0 +1,9 @@
+# Intro approval sample
+
+Status: awaiting user/team approval. Generated with the built-in imagegen tool using the supplied character drawing and Mars palette sheet. This asset replaces the title background only; narrative artwork is unchanged.
+
+Original: `title-landscape.png`. Runtime copy: `title-landscape.webp`.
+
+Prompt:
+
+Create one polished wide 16:9 illustrated GAME TITLE BACKGROUND, no text or UI. Reference 1 is the exact Sojourner character silhouette: small low box body, flat wide solar-panel roof, TWO LARGE OVAL EXPRESSIVE CAMERA EYES mounted on FRONT EDGE of panel, antenna bent with offset upright stalk, six chunky wheels, charming childlike curious expression. No binocular neck, no humanoid body, no extra arms. Render three-quarter front view in lower LEFT, full rover visible, about 27 percent image width, cool pale cyan/light gray hardware, navy solar panel and sketchy dark blue contours. Match bubbly drawing personality, not realistic robot. Reference 2 is environment art direction: simple sweeping color-blocked orange Mars dunes and angular layered hills, gouache/paper grain detailed texture, restrained background lineart, magical storybook visual novel, golden nostalgic rim light. Palette sand #fde593 orange #fa8b25 rust #ff5c00 shadow #3a4457. Beautiful golden peach dawn sky, distant haze, a few textured navy foreground rocks. Central 50 percent of image must be OPEN quiet landscape and soft low-detail warm sky for centered title and vertically stacked buttons to be composited later. Rover gaze toward center. Subtle panoramic composition, warm optimistic emotional mood. Not photorealistic, not 3D render, not gritty. No buildings, no plants, no Earth in sky, NO blue star, NO decorative sparkle, NO giant sun behind title, no border, lettering, button or watermark. Entire image scenic illustration.

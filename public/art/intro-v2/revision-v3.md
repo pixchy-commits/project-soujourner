@@ -1,0 +1,7 @@
+# Team feedback revision
+
+Generated with built-in imagegen. Original `title-landscape-v3.png`; runtime `title-landscape-v3.webp`. Previous assets retained. Awaiting team review.
+
+Prompt:
+
+Edit this game background, preserve its approved painterly storybook style, warm golden Mars landscape and palette exactly. Move Sojourner a little RIGHT, center of rover at 29 percent image width, and make rover about 23 percent total image width, leaving at least 16 percent clear margin to left of all parts including antenna. Entire antenna, roof and ALL wheels entirely within image. Keep middle 45%-75% area quiet for menu overlay; no text/UI. Correct Sojourner structure carefully: EXACTLY SIX wheels total, THREE on each side, coherent two parallel rows and rocker-bogie suspension. Near-side three wheels clearly readable, far-side wheels may be partially occluded naturally; no extra wheels. ONLY TWO expressive oval camera eyes, mounted on FRONT edge of flat solar panel. REMOVE the two pale dome/eye bumps currently behind the front eyes. REAR has exactly ONE small ordinary circular camera, not an eye, no rear expressive eyes. Rear camera need not be visible in this front three-quarter view. Preserve low rectangular box chassis, wide flat dark navy solar panel, offset bent tall antenna, cool pale cyan-gray metal with warm rim light, friendly sketchy face. No arms. Keep same ground-level view, soft textures and big color shapes. No stars, no symbols, no new objects, no lettering. Landscape edge-to-edge wide 16:9.

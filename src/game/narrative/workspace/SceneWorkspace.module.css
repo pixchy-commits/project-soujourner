@@ -1,0 +1,11 @@
+﻿.workspace { height: 100svh; display: grid; grid-template-columns: 340px minmax(0,1fr); background: #12151c; color: #eaddc7; }
+.inspector { overflow: auto; padding: 25px 22px 45px; border-right: 1px solid #d1ac7044; font: 12px/1.65 var(--body); }
+.inspector h1 { font: 23px Georgia,serif; margin: 18px 0 12px; }.inspector h2 { font-size: 13px; margin: 18px 0 10px; color: #dfc395; }.inspector h3 { font-size: 11px; margin: 16px 0 8px; }.intro { color: #d4c5aca8; }.back { color: #d6b78b; font-size: 11px; }
+.inspector label { display: block; font-size: 11px; margin: 16px 0 8px; }.inspector select { width: 100%; padding: 10px; background: #252835; color: #f2e2c9; border: 1px solid #e4c58a44; font-size: 12px; }.inspector code { font: 10px/1.7 var(--mono); overflow-wrap: anywhere; }
+.current { padding: 16px 0; border-bottom: 1px solid #d6b78b33; }.current>* { display: block; }.current small { letter-spacing: 2px; color: #d5b88a; font-size: 8px; }.current strong { margin: 5px 0; font-size: 15px; }
+.source { margin: 18px 0; }.source img { width: 100%; height: auto; }.source figcaption { color: #d3ba94; font: 9px var(--mono); margin-top: 8px; }
+.shots { padding-left: 20px; }.shots button { text-align: left; padding: 7px 4px; font: 11px var(--mono); width: 100%; }.shots button[aria-current=step] { color: #ffdb9a; }.shots small { margin-left: 8px; color: #aa9980; font-size: 9px; }
+.script, .asset { border-top: 1px solid #d6b78b33; padding-top: 5px; margin-top: 18px; }.script p { line-height: 1.8; }.note { color: #d4b67c; font-size: 11px; }.asset input { display: block; max-width: 100%; margin: 8px 0; font-size: 10px; }.asset small { color: #b4a78f; font-size: 10px; }.asset p { color: #cdc2ac; font-size: 11px; }
+.stage { position: relative; min-width: 0; min-height: 0; overflow: hidden; }.stage :global(.game) { width: 100%; height: 100%; }
+@media(max-width:900px) { .workspace { grid-template-columns: 260px minmax(0,1fr); }.inspector { padding: 18px 14px; } }
+@media(max-width:650px) { .workspace { grid-template-columns: 1fr; grid-template-rows: 32svh minmax(0,1fr); }.inspector { border-right: 0; border-bottom: 1px solid #d1ac7044; }.stage :global(.game) { height: 100%; } }

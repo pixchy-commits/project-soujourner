@@ -1,0 +1,28 @@
+﻿/* Intro approval sample: local supplied fonts and retro-space controls. */
+@font-face { font-family: Thunderstrike; src: url('/fonts/thunderstrike.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: GloriaHallelujah; src: url('/fonts/gloriahallelujah.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+.menu .landscape { background-image: url('/art/intro-v2/title-landscape-v3.webp'); background-position: center; }
+.menu .vignette { background: radial-gradient(ellipse at 50% 40%, #713e1905 15%, #36241e20 75%, #25223566); }
+.menu .title-screen { justify-content: center; gap: clamp(30px,5vh,60px); padding: 50px 28px; }
+.menu .title-lockup { filter: none; }
+.menu .title-lockup h1 { font: 400 clamp(40px,7.3vw,116px)/1.2 Thunderstrike,sans-serif; letter-spacing: .015em; transform: none; color: #fde593; -webkit-text-stroke: 0; text-shadow: 0 3px 0 #3a4457,0 5px 0 #3a4457,0 8px 22px #53322355; }
+.menu .title-lockup p { font: 400 clamp(14px,1.55vw,23px)/1.65 GloriaHallelujah,cursive; margin: 12px 0 0; color: #3a3440; text-shadow: 0 1px #fff1b477; }
+.menu .game-menu { width: clamp(230px,23vw,310px); gap: 15px; }
+.menu .painted-button { height: clamp(54px,7vh,67px); padding: 0 23px; border-radius: 21px; border: 2px solid #fde593; background: #3a4457; box-shadow: 0 0 0 3px #3a4457,0 0 0 5px #fde59399,0 7px 0 #27304288; color: #fde593; filter: none; transition: transform .16s,background .16s,box-shadow .16s; }
+.menu .painted-button:first-child { background: #fde593; color: #303b4d; border-color: #3a4457; box-shadow: 0 0 0 3px #fde593,0 0 0 5px #3a4457,0 7px 0 #27304288; }
+.menu .painted-button span { font: 400 clamp(16px,1.45vw,22px)/1 Thunderstrike,sans-serif; letter-spacing: .025em; transform: none; text-shadow: none; }
+.menu .painted-button::before { content: ''; left: 14px; right: 14px; top: auto; bottom: 7px; height: 3px; border-radius: 4px; background: #8ab7ac; opacity: .8; transform: none; }
+.menu .painted-button::after { content: ''; right: 18px; left: 18px; top: 6px; height: 2px; border-radius: 4px; background: #fff2bf; opacity: .3; transform: none; }
+.menu .painted-button:hover,.menu .painted-button:focus-visible { transform: translateY(-3px); filter: none; background: #496078; }
+.menu .painted-button:first-child:hover,.menu .painted-button:first-child:focus-visible { background: #fff0b7; }
+.menu .painted-button:active { transform: translateY(3px); }
+.menu .music-button { border-radius: 50%; background: #3a4457d9; color: #fde593; border: 2px solid #fde593aa; box-shadow: 0 3px 0 #27304277; }
+@media(max-width:650px) { .menu .landscape { background-position: 38% center; }.menu .title-lockup h1 { font-size: 9vw; }.menu .title-lockup p { max-width: 290px; font-size: 14px; margin: 14px auto 0; }.menu .title-screen { gap: 38px; padding: 65px 24px 30px; }.menu .game-menu { width: 235px; }.menu .painted-button { height: 57px; }.menu .painted-button span { font-size: 18px; } }
+@media(max-height:550px) { .menu .title-screen { gap: 20px; padding: 18px; }.menu .title-lockup h1 { font-size: 11vh; }.menu .title-lockup p { font-size: 13px; margin-top: 5px; }.menu .game-menu { width: 220px; gap: 10px; }.menu .painted-button { height: 43px; border-radius: 15px; }.menu .painted-button span { font-size: 16px; } }
+
+/* Fill the viewport with the illustration. */
+.menu .landscape {
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
