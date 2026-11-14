@@ -139,3 +139,20 @@
 .calcPanel .hintButton{width:clamp(65px,5vw,82px);height:clamp(65px,5vw,82px);font-size:clamp(34px,2.5vw,44px)}
 @media(max-width:800px){.calcPanel{min-height:610px}.questionSpeech>div{font-size:clamp(21px,3.5vw,29px)}.slipDiagram{min-height:155px}.calcPanel .panelBottom{padding-top:24px}}
 @media(max-width:500px){.calcPanel{padding:16px;min-height:580px}.questionSpeech>div{font-size:clamp(18px,4.5vw,23px);padding:12px}.calcFace{width:44px;height:44px;font-size:27px}.slipDiagram{padding:12px;gap:8px}.slipWheel{width:52px}.slipWheel>span{width:48px;height:48px}.slipWheel small{font-size:12px}.slipNote{font-size:12px}.slipBlocks b{width:36px}.slipBlocks strong,.slipBlocks b{font-size:18px}.slipMeasure{font-size:14px}.answerRow{font-size:20px;gap:8px}.answerRow input{width:110px;height:65px;font-size:34px}.answerFeedback{font-size:17px}.calcPanel .primaryOrange{font-size:23px;min-height:65px}.calcPanel .hintButton{width:60px;height:60px;font-size:32px}}
+
+/* Calculate question 2: APXS sensor reach */
+.questionProgress .questionProgressDone { background: #59c6bd; }
+.sensorDiagram { background:#1b1923; border-radius:24px; min-height:clamp(160px,19vh,205px); padding:clamp(15px,1.4vw,24px); display:flex; align-items:center; gap:12px; margin-bottom:clamp(16px,2vh,25px); }
+.sensorRover { flex:0 0 54px; height:55px; border-radius:12px; display:grid; place-items:center; color:#395b93; background:#fff2dc; font-size:35px; font-weight:900; }
+.sensorDistance { flex:1; min-width:0; }
+.sensorBlocks { display:flex; gap:4px; height:44px; }
+.sensorBlocks strong { flex:1; min-width:0; display:grid; place-items:center; border-radius:8px; background:#5bc6c0; color:#19343c; font-size:clamp(17px,1.4vw,23px); }
+.sensorBlocks b { flex:0 0 29px; background:#f8c64e; border-radius:6px; }
+.sensorMeasure { margin-top:13px; padding-top:6px; border-top:3px solid #fff3df; text-align:center; font-weight:900; font-size:clamp(13px,1vw,17px); }
+.sensorRock { position:relative; flex:0 0 27px; font-size:40px; color:#a65a3e; line-height:1; }
+.sensorRock small { position:absolute; right:0; top:-21px; white-space:nowrap; font-size:12px; color:#f8c64e; font-weight:900; }
+@media(max-width:500px) { .sensorDiagram { gap:7px; padding:11px; } .sensorRover { flex-basis:40px; height:42px; font-size:27px; } .sensorRock { flex-basis:20px; font-size:30px; } .sensorBlocks b { flex-basis:20px; } }
+.rover {
+  width: 150px;
+  height: auto;
+}
