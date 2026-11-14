@@ -16,7 +16,12 @@ export type RoverOptions = {
   onComplete?: () => void;
 };
 
+// Only one rover engine may own the global keyboard/drag handlers at a time.
+let activeRoverEngineDestroy: (() => void) | null = null;
+
 export function createRoverEngine(root: HTMLElement, opts: RoverOptions): () => void {
+  // React StrictMode / hot reload can mount another engine before the old one is gone.
+  activeRoverEngineDestroy?.();
   const cleanups: Array<() => void> = [];
   const on = (target: EventTarget, type: string, handler: any) => { target.addEventListener(type, handler); cleanups.push(() => target.removeEventListener(type, handler)); };
   let destroyed = false;
@@ -52,7 +57,11 @@ function assetImage(key, className = "asset-image") {
   return loadedAssets[key] ? `<img class="${className}" src="${ASSETS[key]}" alt="" draggable="false">` : "";
 }
 
-if (levelProblems.length) { const d = $('#devNote'); d.textContent = 'Level check failed: ' + levelProblems.join(' · '); d.style.display = 'block'; console.error(levelProblems); }
+if (levelProblems.length) {
+  const d = $('#devNote');
+  if (d) { d.textContent = 'Level check failed: ' + levelProblems.join(' · '); d.style.display = 'block'; }
+  console.error(levelProblems);
+}
 
 /* ================= Persistence (best-effort) ================= */
 const store = {
@@ -135,7 +144,7 @@ $('#howtoGo').onclick=()=>{ closeOv('howto'); seenHowto=true; store.set('howto',
 /* ---- Settings ---- */
 function openSettings(){ paintSettings(); openOv('settings'); }
 function paintSettings(){ root.querySelectorAll('.seg').forEach(seg=>seg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',settings[seg.dataset.set]===b.dataset.v))); }
-root.querySelectorAll('.seg').forEach(seg=>seg.addEventListener('click',e=>{
+root.querySelectorAll('.seg').forEach(seg=>on(seg,'click',e=>{
   const b=e.target.closest('button'); if(!b) return; const k=seg.dataset.set;
   if(k==='music') setMusic(b.dataset.v==='on'); else { settings[k]=b.dataset.v; store.set('settings',settings); }
   if(k==='grid'&&G.L) drawGrid(); if(k==='sfx') sfx('add'); paintSettings();
@@ -159,9 +168,25 @@ function renderReports(){
 
 /* ================= Level start ================= */
 function startLevel(i){
+  // Reset the previous mission completely before rendering the next one.
   cancelRun();
-  const L=G.L=LEVELS[i];
-  G.program=[]; G.hint=0; G.errIdx=-1; G.chipState={};
+  const L = LEVELS[i];
+  if (!L || !Number.isInteger(L.maxBlocks) || L.maxBlocks <= 0) {
+    console.error('Cannot start mission: invalid level or block limit', i, L);
+    return;
+  }
+  G.L = L;
+  G.program = [];
+  G.hint = 0;
+  G.errIdx = -1;
+  G.chipState = {};
+  const seq = $('#seq');
+  if (seq) { seq.innerHTML = ''; seq.classList.remove('locked'); }
+  const counter = $('#counter');
+  if (counter) counter.classList.remove('shake');
+  const feedback = $('#feedback');
+  if (feedback) feedback.classList.remove('pop', 'warn', 'err');
+  root.querySelectorAll('.cmd').forEach(b => b.setAttribute('aria-disabled', 'false'));
   G.rover={...L.start}; G.rot=L.start.d*90;
   if ($('#mSol')) $('#mSol').textContent='SOL '+L.sol;
   if ($('#mTitle')) $('#mTitle').textContent=L.title;
@@ -298,12 +323,24 @@ function renderSeq(){
   $('#runBtn').disabled=G.running; $('#runBtn').textContent=G.running?'Running…':'▶ Run';
   $('#clearBtn').disabled=G.running||!n;
 }
-function edited(){ G.errIdx=-1; G.chipState={}; clearFx(); if(G.L) resetRover(); renderSeq(); }
+function edited(){
+  G.errIdx=-1; G.chipState={}; clearFx();
+  // An old invalid-add animation must not persist after a valid edit.
+  $('#counter')?.classList.remove('shake');
+  $('#feedback')?.classList.remove('pop');
+  if(G.L) resetRover();
+  renderSeq();
+}
 function addCmd(c, at) {
   if (G.running) return;
 
   if (!G.L) {
     console.error("Cannot add command: mission not initialized");
+    return;
+  }
+
+  if (!Number.isInteger(G.L.maxBlocks) || G.L.maxBlocks <= 0) {
+    console.error('Invalid maxBlocks for mission', G.L);
     return;
   }
 
@@ -315,6 +352,8 @@ function addCmd(c, at) {
       ct.classList.remove("shake");
       void ct.offsetWidth;
       ct.classList.add("shake");
+      // Let the warning shake finish once; never leave its class active.
+      setTimeout(() => ct.classList.remove("shake"), 400);
     }
 
     setFeedback("warn", "No blocks left!");
@@ -328,19 +367,20 @@ function addCmd(c, at) {
   G.program.splice(at, 0, c);
   sfx("add");
   edited();
+  setFeedback("info", `${G.L.maxBlocks - G.program.length} blocks remaining.`);
 }
-function delCmd(i){ if(G.running) return; G.program.splice(i,1); sfx('remove'); edited(); }
+function delCmd(i){ if(G.running) return; G.program.splice(i,1); sfx('remove'); edited(); if(G.L) setFeedback('info', `${G.L.maxBlocks - G.program.length} blocks remaining.`); }
 function moveCmd(from,to){ if(G.running||from===to) return; to=Math.max(0,Math.min(G.program.length-1,to)); const [c]=G.program.splice(from,1); G.program.splice(to,0,c); sfx('add'); edited(); }
-$('#palette').addEventListener('click',e=>{ const b=e.target.closest('.cmd'); if(b){ ac(); addCmd(b.dataset.cmd); } });
-$('#seq').addEventListener('click',e=>{ const b=e.target.closest('[data-act]'); if(!b) return; const i=+b.closest('.chip').dataset.i;
+on($('#palette'),'click',e=>{ const b=e.target.closest('.cmd'); if(b){ ac(); addCmd(b.dataset.cmd); } });
+on($('#seq'),'click',e=>{ const b=e.target.closest('[data-act]'); if(!b) return; const i=+b.closest('.chip').dataset.i;
   if(b.dataset.act==='del') delCmd(i); else moveCmd(i, i+(b.dataset.act==='left'?-1:1)); });
 // drag & drop (palette → slot inserts; chip → slot reorders)
 on(document,'dragstart',e=>{ if(G.running){ e.preventDefault(); return; }
   const p=e.target.closest&&e.target.closest('.cmd'), ch=e.target.closest&&e.target.closest('.chip');
   if(p) e.dataTransfer.setData('text/plain','new:'+p.dataset.cmd); else if(ch) e.dataTransfer.setData('text/plain','move:'+ch.dataset.i); });
-$('#seq').addEventListener('dragover',e=>{ const s=e.target.closest('.slot'); if(!s) return; e.preventDefault(); root.querySelectorAll('.slot.over').forEach(x=>x.classList.remove('over')); s.classList.add('over'); });
-$('#seq').addEventListener('dragleave',e=>{ const s=e.target.closest('.slot'); if(s) s.classList.remove('over'); });
-$('#seq').addEventListener('drop',e=>{ const s=e.target.closest('.slot'); if(!s) return; e.preventDefault(); s.classList.remove('over');
+on($('#seq'),'dragover',e=>{ const s=e.target.closest('.slot'); if(!s) return; e.preventDefault(); root.querySelectorAll('.slot.over').forEach(x=>x.classList.remove('over')); s.classList.add('over'); });
+on($('#seq'),'dragleave',e=>{ const s=e.target.closest('.slot'); if(s) s.classList.remove('over'); });
+on($('#seq'),'drop',e=>{ const s=e.target.closest('.slot'); if(!s) return; e.preventDefault(); s.classList.remove('over');
   const d=e.dataTransfer.getData('text/plain'), i=+s.dataset.i;
   if(d.startsWith('new:')) addCmd(d.slice(4),i); else if(d.startsWith('move:')) moveCmd(+d.slice(5),i); });
 $('#clearBtn').onclick=()=>{ if(G.running||!G.program.length) return; G.program=[]; sfx('remove'); edited(); setFeedback('info','Program cleared. Plan your route and add new blocks!'); };
@@ -364,7 +404,13 @@ function setFeedback(type,html){
   if (icon) icon.textContent=({info:'i',ok:'✓',warn:'!',err:'✕'})[type];
   const body=$('#fbText');
   if (body) body.innerHTML=html;
-  f.classList.remove('pop'); void f.offsetWidth; f.classList.add('pop');
+  // Only errors should animate. Informational updates must stay still.
+  f.classList.remove('pop');
+  if (type === 'warn' || type === 'err') {
+    void f.offsetWidth;
+    f.classList.add('pop');
+    setTimeout(() => f.classList.remove('pop'), 400);
+  }
 }
 // Hints were removed from the UI. Keep the map-mark cleanup used by
 // command editing and execution, without requiring hint controls.
@@ -474,14 +520,41 @@ function success(executed){
   $('#resTip').textContent = stars===3 ? 'Perfect program — the shortest route possible! ⭐' :
     unused>0 ? `Sojourner arrived before the last ${unused} block${unused>1?'s':''} ran — remove them for more stars.` :
     `Can you find a route that uses only ${L.optimal} blocks? Fewer turns help!`;
-  $('#resNext').textContent = L.idx<LEVELS.length-1 ? 'Next Mission ▶' : 'Continue ▶';
+  $('#resNext').textContent = L.idx<LEVELS.length-1 ? 'Next Mission ▶' : 'Restart Journey ↻';
   setTimeout(()=>openOv('result'),450);
 }
 $('#resRetry').onclick=()=>{ closeOv('result'); setFeedback('info','Edit your program and press Run to try for more stars.'); };
-$('#resNext').onclick=()=>{ closeOv('result'); const L=G.L; if(L.idx<LEVELS.length-1) startLevel(L.idx+1); else if(opts.onComplete) opts.onComplete(); else { renderReports(); show('reports'); } };
+// Temporary game-state loop: PATHFINDING -> (future INVESTIGATION) -> next PATHFINDING.
+// Investigation is not implemented yet, so advance directly to the next map.
+// Completing the final map wraps back to SOL 1.
+function advanceMissionLoop(){
+  if (!G.L) return;
+  const currentIndex = LEVELS.indexOf(G.L);
+  const nextIndex = (currentIndex + 1) % LEVELS.length;
+  closeOv('result');
+  startLevel(nextIndex);
+}
+$('#resNext').onclick=advanceMissionLoop;
 
 let rz; on(window,'resize',()=>{ clearTimeout(rz); rz=setTimeout(()=>{ if(!G.running) layoutBoard(); },120); });
 if (opts.reducedMotion) settings.speed = 'fast';
+// Show the visual walkthrough once per browser on the first mobile visit.
+// Keep it separate from the old how-to overlay and the removed hint feature.
+const guide = $('#rvFirstGuide');
+const guideDone = $('#rvGuideDone');
+const guideKey = 'sojourner.mobileGuide.v1';
+let guideSeen = false;
+try { guideSeen = window.localStorage.getItem(guideKey) === 'done'; } catch (_) {}
+if (guide && guideDone && !guideSeen && window.matchMedia('(max-width: 760px)').matches) {
+  guide.hidden = false;
+  root.classList.add('rv-guide-active');
+  const finishGuide = () => {
+    guide.hidden = true;
+    root.classList.remove('rv-guide-active');
+    try { window.localStorage.setItem(guideKey, 'done'); } catch (_) {}
+  };
+  on(guideDone, 'click', finishGuide);
+}
 // Initialize synchronously so command clicks never encounter a null mission.
 // Optional PNG loading can finish later without resetting player progress.
 startLevel(0);
@@ -489,11 +562,15 @@ assetReady.then(() => {
   if (!destroyed && G.L && !G.running) layoutBoard();
 });
 
-  return function destroy() {
+  const destroy = function destroy() {
+    if (destroyed) return;
     destroyed = true;
+    if (activeRoverEngineDestroy === destroy) activeRoverEngineDestroy = null;
     cleanups.forEach((f) => f());
     clearTimeout(rz);
     cancelRun();
     try { AC && AC.close(); } catch (err) {}
   };
+  activeRoverEngineDestroy = destroy;
+  return destroy;
 }

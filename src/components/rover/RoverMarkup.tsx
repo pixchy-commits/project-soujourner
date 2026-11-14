@@ -19,6 +19,13 @@ function RoverMarkup() {
         </div>
         <div className="rv-map-area"><div className="rv-objective-banner" aria-label="Mission objective"><span className="rv-objective-icon">▣</span><span className="rv-objective-arrow">···›</span><span className="rv-objective-flag">⚑</span><span className="rv-objective-text">Reach the flag!</span></div><MapBoard /><div className="rv-facing-badge"><span className="rv-facing-arrow">➤</span><span>Facing <b id="rvFacingDisplay">up</b></span></div></div>
         <CommandPanel />
+        <div id="rvFirstGuide" className="rv-first-guide" role="dialog" aria-modal="true" aria-label="First-time rover guide" hidden>
+          <div className="rv-guide-shade" aria-hidden="true" />
+          <div className="rv-guide-card rv-guide-one"><span className="rv-guide-number">1</span><span>Find the rover<br/>and the flag</span></div>
+          <div className="rv-guide-card rv-guide-two"><span className="rv-guide-number">2</span><span>Tap moves to<br/>build a path</span></div>
+          <div className="rv-guide-card rv-guide-three"><span className="rv-guide-number">3</span><span>Press Run<br/>and watch!</span></div>
+          <button id="rvGuideDone" type="button" className="rv-guide-done">Let&apos;s go!</button>
+        </div>
       </main>
     </section>
     <Dialogs />

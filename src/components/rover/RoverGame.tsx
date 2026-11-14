@@ -7,6 +7,26 @@ import { ROVER_ASSETS, type RoverAssets } from "@/lib/rover/assets";
 import { createRoverEngine } from "./engine";
 import RoverMarkup from "./RoverMarkup";
 
+type RoverProgress = Record<string, { stars: number; best: number }>;
+const PROGRESS_KEY = "sojourner-rover-progress-v1";
+
+function readRoverProgress(): RoverProgress {
+  try {
+    const value = JSON.parse(window.localStorage.getItem(PROGRESS_KEY) ?? "{}");
+    return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveRoverProgress(progress: RoverProgress): void {
+  try {
+    window.localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  } catch (error) {
+    console.warn("Could not save rover progress:", error);
+  }
+}
+
 type Props = {
   /** Called when the player finishes the last mission. */
   onComplete: () => void;
@@ -27,8 +47,8 @@ export default function RoverGame({ onComplete, onExit, reducedMotion = false, a
     return createRoverEngine(el, {
       assets,
       reducedMotion,
-      initialProgress: useGameStore.getState().roverProgress,
-      onProgress: (progress) => useGameStore.getState().setRoverProgress(progress),
+      initialProgress: readRoverProgress(),
+      onProgress: saveRoverProgress,
       onComplete: () => latest.current(),
     });
   }, [assets, reducedMotion]);
