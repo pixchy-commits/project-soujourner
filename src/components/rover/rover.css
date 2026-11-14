@@ -368,3 +368,363 @@
 .rv{position:absolute;inset:0;height:auto;z-index:6}
 .rv .rv-exit{position:absolute;z-index:40;left:14px;bottom:12px;padding:8px 10px;font:10px "Courier New",monospace;letter-spacing:.14em;color:#d3c2a7;opacity:.8;background:none;border:0;cursor:pointer}
 .rv .rv-exit:hover{opacity:1}
+
+/* Reference-inspired orbital mission interface. Asset slots are deliberately optional. */
+.rv{--rv-ui-text:#f2e5cb;--rv-ui-edge:#958d7e;--rv-ui-cyan:#72c9cb;--rv-ui-orange:#d66a2f;--rv-rover-portrait:none;--rv-map-frame-texture:none;}
+.rv #game{background:#0b0d12!important;color:var(--rv-ui-text)}
+.rv #game::before{inset:0!important;filter:none!important;opacity:1!important;background:radial-gradient(ellipse at 40% 45%,#292e31 0%,#11131b 70%)!important}
+.rv main.play{position:relative!important;display:block!important;height:100dvh!important;overflow:hidden!important;padding:0!important}
+.rv .rv-topbar{position:absolute;top:0;left:0;right:0;height:58px;z-index:24;display:flex;align-items:center;justify-content:center;background:#0a0d13f5;border-bottom:1px solid #68696066}
+.rv #mission{position:absolute!important;left:32px!important;top:0!important;transform:none!important;width:auto!important;height:58px!important;display:flex!important;flex-direction:row!important;gap:12px!important;align-items:center!important;justify-content:flex-start!important;padding:0!important;pointer-events:none;background:none!important;border:0!important;box-shadow:none!important;z-index:25!important}
+.rv #mission>*{display:none!important}
+.rv #mission #mSol{display:inline-flex!important;position:static!important;background:transparent!important;border:1px solid #aaa08d!important;border-radius:0!important;color:#f1e4c9!important;font:700 11px/1 ui-monospace,monospace!important;letter-spacing:.12em;padding:6px 10px!important}
+.rv #mission #mTitle{display:block!important;font:700 12px/1.2 ui-monospace,monospace!important;color:#f7e7c9!important;letter-spacing:.23em!important;text-transform:uppercase;text-shadow:none!important;white-space:nowrap}
+.rv .rv-levels{display:flex;align-items:center;gap:10px;color:#c9c2b3;font:11px ui-monospace,monospace}
+.rv .rv-levels span{display:grid;place-items:center;width:30px;height:32px;border:1px solid #4b4c4e}
+.rv .rv-levels span:nth-of-type(2){background:#eee1c5;color:#0e1118;border-color:#eee1c5;font-weight:bold}
+.rv .rv-levels i{width:22px;height:1px;background:#77746b}
+.rv .rv-top-decor{position:absolute;right:20px;letter-spacing:1em;color:#d2bb9b}
+.rv #mapPanel{position:absolute!important;top:77px!important;left:32px!important;right:calc(clamp(340px,37vw,475px) + 28px)!important;bottom:135px!important;inset:auto!important;top:77px!important;left:32px!important;right:calc(clamp(340px,37vw,475px) + 28px)!important;bottom:135px!important;display:flex!important;background:#c7b99b!important;border:2px solid #e3d3ad!important;border-radius:18px!important;box-shadow:inset 0 0 0 1px #635748,0 0 0 1px #0e1016!important;padding:19px!important;overflow:hidden}
+.rv #mapWrap{position:relative!important;inset:auto!important;flex:1!important;border-radius:10px!important;background:linear-gradient(#593024,#8d4c32)!important;overflow:hidden!important;min-height:0!important}
+.rv #board{transform:none!important}
+.rv #terrain{border-radius:0!important;box-shadow:none!important}
+.rv #prog{position:absolute!important;right:16px!important;top:125px!important;bottom:135px!important;left:auto!important;width:clamp(340px,37vw,475px)!important;height:auto!important;max-height:none!important;display:flex!important;flex-direction:column!important;gap:12px!important;padding:22px 20px 18px!important;background:#121820!important;color:#efe4ce!important;border:1px solid #9a968d!important;border-radius:0!important;box-shadow:none!important;overflow:auto!important}
+.rv #prog::before{display:none!important}
+.rv .rv-panel-legend{position:absolute;top:-1px;left:13px;background:#0e131b;border:1px solid #99988f;padding:2px 8px;color:#f2e5c9;font:700 10px ui-monospace,monospace;letter-spacing:.15em}
+.rv #prog .rv-step{font:11px ui-monospace,monospace;letter-spacing:.17em;color:#dfc9a7;margin-top:6px}
+.rv #prog .rv-step small{float:right;font:10px ui-monospace,monospace;letter-spacing:0;color:#c9ac82}
+.rv #prog .palette{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}
+.rv #prog .cmd{min-width:0;background:#394d76!important;border:2px solid #8294b6!important;border-radius:0!important;color:#f8ebd4!important;box-shadow:inset 0 -3px #203251!important;min-height:96px;font:700 12px/1.2 system-ui,sans-serif!important;letter-spacing:0!important}
+.rv #prog .cmd.F{background:#f1e5ca!important;color:#0c1420!important;border-color:#f8eeda!important;box-shadow:inset 0 -4px #bdb4a0!important}
+.rv #prog .cmd kbd{background:none!important;border:0!important;color:inherit!important;font:9px ui-monospace,monospace!important}
+.rv #prog .counter{display:grid!important;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:0!important}
+.rv #prog .counter .label{color:#e8cda3!important}
+.rv #prog .counter .bar{grid-column:1/-1;grid-row:2;height:7px!important;background:#323b45!important;border:0!important}
+.rv #prog .counter .bar i{background:#77c8c9!important}
+.rv #prog .counter b{font-size:15px!important;color:#f6e5c7!important}
+.rv #prog .seq{min-height:155px!important;background:#0b121b!important;border:1px dashed #69717a!important;border-radius:0!important;padding:10px!important}
+.rv #prog .slot{border:1px dashed #56616b!important;border-radius:0!important}
+.rv #prog .chip.F{background:#f0e4ca!important;color:#111b28!important}
+.rv #prog .chip.L,.rv #prog .chip.R{background:#394d76!important}
+.rv #prog .rv-seq-help{font:11px/1.5 system-ui,sans-serif;color:#c4a987}
+.rv #prog .runRow{display:grid!important;grid-template-columns:2fr 1fr 1fr!important;gap:8px!important;margin-top:0!important}
+.rv #prog #runBtn{grid-column:auto!important;background:#d56b30!important;color:#0b1118!important;border:0!important;min-height:55px!important;font-weight:800!important}
+.rv #prog .ci-btn.small{font-size:10px!important}
+.rv #prog .kbdHelp{margin-top:auto;font-size:10px!important}
+.rv #tipsHud{position:absolute!important;z-index:23!important;top:auto!important;left:32px!important;right:16px!important;bottom:40px!important;width:auto!important;height:77px!important;display:flex!important;flex-direction:row!important;align-items:center!important;gap:15px!important;padding:8px 16px!important;background:#111820!important;border:1px solid #97958b!important;border-radius:0!important;box-shadow:none!important;color:#f3e5cc!important;backdrop-filter:none!important}
+.rv #tipsHud::before{display:none!important}
+.rv .rv-rover-portrait{flex:none;width:78px;height:60px;border:1px solid #bd9d76;background-image:var(--rv-rover-portrait),linear-gradient(135deg,#ab5c34,#513529);background-position:center;background-size:cover;display:grid;place-items:center;color:#e8c4a1;font-size:30px}
+.rv .rv-tip-copy{flex:1;min-width:0}
+.rv #tipsHud .tipsLabel{padding:0!important;border:0!important;color:#bca780!important;font-size:9px!important}
+.rv #tipsHud #feedback{background:none!important;border:0!important;padding:3px 0!important;min-height:0!important;color:#f2e4cf!important;font:600 13px/1.4 system-ui,sans-serif!important}
+.rv #tipsHud #feedback .fi{display:none!important}
+.rv #tipsHud .hintRow{flex:none;display:flex;gap:10px;align-items:center}
+.rv #tipsHud .ci-btn{white-space:nowrap}
+.rv #tipsHud .hintDots i{border-color:#6ac7c8!important;border-radius:50%!important}
+.rv .rv-exit{bottom:8px!important;left:32px!important;z-index:41}
+@media(max-width:1050px){.rv #mapPanel{right:calc(340px + 18px)!important;left:14px!important}.rv #prog{width:340px!important;right:8px!important}.rv #tipsHud{left:14px!important;right:8px!important}.rv #mission{left:14px!important}}
+@media(max-width:740px){.rv{overflow:auto!important}.rv main.play{height:100dvh!important;overflow:auto!important}.rv .rv-levels,.rv .rv-top-decor{display:none}.rv #mapPanel{top:70px!important;left:10px!important;right:10px!important;bottom:auto!important;height:42vh!important;padding:10px!important}.rv #prog{top:calc(42vh + 82px)!important;left:10px!important;right:10px!important;width:auto!important;bottom:112px!important;padding:17px 10px!important}.rv #tipsHud{bottom:22px!important;left:10px!important;right:10px!important;height:83px!important;padding:7px!important;gap:8px!important}.rv .rv-rover-portrait{width:48px;height:50px}.rv #tipsHud #feedback{font-size:11px!important}.rv #tipsHud .ci-btn{font-size:9px!important;padding:5px!important}.rv #mission{left:10px!important}}
+
+
+/* FINAL LAYOUT FIX: keep the header, board, controls and tips in separate layers. */
+.rv main.play { position:relative!important; height:100dvh!important; min-height:0!important; overflow:hidden!important; }
+.rv .rv-topbar { position:absolute!important; inset:0 0 auto!important; height:64px!important; z-index:20!important; display:flex!important; align-items:center!important; justify-content:flex-end!important; padding:0 32px!important; }
+.rv .rv-top-decor { display:none!important; }
+.rv .rv-levels { position:relative!important; margin-right:0!important; gap:8px!important; }
+.rv #mission { position:absolute!important; top:0!important; left:0!important; width:100%!important; max-width:none!important; height:64px!important; transform:none!important; z-index:22!important; padding:0 32px!important; display:block!important; text-align:center!important; pointer-events:none!important; }
+.rv #mission::before { display:none!important; }
+.rv #mission #mSol { position:absolute!important; left:32px!important; top:17px!important; display:inline-flex!important; margin:0!important; }
+.rv #mission #mTitle { position:absolute!important; top:50%!important; left:50%!important; transform:translate(-50%,-50%)!important; width:max-content!important; max-width:32vw!important; white-space:normal!important; margin:0!important; text-align:center!important; font-size:clamp(13px,1.25vw,18px)!important; }
+.rv #mapPanel { inset:78px calc(clamp(340px,35vw,475px) + 44px) 136px 32px!important; width:auto!important; height:auto!important; min-width:0!important; min-height:0!important; padding:18px!important; }
+.rv #mapWrap { position:relative!important; inset:auto!important; width:100%!important; height:100%!important; min-height:0!important; }
+.rv #prog { inset:78px 16px 136px auto!important; width:clamp(340px,35vw,475px)!important; height:auto!important; max-height:none!important; min-height:0!important; }
+.rv #tipsHud { position:absolute!important; inset:auto 16px 42px 32px!important; width:auto!important; height:78px!important; z-index:23!important; }
+.rv .rv-exit { z-index:30!important; }
+@media(max-width:1100px){
+ .rv #mapPanel { left:14px!important; right:calc(340px + 26px)!important; }
+ .rv #prog { right:8px!important; width:340px!important; }
+ .rv #tipsHud { left:14px!important; right:8px!important; }
+ .rv #mission #mSol { left:14px!important; }
+ .rv .rv-topbar { padding-right:12px!important; }
+ .rv .rv-levels { gap:4px!important; }
+ .rv .rv-levels i { width:9px!important; }
+}
+@media(max-width:740px){
+ .rv main.play { overflow:auto!important; min-height:100dvh!important; height:auto!important; padding-bottom:0!important; }
+ .rv .rv-topbar { height:62px!important; }
+ .rv #mission { height:62px!important; }
+ .rv #mission #mTitle { max-width:60vw!important; }
+ .rv #mapPanel { position:relative!important; inset:auto!important; margin:72px 10px 12px!important; height:min(56vh,540px)!important; }
+ .rv #prog { position:relative!important; inset:auto!important; width:auto!important; margin:0 10px 12px!important; height:auto!important; max-height:none!important; overflow:visible!important; }
+ .rv #tipsHud { position:relative!important; inset:auto!important; width:auto!important; height:auto!important; min-height:78px!important; margin:0 10px 54px!important; }
+}
+
+/* ===== Mockup-inspired responsive game layout (single source of positioning) =====
+   Keep the earlier archive palette and controls; replace absolute panel
+   positioning with a grid so panels never collide. */
+.rv #game .rv-mockup-layout {
+  display:grid!important;
+  grid-template-columns:minmax(0,1.48fr) minmax(330px,0.92fr)!important;
+  grid-template-rows:58px minmax(0,1fr) 92px 26px!important;
+  grid-template-areas:"header header" "map controls" "tips tips" "footer footer"!important;
+  gap:12px 16px!important;
+  padding:0 24px 8px!important;
+  width:100%!important;
+  height:100dvh!important;
+  overflow:hidden!important;
+  align-items:stretch!important;
+  background:radial-gradient(ellipse at 35% 45%,#242932 0%,#10131b 70%);
+}
+.rv .rv-mockup-layout > .rv-topbar {
+  grid-area:header;position:relative!important;inset:auto!important;
+  height:58px!important;margin:0 -24px!important;padding:0 24px!important;
+  display:grid!important;grid-template-columns:minmax(240px,1fr) auto minmax(70px,1fr);
+  align-items:center;gap:12px;background:#0a0d13!important;
+  border-bottom:1px solid #77706377;
+}
+.rv .rv-brand{font:700 11px/1.4 ui-monospace,monospace;letter-spacing:.16em;color:#cdbb98;white-space:nowrap}
+.rv .rv-brand span{color:#79736c}
+.rv .rv-mockup-layout .rv-levels{position:static!important;justify-self:center}
+.rv .rv-mockup-layout .rv-top-decor{position:static!important;justify-self:end}
+.rv .rv-mockup-layout #mission {
+  grid-area:header;position:relative!important;inset:auto!important;
+  left:auto!important;top:auto!important;transform:none!important;
+  z-index:26!important;pointer-events:none!important;
+  justify-self:start;align-self:center;margin-left:220px;
+  height:auto!important;width:auto!important;max-width:none!important;
+  display:flex!important;flex-direction:row!important;gap:9px!important;
+  background:none!important;border:0!important;box-shadow:none!important;padding:0!important;
+}
+.rv .rv-mockup-layout #mission::before{display:none!important}
+.rv .rv-mockup-layout #mission #mSol{display:inline-flex!important;font-size:10px!important;padding:5px 7px!important}
+.rv .rv-mockup-layout #mission #mTitle{display:block!important;font-size:11px!important;letter-spacing:.08em!important;max-width:150px;overflow:hidden;text-overflow:ellipsis}
+.rv .rv-mockup-layout #mapPanel {
+  grid-area:map;position:relative!important;inset:auto!important;
+  top:auto!important;right:auto!important;bottom:auto!important;left:auto!important;
+  width:auto!important;height:auto!important;min-width:0!important;min-height:0!important;
+  margin:0!important;padding:15px!important;
+  background:#c7b99b!important;border:2px solid #e3d3ad!important;
+  border-radius:17px!important;box-shadow:inset 0 0 0 1px #635748!important;
+  display:flex!important;overflow:hidden!important;
+}
+.rv .rv-mockup-layout #mapWrap {
+  position:relative!important;inset:auto!important;flex:1!important;
+  min-height:0!important;min-width:0!important;
+  background:linear-gradient(155deg,#583024,#a2603e)!important;
+  border-radius:10px!important;display:grid!important;place-items:center!important;
+  overflow:hidden!important;
+}
+.rv .rv-mockup-layout #prog {
+  grid-area:controls;position:relative!important;inset:auto!important;
+  top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;
+  width:auto!important;height:auto!important;max-height:none!important;
+  min-width:0!important;min-height:0!important;
+  margin:0!important;padding:22px 18px 16px!important;
+  overflow:auto!important;display:flex!important;
+  background:#121820!important;border:1px solid #9a968d!important;
+  border-radius:0!important;box-shadow:none!important;
+}
+.rv .rv-mockup-layout #prog .palette{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.rv .rv-mockup-layout #prog .cmd{min-height:78px!important}
+.rv .rv-mockup-layout #prog .seq{min-height:110px!important}
+.rv .rv-mockup-layout #tipsHud {
+  grid-area:tips;position:relative!important;inset:auto!important;
+  top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;
+  width:auto!important;height:auto!important;min-width:0!important;min-height:0!important;
+  padding:10px 16px!important;margin:0!important;
+  display:flex!important;flex-direction:row!important;align-items:center!important;
+  gap:15px!important;overflow:hidden!important;
+  background:#111820!important;border:1px solid #97958b!important;
+  border-radius:0!important;box-shadow:none!important;
+}
+.rv .rv-mockup-layout #tipsHud .rv-tip-copy{flex:1;min-width:0}
+.rv .rv-mockup-layout #tipsHud #feedback{min-height:0!important}
+.rv .rv-mockup-layout #tipsHud .hintRow{flex:none}
+.rv .rv-footer{grid-area:footer;display:flex;justify-content:space-between;align-items:center;
+  color:#bca98b;font:9px/1.3 ui-monospace,monospace;letter-spacing:.12em;min-width:0}
+.rv .rv-footer span{color:#8d918f;letter-spacing:.02em}
+.rv .rv-mockup-layout .rv-exit{position:fixed!important;bottom:5px!important}
+@media(max-width:1150px){
+ .rv #game .rv-mockup-layout{grid-template-columns:minmax(0,1.2fr) minmax(310px,.95fr)!important;padding-left:14px!important;padding-right:14px!important;gap:10px!important}
+ .rv .rv-mockup-layout>.rv-topbar{margin:0 -14px!important;padding:0 14px!important}
+ .rv .rv-brand{font-size:9px;letter-spacing:.08em}
+ .rv .rv-mockup-layout #mission{margin-left:175px}
+ .rv .rv-mockup-layout #prog{padding:19px 12px!important}
+}
+@media(max-width:800px){
+ .rv{overflow:auto!important}
+ .rv #game{position:relative!important;min-height:100dvh!important}
+ .rv #game .rv-mockup-layout{
+  height:auto!important;min-height:100dvh!important;overflow:visible!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:58px minmax(360px,55vh) auto auto 26px!important;
+  grid-template-areas:"header" "map" "controls" "tips" "footer"!important;
+ }
+ .rv .rv-mockup-layout .rv-levels{display:none!important}
+ .rv .rv-mockup-layout>.rv-topbar{grid-template-columns:1fr auto}
+ .rv .rv-mockup-layout #mission{margin-left:0;justify-self:center;max-width:45vw!important}
+ .rv .rv-mockup-layout #mission #mSol{display:none!important}
+ .rv .rv-mockup-layout #prog{min-height:410px!important;overflow:visible!important}
+ .rv .rv-mockup-layout #tipsHud{min-height:86px!important;overflow:visible!important}
+}
+@media(max-width:480px){
+ .rv .rv-mockup-layout .rv-brand{font-size:8px;max-width:120px;white-space:normal}
+ .rv .rv-mockup-layout #mission{margin-left:32px}
+ .rv .rv-mockup-layout #mission #mTitle{font-size:10px!important}
+ .rv .rv-mockup-layout #mapPanel{padding:9px!important}
+ .rv .rv-mockup-layout #tipsHud{flex-wrap:wrap!important;height:auto!important}
+ .rv .rv-mockup-layout #tipsHud .hintRow{width:100%;justify-content:flex-end}
+ .rv .rv-footer span{display:none}
+}
+
+/* ===== Screenshot-matched UI: visual layer only, engine DOM IDs retained ===== */
+.rv { --rv-cream:#fff3db; --rv-ink:#202337; --rv-teal:#82d9d1; --rv-navy:#36496e; }
+.rv #game { background:#9b5a39!important; color:var(--rv-cream)!important; }
+.rv #game::before { inset:0!important; background:linear-gradient(90deg,rgba(160,82,48,.16),rgba(116,53,32,.10)),url('./mars-surface.jpg') center/cover no-repeat!important; filter:none!important; opacity:1!important; }
+.rv #game::after { background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(35,12,4,.018) 3px 4px)!important;opacity:.4!important; }
+.rv #game .rv-reference-ui { position:relative!important;display:grid!important;grid-template-columns:minmax(0,1.54fr) minmax(340px,.92fr)!important;grid-template-rows:76px minmax(0,1fr)!important;column-gap:clamp(22px,4vw,72px)!important;row-gap:0!important;padding:0 clamp(22px,2.3vw,44px) clamp(22px,3vh,38px)!important;width:100%!important;height:100dvh!important;overflow:hidden!important;align-items:stretch!important;background:transparent!important; }
+.rv .rv-reference-header {grid-column:1/-1;grid-row:1;display:flex;align-items:flex-start;gap:12px;justify-content:flex-start;padding-top:12px;position:relative;z-index:10;min-width:0;}
+.rv .rv-circle {flex:none;width:57px;height:57px;border:2px solid #92867e!important;border-radius:50%!important;background:#2b2931!important;color:#fff4dc!important;display:grid;place-items:center;font:700 32px/1 system-ui,sans-serif!important;box-shadow:0 3px 0 #2a1b19a0;cursor:pointer;}
+.rv .rv-home {font-size:38px!important;}
+.rv .rv-mission-pill {display:flex;align-items:center;height:57px;min-width:0;gap:15px;background:#302a31;border:2px solid #9a8b80;border-radius:40px;padding:5px 17px 5px 6px;box-shadow:0 4px 0 #482f28a8;}
+.rv .rv-reference-ui #mission {position:static!important;inset:auto!important;transform:none!important;z-index:auto!important;width:auto!important;height:auto!important;max-width:none!important;min-width:0!important;display:flex!important;align-items:center!important;flex-direction:row!important;justify-content:flex-start!important;gap:13px!important;padding:0!important;margin:0!important;pointer-events:none!important;white-space:nowrap;}
+.rv .rv-reference-ui #mission::before {display:none!important;}
+.rv .rv-reference-ui #mission>* {display:none!important;}
+.rv .rv-reference-ui #mission #mSol {display:inline-flex!important;align-items:center;justify-content:center;background:#fff3db!important;color:#202337!important;border:0!important;border-radius:30px!important;padding:9px 13px!important;font:900 16px/1.2 system-ui,sans-serif!important;letter-spacing:0!important;text-transform:capitalize!important;white-space:nowrap;}
+.rv .rv-reference-ui #mission #mTitle {display:block!important;max-width:240px!important;overflow:hidden;text-overflow:ellipsis;font:900 clamp(15px,1.25vw,21px)/1.2 system-ui,sans-serif!important;letter-spacing:-.025em!important;text-transform:none!important;color:#fff2d9!important;text-shadow:none!important;white-space:nowrap;}
+.rv .rv-milestone-dots {display:flex;gap:7px;align-items:center;flex:none;}
+.rv .rv-milestone-dots i {width:14px;height:14px;border-radius:50%;background:#655e63;}
+.rv .rv-milestone-dots i:first-child {background:#82d9d1;}
+.rv .rv-milestone-dots i:nth-child(2) {background:#fff1d7;outline:3px solid #82777a;}
+.rv .rv-header-actions {margin-left:auto;display:flex;gap:12px;}
+.rv .rv-music {background:#44261e!important;border-color:#ab7d69!important;font-size:29px!important;}
+.rv .rv-settings {font-size:31px!important;}
+.rv .rv-map-area {grid-column:1;grid-row:2;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;min-height:0;gap:12px;padding-top:0;}
+.rv .rv-objective-banner {flex:none;display:flex;align-items:center;gap:11px;border-radius:40px;background:#fff3db;color:#202337;padding:12px 19px;min-height:54px;box-shadow:0 5px 12px #4e271e35;font:900 clamp(14px,1.2vw,19px)/1.2 system-ui,sans-serif;}
+.rv .rv-objective-icon {color:#314a73;font-size:25px}.rv .rv-objective-arrow{font-size:24px;letter-spacing:-2px}.rv .rv-objective-flag{font-size:27px;color:#1c6b73}.rv .rv-objective-text{white-space:nowrap}
+.rv .rv-reference-ui #mapPanel {position:relative!important;inset:auto!important;top:auto!important;right:auto!important;bottom:auto!important;left:auto!important;display:flex!important;align-items:center!important;justify-content:center!important;flex:1 1 auto!important;width:100%!important;height:auto!important;min-width:0!important;min-height:0!important;margin:0!important;padding:0!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow:visible!important;}
+.rv .rv-reference-ui #mapWrap {position:relative!important;inset:auto!important;flex:1 1 auto!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;background:transparent!important;overflow:hidden!important;display:grid!important;place-items:center!important;}
+.rv .rv-reference-ui #board {transform:none!important;overflow:visible;}
+.rv .rv-reference-ui #terrain {border-radius:0!important;box-shadow:none!important;opacity:.16!important;}
+.rv .rv-reference-ui #gridSvg {opacity:1!important;}
+.rv .rv-reference-ui #gridSvg rect {rx:12px;}
+.rv .rv-facing-badge {align-self:flex-start;display:flex;align-items:center;gap:11px;background:#302b33;border:2px solid #8e8580;border-radius:40px;padding:5px 16px 5px 6px;color:#fff3dc;font:800 16px/1 system-ui,sans-serif;box-shadow:0 3px 0 #4b291e7a;margin-left:clamp(0px,4vw,110px);}
+.rv .rv-facing-arrow {display:grid;place-items:center;width:42px;height:42px;background:#fff3dc;color:#202337;border-radius:50%;font-size:26px;transform:rotate(-90deg);}
+.rv .rv-reference-ui #prog {grid-column:2;grid-row:2;position:relative!important;inset:auto!important;top:auto!important;right:auto!important;bottom:auto!important;left:auto!important;width:100%!important;height:auto!important;max-height:none!important;min-width:0!important;min-height:0!important;align-self:center!important;display:flex!important;flex-direction:column!important;gap:clamp(15px,2.6vh,30px)!important;padding:24px clamp(18px,1.8vw,30px) 28px!important;margin:0!important;background:linear-gradient(150deg,#292630f7,#21222ef9)!important;border:2px solid #676776!important;border-radius:34px!important;box-shadow:0 6px 20px #43241f40!important;color:#fff3db!important;overflow:auto!important;max-height:100%!important;}
+.rv .rv-reference-ui #prog::before {display:none!important;}
+.rv .rv-control-top {height:44px;flex:none;position:relative;display:flex;align-items:center;justify-content:center;}
+.rv .rv-handle {width:55px;height:6px;border-radius:20px;background:#777277;align-self:flex-start;}
+.rv .rv-top-buttons {position:absolute;right:0;top:0;display:flex;gap:10px;}
+.rv .rv-help-round,.rv .rv-next-round {display:grid;place-items:center;border:2px solid #827c80!important;border-radius:50%!important;width:44px;height:44px;background:#292833!important;color:#fff3db!important;font-size:26px!important;}
+.rv .rv-help-round {background:#f5c14d!important;color:#222538!important;border-color:#f5c14d!important;box-shadow:0 4px 0 #bb8c35!important;}
+.rv .rv-reference-ui #prog .palette {display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important;flex:none;}
+.rv .rv-reference-ui #prog .cmd {min-height:clamp(95px,12vh,134px)!important;min-width:0!important;padding:12px 3px!important;border:3px solid #8da5d0!important;border-radius:25px!important;background:linear-gradient(#465c84,#2b3958)!important;box-shadow:0 5px 0 #1c2841!important;color:#fff4df!important;display:flex!important;align-items:center!important;justify-content:center!important;flex-direction:column!important;gap:10px!important;font:900 clamp(13px,1vw,17px)/1.1 system-ui,sans-serif!important;text-shadow:none!important;letter-spacing:-.02em!important;}
+.rv .rv-reference-ui #prog .cmd.F {background:linear-gradient(#fff7e9,#ecdfc0)!important;color:#1e263a!important;border-color:#fff7e9!important;box-shadow:0 5px 0 #b8ac8e!important;}
+.rv .rv-reference-ui #prog .cmd svg {width:clamp(30px,3vw,46px)!important;height:clamp(30px,3vw,46px)!important;}
+.rv .rv-reference-ui #prog .cmd.F svg path {fill:#202a43!important;stroke:#202a43!important;}
+.rv .rv-reference-ui #prog .counter {display:grid!important;grid-template-columns:1fr auto auto!important;gap:12px!important;align-items:center!important;padding:0!important;}
+.rv .rv-reference-ui #prog .counter .label {font:900 clamp(15px,1.2vw,19px)/1.2 system-ui,sans-serif!important;letter-spacing:-.03em!important;color:#fff4e1!important;text-transform:none!important;}
+.rv .rv-reference-ui #prog .counter .bar {grid-column:2!important;grid-row:1!important;width:clamp(65px,9vw,140px)!important;height:13px!important;border:0!important;border-radius:0!important;background:repeating-linear-gradient(90deg,#5c5860 0 13px,transparent 13px 17px)!important;overflow:visible!important;}
+.rv .rv-reference-ui #prog .counter .bar i {height:100%!important;background:#83d9d0!important;border-radius:0!important;}
+.rv .rv-reference-ui #prog .counter b {grid-column:3!important;grid-row:1!important;min-width:0!important;font:900 16px system-ui,sans-serif!important;color:#fff4e1!important;white-space:nowrap;}
+.rv .rv-reference-ui #prog .seq {display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:8px!important;align-content:start!important;padding:13px!important;min-height:0!important;flex:0 1 auto!important;background:#161820!important;border:0!important;border-radius:26px!important;}
+.rv .rv-reference-ui #prog .slot {aspect-ratio:1!important;border:2px dashed #5b5860!important;border-radius:18px!important;color:#777179!important;font:900 15px system-ui,sans-serif!important;}
+.rv .rv-reference-ui #prog .chip {border:2px solid #f4e9d2!important;border-radius:18px!important;background:#fff4dd!important;color:#1c2840!important;box-shadow:0 4px 0 #aaa08b!important;}
+.rv .rv-reference-ui #prog .chip.F {background:#fff4dd!important;color:#1c2840!important;}
+.rv .rv-reference-ui #prog .chip.L,.rv .rv-reference-ui #prog .chip.R {background:linear-gradient(#4a628b,#314361)!important;color:#fff4dd!important;border-color:#8fa7d1!important;box-shadow:0 4px 0 #1c2841!important;}
+.rv .rv-reference-ui #prog .chip.F svg path {fill:#1f2c48!important;stroke:#1f2c48!important;}
+.rv .rv-reference-ui #prog .chip .n {font:900 11px system-ui,sans-serif!important;top:6px!important;left:7px!important;}
+.rv .rv-control-spacer {flex:1 1 12px;min-height:0;}
+.rv .rv-reference-ui #prog .runRow {display:grid!important;grid-template-columns:minmax(0,2.6fr) 62px 62px!important;gap:12px!important;align-items:center;flex:none;}
+.rv .rv-reference-ui #prog .runRow .ci-btn {height:61px!important;min-width:0!important;padding:0!important;border-radius:50%!important;border:2px solid #888189!important;background:#302e38!important;color:#fff3db!important;font:800 30px/1 system-ui,sans-serif!important;box-shadow:none!important;}
+.rv .rv-reference-ui #prog .runRow #runBtn {grid-column:auto!important;background:linear-gradient(#ef7c37,#d05e29)!important;color:#fff8e9!important;border:0!important;border-radius:60px!important;box-shadow:0 5px 0 #994321!important;font:900 clamp(17px,1.5vw,24px)/1 system-ui,sans-serif!important;}
+.rv .rv-reference-ui #prog .kbdHelp {display:none!important;}
+.rv .rv-hidden-tips {position:absolute!important;top:auto!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important;pointer-events:none!important;}
+.rv .rv-reference-ui #prog .rv-top-buttons button:focus-visible,.rv .rv-reference-ui button:focus-visible{outline:3px solid #83d9d0!important;outline-offset:3px;}
+@media(max-width:1050px){.rv #game .rv-reference-ui{grid-template-columns:minmax(0,1.15fr) minmax(320px,.9fr)!important;column-gap:20px!important;padding-left:16px!important;padding-right:16px!important}.rv .rv-reference-ui #prog{padding:18px 14px!important;border-radius:25px!important;gap:15px!important}.rv .rv-reference-ui #prog .cmd{min-height:90px!important;border-radius:18px!important}.rv .rv-reference-ui #prog .runRow{grid-template-columns:minmax(0,2fr) 48px 48px!important;gap:7px!important}.rv .rv-reference-ui #prog .runRow .ci-btn{height:49px!important}.rv .rv-reference-ui #prog .seq{gap:5px!important;padding:9px!important}.rv .rv-reference-ui #prog .slot,.rv .rv-reference-ui #prog .chip{border-radius:11px!important}}
+@media(max-width:760px){.rv{overflow:auto!important}.rv #game{position:relative!important;min-height:100dvh!important}.rv #game .rv-reference-ui{height:auto!important;min-height:100dvh!important;overflow:visible!important;display:flex!important;flex-direction:column!important;gap:18px!important;padding:0 12px 24px!important}.rv .rv-reference-header{width:100%;height:68px;flex:none}.rv .rv-circle{width:43px;height:43px;font-size:23px!important}.rv .rv-mission-pill{height:43px;padding:4px 9px 4px 4px;gap:7px}.rv .rv-reference-ui #mission #mSol{font-size:11px!important;padding:7px!important}.rv .rv-reference-ui #mission #mTitle{font-size:12px!important;max-width:105px!important}.rv .rv-milestone-dots{gap:4px}.rv .rv-milestone-dots i{width:7px;height:7px}.rv .rv-header-actions{gap:5px}.rv .rv-map-area{width:100%;height:min(73vw,550px);min-height:320px;flex:none}.rv .rv-objective-banner{padding:9px 13px;min-height:42px;font-size:13px}.rv .rv-reference-ui #prog{width:100%!important;max-height:none!important;overflow:visible!important;min-height:420px!important;flex:none}.rv .rv-facing-badge{font-size:12px}.rv .rv-facing-arrow{width:31px;height:31px}}
+
+.rv .rv-reference-ui .target .tag {display:none!important;}
+.rv .rv-reference-ui .target::after {content:"⚑";position:absolute;left:42%;top:23%;font:900 clamp(22px,3vw,45px)/1 system-ui,sans-serif;color:#1e5266;text-shadow:1px 2px #152b36;}
+.rv .rv-reference-ui #prog .counter .bar {background:repeating-linear-gradient(90deg,#57535d 0 11px,transparent 11px 15px)!important;}
+
+/* 2026-11-14: Header collision fix. Override obsolete full-width HUD positioning. */
+.rv #game .rv-reference-ui > .rv-reference-header {
+  position:relative!important;
+  grid-column:1 / -1!important;
+  grid-row:1!important;
+  height:76px!important;
+  min-height:76px!important;
+  display:flex!important;
+  align-items:flex-start!important;
+  padding-top:12px!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+}
+.rv #game .rv-reference-ui .rv-mission-pill {
+  position:relative!important;
+  flex:0 1 auto!important;
+  min-width:0!important;
+  max-width:calc(100% - 230px)!important;
+  z-index:30!important;
+}
+.rv #game .rv-reference-ui .rv-mission-pill #mission {
+  position:static!important;
+  inset:auto!important;
+  top:auto!important;
+  left:auto!important;
+  right:auto!important;
+  bottom:auto!important;
+  transform:none!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  flex:0 1 auto!important;
+  width:auto!important;
+  height:auto!important;
+  min-height:0!important;
+  max-width:none!important;
+  padding:0!important;
+  margin:0!important;
+  gap:12px!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  text-align:left!important;
+}
+.rv #game .rv-reference-ui .rv-mission-pill #mission::before,
+.rv #game .rv-reference-ui .rv-mission-pill #mission::after {display:none!important;content:none!important;}
+.rv #game .rv-reference-ui .rv-mission-pill #mission #mSol,
+.rv #game .rv-reference-ui .rv-mission-pill #mission #mTitle {
+  position:static!important;
+  inset:auto!important;
+  top:auto!important;
+  left:auto!important;
+  right:auto!important;
+  bottom:auto!important;
+  transform:none!important;
+  width:auto!important;
+  height:auto!important;
+  margin:0!important;
+  text-align:left!important;
+  flex:none!important;
+}
+.rv #game .rv-reference-ui .rv-mission-pill #mission #mTitle {
+  max-width:min(240px,22vw)!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+}
+.rv #game .rv-reference-ui .rv-milestone-dots {flex:none!important;position:static!important;}
+.rv #game .rv-reference-ui .rv-header-actions {position:relative!important;z-index:30!important;}
+@media(max-width:760px){
+  .rv #game .rv-reference-ui > .rv-reference-header {height:68px!important;min-height:68px!important;}
+  .rv #game .rv-reference-ui .rv-mission-pill {max-width:calc(100% - 140px)!important;gap:7px!important;}
+  .rv #game .rv-reference-ui .rv-mission-pill #mission {gap:6px!important;}
+  .rv #game .rv-reference-ui .rv-mission-pill #mission #mTitle {max-width:105px!important;}
+}

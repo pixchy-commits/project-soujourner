@@ -178,8 +178,8 @@ function startLevel(i){
 /* ================= Board rendering ================= */
 function layoutBoard(){
   const L=G.L; if(!L||!$('#game').classList.contains('on')) return;
-  const wrap=$('#mapWrap'), W=wrap.clientWidth-60, H=wrap.clientHeight-70;
-  const S=G.S=Math.max(40,Math.min(104,Math.floor(Math.min(W/L.cols,H/(L.rows*1)))));
+  const wrap=$('#mapWrap'), W=Math.max(0,wrap.clientWidth-28), H=Math.max(0,wrap.clientHeight-28);
+  const S=G.S=Math.max(24,Math.min(180,Math.floor(Math.min(W/L.cols,H/L.rows))));
   const bw=L.cols*S, bh=L.rows*S, M=Math.round(S*.42);
   const board=$('#board'); board.style.width=bw+'px'; board.style.height=bh+'px';
   const dpr=Math.min(2,window.devicePixelRatio||1);
@@ -210,12 +210,12 @@ function drawTerrainImage(cv,dpr) {
 function drawGrid(){
   const L=G.L,S=G.S,svg=$('#gridSvg'),bw=L.cols*S,bh=L.rows*S, bold=settings.grid==='bold';
   svg.setAttribute('width',bw); svg.setAttribute('height',bh); svg.setAttribute('viewBox',`0 0 ${bw} ${bh}`);
-  let s=`<rect x="1" y="1" width="${bw-2}" height="${bh-2}" rx="6" fill="none" stroke="rgba(255,240,210,${bold?.95:.75})" stroke-width="${bold?3:2.5}" stroke-dasharray="10 6"/>`;
-  for(let c=1;c<L.cols;c++) s+=`<line x1="${c*S}" y1="0" x2="${c*S}" y2="${bh}"/>`;
-  for(let r=1;r<L.rows;r++) s+=`<line x1="0" y1="${r*S}" x2="${bw}" y2="${r*S}"/>`;
-  // corner ticks make cells readable on busy texture
-  for(let r=0;r<=L.rows;r++) for(let c=0;c<=L.cols;c++) s+=`<circle cx="${c*S}" cy="${r*S}" r="${bold?3:2.2}" fill="rgba(255,240,210,${bold?1:.8})"/>`;
-  svg.innerHTML=`<g stroke="rgba(255,240,210,${bold?.75:.38})" stroke-width="${bold?2:1.5}">${s}</g>`;
+  const gap=Math.max(3,Math.min(8,S*.055));
+  let cells='';
+  for(let r=0;r<L.rows;r++) for(let c=0;c<L.cols;c++){
+    cells+=`<rect x="${c*S+gap}" y="${r*S+gap}" width="${S-2*gap}" height="${S-2*gap}" rx="${Math.min(18,S*.17)}" fill="rgba(255,244,222,.045)" stroke="rgba(255,239,212,${bold?.92:.73})" stroke-width="${bold?2.8:2.1}"/>`;
+  }
+  svg.innerHTML=cells;
 }
 function rockSVG(rnd,id,big){
   const n=9, pts=[]; for(let i=0;i<n;i++){ const a=i/n*Math.PI*2+rnd()*.3, rr=(big?40:33)+rnd()*(big?7:9); pts.push([50+Math.cos(a)*rr, 52+Math.sin(a)*rr*.82]); }
@@ -276,7 +276,7 @@ function drawCompass(){
 }
 function updateFacing(){
   const n=$('#needle'); if(n) n.setAttribute('transform',`rotate(${G.rot} 50 50)`);
-  const d=((Math.round(G.rot/90)%4)+4)%4; $('#facingTxt').textContent=DNAME[d];
+  const d=((Math.round(G.rot/90)%4)+4)%4; $('#facingTxt').textContent=DNAME[d]; const faceLabel=$('#rvFacingDisplay'); if(faceLabel) faceLabel.textContent=['up','right','down','left'][d];
 }
 
 /* ================= Program editing ================= */
@@ -295,7 +295,7 @@ function renderSeq(){
   $('#countTxt').textContent=`${n} / ${L.maxBlocks}`; $('#mBlocks').textContent=`${n}/${L.maxBlocks}`;
   const bf=$('#barFill'); bf.style.width=(n/L.maxBlocks*100)+'%'; bf.classList.toggle('full',full);
   root.querySelectorAll('.cmd').forEach(b=>b.setAttribute('aria-disabled',String(G.running||full)));
-  $('#runBtn').disabled=G.running; $('#runBtn').textContent=G.running?'Running…':'▶ Run Program';
+  $('#runBtn').disabled=G.running; $('#runBtn').textContent=G.running?'Running…':'▶ Run';
   $('#clearBtn').disabled=G.running||!n;
 }
 function edited(){ G.errIdx=-1; G.chipState={}; clearFx(); if(G.L) resetRover(); renderSeq(); }
