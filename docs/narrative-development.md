@@ -2,6 +2,14 @@
 
 # Narrative scenes and artwork
 
+## Supplied archival chapter photos
+
+The opening TV report uses all four original PNGs in `public/art/montage`, ordered by chapter number. Photos appear one by one in an overlapping stack, then settle into four visible frames inside the television. Reduced motion shows the final arrangement immediately; playback pauses with the game. The identification/rewind TV image uses the supplied Chapter 2 lander/rover photograph.
+
+`art/chapter-photos.ts` maps all four chapter numbers to the supplied labeled photos. Chapter cards use the matching image in their thumbnail and as a full-cover background; thumbnails and montage preserve the full photograph. Chapters 1 and 2 currently have runtime cards. Chapters 3 and 4 use the same mapping when their story scenes are added; this photo update does not invent their unresolved chapter titles or add unfinished narrative content.
+
+No photos were regenerated or modified. No build, lint or browser review run.
+
 ## Barnacle Bill mission-arrival adapter — latest PDF (5), page 33
 
 Home now supplies default narrative adapters for `exploration-barnacle-bill` and `rock-analysis`. The sequence is third-person arrival illustration -> destination marker -> exclamation notification with closer rear view -> first-person mission window -> marked-rock selection -> numbered review step -> explicit gameplay handoff. The two story activity IDs and existing following celebration are preserved. Actual gameplay modules passed through `Game.activities` override these adapters individually.

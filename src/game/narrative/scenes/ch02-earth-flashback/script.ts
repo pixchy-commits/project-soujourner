@@ -5,7 +5,7 @@ export const scene = {
   "title": "A memory of home",
   "chapter": 2,
   "sourcePages": [
-    14
+    30
   ],
   "status": "needs-script",
   "shots": [
@@ -13,6 +13,7 @@ export const scene = {
       "id": "blink",
       "kind": "illustration",
       "art": "ch02-earth-flashback/blink",
+      "notes": "Third-person sparkling camera eyes immediately before zooming into the Earth flashback. Stable blink ID preserves saves.",
       "framing": "wide",
       "motion": "still"
     },

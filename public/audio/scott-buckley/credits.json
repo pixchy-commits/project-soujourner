@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Signal to Noise",
+    "composer": "Scott Buckley",
+    "source": "https://www.scottbuckley.com.au/library/signal-to-noise/",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "variant": "No Piano Melody alternate mix",
+    "src": "/audio/scott-buckley/signal-to-noise-no-melody.mp3",
+    "changes": "Original MP3; runtime volume and fades only; no file edits."
+  },
+  {
+    "title": "Discovery",
+    "composer": "Scott Buckley",
+    "source": "https://www.scottbuckley.com.au/library/discovery/",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "variant": "Full mix",
+    "src": "/audio/scott-buckley/discovery.mp3",
+    "changes": "Original MP3; runtime volume and fades only; no file edits."
+  },
+  {
+    "title": "Adrift Among Infinite Stars",
+    "composer": "Scott Buckley",
+    "source": "https://www.scottbuckley.com.au/library/adrift-among-infinite-stars/",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "variant": "Full mix",
+    "src": "/audio/scott-buckley/adrift-among-infinite-stars.mp3",
+    "changes": "Original MP3; runtime volume and fades only; no file edits."
+  },
+  {
+    "title": "First Snow",
+    "composer": "Scott Buckley",
+    "source": "https://www.scottbuckley.com.au/library/first-snow/",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "variant": "Full mix",
+    "src": "/audio/scott-buckley/first-snow.mp3",
+    "changes": "Original MP3; runtime volume and fades only; no file edits."
+  },
+  {
+    "title": "Childhood",
+    "composer": "Scott Buckley",
+    "source": "https://www.scottbuckley.com.au/library/childhood/",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "variant": "Full mix",
+    "src": "/audio/scott-buckley/childhood.mp3",
+    "changes": "Original MP3; runtime volume and fades only; no file edits."
+  },
+  {
+    "title": "Tomorrow",
+    "composer": "Scott Buckley",
+    "source": "https://www.scottbuckley.com.au/library/tomorrow/",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "variant": "Full mix",
+    "src": "/audio/scott-buckley/tomorrow.mp3",
+    "changes": "Original MP3; runtime volume and fades only; no file edits."
+  }
+]

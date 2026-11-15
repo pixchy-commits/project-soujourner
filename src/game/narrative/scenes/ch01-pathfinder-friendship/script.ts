@@ -5,7 +5,7 @@ export const scene = {
   "title": "A trusted friend",
   "chapter": 1,
   "sourcePages": [
-    12
+    28
   ],
   "status": "storyboard",
   "shots": [

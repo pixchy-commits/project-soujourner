@@ -2,6 +2,7 @@
 import { useEffect, useRef } from "react";
 import { useGameStore } from "../state/game-store";
 import type { useNarration } from "../audio/use-narration";
+import { MusicCredits } from "./MusicCredits";
 export type Panel = "settings" | "reports" | null;
 const missionReports = [
  { id: "companion", title: "A trusted companion", fact: "Sojourner communicated with Earth through its companion, the Mars Pathfinder lander." },
@@ -25,6 +26,7 @@ export default function GamePanels({ panel, onClose, muted, onToggleMusic: toggl
       }}>Free voice narration<span>{!narration.supported ? "UNAVAILABLE" : data.narrationEnabled ? "ON" : "OFF"}</span></button>
       {data.narrationEnabled && <div className="narration-settings"><label htmlFor="narration-voice">Voice</label><select id="narration-voice" value={data.narrationVoice} onChange={(event) => data.setNarrationVoice(event.target.value)}><option value="">Automatic English voice</option>{narration.voices.map((voice) => <option key={voice.voiceURI} value={voice.voiceURI}>{voice.name}</option>)}</select><label htmlFor="narration-volume">Voice volume</label><input id="narration-volume" type="range" min="0" max="1" step="0.05" value={data.narrationVolume} onChange={(event) => data.setNarrationVolume(Number(event.target.value))} /><p>Free device voices. Available voices vary by browser.</p></div>}
       <label className="setting-row" htmlFor="motion">Reduced motion<input id="motion" type="checkbox" checked={data.reducedMotion} onChange={(event) => data.setReducedMotion(event.target.checked)} /></label></div> : <div className="reports">{missionReports.map((chapter, index) => <article key={chapter.id}><span className="report-number">0{index + 1}</span><div><h3>{chapter.title}</h3><p>{chapter.fact}</p></div></article>)}<p className="report-note">The mission was real. Character dialogue is fictional.</p><a href="https://science.nasa.gov/mission/mars-pathfinder/" target="_blank" rel="noreferrer">NASA MISSION ARCHIVE ↗</a></div>}
+      <MusicCredits />
       <button className="painted-button panel-back" onClick={() => onClose()}><span>BACK</span></button>
     </dialog>
  );

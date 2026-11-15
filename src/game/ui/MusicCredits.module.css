@@ -1,0 +1,6 @@
+.credits { margin:22px 0 0; border-top:1px solid #fde59333; padding-top:16px; color:#e8dfca; text-align:left; }
+.credits summary { cursor:pointer; padding:8px 0; font:400 19px/1.4 var(--font-narrative),sans-serif; }
+.credits p,.credits li { font:400 16px/1.5 var(--font-narrative),sans-serif; }
+.credits ul { padding-left:20px; display:grid; gap:6px; }
+.credits a { color:#b2efed; text-decoration:underline; text-underline-offset:3px; }
+.credits a:focus-visible,.credits summary:focus-visible { outline:2px solid #fde593; outline-offset:4px; }

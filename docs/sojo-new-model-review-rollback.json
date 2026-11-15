@@ -1,0 +1,38 @@
+{
+  "ch02-mission-introduction/sojo-introduction": {
+    "src": "/art/scenes/ch02-mission-introduction/sojo-frontal-v1.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch02-mission-introduction/sojo-introduction.webp",
+    "alt": "Sojo faces the viewer directly in the Rock Garden, with friendly Pathfinder behind to the right.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch02-mission-introduction/mission-description": {
+    "src": "/art/scenes/ch02-mission-introduction/sojo-frontal-v1.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch02-mission-introduction/mission-description.webp",
+    "alt": "Sojo faces the viewer directly in the Rock Garden, with friendly Pathfinder behind to the right.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch02-earth-flashback/blink": {
+    "src": "/art/scenes/ch02-earth-flashback/pre-memory-eyes-v1.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch02-earth-flashback/blink.webp",
+    "alt": "A third-person closeup of Sojo’s excited sparkling eyes on Mars, just before remembering Earth.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch02-earth-flashback/construction": {
+    "src": "/art/scenes/ch02-earth-flashback/construction-v2.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch02-earth-flashback/construction.webp",
+    "alt": "Two smiling engineers work on Sojourner in a warmly lit Earth laboratory.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": true
+  }
+}

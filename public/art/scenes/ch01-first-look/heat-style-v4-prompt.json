@@ -1,0 +1,11 @@
+{
+  "tool": "built-in image_gen",
+  "approved": false,
+  "prompt": "Generate ONE new standalone16:9 first-person narrative-game illustration. FIRST reference heat-shield-v2 is the ONLY art-direction authority: rich textured painterly color masses, dramatic deep NAVY shadows, luminous golden orange light and warm/cool contrast, drawn crisp edges. SECOND reference latest page27 is COMPOSITION and painted annotation reference ONLY. Viewer IS Sojourner at top of lander ramp looking DOWN onto Mars: ramp rails start bottom-center left/right and converge toward sand at middle-lower center. Large angular rock MIDDLE LEFT, smaller rock MIDDLE RIGHT, distant mountain ridges at high-middle horizon, small sun upper-center-right. Huge sense of new world but match drawing's ramp viewpoint, NOT full rover portrait, no solar deck blocking foreground. Paint the complete binocular silhouette into image: dark navy textured outside corners with shallow central notches top and bottom, full viewport safely within frame. Bake in hand-drawn warm cream scanner corner brackets around sun and both rocks. Bake exact lowercase handwritten label 'sun' with short pointer toward sun, and 'rock' with short pointer toward left rock, matching storyboard placement. No other words, no red production notes, no cyan caption or dialogue box (original dark dialogue remains LIVE). No hands/arms, cockpit, people, face, extra rover, slide borders, collage. Painterly dramatic navy/orange style of heat-shield-v2, NOT glossy3D, not soft flashback style, not old POV art. Lower22% quieter so live narration remains readable. Only first and second source refs; do not incorporate any prior generated ramp/POV rendering.",
+  "references": [
+    "heat-shield-v2.png",
+    "Latest PDF (5), page 27"
+  ],
+  "excluded": "No old POV, cabin or eyes renders used as references.",
+  "runtime": "Connected in Home. Labels, pointers and binocular frame baked in. Original dark live dialogue and exact narration unchanged. No build/lint/browser review run."
+}

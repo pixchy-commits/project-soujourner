@@ -1,72 +1,72 @@
 {
   "archive-montage": {
-    "src": "/art/scenes/prologue-identification/pathfinder-v2.webp",
+    "src": "/art/montage/chapter 1 (landed on mars).png",
     "fallbackSrc": null,
-    "expectedPath": "/art/scenes/prologue-archive/archive.webp",
-    "alt": "Pathfinder and Sojourner in the mission archive",
-    "objectPosition": "50% 65%",
+    "expectedPath": "/art/montage/chapter 1 (landed on mars).png",
+    "alt": "Pathfinder landed on Mars",
+    "objectPosition": "50% 50%",
     "fit": "contain",
-    "approved": false
+    "approved": true
   },
   "archive-entry": {
-    "src": "/art/scenes/prologue-identification/pathfinder-v2.webp",
+    "src": "/art/montage/chapter 2 (baby steps).png",
     "fallbackSrc": null,
-    "expectedPath": "/art/scenes/prologue-archive/spacecraft.webp",
-    "alt": "Illustrated Pathfinder lander on Mars",
-    "objectPosition": "30% 70%",
-    "fit": "cover",
-    "approved": false
+    "expectedPath": "/art/montage/chapter 2 (baby steps).png",
+    "alt": "Sojourner on the lander beside deflated airbags",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": true
   },
   "archive-landscape": {
-    "src": "/art/intro-v2/title-landscape-v3.webp",
+    "src": "/art/montage/chapter 3.png",
     "fallbackSrc": null,
-    "expectedPath": "/art/scenes/prologue-archive/landscape.webp",
-    "alt": "Illustrated Martian plains and Sojourner",
-    "objectPosition": "25% 70%",
-    "fit": "cover",
-    "approved": false
+    "expectedPath": "/art/montage/chapter 3.png",
+    "alt": "Sojourner beside a Martian rock",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": true
   },
   "pathfinder-identification": {
-    "src": "/art/scenes/prologue-identification/pathfinder-v2.webp",
+    "src": "/art/montage/chapter 2 (baby steps).png",
     "fallbackSrc": null,
-    "expectedPath": "/art/scenes/prologue-identification/pathfinder.webp",
-    "alt": "Pathfinder and Sojourner",
-    "objectPosition": "50% 65%",
+    "expectedPath": "/art/montage/chapter 2 (baby steps).png",
+    "alt": "Sojourner on the lander beside deflated airbags",
+    "objectPosition": "50% 50%",
     "fit": "contain",
-    "approved": false
+    "approved": true
   },
   "arrival-card": {
-    "src": "/art/scenes/prologue-identification/pathfinder-v2.webp",
+    "src": "/art/montage/chapter 1 (landed on mars).png",
     "fallbackSrc": null,
-    "expectedPath": "/art/scenes/ch01-arrival/chapter-card.webp",
-    "alt": "Pathfinder and Sojourner at Mars",
-    "objectPosition": "50% 65%",
+    "expectedPath": "/art/montage/chapter 1 (landed on mars).png",
+    "alt": "Pathfinder landed on Mars",
+    "objectPosition": "50% 50%",
     "fit": "contain",
-    "approved": false
+    "approved": true
   },
   "entry-exterior": {
-    "src": "/art/scenes/ch01-atmospheric-entry/exterior-storyboard-v3.webp",
+    "src": "/art/scenes/ch01-atmospheric-entry/heat-shield-v2.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch01-atmospheric-entry/heat-shield.webp",
     "alt": "Pathfinder’s entry capsule descending through the atmosphere toward curved Mars",
     "objectPosition": "50% 50%",
     "fit": "contain",
-    "approved": false
+    "approved": true
   },
   "entry-cabin": {
-    "src": "/art/scenes/ch01-atmospheric-entry/cabin-storyboard-v3.webp",
+    "src": "/art/scenes/ch01-atmospheric-entry/cabin-heat-style-v4.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch01-atmospheric-entry/cabin.webp",
-    "alt": "Rear three-quarter view across Sojourner’s solar panel toward the small window and Mars",
+    "alt": "Rear three-quarter view of Sojo looking toward Mars, with no hands, lit by orange entry light in a navy transport bay.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
   },
   "entry-eyes": {
-    "src": "/art/scenes/ch01-atmospheric-entry/eyes-storyboard-v3.webp",
+    "src": "/art/scenes/ch01-atmospheric-entry/eyes-heat-style-v4.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch01-atmospheric-entry/eyes-closeup.webp",
-    "alt": "Sojourner’s delighted cartoon camera-eyes sparkling above its open smile",
+    "alt": "Sojo reacts with delighted sparkling oval camera eyes, painted in the heat-shield scene’s navy and orange style.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
@@ -99,10 +99,10 @@
     "approved": false
   },
   "ch01-first-look/rover-view": {
-    "src": "/art/scenes/ch01-first-look/rover-view-v3.webp",
+    "src": "/art/scenes/ch01-first-look/rover-view-heat-v6.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch01-first-look/rover-view.webp",
-    "alt": "Sojo looks down the deployment ramp toward Martian rocks, distant ridges and the sun.",
+    "alt": "Sojo looks down the ramp at Mars through a painted binocular view, with sun and rock labels and pointers, in the heat-shield scene’s navy and orange palette.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
@@ -117,40 +117,40 @@
     "approved": false
   },
   "ch01-pathfinder-friendship/pathfinder": {
-    "src": "/art/scenes/ch01-pathfinder-friendship/pathfinder-v4.webp",
+    "src": "/art/scenes/ch01-pathfinder-friendship/pathfinder-goggles-v5.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch01-pathfinder-friendship/pathfinder.webp",
-    "alt": "Pathfinder looks reassuringly at Sojo with half-lidded eyes on its central equipment body and a mast behind its left side.",
+    "alt": "Friendly JPL Pathfinder seen through painted binocular goggles with a thick orange contour, in navy and orange heat-shield art direction.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
   },
   "ch02-baby-steps/chapter-card": {
-    "src": "/art/scenes/ch01-lander-unfolding/open-petals-v2.webp",
+    "src": "/art/montage/chapter 2 (baby steps).png",
     "fallbackSrc": null,
-    "expectedPath": "/art/scenes/ch02-baby-steps/chapter-card.webp",
-    "alt": "Overhead view of opened Pathfinder and Sojourner on Mars.",
+    "expectedPath": "/art/montage/chapter 2 (baby steps).png",
+    "alt": "Sojourner on the lander beside deflated airbags",
     "objectPosition": "50% 50%",
     "fit": "contain",
-    "approved": false
+    "approved": true
   },
   "ch02-earth-flashback/blink": {
-    "src": "/art/scenes/ch02-earth-flashback/blink-v1.webp",
+    "src": "/art/scenes/ch02-earth-flashback/pre-memory-new-model-v1.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-earth-flashback/blink.webp",
-    "alt": "Sojourner closes its cartoon camera eyes before a memory of Earth.",
+    "alt": "A third-person closeup of Sojo’s excited sparkling eyes on Mars, just before remembering Earth.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
   },
   "ch02-earth-flashback/construction": {
-    "src": "/art/scenes/ch02-earth-flashback/construction-v2.webp",
+    "src": "/art/scenes/ch02-earth-flashback/construction-new-model-v1.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-earth-flashback/construction.webp",
     "alt": "Two smiling engineers work on Sojourner in a warmly lit Earth laboratory.",
     "objectPosition": "50% 50%",
     "fit": "contain",
-    "approved": true
+    "approved": false
   },
   "ch02-earth-flashback/introduction": {
     "src": "/art/scenes/ch02-earth-flashback/introduction-v2.webp",
@@ -180,7 +180,7 @@
     "approved": false
   },
   "ch02-mission-introduction/sojo-introduction": {
-    "src": "/art/scenes/ch02-mission-introduction/sojo-frontal-v1.webp",
+    "src": "/art/scenes/ch02-mission-introduction/sojo-new-model-v1.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-mission-introduction/sojo-introduction.webp",
     "alt": "Sojo faces the viewer directly in the Rock Garden, with friendly Pathfinder behind to the right.",
@@ -189,7 +189,7 @@
     "approved": false
   },
   "ch02-mission-introduction/mission-description": {
-    "src": "/art/scenes/ch02-mission-introduction/sojo-frontal-v1.webp",
+    "src": "/art/scenes/ch02-mission-introduction/sojo-new-model-v1.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-mission-introduction/mission-description.webp",
     "alt": "Sojo faces the viewer directly in the Rock Garden, with friendly Pathfinder behind to the right.",
@@ -223,5 +223,41 @@
     "objectPosition": "50% 50%",
     "fit": "cover",
     "approved": false
+  },
+  "chapter-photo-1": {
+    "src": "/art/montage/chapter 1 (landed on mars).png",
+    "fallbackSrc": null,
+    "expectedPath": "/art/montage/chapter 1 (landed on mars).png",
+    "alt": "Pathfinder landed on Mars",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": true
+  },
+  "chapter-photo-2": {
+    "src": "/art/montage/chapter 2 (baby steps).png",
+    "fallbackSrc": null,
+    "expectedPath": "/art/montage/chapter 2 (baby steps).png",
+    "alt": "Sojourner on the lander beside deflated airbags",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": true
+  },
+  "chapter-photo-3": {
+    "src": "/art/montage/chapter 3.png",
+    "fallbackSrc": null,
+    "expectedPath": "/art/montage/chapter 3.png",
+    "alt": "Sojourner beside a Martian rock",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": true
+  },
+  "chapter-photo-4": {
+    "src": "/art/montage/chapter 4.png",
+    "fallbackSrc": null,
+    "expectedPath": "/art/montage/chapter 4.png",
+    "alt": "Pathfinder lander and airbags on Mars",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": true
   }
 }

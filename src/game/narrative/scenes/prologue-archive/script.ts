@@ -1,4 +1,5 @@
 import type { NarrativeScene } from "../../types";
+import { openingMontage } from "../../art/chapter-photos";
 
 export const scene = {
   "id": "prologue-archive",
@@ -13,11 +14,7 @@ export const scene = {
       "id": "report",
       "kind": "archive",
       "art": "archive-montage",
-      "montage": [
-        "archive-montage",
-        "archive-entry",
-        "archive-landscape"
-      ],
+      "montage": openingMontage,
       "label": "INCOMING TRANSMISSION",
       "date": "MARS · THE PRESENT DAY",
       "dialogue": {

@@ -31,6 +31,9 @@
 .archiveGrid .montageLead { grid-row: auto; grid-column: 1 / -1; }
 .archiveGrid :global(.archive-frame) { min-height: 0; border: 1px solid #8ab7ac55; position: relative; }
 .screenPicture .artwork { background: #171f2c; }
+.photoMontage { position: absolute; inset: 0; overflow: hidden; background: #101b2b; }
+.montagePhoto { position: absolute; width: 44%; height: 43%; background: #0b111c; border: 1px solid #fce4aa33; box-shadow: 0 6px 18px #0006; }
+.montagePhoto .artwork { background: #0b111c; }
 .stage .silentContinue { border-radius: 16px; background: #3a4457; border: 2px solid #fde593; color: #fde593; font: 11px Thunderstrike,sans-serif; letter-spacing: .025em; }
 .stage .silentContinue:hover { transform: translate(-50%,-2px); }
 @media(max-width:650px) { .screenPicture { inset: 25px 10px 22px; }.archiveGrid { gap: 5px; } }

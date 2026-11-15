@@ -31,6 +31,7 @@ export function firstShot(step: StoryStep): Checkpoint {
  return { stepId: step.id, shotId: step.kind === "narrative" ? getScene(step.sceneId).shots[0].id : null };
 }
 export function resolveCheckpoint(saved: Checkpoint | null): Checkpoint {
+ if (saved?.stepId === "ch01-first-look" && saved.shotId === "camera-eyes") return { stepId: "ch01-pathfinder-friendship", shotId: "sojo-question" };
  // Retired pre-landing reveal resumes at landing, before the arrival shots.
  if (saved?.stepId === "ch01-window-transition") return { stepId: "landing", shotId: null };
  const step = saved && story.find((step) => step.id === saved.stepId);

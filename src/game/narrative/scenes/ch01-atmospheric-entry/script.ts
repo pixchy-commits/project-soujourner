@@ -5,7 +5,7 @@ export const scene = {
   "title": "Through the atmosphere",
   "chapter": 1,
   "sourcePages": [
-    6
+    21
   ],
   "status": "storyboard",
   "shots": [
