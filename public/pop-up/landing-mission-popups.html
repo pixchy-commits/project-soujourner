@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sojo — Landing Mission Pop-ups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   DESIGN TOKENS — taken from Sol 4 · Soil Investigation
+   ========================================================= */
+:root{
+  --navy:#1c2438; --navy-glass:rgba(22,28,44,.9); --navy-soft:#2c3f6b;
+  --cream:#fff4e2; --cream-2:#efe2c6; --cream-3:#e3d2ae; --ink-2:#4a3d28; --ink-3:#6b5a3a;
+  --sun:#f2c14e; --orange:#e8793a; --orange-dk:#c95a24; --orange-sh:#8a3a14;
+  --teal:#3fb8a9; --teal-lt:#7fd6cc; --teal-sh:#23796f;
+  --rust:#9a4a2b; --rock:#7a3b28; --mars:#c4612f;
+  --line-light:rgba(255,240,220,.35);
+  --display:'Fredoka',system-ui,sans-serif; --body:'Nunito',system-ui,sans-serif;
+  --ease-pop:cubic-bezier(.2,1.3,.4,1);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:transparent;font-family:var(--body);color:#e9e6df;overflow:hidden}
+button{font:inherit;cursor:pointer}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:4px solid var(--sun);outline-offset:3px}
+
+/* =========================================================
+   PREVIEW CONTROL (outside the game — designer tool styling)
+   ========================================================= */
+.pv{height:68px;display:flex;align-items:center;gap:12px;padding:0 20px;background:#16181f;border-bottom:1px solid #2a2d38;font-size:13px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;color:#c9ccd6;position:relative;z-index:10;overflow-x:auto;white-space:nowrap}
+.pv-title{font-weight:700;color:#fff;font-size:14px;line-height:1.2}
+.pv-title small{display:block;font-weight:500;color:#8a8fa0;font-size:11.5px}
+.pv-seg{display:flex;background:#0e1016;border:1px solid #2a2d38;border-radius:10px;padding:3px;gap:2px}
+.pv-seg button{border:0;background:transparent;color:#aeb2c0;padding:7px 11px;border-radius:7px;font-size:12.5px;font-weight:600;font-family:inherit;display:flex;align-items:center;gap:6px}
+.pv-seg button b{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:5px;background:#2a2d38;color:#fff;font-size:11px}
+.pv-seg button[aria-pressed="true"]{background:#2d3550;color:#fff}
+.pv-seg button[aria-pressed="true"] b{background:var(--sun);color:#1c2438}
+.pv-seg button:hover{color:#fff}
+.pv label{display:flex;align-items:center;gap:7px;color:#aeb2c0;font-weight:600}
+.pv select{background:#0e1016;color:#fff;border:1px solid #2a2d38;border-radius:8px;padding:7px 8px;font:inherit;font-weight:600}
+.pv input[type=checkbox]{width:16px;height:16px;accent-color:var(--sun)}
+.pv .sep{width:1px;height:30px;background:#2a2d38;flex:none}
+.pv .ghost{border:1px solid #2a2d38;background:#0e1016;color:#fff;border-radius:8px;padding:7px 11px;font-size:12.5px;font-weight:600;font-family:inherit}
+.pv .ghost:hover{border-color:#4a4f60}
+.pv .dim{opacity:.4}
+
+.stage{position:absolute;top:0;left:0;right:0;bottom:0;display:grid;place-items:center}
+.frame-wrap{position:relative}
+.frame{position:absolute;left:0;top:0;width:1440px;height:900px;transform-origin:0 0;overflow:hidden;border-radius:0;box-shadow:none;font-family:var(--body);color:var(--cream)}
+.stage-caption{position:absolute;left:0;right:0;bottom:-30px;text-align:center;font:600 12px system-ui,sans-serif;color:#767b8c}
+
+/* =========================================================
+   GAME WORLD (background gameplay scene)
+   ========================================================= */
+.mars{background:radial-gradient(ellipse 55% 40% at 18% 28%,rgba(255,196,150,.35),transparent 70%),radial-gradient(ellipse 50% 35% at 82% 78%,rgba(110,36,12,.35),transparent 70%),radial-gradient(circle at 72% 18%,rgba(255,214,176,.22),transparent 40%),linear-gradient(160deg,#d9783f 0%,#c4612f 48%,#a54a22 100%)}
+.speck{background-image:radial-gradient(rgba(90,30,10,.22) 1.5px,transparent 2px),radial-gradient(rgba(255,222,190,.2) 1px,transparent 1.6px);background-size:38px 38px,23px 23px;background-position:0 0,11px 7px}
+.t-sand{background-color:#ebb57d;background-image:radial-gradient(rgba(255,244,222,.8) 1.2px,transparent 1.7px),radial-gradient(rgba(170,86,34,.4) 1px,transparent 1.5px);background-size:9px 9px,13px 13px;background-position:0 0,4px 6px}
+.t-firm{background-color:#b8653b;background-image:linear-gradient(90deg,rgba(74,26,9,.28) 2px,transparent 2px),linear-gradient(0deg,rgba(74,26,9,.28) 2px,transparent 2px);background-size:52px 30px,52px 30px}
+.t-rock{background-color:#9a4a2b;background-image:radial-gradient(circle at 30% 35%,#6a2e1c 0 7px,rgba(255,214,186,.35) 7px 8.5px,transparent 9px),radial-gradient(circle at 70% 70%,#7a3824 0 5px,transparent 6px);background-size:44px 44px,44px 44px}
+
+.world{position:absolute;inset:0;transition:filter .45s ease}
+.world.blurred{filter:blur(5px) saturate(.9)}
+.abs{position:absolute}
+.hud-btn{width:52px;height:52px;border-radius:50%;background:rgba(22,28,44,.82);border:2px solid var(--line-light);display:grid;place-items:center;color:var(--cream);box-shadow:0 6px 16px rgba(60,18,6,.35)}
+.hud-pill{height:52px;padding:0 20px;border-radius:26px;background:rgba(22,28,44,.82);border:2px solid var(--line-light);display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:600;font-size:21px;box-shadow:0 6px 16px rgba(60,18,6,.35)}
+
+.scrim{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(40,12,4,.38),rgba(30,8,2,.66));opacity:0;pointer-events:none;transition:opacity .35s ease}
+.scrim.on{opacity:1;pointer-events:auto}
+
+/* Gameplay placeholder chip (designer-side, shown after Start) */
+.play-note{position:absolute;left:50%;bottom:36px;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:12px 12px 12px 20px;border-radius:16px;background:rgba(14,16,22,.88);border:2px dashed #5b6070;font:600 15px system-ui,sans-serif;color:#d6d9e3;opacity:0;pointer-events:none;transition:opacity .3s}
+.play-note.on{opacity:1;pointer-events:auto}
+.play-note button{border:0;border-radius:10px;padding:10px 14px;background:var(--sun);color:#1c2438;font:700 14px system-ui,sans-serif}
+
+/* =========================================================
+   POP-UP SYSTEM — shared shell
+   ========================================================= */
+.pop{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.9);opacity:0;pointer-events:none;color:var(--navy);transition:opacity .3s ease,transform .45s var(--ease-pop)}
+.pop.on{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}
+.card{position:relative;background:var(--cream);border-radius:40px;box-shadow:0 30px 70px rgba(40,12,4,.5),inset 0 -6px 0 rgba(28,36,56,.08)}
+/* mission-control "transmission" tab on top of every card */
+.tx-tab{position:absolute;left:50%;top:-24px;transform:translateX(-50%);height:48px;padding:0 22px 0 14px;border-radius:24px;background:var(--navy);color:var(--cream);display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 8px 18px rgba(40,12,4,.35);white-space:nowrap;border:2px solid rgba(255,240,220,.18)}
+.tx-dot{width:26px;height:26px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.tx-dot svg{animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{50%{opacity:.35}}
+
+.btn{height:76px;border-radius:38px;border:0;display:inline-flex;align-items:center;justify-content:center;gap:12px;font-family:var(--display);font-weight:600;font-size:28px;padding:0 40px;transition:transform .12s ease, box-shadow .12s ease}
+.btn-primary{background:linear-gradient(#e8793a,#c95a24);color:#fff9ee;box-shadow:0 6px 0 var(--orange-sh)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 0 var(--orange-sh)}
+.btn-primary:active{transform:translateY(4px);box-shadow:0 2px 0 var(--orange-sh)}
+.btn-ghost{background:transparent;color:var(--navy);border:3px solid var(--navy);font-size:24px;height:72px;padding:0 30px}
+.btn-ghost:hover{background:rgba(28,36,56,.07)}
+.btn-ghost:active{transform:translateY(2px)}
+.btn svg{flex:none}
+
+.steps{display:flex;align-items:center;gap:12px;font-weight:800;font-size:18px;color:var(--ink-3)}
+.steps .pips{display:flex;gap:8px}
+.steps .pip{width:14px;height:14px;border-radius:7px;background:var(--cream-3);transition:width .35s ease, background .35s}
+.steps .pip.on{width:40px;background:var(--orange)}
+.steps .pip.done{background:var(--teal)}
+
+.sol-pill{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 18px 0 8px;border-radius:20px;background:var(--sun);color:var(--navy);font-family:var(--display);font-weight:600;font-size:20px}
+.sol-pill .ic{width:28px;height:28px;border-radius:50%;background:var(--navy);display:grid;place-items:center}
+.sol-pill.alert{background:#ff8f6b}
+
+/* =========================================================
+   TEMPLATE A — MISSION INTRODUCTION
+   ========================================================= */
+#intro .card{width:1160px;height:680px;overflow:hidden}
+.intro-track{position:absolute;inset:0;display:flex;width:200%;transition:transform .55s cubic-bezier(.65,0,.25,1)}
+.intro-track.step2{transform:translateX(-50%)}
+.intro-page{width:50%;height:100%;padding:56px 52px 40px;display:flex;flex-direction:column}
+.intro-page[aria-hidden="true"]{visibility:hidden;transition:visibility 0s .55s}
+.intro-page[aria-hidden="false"]{visibility:visible}
+
+/* Sequence 1 — Briefing */
+.brief{display:flex;gap:44px;flex:1;min-height:0}
+.viewport{position:relative;flex:none;width:520px;border-radius:32px;overflow:hidden;box-shadow:inset 0 0 0 5px rgba(28,36,56,.9), 0 10px 0 rgba(28,36,56,.12)}
+.viewport .scene{position:absolute;inset:0}
+.vp-label{position:absolute;left:18px;top:16px;height:34px;padding:0 14px 0 10px;border-radius:17px;background:rgba(22,28,44,.85);color:var(--cream);display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase;z-index:3}
+.vp-label i{width:10px;height:10px;border-radius:50%;background:#ff6b5b;box-shadow:0 0 0 3px rgba(255,107,91,.3);animation:blink 1.2s infinite}
+.brackets{position:absolute;inset:14px;pointer-events:none;z-index:2}
+.brackets span{position:absolute;width:34px;height:34px;border:4px solid rgba(255,244,226,.85)}
+.brackets span:nth-child(1){left:0;top:0;border-right:0;border-bottom:0;border-radius:12px 0 0 0}
+.brackets span:nth-child(2){right:0;top:0;border-left:0;border-bottom:0;border-radius:0 12px 0 0}
+.brackets span:nth-child(3){left:0;bottom:0;border-right:0;border-top:0;border-radius:0 0 0 12px}
+.brackets span:nth-child(4){right:0;bottom:0;border-left:0;border-top:0;border-radius:0 0 12px 0}
+.brief-text{flex:1;display:flex;flex-direction:column;min-width:0}
+.brief-text h1{margin:18px 0 0;font-family:var(--display);font-weight:700;font-size:54px;line-height:1.02;letter-spacing:-.01em}
+.brief-text p{margin:18px 0 0;font-size:26px;font-weight:700;line-height:1.4;color:var(--ink-2)}
+.objective{margin-top:24px;display:flex;align-items:center;gap:16px;padding:18px 22px;border-radius:26px;background:var(--navy);color:var(--cream);position:relative}
+.objective .tgt{flex:none;width:62px;height:62px;border-radius:50%;background:var(--sun);display:grid;place-items:center}
+.objective small{display:block;font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--sun)}
+.objective strong{display:block;font-family:var(--display);font-weight:600;font-size:30px;line-height:1.15;margin-top:2px}
+.intro-foot{margin-top:auto;padding-top:24px;display:flex;align-items:center;gap:16px}
+.intro-foot .spacer{flex:1}
+
+/* Sequence 2 — How to play */
+.howto-head{display:flex;align-items:center;gap:16px}
+.howto-head h2{margin:0;font-family:var(--display);font-weight:700;font-size:50px;line-height:1}
+.howto-head .mini{margin-left:auto;display:flex;align-items:center;gap:10px;height:44px;padding:0 18px 0 8px;border-radius:22px;background:var(--cream-2);font-family:var(--display);font-weight:600;font-size:18px;color:var(--ink-2)}
+.howto-head .mini .ic{width:30px;height:30px;border-radius:50%;background:var(--navy);display:grid;place-items:center}
+.ins-grid{margin-top:26px;display:grid;gap:18px;flex:1;min-height:0}
+.ins{background:var(--cream-2);border-radius:28px;padding:14px 14px 18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.demo{position:relative;border-radius:20px;background:var(--navy);overflow:hidden;height:190px;flex:none}
+.demo svg{display:block}
+.ins-txt{display:flex;gap:12px;align-items:flex-start;padding:0 6px}
+.ins-num{flex:none;width:40px;height:40px;border-radius:50%;background:var(--orange);color:#fff9ee;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:22px;box-shadow:0 3px 0 var(--orange-sh)}
+.ins-txt b{display:block;font-family:var(--display);font-weight:600;font-size:26px;line-height:1.1}
+.ins-txt div > span{display:block;margin-top:4px;font-weight:700;font-size:18px;line-height:1.3;color:var(--ink-2)}
+.ins-grid.n2 .demo{height:230px}
+.ins-grid.n4 .demo{height:160px}
+.ins-grid.n4 .ins-txt b{font-size:23px}
+.ins-grid.n4 .ins-txt span{font-size:17px}
+.rules{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+.rule{display:flex;align-items:center;gap:10px;height:50px;padding:0 18px 0 6px;border-radius:25px;background:#fbe7b3;border:2px solid #efcf7d;font-weight:800;font-size:18px;color:#3d3220}
+.rule .ic{width:38px;height:38px;border-radius:50%;background:var(--navy);display:grid;place-items:center;flex:none}
+.rules-label{display:flex;align-items:center;height:50px;font-family:var(--display);font-weight:600;font-size:18px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;margin-right:2px}
+
+/* =========================================================
+   TEMPLATE B — MISSION ACCOMPLISHED
+   ========================================================= */
+#done{top:53%}
+#done .card{width:800px;padding:122px 48px 34px;text-align:center}
+.badge-wrap{position:absolute;left:50%;top:-92px;width:220px;height:220px;transform:translateX(-50%) scale(.86);transform-origin:50% 30%}
+.burst{position:absolute;inset:-40px;border-radius:50%;background:repeating-conic-gradient(rgba(242,193,78,.55) 0 10deg,transparent 10deg 24deg);-webkit-mask:radial-gradient(circle,#000 30%,transparent 70%);mask:radial-gradient(circle,#000 30%,transparent 70%);animation:spin 18s linear infinite;opacity:0;transition:opacity .6s .3s}
+.pop.on .burst{opacity:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+.badge{position:absolute;left:30px;top:20px;width:160px;height:190px}
+.pop.on .badge{animation:badgeIn .7s var(--ease-pop) .15s both}
+@keyframes badgeIn{0%{transform:scale(.2) rotate(-25deg);opacity:0}100%{transform:none;opacity:1}}
+.badge .rib{position:absolute;top:0;width:40px;height:84px}
+.badge .disc{position:absolute;left:10px;top:42px;width:140px;height:140px;border-radius:50%;background:var(--sun);border:7px solid var(--navy);display:grid;place-items:center;box-shadow:0 12px 22px rgba(40,12,4,.35),inset 0 -8px 0 rgba(170,110,20,.35)}
+.badge .disc::after{content:"";position:absolute;inset:10px;border-radius:50%;border:3px dashed rgba(28,36,56,.35)}
+.badge .check{position:absolute;right:-6px;bottom:4px;width:52px;height:52px;border-radius:50%;background:var(--teal);border:5px solid var(--cream);display:grid;place-items:center;box-shadow:0 4px 0 var(--teal-sh)}
+.pop.on .badge .check{animation:pop .45s var(--ease-pop) .7s both}
+@keyframes pop{0%{transform:scale(0)}100%{transform:scale(1)}}
+
+.done-h{margin:0;font-family:var(--display);font-weight:700;font-size:50px;white-space:nowrap;line-height:1;letter-spacing:.01em;text-transform:uppercase;color:var(--navy)}
+.done-h .ex{color:var(--orange)}
+.done-name{margin:14px auto 0;display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 20px 0 8px;border-radius:23px;background:var(--cream-2);font-family:var(--display);font-weight:600;font-size:23px}
+.done-name .ic{width:32px;height:32px;border-radius:50%;background:var(--navy);display:grid;place-items:center}
+.done-fb{margin:12px auto 0;max-width:600px;font-weight:700;font-size:26px;line-height:1.4;color:var(--ink-2)}
+.outcome{margin-top:20px;display:flex;align-items:center;gap:18px;padding:16px 24px 16px 16px;border-radius:26px;background:var(--navy);color:var(--cream);text-align:left}
+.outcome .art{flex:none;width:92px;height:92px;border-radius:22px;overflow:hidden;position:relative}
+.outcome b{display:block;font-family:var(--display);font-weight:600;font-size:25px;line-height:1.15}
+.outcome span{display:block;margin-top:4px;font-weight:700;font-size:18px;line-height:1.35;color:#e8d9bf}
+.outcome em{font-style:normal;color:var(--sun)}
+
+.results{margin-top:16px;display:grid;gap:12px}
+.metric{padding:12px 10px 12px;border-radius:24px;background:var(--cream-2);display:flex;flex-direction:column;align-items:center;gap:2px;opacity:0;transform:translateY(12px)}
+.pop.on .metric{animation:rise .45s ease-out both}
+@keyframes rise{to{opacity:1;transform:none}}
+.metric .ic{width:46px;height:46px;border-radius:50%;background:var(--navy);display:grid;place-items:center;margin-bottom:4px}
+.metric .val{font-family:var(--display);font-weight:700;font-size:42px;line-height:1.05}
+.metric .val small{font-size:24px;font-weight:600;margin-left:3px}
+.metric .lbl{font-weight:800;font-size:17px;color:var(--ink-3)}
+
+.record{margin-top:16px;display:grid;grid-template-columns:1.25fr 1fr;gap:12px}
+.rec-box{position:relative;border-radius:24px;padding:22px 18px 16px;display:flex;align-items:center;gap:14px;text-align:left;background:var(--cream-2);opacity:0;transform:translateY(12px)}
+.pop.on .rec-box{animation:rise .45s ease-out both}
+.rec-box .ic{flex:none;width:56px;height:56px;border-radius:50%;background:var(--navy);display:grid;place-items:center}
+.rec-box .lbl{font-weight:800;font-size:17px;color:var(--ink-3)}
+.rec-box .val{font-family:var(--display);font-weight:700;font-size:46px;line-height:1}
+.rec-box .val small{font-size:24px;font-weight:600;margin-left:3px}
+.rec-box .sub{font-weight:700;font-size:15px;color:var(--ink-3);margin-top:2px}
+.rec-box.now.isnew{background:#fde7a8;box-shadow:inset 0 0 0 3px var(--sun)}
+.ribbon{position:absolute;right:14px;top:-24px;height:44px;padding:0 16px 0 10px;border-radius:22px;background:var(--orange);color:#fff9ee;display:flex;align-items:center;gap:6px;font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 4px 0 var(--orange-sh);transform:rotate(6deg)}
+.pop.on .ribbon{animation:stamp .55s var(--ease-pop) 1.15s both}
+@keyframes stamp{0%{transform:rotate(-20deg) scale(2.2);opacity:0}100%{transform:rotate(6deg) scale(1);opacity:1}}
+.rec-note{grid-column:1/-1;font-weight:700;font-size:17px;color:var(--ink-3);text-align:center;margin-top:2px}
+
+.done-btns{margin-top:22px;display:flex;justify-content:center;gap:14px}
+.done-btns .btn-primary{min-width:300px}
+
+/* particles */
+.fx{position:absolute;inset:0;pointer-events:none;overflow:visible}
+.pt{position:absolute;left:50%;top:0;width:var(--s);height:var(--s);opacity:0}
+.pop.on .pt,.fx.go .pt{animation:fly var(--d) cubic-bezier(.15,.7,.3,1) var(--dl) both}
+@keyframes fly{0%{transform:translate(-50%,0) scale(.3) rotate(0);opacity:0}12%{opacity:1}100%{transform:translate(calc(-50% + var(--x)),var(--y)) scale(1) rotate(var(--r));opacity:0}}
+
+/* =========================================================
+   SHARED ILLUSTRATION & DEMO ANIMATIONS
+   ========================================================= */
+.bob{animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.ring{animation:ring 1.6s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes ring{50%{transform:scale(.88);opacity:.55}}
+.dash{stroke-dasharray:10 12;animation:march 1s linear infinite}
+@keyframes march{to{stroke-dashoffset:-22}}
+.spin-s{animation:spin 2.4s linear infinite;transform-origin:center;transform-box:fill-box}
+.wob{animation:wob .25s ease-in-out infinite alternate}
+@keyframes wob{to{transform:rotate(4deg)}}
+
+/* demo: drag a command block */
+.d-drag .blk{animation:dragblk 3.2s ease-in-out infinite}
+@keyframes dragblk{0%,12%{transform:translate(0,0)}45%,100%{transform:translate(118px,-74px)}}
+.d-drag .slot{animation:slotfill 3.2s ease-in-out infinite}
+@keyframes slotfill{0%,44%{opacity:1}46%,100%{opacity:0}}
+/* demo: avoid rocks (path following) */
+.mover{position:absolute;offset-rotate:auto 90deg;animation:follow var(--t,3.6s) ease-in-out infinite}
+@keyframes follow{0%,8%{offset-distance:0%}85%,100%{offset-distance:100%}}
+/* demo: press run */
+.d-run .press{animation:press 3.2s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes press{0%,14%{transform:none}20%{transform:translateY(5px)}26%,100%{transform:none}}
+.d-run .rov{animation:runrov 3.2s ease-in-out infinite}
+@keyframes runrov{0%,24%{transform:translateX(0)}80%,100%{transform:translateX(150px)}}
+.d-run .hand{animation:hand 3.2s ease-in-out infinite}
+@keyframes hand{0%{transform:translate(30px,30px);opacity:0}10%{opacity:1;transform:translate(0,0)}20%{transform:translate(0,5px)}30%{transform:translate(0,0)}45%,100%{opacity:0;transform:translate(20px,20px)}}
+/* demo: spin wheel */
+.orbit{animation:spin 2.4s linear infinite;transform-origin:100px 95px}
+.fillring{stroke-dasharray:346;animation:fillr 4.8s linear infinite}
+@keyframes fillr{from{stroke-dashoffset:346}to{stroke-dashoffset:0}}
+/* demo: timer */
+.d-timer .bar{animation:drain 5s linear infinite;transform-origin:left center;transform-box:fill-box}
+@keyframes drain{from{transform:scaleX(1)}to{transform:scaleX(.08)}}
+.d-timer .barc{animation:barc 5s linear infinite}
+@keyframes barc{0%,70%{fill:#7fd6cc}72%,100%{fill:#e8793a}}
+.d-timer .hand2{animation:spin 5s linear infinite;transform-origin:60px 64px}
+/* demo: pick a site */
+.d-pick .pin{animation:pinhop 3s ease-in-out infinite}
+@keyframes pinhop{0%{transform:translate(0,0)}30%{transform:translate(70px,-10px)}60%,100%{transform:translate(140px,0)}}
+.d-pick .pick3{animation:pk 3s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes pk{0%,60%{opacity:0;transform:scale(.6)}70%,100%{opacity:1;transform:scale(1)}}
+/* demo: tap */
+.d-tap .finger{animation:tap .5s ease-in-out infinite alternate}
+@keyframes tap{from{transform:translate(0,-12px)}to{transform:translate(0,0)}}
+.d-tap .rip{animation:rip .5s ease-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes rip{from{transform:scale(.3);opacity:.9}to{transform:scale(1.4);opacity:0}}
+.d-tap .plus{animation:plus 1s ease-out infinite}
+@keyframes plus{from{transform:translateY(0);opacity:1}to{transform:translateY(-28px);opacity:0}}
+/* demo: keys */
+.d-keys .key{animation:key .6s ease-in-out infinite}
+@keyframes key{0%,40%{transform:translateY(0)}50%,70%{transform:translateY(6px)}}
+.d-keys .keysh{animation:keysh .6s ease-in-out infinite}
+@keyframes keysh{0%,40%{transform:scaleY(1)}50%,70%{transform:scaleY(.2)}}
+.d-keys .meter{animation:meter 3s ease-out infinite;transform-origin:left center;transform-box:fill-box}
+@keyframes meter{from{transform:scaleX(.05)}to{transform:scaleX(1)}}
+/* demo: type a number */
+.d-type .digits{animation:typ 3.4s steps(1) infinite}
+@keyframes typ{0%,15%{clip-path:inset(0 100% 0 0)}16%,30%{clip-path:inset(0 50% 0 0)}31%,100%{clip-path:inset(0 0 0 0)}}
+.d-type .caret{animation:blink .8s steps(1) infinite}
+.d-type .ok{animation:ok 3.4s ease-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes ok{0%,50%{transform:scale(0)}60%,100%{transform:scale(1)}}
+/* demo: rotate */
+.d-rot .rov{animation:rot 3.4s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes rot{0%,15%{transform:rotate(0)}65%,100%{transform:rotate(180deg)}}
+/* demo: back up with ruler */
+.d-back .rov{animation:back 4s ease-in-out infinite}
+@keyframes back{0%,10%{transform:translateX(0)}80%,100%{transform:translateX(-112px)}}
+.d-back .seg{animation:s1 4s steps(1) infinite}
+.d-back .g2{animation-name:s2}.d-back .g3{animation-name:s3}.d-back .g4{animation-name:s4}
+@keyframes s1{0%,25%{opacity:0}26%,100%{opacity:1}}@keyframes s2{0%,42%{opacity:0}43%,100%{opacity:1}}@keyframes s3{0%,59%{opacity:0}60%,100%{opacity:1}}@keyframes s4{0%,76%{opacity:0}77%,100%{opacity:1}}
+/* demo: reach */
+.d-reach .arm{animation:arm 3s ease-in-out infinite;transform-origin:left center;transform-box:fill-box}
+@keyframes arm{0%,15%{transform:scaleX(.15)}55%,100%{transform:scaleX(1)}}
+.d-reach .glow{animation:glow 3s ease-in-out infinite}
+@keyframes glow{0%,55%{opacity:0}65%,100%{opacity:1}}
+
+/* demo: timing needle */
+.d-timing .needle{animation:swing 2s ease-in-out infinite alternate;transform-origin:150px 140px}
+@keyframes swing{from{transform:rotate(-70deg)}to{transform:rotate(70deg)}}
+.d-timing .go{animation:goflash 2s ease-in-out infinite alternate}
+@keyframes goflash{0%,40%{opacity:0}48%,52%{opacity:1}60%,100%{opacity:0}}
+/* demo: steer */
+.d-steer .sneedle{animation:sway 2.4s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:translateX(-50px)}50%{transform:translateX(40px)}}
+.d-steer .kr{animation:kpress 2.4s ease-in-out infinite}
+.d-steer .kl{animation:kpress 2.4s ease-in-out -1.2s infinite}
+@keyframes kpress{0%,20%{transform:translateY(5px)}30%,100%{transform:none}}
+/* demo: mash */
+.d-mash .mb{animation:key .3s ease-in-out infinite}
+.d-mash .meter{animation:meter 2.4s ease-out infinite;transform-origin:left center;transform-box:fill-box}
+.d-mash .plus{animation:plus .6s ease-out infinite}
+/* =========================================================
+   REDUCED MOTION — OS setting or preview toggle
+   ========================================================= */
+@media (prefers-reduced-motion: reduce){
+  .frame *,.frame *::before,.frame *::after{animation-duration:.001s!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-duration:.001s!important}
+}
+.rm .frame *,.rm .frame *::before,.rm .frame *::after{animation-duration:.001s!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-duration:.001s!important}
+.rm .pt{display:none}
+.rm .burst{animation:none!important}
+</style>
+</head>
+<body>
+
+
+
+<main class="stage" id="stage">
+  <div class="frame-wrap" id="frameWrap">
+    <div class="frame" id="frame">
+
+      <!-- TEMPLATE A -->
+      <div class="pop" id="intro" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+        <div class="card">
+          <div class="intro-track" id="introTrack">
+            <section class="intro-page" id="briefPage" aria-hidden="false"></section>
+            <section class="intro-page" id="howPage" aria-hidden="true"></section>
+          </div>
+        </div>
+        <div class="tx-tab" id="introTab"></div>
+      </div>
+
+      <!-- TEMPLATE B -->
+      <div class="pop" id="done" role="dialog" aria-modal="true" aria-labelledby="doneTitle">
+        <div class="card" id="doneCard"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+/* =========================================================
+   1. ICONS (stroke icons in the reference style)
+   ========================================================= */
+const I = {
+  home:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff4e2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg>',
+  music:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>',
+  gear:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M5.2 18.8l2.1-2.1M16.7 7.3l2.1-2.1"/></svg>',
+  play:'<svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.8l-12-7.5A1 1 0 0 0 7 4.5z" fill="currentColor"/></svg>',
+  arrowR:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  arrowL:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>',
+  replay:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/></svg>',
+  tgt:'<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1c2438" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.6" fill="#1c2438"/></svg>',
+  antenna:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1c2438" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M5 12a7 7 0 0 1 14 0"/><path d="M8.5 12a3.5 3.5 0 0 1 7 0"/><circle cx="12" cy="12" r="1.5" fill="#1c2438"/><path d="M12 13.5V21"/></svg>',
+  sol:'<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="#f2c14e"/><g stroke="#f2c14e" stroke-width="2.4" stroke-linecap="round"><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></g></svg>',
+  alert:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff8f6b" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 6v8"/><circle cx="12" cy="18.5" r="1" fill="#ff8f6b"/></svg>',
+  clock:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff4e2" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>',
+  blocks:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff4e2" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="11" height="6" rx="2"/><rect x="7" y="14" width="14" height="6" rx="2"/><path d="M8 10v4" stroke-linecap="round"/></svg>',
+  flag:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff4e2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"/><path d="M5 4h12l-2.5 4L17 12H5" fill="#f2c14e" stroke="#fff4e2"/></svg>',
+  pin:'<svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-7.2 7-12.5A7 7 0 0 0 5 9.5C5 14.8 12 22 12 22z" fill="#e8793a" stroke="#fff4e2" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.6" fill="#fff4e2"/></svg>',
+  wheel:'<svg width="28" height="28" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="86" fill="#4a5468" stroke="#fff4e2" stroke-width="14"/><circle cx="100" cy="100" r="38" fill="#b9c0cc" stroke="#fff4e2" stroke-width="14"/></svg>',
+  lens:'<svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6.5" fill="#7fd6cc" stroke="#fff4e2" stroke-width="2.2"/><path d="M15 15l5.5 5.5" stroke="#fff4e2" stroke-width="3" stroke-linecap="round"/></svg>',
+  calc:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff4e2" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 13h2M14 13h2M8 17h2M14 17h2"/></svg>',
+  ruler:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff4e2" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="8" width="19" height="8" rx="2"/><path d="M7 8v3M11 8v4M15 8v3M19 8v4" stroke-linecap="round"/></svg>',
+  hand:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff4e2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5a1.5 1.5 0 0 1 3 0v6"/><path d="M12 10V9a1.5 1.5 0 0 1 3 0v2"/><path d="M15 11a1.5 1.5 0 0 1 3 0v3a7 7 0 0 1-7 7h-.5a6 6 0 0 1-5-2.7L3.7 15a1.5 1.5 0 0 1 2.5-1.7L9 16"/></svg>',
+  check:'<svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  checkCream:'<svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#7fd6cc" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  retry:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff4e2" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/></svg>',
+  bulb:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f2c14e" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>',
+  save:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7fd6cc" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  clockSm:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff4e2" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2"/></svg>',
+  trophy:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#f2c14e" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z" fill="#f2c14e" stroke="#f2c14e"/><path d="M7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3M12 14v3M8 20h8M9.5 17h5"/></svg>',
+  target:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff4e2" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.6" fill="#f2c14e" stroke="#f2c14e"/></svg>',
+  star:'<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17l-5.9 3.3 1.3-6.6L2.5 9.1l6.6-.8z" fill="#fff9ee"/></svg>'
+};
+
+/* =========================================================
+   2. ILLUSTRATION PARTS (Sojo, rocks) — shared across missions
+   ========================================================= */
+// Sojo, top-down — same drawing as the Sol 4 screens
+const SOJO = (w=100, extra='') => `<svg width="${w}" height="${w}" viewBox="0 0 100 100" ${extra} aria-hidden="true"><path d="M50 -1 L63 13 H37Z" fill="#f2c14e" stroke="#1c2438" stroke-width="3" stroke-linejoin="round"/><g fill="#d27a36" stroke="#3a1a10" stroke-width="2.5"><rect x="10" y="20" width="13" height="17" rx="6"/><rect x="10" y="43" width="13" height="17" rx="6"/><rect x="10" y="66" width="13" height="17" rx="6"/><rect x="77" y="20" width="13" height="17" rx="6"/><rect x="77" y="43" width="13" height="17" rx="6"/><rect x="77" y="66" width="13" height="17" rx="6"/></g><rect x="23" y="22" width="54" height="62" rx="12" fill="#f3e8d0" stroke="#3a1a10" stroke-width="2.8"/><rect x="20" y="30" width="60" height="42" rx="9" fill="#2c3f6b" stroke="#3a1a10" stroke-width="2.5"/><g stroke="rgba(200,220,255,0.4)" stroke-width="1.4" stroke-linecap="round"><line x1="35" y1="33" x2="35" y2="69"/><line x1="50" y1="33" x2="50" y2="69"/><line x1="65" y1="33" x2="65" y2="69"/><line x1="23" y1="51" x2="77" y2="51"/></g><rect x="33" y="13" width="34" height="12" rx="6" fill="#f3e8d0" stroke="#3a1a10" stroke-width="2.5"/><circle cx="43" cy="19" r="3.6" fill="#3a2414"/><circle cx="57" cy="19" r="3.6" fill="#3a2414"/><circle cx="44" cy="18" r="1.2" fill="#fff"/><circle cx="58" cy="18" r="1.2" fill="#fff"/></svg>`;
+const SOJO_G = (x,y,s=1,rot=0,cls='') => `<g class="${cls}" transform="translate(${x} ${y}) rotate(${rot}) scale(${s}) translate(-50 -50)"><path d="M50 -1 L63 13 H37Z" fill="#f2c14e" stroke="#1c2438" stroke-width="3" stroke-linejoin="round"/><g fill="#d27a36" stroke="#3a1a10" stroke-width="2.5"><rect x="10" y="20" width="13" height="17" rx="6"/><rect x="10" y="43" width="13" height="17" rx="6"/><rect x="10" y="66" width="13" height="17" rx="6"/><rect x="77" y="20" width="13" height="17" rx="6"/><rect x="77" y="43" width="13" height="17" rx="6"/><rect x="77" y="66" width="13" height="17" rx="6"/></g><rect x="23" y="22" width="54" height="62" rx="12" fill="#f3e8d0" stroke="#3a1a10" stroke-width="2.8"/><rect x="20" y="30" width="60" height="42" rx="9" fill="#2c3f6b" stroke="#3a1a10" stroke-width="2.5"/><rect x="33" y="13" width="34" height="12" rx="6" fill="#f3e8d0" stroke="#3a1a10" stroke-width="2.5"/><circle cx="43" cy="19" r="3.6" fill="#3a2414"/><circle cx="57" cy="19" r="3.6" fill="#3a2414"/></g>`;
+const ROCK_G = (x,y,s=1,fill='#7a3b28',stroke='#3a1a10') => `<g transform="translate(${x} ${y}) scale(${s}) translate(-50 -50)"><ellipse cx="54" cy="74" rx="38" ry="12" fill="rgba(60,18,6,0.35)"/><path d="M16 62 C12 40 28 22 48 22 C70 20 88 36 86 56 C85 72 70 78 50 78 C30 78 18 74 16 62Z" fill="${fill}" stroke="${stroke}" stroke-width="3"/><path d="M30 40 C38 30 50 28 60 30" fill="none" stroke="rgba(255,214,180,0.45)" stroke-width="5" stroke-linecap="round"/></g>`;
+// Barnacle Bill: rock covered in little bumps
+const BARNACLE_G = (x,y,s=1) => `<g transform="translate(${x} ${y}) scale(${s}) translate(-50 -50)"><ellipse cx="52" cy="80" rx="44" ry="12" fill="rgba(60,18,6,0.35)"/><path d="M8 66 C4 38 26 16 52 16 C80 14 96 38 92 62 C90 78 72 82 50 82 C26 82 10 80 8 66Z" fill="#8a4630" stroke="#3a1a10" stroke-width="3"/><g fill="#c98a62" stroke="#3a1a10" stroke-width="1.6"><circle cx="30" cy="40" r="5"/><circle cx="46" cy="32" r="4"/><circle cx="62" cy="38" r="5.5"/><circle cx="76" cy="52" r="4"/><circle cx="24" cy="60" r="4"/><circle cx="40" cy="54" r="6"/><circle cx="58" cy="60" r="4.5"/><circle cx="72" cy="68" r="3.5"/><circle cx="36" cy="72" r="3.5"/></g></g>`;
+const YOGI_G = (x,y,s=1) => `<g transform="translate(${x} ${y}) scale(${s}) translate(-50 -50)"><ellipse cx="52" cy="82" rx="46" ry="11" fill="rgba(60,18,6,0.35)"/><path d="M6 70 C0 38 26 10 54 10 C82 8 98 36 94 64 C92 80 76 82 52 82 C28 82 8 82 6 70Z" fill="#9a4a2b" stroke="#3a1a10" stroke-width="3"/><path d="M24 36 C34 22 50 18 64 20" fill="none" stroke="rgba(255,214,180,0.5)" stroke-width="7" stroke-linecap="round"/><path d="M40 58 l10 -6 M58 64 l12 -4" stroke="rgba(58,26,16,.5)" stroke-width="3" stroke-linecap="round"/></g>`;
+
+
+/* Pathfinder descending: parachute → backshell → lander wrapped in airbags */
+const LANDER_G = (x,y,s=1,chute=true) => `<g transform="translate(${x} ${y}) scale(${s})">
+  ${chute?`<path d="M-70 -120 C-70 -175 70 -175 70 -120 Z" fill="#fff4e2" stroke="#1c2438" stroke-width="4"/>
+  <path d="M-70 -120 C-40 -132 -20 -132 0 -120 C20 -132 40 -132 70 -120" fill="none" stroke="#1c2438" stroke-width="3"/>
+  <path d="M-46 -160 C-30 -170 -10 -172 0 -172 L0 -120 C-20 -132 -40 -132 -70 -120 C-68 -140 -58 -152 -46 -160Z" fill="#e8793a"/>
+  <path d="M-70 -120 L-14 -62 M70 -120 L14 -62 M0 -120 L0 -62" stroke="#fff4e2" stroke-width="2"/>`:''}
+  <path d="M-22 -64 H22 L14 -40 H-14 Z" fill="#c9ced6" stroke="#1c2438" stroke-width="3"/>
+  <path d="M0 -40 V-14" stroke="#fff4e2" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <g stroke="#1c2438" stroke-width="3"><circle cx="-16" cy="6" r="18" fill="#f3e8d0"/><circle cx="16" cy="6" r="18" fill="#efe2c6"/><circle cx="0" cy="-8" r="17" fill="#fff4e2"/><circle cx="0" cy="18" r="16" fill="#e3d2ae"/></g>
+  <path d="M-24 0 l8 4 M14 -2 l8 -4 M-6 -14 l8 2" stroke="rgba(28,36,56,.35)" stroke-width="2.5" stroke-linecap="round"/>
+</g>`;
+
+/* Briefing viewport scenes (the main visual attraction) */
+const SCENES = {
+  landing: () => `
+    <div class="abs" style="inset:0;background:linear-gradient(180deg,#1c2438 0%,#3b2a3a 38%,#b5582c 78%,#d9783f 100%)"></div>
+    <svg class="abs" style="inset:0" width="520" height="100%" viewBox="0 0 520 470" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g fill="#fff4e2" opacity=".8"><circle cx="40" cy="60" r="2"/><circle cx="120" cy="30" r="1.5"/><circle cx="470" cy="50" r="2"/><circle cx="420" cy="120" r="1.5"/><circle cx="80" cy="150" r="1.5"/><circle cx="300" cy="24" r="1.5"/></g>
+      <path d="M0 400 C120 370 220 390 300 380 C400 368 460 386 520 378 V470 H0Z" fill="#c4612f"/>
+      <path d="M0 430 C140 410 260 432 520 418 V470 H0Z" fill="#a54a22"/>
+      <ellipse cx="300" cy="404" rx="70" ry="12" fill="none" stroke="#7fd6cc" stroke-width="5" stroke-dasharray="12 9" class="dash"/>
+      <g class="bob">${LANDER_G(280,290,1.35)}</g>
+      <path d="M420 120 l18 -26 M440 150 l22 -18" stroke="#f2c14e" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+    </svg>`,
+  barnacle: () => `
+    <div class="mars abs" style="inset:0"></div><div class="speck abs" style="inset:0"></div>
+    <svg class="abs" style="inset:0" width="520" height="100%" viewBox="0 0 520 470" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      ${ROCK_G(110,120,.7)}${ROCK_G(260,250,.8,'#6f3322')}${ROCK_G(430,330,.55)}
+      <path d="M120 400 C150 330 200 330 220 300 C250 255 330 270 360 200" fill="none" stroke="#fff4e2" stroke-width="6" stroke-linecap="round" class="dash" opacity=".95"/>
+      ${BARNACLE_G(400,150,1.25)}
+      <circle cx="400" cy="150" r="82" fill="none" stroke="#f2c14e" stroke-width="6" stroke-dasharray="18 12" class="ring"/>
+      <g class="bob">${SOJO_G(110,410,1.25,25)}</g>
+    </svg>
+    <div class="abs" style="left:300px;top:52px;height:36px;padding:0 14px;border-radius:18px;background:#f2c14e;color:#1c2438;font:600 17px var(--display);display:flex;align-items:center;z-index:3">Barnacle Bill</div>`,
+  soil: () => `
+    <div class="mars abs" style="inset:0"></div><div class="speck abs" style="inset:0"></div>
+    <div class="t-sand abs" style="left:40px;top:250px;width:200px;height:130px;border-radius:50%;box-shadow:inset 0 0 0 4px rgba(255,244,226,.45)"></div>
+    <div class="t-firm abs" style="left:230px;top:320px;width:220px;height:130px;border-radius:50%;box-shadow:inset 0 0 0 4px rgba(255,244,226,.45)"></div>
+    <div class="t-rock abs" style="left:300px;top:150px;width:190px;height:130px;border-radius:50%;box-shadow:inset 0 0 0 4px rgba(255,244,226,.45)"></div>
+    ${['A|116|286','B|318|356','C|374|186'].map(s=>{const [l,x,y]=s.split('|');return `<div class="abs" style="left:${x}px;top:${y}px;width:52px;height:52px;border-radius:50%;background:#1c2438;color:#fff4e2;display:grid;place-items:center;font:700 26px var(--display);box-shadow:0 4px 0 rgba(0,0,0,.25)">${l}</div>`}).join('')}
+    <div class="abs bob" style="left:70px;top:70px;width:190px;height:190px;transform:rotate(-12deg);filter:drop-shadow(3px 12px 8px rgba(60,18,6,.45))">${SOJO(190)}</div>`,
+  yogi: () => `
+    <div class="mars abs" style="inset:0"></div><div class="speck abs" style="inset:0"></div>
+    <svg class="abs" style="inset:0" width="520" height="100%" viewBox="0 0 520 470" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      ${YOGI_G(395,215,2.2)}
+      <g transform="translate(70 360)"><rect width="300" height="34" rx="8" fill="#fff4e2" stroke="#1c2438" stroke-width="3"/>${[0,1,2,3,4,5,6].map(i=>`<path d="M${20+i*43} 0v${i%2?12:18}" stroke="#1c2438" stroke-width="3"/>`).join('')}<text x="150" y="27" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="16" fill="#1c2438">? cm</text></g>
+      <g class="bob">${SOJO_G(140,230,1.6,90)}</g>
+      <path d="M210 230 H270" stroke="#f2c14e" stroke-width="6" stroke-linecap="round" class="dash"/>
+    </svg>
+    <div class="abs" style="left:330px;top:52px;height:36px;padding:0 14px;border-radius:18px;background:#f2c14e;color:#1c2438;font:600 17px var(--display);display:flex;align-items:center;z-index:3">Yogi</div>`,
+  rescue: () => `
+    <div class="mars abs" style="inset:0"></div><div class="speck abs" style="inset:0"></div>
+    <svg class="abs" style="inset:0" width="520" height="100%" viewBox="0 0 520 470" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      ${YOGI_G(430,90,1.3)}
+      ${ROCK_G(170,250,1.2,'#6f3322')}${ROCK_G(350,260,1.25)}${ROCK_G(260,350,.9,'#7a3b28')}
+      <g class="wob" style="transform-origin:260px 240px">${SOJO_G(260,235,1.5,-14)}</g>
+      <g transform="translate(330 140)"><circle r="26" fill="#ff8f6b" stroke="#1c2438" stroke-width="4"/><path d="M0 -12v14" stroke="#1c2438" stroke-width="5" stroke-linecap="round"/><circle cy="12" r="3" fill="#1c2438"/></g>
+    </svg>`
+};
+
+/* Outcome thumbnails for the completion card */
+const OUTCOME_ART = {
+  landing: `<div class="mars abs" style="inset:0"></div><svg class="abs" style="inset:0" viewBox="0 0 92 92" aria-hidden="true">${LANDER_G(46,58,.8,false)}<path d="M8 82 H84" stroke="#a54a22" stroke-width="6" stroke-linecap="round"/></svg>`,
+  barnacle: `<div class="mars abs" style="inset:0"></div><svg class="abs" style="inset:0" viewBox="0 0 92 92" aria-hidden="true">${BARNACLE_G(58,40,.62)}${SOJO_G(28,64,.42,40)}</svg>`,
+  soil: `<div class="abs" style="inset:0;background:#2c3f6b"></div><div class="abs" style="left:24px;top:10px;width:44px;height:14px;border-radius:5px;background:#f2c14e;border:3px solid #fff4e2"></div><div class="abs" style="left:18px;top:22px;width:56px;height:62px;border-radius:9px 9px 16px 16px;border:3px solid #fff4e2;overflow:hidden;background:rgba(255,244,226,.15)"><div class="t-rock abs" style="left:0;right:0;bottom:0;height:14px"></div><div class="t-firm abs" style="left:0;right:0;bottom:14px;height:12px"></div><div class="t-sand abs" style="left:0;right:0;bottom:26px;height:12px"></div></div>`,
+  yogi: `<div class="mars abs" style="inset:0"></div><svg class="abs" style="inset:0" viewBox="0 0 92 92" aria-hidden="true">${YOGI_G(64,46,.62)}${SOJO_G(22,46,.4,90)}<circle cx="44" cy="46" r="7" fill="#7fd6cc" stroke="#1c2438" stroke-width="2"/></svg>`,
+  rescue: `<div class="mars abs" style="inset:0"></div><svg class="abs" style="inset:0" viewBox="0 0 92 92" aria-hidden="true">${ROCK_G(20,70,.4)}${ROCK_G(76,72,.38)}${SOJO_G(48,38,.5,0)}<path d="M38 70 h20" stroke="#fff4e2" stroke-width="4" stroke-linecap="round" stroke-dasharray="4 6"/></svg>`
+};
+
+/* =========================================================
+   3. INSTRUCTION DEMOS — one looping animation per mechanic
+      Any mission can use any demo by name.
+   ========================================================= */
+const DEMOS = {
+  // Timing: tap when the needle is in the green
+  timing: () => `<svg class="d-timing" width="100%" height="100%" viewBox="0 0 300 190" aria-hidden="true">
+       <path d="M60 140 A90 90 0 0 1 240 140" fill="none" stroke="rgba(255,240,220,.18)" stroke-width="22"/>
+       <path d="M60 140 A90 90 0 0 1 104 63" fill="none" stroke="#e8793a" stroke-width="22"/>
+       <path d="M196 63 A90 90 0 0 1 240 140" fill="none" stroke="#e8793a" stroke-width="22"/>
+       <path d="M128 53 A90 90 0 0 1 172 53" fill="none" stroke="#7fd6cc" stroke-width="22"/>
+       <line class="needle" x1="150" y1="140" x2="150" y2="62" stroke="#fff4e2" stroke-width="6" stroke-linecap="round"/>
+       <circle cx="150" cy="140" r="10" fill="#f2c14e"/>
+       <text class="go" x="150" y="182" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="24" fill="#7fd6cc">TAP!</text>
+     </svg>`,
+  // Steer left / right
+  steer: () => `<svg class="d-steer" width="100%" height="100%" viewBox="0 0 300 190" aria-hidden="true">
+       <rect x="30" y="36" width="240" height="30" rx="15" fill="#e8793a"/>
+       <rect x="110" y="36" width="80" height="30" fill="#7fd6cc"/>
+       <g class="sneedle"><rect x="146" y="26" width="8" height="50" rx="4" fill="#fff4e2" stroke="#1c2438" stroke-width="2"/></g>
+       <g class="kl"><rect x="56" y="108" width="80" height="58" rx="16" fill="#4a5d88" stroke="#8fa3cc" stroke-width="3"/><path d="M106 124 l-16 13 16 13" fill="none" stroke="#fff4e2" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
+       <g class="kr"><rect x="164" y="108" width="80" height="58" rx="16" fill="#4a5d88" stroke="#8fa3cc" stroke-width="3"/><path d="M194 124 l16 13 -16 13" fill="none" stroke="#fff4e2" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
+     </svg>`,
+  // Tap a big button fast
+  mash: () => `<svg class="d-mash" width="100%" height="100%" viewBox="0 0 300 190" aria-hidden="true">
+       <text x="150" y="36" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="26" fill="#f2c14e">NOW!</text>
+       <g class="mb"><ellipse cx="150" cy="104" rx="70" ry="34" fill="#8a3a14"/><ellipse cx="150" cy="96" rx="70" ry="34" fill="#e8793a"/><text x="150" y="104" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="22" fill="#fff9ee">TAP</text></g>
+       <text class="plus" x="236" y="80" font-family="Fredoka" font-weight="700" font-size="24" fill="#7fd6cc">+1</text>
+       <rect x="50" y="156" width="200" height="16" rx="8" fill="rgba(255,240,220,.18)"/>
+       <rect class="meter" x="50" y="156" width="200" height="16" rx="8" fill="#7fd6cc"/>
+     </svg>`,
+  // Drag & drop commands
+  drag: () => `<svg class="d-drag" width="100%" height="100%" viewBox="0 0 300 190" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+     <rect x="18" y="20" width="264" height="56" rx="14" fill="rgba(255,240,220,.08)" stroke="rgba(255,240,220,.25)" stroke-width="2" stroke-dasharray="6 6"/>
+     <rect x="30" y="30" width="72" height="36" rx="10" fill="#7fd6cc"/><path d="M58 48 l8 -8 8 8" fill="none" stroke="#1c2438" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+     <rect class="slot" x="148" y="30" width="72" height="36" rx="10" fill="none" stroke="rgba(255,240,220,.45)" stroke-width="3" stroke-dasharray="5 5"/>
+     <rect x="30" y="122" width="72" height="40" rx="10" fill="#e8793a" opacity=".35"/>
+     <g class="blk"><rect x="30" y="122" width="72" height="40" rx="10" fill="#f2c14e"/><path d="M58 142 l8 -8 8 8" fill="none" stroke="#1c2438" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M84 150 l13 13 -5 1 3 6 -4 2 -3 -6 -4 3z" fill="#fff4e2" stroke="#1c2438" stroke-width="2" stroke-linejoin="round"/></g>
+     <rect x="128" y="122" width="72" height="40" rx="10" fill="#e8793a"/><path d="M152 142 a10 10 0 1 1 10 10" fill="none" stroke="#1c2438" stroke-width="4" stroke-linecap="round"/>
+     <rect x="216" y="122" width="72" height="40" rx="10" fill="#7fd6cc"/><path d="M244 136 l8 8 -8 8" fill="none" stroke="#1c2438" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" transform="rotate(90 252 144)"/>
+   </svg>`,
+  // Navigate around obstacles
+  avoid: () => `<div class="speck abs" style="inset:0;opacity:.5"></div>
+     <svg class="abs" style="inset:0" width="100%" height="100%" viewBox="0 0 300 190" aria-hidden="true">
+       ${ROCK_G(150,90,.7)}${ROCK_G(245,150,.45)}
+       <path d="M40 160 C60 160 70 150 80 120 C95 60 120 30 170 30 C230 30 250 60 262 70" fill="none" stroke="#f2c14e" stroke-width="4" stroke-dasharray="8 8" stroke-linecap="round"/>
+       <circle cx="262" cy="70" r="14" fill="none" stroke="#7fd6cc" stroke-width="4"/><circle cx="262" cy="70" r="4" fill="#7fd6cc"/>
+     </svg>
+     <div class="mover" style="left:0;top:0;width:44px;height:44px;offset-path:path('M40 160 C60 160 70 150 80 120 C95 60 120 30 170 30 C230 30 250 60 262 70')">${SOJO(44)}</div>`,
+  // Press a button to run
+  run: () => `<svg class="d-run" width="100%" height="100%" viewBox="0 0 300 190" aria-hidden="true">
+       <rect x="0" y="120" width="300" height="70" fill="rgba(232,121,58,.25)"/>
+       <g class="rov">${SOJO_G(50,150,.5,90)}</g>
+       <circle cx="236" cy="150" r="10" fill="none" stroke="#7fd6cc" stroke-width="4"/>
+       <g class="press"><rect x="96" y="28" width="108" height="52" rx="26" fill="#c95a24"/><rect x="96" y="22" width="108" height="52" rx="26" fill="#e8793a"/><path d="M134 36 v24 l20 -12z" fill="#fff9ee"/><text x="170" y="56" font-family="Fredoka" font-weight="600" font-size="18" fill="#fff9ee">Run</text></g>
+       <g class="hand"><path d="M168 66 l20 20 -8 1 5 9 -6 3 -5 -9 -6 5z" fill="#fff4e2" stroke="#1c2438" stroke-width="2.5" stroke-linejoin="round"/></g>
+     </svg>`,
+  // Pick a place on a map
+  pick: () => `<div class="speck abs" style="inset:0;opacity:.5"></div>
+     <div class="t-sand abs" style="left:24px;top:100px;width:74px;height:54px;border-radius:50%"></div>
+     <div class="t-firm abs" style="left:112px;top:110px;width:74px;height:54px;border-radius:50%"></div>
+     <div class="t-rock abs" style="left:200px;top:100px;width:74px;height:54px;border-radius:50%"></div>
+     <svg class="abs" style="inset:0" width="100%" height="100%" viewBox="0 0 300 190" aria-hidden="true">
+       <ellipse class="pick3" cx="237" cy="127" rx="44" ry="34" fill="none" stroke="#f2c14e" stroke-width="5"/>
+       <g class="pin"><path d="M61 96s18-18 18-32a18 18 0 0 0-36 0c0 14 18 32 18 32z" fill="#e8793a" stroke="#fff4e2" stroke-width="3"/><circle cx="61" cy="64" r="6" fill="#fff4e2"/></g>
+     </svg>`,
+  // Click-hold-circle spin
+  spin: () => `<svg width="100%" height="100%" viewBox="0 0 300 190" aria-hidden="true">
+       <g transform="translate(50 0)">
+       <circle cx="100" cy="95" r="70" fill="none" stroke="rgba(255,240,220,.18)" stroke-width="12"/>
+       <circle class="fillring" cx="100" cy="95" r="55" fill="none" stroke="#7fd6cc" stroke-width="10" stroke-linecap="round" transform="rotate(-90 100 95)"/>
+       <g class="spin-s"><circle cx="100" cy="95" r="40" fill="#4a5468" stroke="#fff4e2" stroke-width="4"/><circle cx="100" cy="95" r="36" fill="none" stroke="#c9ced6" stroke-width="7" stroke-dasharray="7 10"/><circle cx="100" cy="95" r="16" fill="#b9c0cc" stroke="#1c2438" stroke-width="4"/></g>
+       <g class="orbit"><circle cx="100" cy="17" r="15" fill="rgba(242,193,78,.4)"/><path d="M96 9 l16 9 -7 2 -3 8z" fill="#fff4e2" stroke="#1c2438" stroke-width="2" stroke-linejoin="round"/></g>
+       </g>
+     </svg>`,
+  // Beat the clock
+  timer: (m) => `<svg class="d-timer" width="100%" height="100%" viewBox="0 0 300 190" aria-hidden="true">
+       <circle cx="60" cy="64" r="34" fill="#fff4e2" stroke="#f2c14e" stroke-width="6"/><rect x="52" y="20" width="16" height="10" rx="3" fill="#f2c14e"/>
+       <line class="hand2" x1="60" y1="64" x2="60" y2="40" stroke="#1c2438" stroke-width="5" stroke-linecap="round"/>
+       <text x="112" y="76" font-family="Fredoka" font-weight="700" font-size="40" fill="#fff4e2">${m && m.seconds ? m.seconds+' s' : '30 s'}</text>
+       <rect x="24" y="128" width="252" height="26" rx="13" fill="rgba(255,240,220,.18)"/>
+       <rect class="bar barc" x="24" y="128" width="252" height="26" rx="13" fill="#7fd6cc"/>
+     </svg>`,
+  // Rapid tapping
+  tap: () => `<svg class="d-tap" width="100%" height="100%" viewBox="0 0 300 190" aria-hidden="true">
+       ${ROCK_G(80,120,.6)}${ROCK_G(220,124,.6)}
+       ${SOJO_G(150,100,.95,-8)}
+       <circle class="rip" cx="160" cy="100" r="40" fill="none" stroke="#f2c14e" stroke-width="6"/>
+       <g class="finger"><path d="M166 104 v-26 a7 7 0 0 1 14 0 v18 l14 3 a8 8 0 0 1 6 9 l-4 22 h-26 l-14 -14 a6 6 0 0 1 8 -8z" fill="#fff4e2" stroke="#1c2438" stroke-width="3" stroke-linejoin="round"/></g>
+       <text class="plus" x="214" y="56" font-family="Fredoka" font-weight="700" font-size="28" fill="#7fd6cc">+1</text>
+     </svg>`,
+  // Keyboard controls
+  keys: () => `<svg class="d-keys" width="100%" height="100%" viewBox="0 0 300 190" aria-hidden="true">
+       <rect class="keysh" x="40" y="58" width="220" height="64" rx="14" fill="#0e1424" style="transform-origin:150px 122px"/>
+       <g class="key"><rect x="40" y="46" width="220" height="64" rx="14" fill="#fff4e2" stroke="#c9ced6" stroke-width="3"/><text x="150" y="88" text-anchor="middle" font-family="Fredoka" font-weight="600" font-size="26" fill="#1c2438">Space</text></g>
+       <rect x="40" y="146" width="220" height="18" rx="9" fill="rgba(255,240,220,.18)"/>
+       <rect class="meter" x="40" y="146" width="220" height="18" rx="9" fill="#7fd6cc"/>
+     </svg>`,
+  // Type a number answer
+  type: (m) => `<svg class="d-type" width="100%" height="100%" viewBox="0 0 300 190" aria-hidden="true">
+       <text x="150" y="44" text-anchor="middle" font-family="Fredoka" font-weight="600" font-size="24" fill="#fff4e2">${(m&&m.sum)||'24 − 4 = ?'}</text>
+       <rect x="70" y="66" width="160" height="70" rx="16" fill="#fff4e2" stroke="#f2c14e" stroke-width="4"/>
+       <g class="digits"><text x="150" y="116" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="44" fill="#1c2438">${(m&&m.answer)||'20'}</text></g>
+       <g class="ok"><circle cx="244" cy="70" r="22" fill="#3fb8a9" stroke="#1c2438" stroke-width="3"/><path d="M234 70 l7 7 12 -13" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></g>
+       <rect x="100" y="152" width="100" height="24" rx="12" fill="#e8793a"/><text x="150" y="170" text-anchor="middle" font-family="Fredoka" font-weight="600" font-size="15" fill="#fff9ee">Check</text>
+     </svg>`,
+  // Rotate an object
+  rotate: () => `<svg class="d-rot" width="100%" height="100%" viewBox="0 0 300 190" aria-hidden="true">
+       <circle cx="130" cy="95" r="70" fill="none" stroke="rgba(255,240,220,.2)" stroke-width="3" stroke-dasharray="6 8"/>
+       <g class="rov">${SOJO_G(130,95,.95,0)}</g>
+       <path d="M200 50 a80 80 0 0 1 0 90" fill="none" stroke="#f2c14e" stroke-width="7" stroke-linecap="round"/><path d="M188 138 l14 6 2 -16" fill="none" stroke="#f2c14e" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+       ${YOGI_G(268,95,.5)}
+     </svg>`,
+  // Back up / drive a distance with a ruler
+  back: () => `<svg class="d-back" width="100%" height="100%" viewBox="0 0 300 190" aria-hidden="true">
+       ${YOGI_G(48,96,.7)}
+       <g class="rov">${SOJO_G(220,96,.75,-90)}</g>
+       <g transform="translate(80 150)"><rect width="140" height="22" rx="6" fill="rgba(255,240,220,.15)"/>
+       <rect class="seg" x="105" width="33" height="22" rx="5" fill="#7fd6cc"/><rect class="seg g2" x="70" width="33" height="22" rx="5" fill="#7fd6cc"/><rect class="seg g3" x="35" width="33" height="22" rx="5" fill="#7fd6cc"/><rect class="seg g4" x="0" width="33" height="22" rx="5" fill="#7fd6cc"/></g>
+     </svg>`,
+  // Reach / touch a target
+  reach: () => `<svg class="d-reach" width="100%" height="100%" viewBox="0 0 300 190" aria-hidden="true">
+       <circle class="glow" cx="228" cy="96" r="58" fill="rgba(127,214,204,.35)"/>
+       ${YOGI_G(232,96,.95)}
+       ${SOJO_G(70,96,.9,90)}
+       <rect class="arm" x="110" y="90" width="70" height="12" rx="6" fill="#c9ced6" stroke="#1c2438" stroke-width="3"/>
+       <text class="glow" x="150" y="40" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="24" fill="#7fd6cc">Contact!</text>
+     </svg>`
+};
+
+/* =========================================================
+   4. MISSION CONTENT — the ONLY place mission data lives.
+      Templates read these objects; nothing is hardcoded.
+   ========================================================= */
+const MISSIONS = {
+  landing: {
+    tag: 'Sol 1', tagType: 'sol',
+    title: 'Land on Mars',
+    shortName: 'Landing',
+    scene: 'landing', camera: 'Mission camera',
+    narrative: 'Pathfinder is carrying Sojo to Mars. Help it land safely!',
+    objective: 'Land safely in 7 steps.',
+    howTo: [
+      { demo:'timing', title:'Wait for green', text:'Then tap!' },
+      { demo:'steer', title:'Steer', text:'Keep the needle in the green.' },
+      { demo:'mash', title:'Tap fast', text:'When it says NOW!' }
+    ],
+    rules: [
+      { icon:'bulb', text:'Look for the big orange button.' }
+    ],
+    complete: {
+      title: 'Safe on Mars',
+      feedback: 'Great flying, explorer!',
+      outcomeTitle: 'Sojo has landed on Mars!',
+      outcomeText: '<em>Fun fact:</em> The real landing was on 4 July 1997.',
+      art: 'landing'
+    },
+    metrics: [
+      { icon:'check', value:7, label:'steps done' },
+      { icon:'target', value:9, label:'perfect taps' }
+    ],
+    record: { icon:'target', label:'Perfect taps', unit:'', current:9, best:7, lowerIsBetter:false, notBest:6 },
+    defaultVariant: 'B', replayable: true, next: 'landing'
+  }
+};
+const ORDER = ['landing'];
+/* =========================================================
+   5. STATE
+   ========================================================= */
+const S = { mission:'landing', screen:'brief', variant:'B', newRecord:true };
+const $ = id => document.getElementById(id);
+const frame = $('frame');
+
+/* =========================================================
+   6. BACKGROUND GAMEPLAY SCENE (kept visible behind pop-ups)
+   ========================================================= */
+
+/* =========================================================
+   7. TEMPLATE A — MISSION INTRODUCTION
+   ========================================================= */
+function tagPill(m){
+  return m.tagType==='alert'
+    ? `<span class="sol-pill alert"><span class="ic">${I.alert}</span>${m.tag}</span>`
+    : `<span class="sol-pill"><span class="ic">${I.sol}</span>${m.tag}</span>`;
+}
+function stepsHTML(n){
+  return `<div class="steps" aria-label="Step ${n} of 2"><span class="pips"><span class="pip ${n===1?'on':'done'}"></span><span class="pip ${n===2?'on':''}"></span></span>Step ${n} of 2</div>`;
+}
+function renderIntro(){
+  const m = MISSIONS[S.mission];
+  $('introTab').innerHTML = `<span class="tx-dot">${I.antenna}</span>${m.tagType==='alert'?'Emergency call':'New mission'}`;
+
+  // Sequence 1 — Briefing
+  $('briefPage').innerHTML = `
+    <div class="brief">
+      <div class="viewport" role="img" aria-label="Picture of the mission: ${m.title}">
+        <div class="scene">${SCENES[m.scene]()}</div>
+        <div class="brackets"><span></span><span></span><span></span><span></span></div>
+        <div class="vp-label"><i></i>${m.camera||'Lander camera'}</div>
+      </div>
+      <div class="brief-text">
+        <div>${tagPill(m)}</div>
+        <h1 id="introTitle">${m.title}</h1>
+        <p>${m.narrative}</p>
+        <div class="objective">
+          <span class="tgt">${I.tgt}</span>
+          <div><small>Your mission</small><strong>${m.objective}</strong></div>
+        </div>
+        <div class="intro-foot">
+          ${stepsHTML(1)}<span class="spacer"></span>
+          <button class="btn btn-primary" data-act="next">Let’s go! ${I.arrowR}</button>
+        </div>
+      </div>
+    </div>`;
+
+  // Sequence 2 — How to Play (2–4 instructions, optional rules)
+  const n = Math.max(1, Math.min(4, m.howTo.length));
+  const cols = n === 4 ? 4 : n;
+  $('howPage').innerHTML = `
+    <div class="howto-head">
+      <h2>How to Play</h2>
+      <span class="mini"><span class="ic">${SOJO(24)}</span>${m.tag} · ${m.shortName}</span>
+    </div>
+    <div class="ins-grid n${n}" style="grid-template-columns:repeat(${cols},minmax(0,1fr))">
+      ${m.howTo.slice(0,4).map((s,i)=>`
+        <div class="ins">
+          <div class="demo" aria-hidden="true">${DEMOS[s.demo](s)}</div>
+          <div class="ins-txt"><span class="ins-num">${i+1}</span><div><b>${s.title}</b><span>${s.text}</span></div></div>
+        </div>`).join('')}
+    </div>
+    ${m.rules && m.rules.length ? `<div class="rules"><span class="rules-label">Remember</span>${m.rules.map(r=>`<span class="rule"><span class="ic">${I[r.icon]||''}</span>${r.text}</span>`).join('')}</div>` : ''}
+    <div class="intro-foot">
+      <button class="btn btn-ghost" data-act="back">${I.arrowL} Back</button>
+      ${stepsHTML(2)}<span class="spacer"></span>
+      <button class="btn btn-primary" data-act="start">${I.play} Start Mission</button>
+    </div>`;
+}
+
+/* =========================================================
+   8. TEMPLATE B — MISSION ACCOMPLISHED (A / B / C variations)
+   ========================================================= */
+function fmt(v, unit){ return `<span data-count="${v}">${v}</span>${unit?`<small>${unit}</small>`:''}`; }
+function renderDone(){
+  const m = MISSIONS[S.mission], c = m.complete, v = S.variant;
+  let results = '';
+
+  if (v === 'B' && m.metrics && m.metrics.length){
+    const ms = m.metrics.slice(0,3);  // never more than three
+    results = `<div class="results" style="grid-template-columns:repeat(${ms.length},minmax(0,1fr))">
+      ${ms.map((x,i)=>`<div class="metric" style="animation-delay:${.55+i*.12}s">
+        <span class="ic">${I[x.icon]||''}</span>
+        <span class="val">${x.text ? x.text : fmt(x.value,x.unit)}</span>
+        <span class="lbl">${x.label}</span></div>`).join('')}
+    </div>`;
+  }
+
+  if (v === 'C' && m.record){
+    const r = m.record, isNew = S.newRecord;
+    const cur = isNew ? r.current : r.notBest;
+    const best = r.best;
+    const shownBest = isNew ? cur : best;
+    results = `<div class="record">
+      <div class="rec-box now ${isNew?'isnew':''}" style="animation-delay:.55s">
+        ${isNew?`<span class="ribbon">${I.star} New record!</span>`:''}
+        <span class="ic">${I[r.icon]||''}</span>
+        <div><div class="lbl">This time</div><div class="val">${fmt(cur,r.unit)}</div><div class="sub">${r.label}</div></div>
+      </div>
+      <div class="rec-box" style="animation-delay:.7s">
+        <span class="ic">${I.trophy}</span>
+        <div><div class="lbl">Your best</div><div class="val">${shownBest}${r.unit?`<small>${r.unit}</small>`:''}</div>
+        ${isNew?`<div class="sub">Before: ${best}${r.unit?' '+r.unit:''}</div>`:''}</div>
+      </div>
+      <div class="rec-note">${isNew ? 'You beat your best!' : 'Play again to try for a new best!'}</div>
+    </div>`;
+  }
+
+  const showReplay = m.replayable && v !== 'A';
+  $('doneCard').innerHTML = `
+    <div class="badge-wrap" aria-hidden="true">
+      <div class="burst"></div>
+      <div class="badge">
+        <div class="rib" style="left:36px;background:#3fb8a9;transform:skewX(14deg)"></div>
+        <div class="rib" style="left:84px;background:#e8793a;transform:skewX(-14deg)"></div>
+        <div class="disc">${SOJO(84)}</div>
+        <div class="check">${I.check}</div>
+      </div>
+    </div>
+    <div class="fx" id="fx"></div>
+    <h2 class="done-h" id="doneTitle">Mission accomplished<span class="ex">!</span></h2>
+    <div><span class="done-name"><span class="ic">${I.flag}</span>${c.title}</span></div>
+    <p class="done-fb">${c.feedback}</p>
+    <div class="outcome">
+      <div class="art">${OUTCOME_ART[c.art]||''}</div>
+      <div><b>${c.outcomeTitle}</b>${c.outcomeText?`<span>${c.outcomeText}</span>`:''}</div>
+    </div>
+    ${results}
+    <div class="done-btns">
+      ${showReplay?`<button class="btn btn-ghost" data-act="replay">${I.replay} Play Again</button>`:''}
+      <button class="btn btn-primary" data-act="continue">Continue ${I.arrowR}</button>
+    </div>`;
+  spawnParticles($('fx'), v==='C' && S.newRecord);
+}
+
+/* particles: stars + confetti; extra wave for a new record */
+function spawnParticles(el, extra){
+  const cols = ['#f2c14e','#e8793a','#7fd6cc','#fff4e2','#3fb8a9'];
+  const make = (n, delay, spread, originY) => {
+    let h='';
+    for(let i=0;i<n;i++){
+      const a = (Math.PI*2*i/n) + Math.random()*.5;
+      const d = spread*(.6+Math.random()*.6);
+      const x = Math.cos(a)*d, y = Math.sin(a)*d*.75 + 60;
+      const s = 10+Math.random()*14, star = Math.random()<.45;
+      const col = cols[i%cols.length];
+      const shape = star
+        ? `<svg width="100%" height="100%" viewBox="0 0 24 24"><path d="M12 2.2l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17l-5.9 3.3 1.3-6.6L2.5 9.1l6.6-.8z" fill="${col}"/></svg>`
+        : `<span style="display:block;width:100%;height:60%;border-radius:3px;background:${col}"></span>`;
+      h += `<span class="pt" style="top:${originY}px;--s:${s}px;--x:${x}px;--y:${y}px;--r:${Math.round(Math.random()*540-270)}deg;--d:${(1.1+Math.random()*.6).toFixed(2)}s;--dl:${(delay+Math.random()*.15).toFixed(2)}s">${shape}</span>`;
+    }
+    return h;
+  };
+  el.innerHTML = make(26,.25,380,-20) + (extra ? make(30,1.15,300,250) : '');
+}
+
+/* count-up for numbers */
+function countUp(){
+  const reduce = document.body.classList.contains('rm') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  frame.querySelectorAll('#done [data-count]').forEach((el,i)=>{
+    const end = +el.dataset.count; if (isNaN(end)) return;
+    if (reduce){ el.textContent = end; return; }
+    const t0 = performance.now() + 550 + i*120, dur = 900;
+    el.textContent = 0;
+    const tick = now => {
+      const p = Math.min(1, Math.max(0,(now-t0)/dur));
+      el.textContent = Math.round(end*(1-Math.pow(1-p,3)));
+      if (p<1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+}
+
+/* Popup-only controller: no background, gameplay HUD, or preview controls. */
+function show(screen, opts={}) {
+  S.screen = screen;
+  const intro=$('intro'), done=$('done');
+  const introOn=screen==='brief'||screen==='howto';
+  const doneOn=screen==='done';
+  if(introOn && (opts.rerender || !intro.classList.contains('on'))) renderIntro();
+  if(doneOn) renderDone();
+  if(opts.replay){[intro,done].forEach(p=>p.classList.remove('on')); void frame.offsetWidth;}
+  intro.classList.toggle('on',introOn);
+  done.classList.toggle('on',doneOn);
+  $('introTrack').classList.toggle('step2',screen==='howto');
+  $('briefPage').setAttribute('aria-hidden',String(screen==='howto'));
+  $('howPage').setAttribute('aria-hidden',String(screen!=='howto'));
+  if(doneOn) countUp();
+}
+frame.addEventListener('click', e=>{
+  const b=e.target.closest('[data-act]'); if(!b)return;
+  const a=b.dataset.act;
+  if(a==='next')show('howto');
+  if(a==='back')show('brief');
+  if(a==='start'||a==='replay'||a==='continue'){
+    show('hidden');
+    window.parent?.postMessage({type:'sojo-popup-action',action:a,mission:S.mission},'*');
+  }
+});
+function fit(){
+  const W=window.innerWidth, H=window.innerHeight;
+  const k=Math.min(W/1440,H/900);
+  frame.style.transform=`scale(${k})`;
+  $('frameWrap').style.width=1440*k+'px';
+  $('frameWrap').style.height=900*k+'px';
+}
+addEventListener('resize',fit);
+const params=new URLSearchParams(location.search);
+const view=params.get('view')||'brief';
+S.variant=({completion:'A',results:'B',record:'C'})[view]||S.variant;
+S.newRecord=params.get('newRecord')!=='false';
+fit();
+show(['brief','howto','done'].includes(view)?view:['completion','results','record'].includes(view)?'done':'brief',{rerender:true});
+window.addEventListener('message',e=>{
+  if(e.data?.type==='sojo-show-popup'){
+    if(e.data.variant)S.variant=e.data.variant;
+    show(e.data.view||'brief',{rerender:true,replay:true});
+  }
+});
+</script>
+</body>
+</html>

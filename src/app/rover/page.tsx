@@ -1,5 +1,6 @@
+import MissionPopupGate from "@/components/MissionPopupGate";
 import RoverGame from "@/components/rover/RoverGame";
 
 export default function RoverPage() {
-  return <RoverGame missionNumber={1} />;
+  return <MissionPopupGate mission="barnacle"><RoverGame missionNumber={1} /> </MissionPopupGate>;
 }
