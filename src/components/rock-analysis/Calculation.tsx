@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import styles from "./RockAnalysis.module.css";
+import Image from "next/image";
 
 const questions = [
   { title: <>How far do I move in <em>1 wheel turn?</em></>, answer: 20, unit: "cm", help: "One turn covers 24 cm, but the wheel slips backward 4 cm. Subtract the slip.", success: "Yes! 24 − 4 = 20 cm.", high: "Too big! Slipping makes it smaller.", low: "Too small! Subtract only the 4 cm of slip." },
@@ -55,7 +56,7 @@ export default function Calculation({ onFinish }: { onFinish?: () => void }) {
           {Array.from({length: 8}, (_, i) => {
             const x = 663;
             const y = 575 - (i + 1) * 47 + 3;
-            const height = 41;
+            const height = 41
             const fraction = Math.max(0, Math.min(1, turns - i));
             const filledHeight = fraction * height;
             const aboveTarget = i >= 7;
@@ -110,14 +111,34 @@ export default function Calculation({ onFinish }: { onFinish?: () => void }) {
     <aside className={`${styles.panel} ${styles.calcPanel}`}>
       <div className={styles.questionKicker}>QUESTION {index + 1} OF 3</div>
       <div className={styles.questionProgress}>{questions.map((_,i)=><span key={i} className={i < index ? styles.questionProgressDone : i === index ? styles.questionProgressOn : ""}/>)}</div>
-      <div className={styles.questionSpeech}><span className={styles.calcFace}>▣</span><div>{question.title}</div></div>
+      <div className={styles.questionSpeech}>
+        <Image
+          src="/assets/rock-analysis/sojourner-rover.svg"
+          alt="sojo"
+          width={64}
+          height={64}
+          className={styles.sensorSojo}
+        />
+        <div>{question.title}</div></div>
       {index === 2 ? <div className={styles.turnFacts}><div><small>Drive</small><strong>130 cm</strong></div><div><small>1 turn</small><strong>20 cm</strong></div></div> : index === 1 ? <div className={styles.sensorDiagram}>
-        <div className={styles.sensorRover} aria-hidden="true">▣</div>
+        <Image
+          src="/assets/rock-analysis/sojourner-rover.svg"
+          alt="sojo"
+          width={64}
+          height={64}
+          className={styles.sensorSojo}
+        />
         <div className={styles.sensorDistance}>
-          <div className={styles.sensorBlocks}><strong>? cm</strong><b></b></div>
-          <div className={styles.sensorMeasure}>Gap to Yogi = 136 cm</div>
+          <div className={styles.sensorBlocks}><strong>?</strong><b>6</b></div>
+          <div className={styles.sensorMeasure}>Gap to Yogi = 136</div>
         </div>
-        <div className={styles.sensorRock} aria-hidden="true">◧</div>
+        <Image
+          src="/assets/rock-analysis/yogi-rock.svg"
+          alt="yoki"
+          width={64}
+          height={64}
+          className={styles.sensorSojo}
+        />
       </div> : <div className={styles.slipDiagram}>
         <div className={styles.slipWheel}><span>●</span><small>1 turn</small></div>
         <div className={styles.slipDistance}><div className={styles.slipNote}>slips back 4 cm</div><div className={styles.slipBlocks}><strong>? cm</strong><b>4</b></div><div className={styles.slipMeasure}>1 turn = 24 cm</div></div>

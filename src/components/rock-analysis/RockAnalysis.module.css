@@ -147,7 +147,7 @@
 .sensorDistance { flex:1; min-width:0; }
 .sensorBlocks { display:flex; gap:4px; height:44px; }
 .sensorBlocks strong { flex:1; min-width:0; display:grid; place-items:center; border-radius:8px; background:#5bc6c0; color:#19343c; font-size:clamp(17px,1.4vw,23px); }
-.sensorBlocks b { flex:0 0 29px; background:#f8c64e; border-radius:6px; }
+.sensorBlocks b { flex:0 0 29px; display: flex;background:#f8c64e; border-radius:6px; justify-content: center; align-items: center; color: #183c3b}
 .sensorMeasure { margin-top:13px; padding-top:6px; border-top:3px solid #fff3df; text-align:center; font-weight:900; font-size:clamp(13px,1vw,17px); }
 .sensorRock { position:relative; flex:0 0 27px; font-size:40px; color:#a65a3e; line-height:1; }
 .sensorRock small { position:absolute; right:0; top:-21px; white-space:nowrap; font-size:12px; color:#f8c64e; font-weight:900; }
