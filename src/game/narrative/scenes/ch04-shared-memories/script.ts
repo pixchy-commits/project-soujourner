@@ -5,14 +5,15 @@ export const scene = {
   "title": "Remembering a friend",
   "chapter": 4,
   "sourcePages": [
-    73
+    76
   ],
+  "sourceEdition": "v7",
   "status": "needs-script",
   "shots": [
     {
       "id": "memories",
       "kind": "illustration",
-      "placeholder": "Sojo recalls good memories with Pathfinder during its final mission. Final memory selection and dialogue pending.",
+      "notes": "Sojo recalls good memories with Pathfinder during its final mission. Final memory selection and dialogue pending.",
       "motion": "still",
       "transition": "memory",
       "art": "ch04-shared-memories/memories"

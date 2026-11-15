@@ -1,0 +1,22 @@
+{
+  "reference": "public/art/characters/pathfinder/model-2026-11/front.png",
+  "tool": "Built-in image_gen",
+  "direction": "Match supplied flat textured character art. Low rover eye-height; ground petals foreshortened or hidden by ridge. Keep separate goggles overlay.",
+  "replacements": [
+    {
+      "ids": [
+        "ch01-pathfinder-friendship/pathfinder"
+      ],
+      "image": "exec-ae79b836-f09d-44ba-8b53-65c92da2ff17.png",
+      "dest": "/art/scenes/ch01-pathfinder-friendship/pathfinder-front-v7.webp"
+    },
+    {
+      "ids": [
+        "ch02-mission-introduction/sojo-introduction",
+        "ch02-mission-introduction/mission-description"
+      ],
+      "image": "exec-220e9f53-05d4-4f1a-ad66-b5135fdfe662.png",
+      "dest": "/art/scenes/ch02-mission-introduction/sojo-pathfinder-v3.webp"
+    }
+  ]
+}

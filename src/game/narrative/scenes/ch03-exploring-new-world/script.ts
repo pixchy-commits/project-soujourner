@@ -5,8 +5,9 @@ export const scene = {
   "title": "Exploring a New World",
   "chapter": 3,
   "sourcePages": [
-    38
+    41
   ],
+  "sourceEdition": "v7",
   "status": "needs-script",
   "shots": [
     {

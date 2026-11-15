@@ -4,7 +4,8 @@ export const scene = {
   "id": "ch02-earth-flashback",
   "title": "A memory of home",
   "chapter": 2,
-  "sourcePages": [31],
+  "sourcePages": [34],
+  "sourceEdition": "v7",
   "status": "needs-script",
   "shots": [
     {

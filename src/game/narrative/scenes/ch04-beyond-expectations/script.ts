@@ -5,8 +5,9 @@ export const scene = {
   "title": "Beyond Expectations & the Last Signal",
   "chapter": 4,
   "sourcePages": [
-    69
+    72
   ],
+  "sourceEdition": "v7",
   "status": "needs-script",
   "shots": [
     {

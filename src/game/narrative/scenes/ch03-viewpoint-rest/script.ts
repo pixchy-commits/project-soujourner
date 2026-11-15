@@ -5,14 +5,18 @@ export const scene = {
   "title": "A pause between missions",
   "chapter": 3,
   "sourcePages": [
-    43
+    46
   ],
+  "sourceEdition": "v7",
   "status": "needs-script",
   "shots": [
     {
       "id": "closing-eyes",
       "kind": "illustration",
-      "placeholder": "Sojo slowly closes its eyes after the mission. Sleep transition; artwork pending.",
+      "framing": "first-person",
+      "overlay": "ui/goggle-frame",
+      "overlayScale": 1.16,
+      "notes": "Sojo slowly closes its eyes after the mission. Sleep transition; artwork pending.",
       "motion": "still",
       "exitTransition": "black",
       "art": "ch03-viewpoint-rest/closing-eyes"

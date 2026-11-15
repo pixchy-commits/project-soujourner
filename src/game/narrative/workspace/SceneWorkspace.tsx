@@ -46,7 +46,7 @@ export default function SceneWorkspace() {
    </select>
    <div className={styles.current}><small>NOW SHOWING</small><strong>{scene?.title ?? (step.kind === "activity" ? step.title : "")}</strong><code>{step.id}{shot ? ` / ${shot.id}` : ""}</code></div>
    {(scene?.sourcePages ?? (step.kind === "activity" ? [step.sourcePage] : [])).map((page) => <figure key={page} className={styles.source}>
-    <a href={`/storyboards/v6/page-${String(page).padStart(2,"0")}.png`} target="_blank" rel="noreferrer"><Image src={`/storyboards/v6/page-${String(page).padStart(2,"0")}.png`} alt={`Storyboard PDF page ${page}`} width={720} height={405} unoptimized /></a>
+    <a href={`/storyboards/${scene?.sourceEdition ?? "v7"}/page-${String(page).padStart(2,"0")}.png`} target="_blank" rel="noreferrer"><Image src={`/storyboards/${scene?.sourceEdition ?? "v7"}/page-${String(page).padStart(2,"0")}.png`} alt={`Storyboard PDF page ${page}`} width={720} height={405} unoptimized /></a>
     <figcaption>PDF PAGE {page} — click to enlarge</figcaption>
    </figure>)}
    {scene && <><h2>Shot order</h2><ol className={styles.shots}>{scene.shots.map((candidate) => <li key={candidate.id}><button aria-current={shot?.id === candidate.id ? "step" : undefined} onClick={() => {

@@ -43,9 +43,14 @@ export default function SceneStage({ scene, shot, paused, instant, artOverrides,
   </div>{shot.caption && <p className="rewind-caption">{shot.caption}</p>}</div>
   : shot.kind === "chapter" ? <div className="chapter-card scene-enter"><ChapterTelevision>{art(chapterPhotos[shot.number] ?? shot.art)}</ChapterTelevision><p className="chapter-date">{shot.date}</p><div className="chapter-rule" /><h1><span>CHAPTER {shot.number}</span>{shot.title}</h1><div className={styles.chapterAdvance}>{advanceCue}</div></div>
   : <div data-illustration data-memory-eyes={scene.id === "ch02-earth-flashback" && shot.id === "blink" ? "true" : undefined} className={`${styles.illustration} ${styles[shot.framing ?? "wide"]} scene-enter`}>
-    <div className={shot.overlay ? styles.opticalCanvas : styles.shotCanvas}>
+    <div className={shot.overlay || shot.screenGallery ? styles.opticalCanvas : styles.shotCanvas}>
      <PictureDissolve visualKey={`${shot.art}/${JSON.stringify(artOverrides ?? {})}`} instant={instant}><div className={`${styles.shotArt} ${motion}`}><Artwork id={shot.art} overrides={artOverrides} fit={shot.overlay ? "cover" : undefined} /></div></PictureDissolve>
-     {shot.overlay && <div className={styles.opticalOverlay} aria-hidden="true"><Artwork id={shot.overlay} overrides={artOverrides} fit="cover" decorative /></div>}
+     {shot.overlay && <div className={styles.opticalOverlay} style={{ transform: `scale(${shot.overlayScale ?? 1})` }} aria-hidden="true"><Artwork id={shot.overlay} overrides={artOverrides} fit="cover" decorative /></div>}
+     {shot.screenGallery?.map((screen,index) => <div key={`${screen.art}/${index}`} className={styles.galleryScreen} style={{left:`${screen.x}%`,top:`${screen.y}%`,width:`${screen.width}%`,height:`${screen.height}%`}}><Artwork id={screen.art} overrides={artOverrides} fit="cover" decorative /></div>)}
+     {shot.terrainNotes && <div className={styles.terrainNotes} onClick={event => event.stopPropagation()}>
+      <svg className={styles.terrainPointers} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">{shot.terrainNotes.map(note => <g key={note.id}><path d={`M ${note.x} ${note.y + 7} L ${note.targetX} ${note.targetY}`} /><ellipse cx={note.targetX} cy={note.targetY} rx=".55" ry=".95" /></g>)}</svg>
+      {shot.terrainNotes.map(note => <details key={note.id} open className={styles.terrainNote} style={{ left: `${note.x}%`, top: `${note.y}%` }}><summary tabIndex={paused ? -1 : 0}>{note.title}</summary><p>{note.text}</p></details>)}
+     </div>}
     </div><div className={styles.shade} />
     {shot.hotspot && <div className={styles.hotspotSurface}><button
       className={styles.roverHotspot} disabled={paused} onClick={onNext}

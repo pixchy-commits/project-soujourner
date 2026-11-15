@@ -4,7 +4,8 @@ export const scene = {
   "id": "ch02-mission-briefing",
   "title": "The next mission",
   "chapter": 2,
-  "sourcePages": [37],
+  "sourcePages": [40],
+  "sourceEdition": "v7",
   "status": "needs-script",
   "shots": [
     {

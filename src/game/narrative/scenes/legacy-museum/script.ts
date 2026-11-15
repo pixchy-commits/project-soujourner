@@ -5,21 +5,22 @@ export const scene = {
   "title": "One last look",
   "chapter": 5,
   "sourcePages": [
-    90
+    94
   ],
+  "sourceEdition": "v7",
   "status": "needs-script",
   "shots": [
     {
       "id": "museum",
       "kind": "illustration",
-      "placeholder": "Final exhibit / Marie Curie reference scene. The PDF includes an optional fourth-wall idea; exact execution and spoken script remain unresolved.",
+      "notes": "Final exhibit / Marie Curie reference scene. The PDF includes an optional fourth-wall idea; exact execution and spoken script remain unresolved.",
       "motion": "still",
       "art": "legacy-museum/museum"
     },
     {
       "id": "farewell",
       "kind": "illustration",
-      "placeholder": "Final quiet frame and fade out. Final art and ending text pending.",
+      "notes": "Final quiet frame and fade out. Final art and ending text pending.",
       "motion": "still",
       "exitTransition": "black",
       "art": "legacy-museum/farewell"

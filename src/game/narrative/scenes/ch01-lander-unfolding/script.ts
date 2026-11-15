@@ -4,7 +4,8 @@ export const scene = {
   "id": "ch01-lander-unfolding",
   "title": "Arrival — a vast new world",
   "chapter": 1,
-  "sourcePages": [26],
+  "sourcePages": [29],
+  "sourceEdition": "v7",
   "status": "storyboard",
   "shots": [
     {

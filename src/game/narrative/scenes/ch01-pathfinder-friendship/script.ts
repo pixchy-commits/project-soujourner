@@ -4,7 +4,8 @@ export const scene = {
   "id": "ch01-pathfinder-friendship",
   "title": "A trusted friend",
   "chapter": 1,
-  "sourcePages": [29],
+  "sourcePages": [32],
+  "sourceEdition": "v7",
   "status": "storyboard",
   "shots": [
     {

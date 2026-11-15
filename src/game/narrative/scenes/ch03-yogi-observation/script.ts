@@ -5,16 +5,17 @@ export const scene = {
   "title": "Something about this rock",
   "chapter": 3,
   "sourcePages": [
-    53
+    56
   ],
+  "sourceEdition": "v7",
   "status": "needs-script",
   "shots": [
     {
       "id": "uneasy-rock",
       "kind": "illustration",
-      "placeholder": "Sojo observes Yogi and feels something is unusual. Foreshadow the later positioning problem; final monologue is missing.",
+      "notes": "Sojo observes Yogi and feels something is unusual. Foreshadow the later positioning problem; final monologue is missing.",
       "motion": "still",
-      "framing": "first-person",
+      "framing": "wide",
       "art": "ch03-yogi-observation/uneasy-rock"
     }
   ]

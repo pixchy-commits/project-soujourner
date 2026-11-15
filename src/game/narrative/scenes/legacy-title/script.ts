@@ -5,14 +5,16 @@ export const scene = {
   "title": "The Legacy",
   "chapter": 5,
   "sourcePages": [
-    84
+    88
   ],
+  "sourceEdition": "v7",
   "status": "needs-script",
   "shots": [
     {
       "id": "title",
       "kind": "illustration",
-      "placeholder": "THE LEGACY — Present Time. Dedicated title artwork pending.",
+      "caption": "THE LEGACY · Present Time",
+      "notes": "THE LEGACY — Present Time. Dedicated title artwork pending.",
       "motion": "still",
       "art": "legacy-title/title"
     }

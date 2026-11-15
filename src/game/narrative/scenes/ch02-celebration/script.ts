@@ -4,7 +4,8 @@ export const scene = {
   "id": "ch02-celebration",
   "title": "Baby steps complete",
   "chapter": 2,
-  "sourcePages": [36],
+  "sourcePages": [39],
+  "sourceEdition": "v7",
   "status": "storyboard",
   "shots": [
     {

@@ -4,7 +4,8 @@ export const scene = {
   "id": "ch01-arrival",
   "title": "Arrival on Mars",
   "chapter": 1,
-  "sourcePages": [21],
+  "sourcePages": [24],
+  "sourceEdition": "v7",
   "status": "prototype",
   "shots": [
     {

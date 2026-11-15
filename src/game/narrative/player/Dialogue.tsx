@@ -6,7 +6,7 @@ import { InteractionHint } from "../../ui/InteractionHint";
 
 const voices: Record<string, { name: string; portrait: string; tone: string }> = {
  SOJOURNER: { name: "Sojo", portrait: "/art/portraits/sojo-original-front.svg", tone: "sojo" },
- PATHFINDER: { name: "Pathfinder", portrait: "/art/portraits/pathfinder-placeholder.svg", tone: "pathfinder" },
+ PATHFINDER: { name: "Pathfinder", portrait: "/art/portraits/pathfinder-dialogue-v1.png", tone: "pathfinder" },
  "MISSION CONTROL": { name: "Mission Control", portrait: "/art/portraits/control-placeholder.svg", tone: "control" },
 };
 

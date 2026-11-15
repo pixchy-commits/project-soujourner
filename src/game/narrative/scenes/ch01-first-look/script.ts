@@ -4,7 +4,8 @@ export const scene = {
   "id": "ch01-first-look",
   "title": "A brand-new world",
   "chapter": 1,
-  "sourcePages": [28],
+  "sourcePages": [31],
+  "sourceEdition": "v7",
   "status": "storyboard",
   "shots": [
     {

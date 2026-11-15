@@ -4,7 +4,8 @@ export const scene = {
   "id": "ch01-window-transition",
   "title": "A vast new world",
   "chapter": 1,
-  "sourcePages": [25],
+  "sourcePages": [28],
+  "sourceEdition": "v7",
   "status": "storyboard",
   "shots": [
     {

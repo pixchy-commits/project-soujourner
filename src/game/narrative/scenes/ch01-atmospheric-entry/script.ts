@@ -4,7 +4,8 @@ export const scene = {
   "id": "ch01-atmospheric-entry",
   "title": "Through the atmosphere",
   "chapter": 1,
-  "sourcePages": [22],
+  "sourcePages": [25],
+  "sourceEdition": "v7",
   "status": "storyboard",
   "shots": [
     {

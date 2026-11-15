@@ -4,7 +4,8 @@ export const scene = {
   "id": "prologue-identification",
   "title": "Pathfinder and Sojourner",
   "chapter": 0,
-  "sourcePages": [19],
+  "sourcePages": [22],
+  "sourceEdition": "v7",
   "status": "prototype",
   "shots": [
     {

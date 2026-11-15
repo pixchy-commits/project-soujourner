@@ -5,14 +5,15 @@ export const scene = {
   "title": "Trying another approach",
   "chapter": 3,
   "sourcePages": [
-    58
+    61
   ],
+  "sourceEdition": "v7",
   "status": "needs-script",
   "shots": [
     {
       "id": "explanation",
       "kind": "illustration",
-      "placeholder": "Sojo explains why the first analysis attempt failed and resolves to try another approach. Spoken explanation remains empty until approved research/script arrives.",
+      "notes": "Sojo explains why the first analysis attempt failed and resolves to try another approach. Spoken explanation remains empty until approved research/script arrives.",
       "motion": "still",
       "art": "ch03-yogi-reflection/explanation"
     }

@@ -21,7 +21,7 @@ export function SceneDebugger({ open, busy, checkpoint, reviewing, onToggle, onJ
  return <>
   <button ref={toggle} className={styles.toggle} disabled={busy} onClick={onToggle} aria-expanded={open} aria-controls="scene-debugger" aria-label={open ? "Close scene navigator" : "Open scene navigator (F2)"} title="Scene navigator · F2"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 6h14M5 12h14M5 18h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><circle cx="9" cy="6" r="2" fill="currentColor"/><circle cx="15" cy="12" r="2" fill="currentColor"/><circle cx="10" cy="18" r="2" fill="currentColor"/></svg><span>{open ? "Close" : "Scenes · F2"}</span></button>
   {open && <aside id="scene-debugger" className={styles.panel} role="dialog" aria-label="Narrative scene debugger">
-   <header><h2>Story navigator</h2><p>PDF v6 · 91 pages · Home narrative preview</p><p>{reviewing ? "Review mode · story save is protected" : "Jumping starts review mode; it does not replace your story save."}</p></header>
+   <header><h2>Story navigator</h2><p>Home narrative preview · PDF edition shown per scene</p><p>{reviewing ? "Review mode · story save is protected" : "Jumping starts review mode; it does not replace your story save."}</p></header>
    <label htmlFor="debug-search">Find a scene, shot, handoff, or PDF page</label>
    <input ref={input} id="debug-search" value={query} onChange={event => setQuery(event.target.value)} placeholder="e.g. 50, Yogi, Earth…" />
    <div className={styles.list}>
@@ -36,7 +36,7 @@ export function SceneDebugger({ open, busy, checkpoint, reviewing, onToggle, onJ
      return <section key={step.id} className={styles.entry} data-current={current}>
       <button disabled={busy} onClick={() => onJump(firstShot(step))} aria-current={current ? "step" : undefined}><small>{String(index+1).padStart(2,"0")} · PDF {pages.join(", ")} · {step.kind === "activity" ? step.category ?? "gameplay" : scene?.chapter === 5 ? "Legacy" : `Chapter ${scene?.chapter}`}</small><strong>{title}</strong></button>
       {!!shots.length && <div className={styles.shots}>{shots.map(shot => <button key={shot.id} disabled={busy} aria-current={current && checkpoint.shotId === shot.id ? "step" : undefined} onClick={() => onJump({stepId:step.id,shotId:shot.id})}>{shot.id}<span>{shot.placeholder ? "ART PENDING" : !shot.dialogue && shot.kind !== "chapter" ? "SILENT" : ""}</span></button>)}</div>}
-      <div className={styles.sources}>{pages.map(page => <a key={page} href={`/storyboards/v6/page-${String(page).padStart(2,"0")}.png`} target="_blank" rel="noreferrer">View PDF {page} ↗</a>)}</div>
+      <div className={styles.sources}>{pages.map(page => <a key={page} href={`/storyboards/${scene?.sourceEdition ?? "v7"}/page-${String(page).padStart(2,"0")}.png`} target="_blank" rel="noreferrer">View PDF {scene?.sourceEdition ?? "v7"} · {page} ↗</a>)}</div>
      </section>;
     })}
    </div>
