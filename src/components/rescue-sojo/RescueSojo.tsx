@@ -86,42 +86,44 @@ export default function RescueSojo({ onComplete, className = "" }: RescueSojoPro
 
   const fraction = display.distance / TRAVEL_DISTANCE;
   const percent = Math.floor(percentFromDistance(display.distance));
-  const tilt = Math.round(19 * (1 - fraction));
+  // Level out as soon as Sojo clears the rock (20% rescue progress).
+  const slopeFraction = Math.min(1, fraction / 0.20);
+  const slopeAngle = 41 * (1 - slopeFraction);
+  const tilt = Math.round(slopeAngle);
   const shaking = display.active && !display.done && display.dust > 0
     ? Math.sin(display.distance * 1.2) * display.dust * 1.5 : 0;
-  const roverLeft = 30 + fraction * 46;
-  const roverTilt = 19 * (1 - fraction) + shaking;
+  const roverLeft = 36 + fraction * 41;
+  const roverTilt = slopeAngle + shaking;
+  // Rotate the wheel artwork by actual travel distance; reverse rotation when slipping back.
+  const wheelRotation = (display.distance / 52) * (180 / Math.PI);
 
   return (
     <section className={`${styles.game} ${className}`} aria-label="Rescue Sojo game">
-      <div className={styles.scene} onPointerDown={(event) => { if (event.button === 0 || event.pointerType === "touch") push(); }} role="button" tabIndex={0} aria-label="Press scene to rescue Sojo" onKeyDown={(event) => { if (event.key === "Enter") { event.preventDefault(); push(); } }}>
+      <div className={styles.scene} onPointerDown={(event) => { if (event.target instanceof HTMLElement && event.target.closest("button")) return; if (event.button === 0 || event.pointerType === "touch") push(); }} role="button" tabIndex={0} aria-label="Press scene to rescue Sojo" onKeyDown={(event) => { if (event.key === "Enter") { event.preventDefault(); push(); } }}>
         <div className={styles.landscape} aria-hidden="true" />
+        <div className={styles.yogiLabel} aria-hidden="true">Yogi</div>
+        <div className={styles.route} aria-hidden="true"><span className={styles.routeLine}/><span className={styles.routeArrow}>◀ ◀</span></div>
         <img className={styles.safeGround} src="/assets/rescue-sojo/rescue-sojo-safe-ground.png" alt="" draggable={false} />
-        <div
-          className={styles.roverPosition}
-          style={{ left: `${roverLeft}%` }}
-          aria-hidden="true"
-        >
-          <img
-            className={styles.roverImage}
-            src="/assets/rescue-sojo/sojo.png"
-            alt=""
-            draggable={false}
-            style={{ transform: `rotate(${roverTilt}deg)` }}
-          />
+        <div className={styles.roverPosition} style={{ left: `${roverLeft}%` }} aria-hidden="true">
+          <div className={styles.roverBody} style={{ transform: `rotate(${roverTilt}deg)` }}>
+            <img className={styles.roverImage} src="/assets/rescue-sojo/sojo.png" alt="" draggable={false} />
+            {[15, 50, 85].map((x) => (
+              <img key={x} className={styles.spinningWheel} src="/assets/rescue-sojo/sojo-wheel.png" alt="" draggable={false} style={{ left: `${x}%`, transform: `translate(-50%, -50%) rotate(${wheelRotation}deg)` }} />
+            ))}
+          </div>
           <div className={styles.dustCloud} style={{ opacity: display.dust }} />
         </div>
-        <div className={styles.top}>
-          <span className={styles.progressLabel}>RESCUE PROGRESS</span>
-          <div className={styles.track} role="progressbar" aria-label="Rescue progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent}>
-            <div className={styles.fill} style={{ transform: `scaleX(${Math.max(0, Math.min(1, fraction))})` }}/><i style={{ left: "40%" }}/><i style={{ left: "75%" }}/>
-          </div>
-          <strong className={styles.percent}>{percent}%</strong>
+        {!display.active && <div className={styles.warning} aria-hidden="true">!</div>}
+        {!display.active && (<>
+          <div className={styles.angleGuide} aria-hidden="true"><span className={styles.angleDash}/><span className={styles.angleSlope}/></div>
+          <div className={styles.angleBubble}>{tilt}°</div>
+        </>)}
+        <div className={styles.topPanel}>
+          <div className={styles.headingRow}><span className={styles.progressLabel}>RESCUE PROGRESS</span><strong className={styles.percent}>{percent}%</strong><button className={styles.restart} type="button" onPointerDown={(e) => e.stopPropagation()} onClick={restart}>↻ Restart</button></div>
+          <div className={styles.track} role="progressbar" aria-label="Rescue progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent}><div className={styles.fill} style={{ transform: `scaleX(${Math.max(0, Math.min(1, fraction))})` }}/><i style={{ left: "40%" }}/><i style={{ left: "75%" }}/></div>
+          <div className={`${styles.status} ${display.done ? styles.safe : ""}`} aria-live="polite">{display.done ? "✓ SOJO IS SAFE!" : "⚠ SOJO IS STUCK!"}</div>
         </div>
-        <div className={`${styles.status} ${display.done ? styles.safe : ""}`} aria-live="polite">{display.done ? "✓ SOJO IS SAFE!" : "⚠ SOJO IS STUCK!"}</div>
-        <div className={styles.angle}>TILT ANGLE <strong>{tilt}°</strong></div>
-        <div className={styles.instruction}>{display.done ? "Sojo rescued!" : "Press scene or space bar to rescue Sojo"}</div>
-        {display.done && <button className={styles.restart} type="button" onPointerDown={(event) => event.stopPropagation()} onClick={restart}>↻ Restart</button>}
+        <div className={styles.bottomInstruction}>{display.done ? "Sojo rescued!" : "Press scene or space bar to rescue Sojo"}</div>
       </div>
     </section>
   );

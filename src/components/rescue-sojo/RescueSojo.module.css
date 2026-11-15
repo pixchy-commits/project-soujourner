@@ -1,71 +1,38 @@
-.game { width: 100vw; height: 100dvh; min-height: 100svh; margin: 0; color: #fff5e7; font-family: system-ui, -apple-system, sans-serif; }
-.scene { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 0; background: #995c42; cursor: pointer; touch-action: manipulation; user-select: none; outline-offset: 3px; }
-.landscape { position: absolute; inset: 0; background-image: url("/assets/rescue-sojo/rescue-sojo-background.png"); background-position: center center; background-size: cover; background-repeat: no-repeat; pointer-events: none; }
-.safeGround { position: absolute; width: clamp(190px, 28vw, 470px); height: auto; right: 1%; bottom: 9%; pointer-events: none; object-fit: contain; filter: drop-shadow(0 8px 8px #47261b55); }
-.roverPosition { position: absolute; bottom: 13%; width: clamp(120px, 17vw, 290px); aspect-ratio: 1200 / 984; transform: translateX(-50%); pointer-events: none; transition: left 80ms linear; }
-.roverImage { width: 100%; height: 100%; display: block; object-fit: contain; transform-origin: 50% 68%; transition: transform 80ms linear; filter: drop-shadow(0 8px 7px #42241d66); }
-.dustCloud { position: absolute; width: 40%; height: 12%; left: 0; bottom: 0; border-radius: 50%; background: #f4c69a; filter: blur(12px); pointer-events: none; }
-
-.top { position: absolute; top: 3.5%; left: 4%; right: 4%; display: flex; align-items: center; gap: 2.3%; }
-.progressLabel { flex: none; font-size: clamp(10px, 1.6vw, 19px); font-weight: 800; letter-spacing: .025em; text-shadow: 0 2px 5px #432619aa; }
-.track { flex: 1; height: clamp(9px, 2.5vw, 22px); border-radius: 99px; background: #5e382b99; position: relative; overflow: hidden; box-shadow: inset 0 1px 3px #2b170f77; }
-.fill { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: left center; pointer-events: none; border-radius: inherit; background: linear-gradient(90deg, #ee7946, #f2bf6e 55%, #8ed9a1); transition: transform .08s linear; }
-.track i { position: absolute; top: 0; height: 100%; width: 2px; background: #fff9; }
-.percent { flex: none; font-size: clamp(13px, 2vw, 25px); text-shadow: 0 2px 5px #432619aa; }
-.status { position: absolute; top: 16%; width: 100%; text-align: center; font-weight: 900; font-size: clamp(14px, 2.6vw, 31px); color: #ffcb93; text-shadow: 0 2px 7px #5c2c1c; pointer-events: none; }
-.safe { color: #c0f3c8; }
-.angle { position: absolute; bottom: 6%; left: 4%; font-size: clamp(11px, 1.5vw, 18px); font-weight: 650; text-shadow: 0 2px 6px #402416; pointer-events: none; }
-.angle strong { color: #ffd08c; margin-left: 9px; font-size: 1.2em; }
-.instruction { position: absolute; bottom: 6%; left: 24%; width: 60%; text-align: center; font-size: clamp(10px, 1.7vw, 21px); font-weight: 600; font-style: italic; text-shadow: 0 2px 6px #402416; pointer-events: none; }
-.restart { position: absolute; right: 4%; bottom: 5%; border: 1px solid #fff8; border-radius: 8px; background: #35251cbb; color: white; font: inherit; font-size: clamp(11px, 1.3vw, 16px); padding: 6px 10px; cursor: pointer; }
-@media (max-width: 520px) { .scene { border-radius: 0; } .top { left: 3%; right: 3%; gap: 2%; } .progressLabel { font-size: 9px; } .status { top: 18%; } .instruction { left: 29%; width: 57%; bottom: 4%; } .angle { left: 3%; bottom: 4%; font-size: 9px; } }
-@media (prefers-reduced-motion: reduce) { .fill { transition: none; } }
-
-@media (max-width: 700px) {
-  .safeGround { width: clamp(165px, 40vw, 260px); right: -6%; bottom: 12%; }
-  .roverPosition { width: clamp(110px, 26vw, 180px); bottom: 16%; }
-}
-@media (prefers-reduced-motion: reduce) { .roverPosition, .roverImage { transition: none; } }
-
-/* Alignment: the left-hand oval inside the safe-ground asset is the actual target.
-   At 100% the rover's wheelbase is centered over that oval, not the flag. */
-.safeGround { width: clamp(260px, 27vw, 440px); right: 0; bottom: 3%; }
-.roverPosition { width: clamp(235px, 25vw, 410px); bottom: 8%; }
-/* Initial clockwise tilt points the rover downhill to the right. */
-.roverImage { transform-origin: 50% 76%; }
-@media (max-width: 700px) {
-  .safeGround { width: clamp(205px, 46vw, 320px); right: -3%; bottom: 6%; }
-  .roverPosition { width: clamp(180px, 38vw, 270px); bottom: 12%; }
-}
-
-/* Full viewport: bypass padding/margins on the parent page layout. */
-.game {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100dvh;
-  min-height: 0;
-  margin: 0;
-  padding: 0;
-  z-index: 10;
-}
-.scene { inset: 0; margin: 0; border: 0; border-radius: 0; }
-/* The landing oval occupies the left portion of the safe-ground PNG.
-   Its center is aligned with the rover's final wheelbase at 76% of viewport width. */
-.safeGround {
-  width: 30vw;
-  max-width: none;
-  min-width: 0;
-  right: 5%;
-  bottom: 12%;
-}
-.roverPosition {
-  width: 25vw;
-  max-width: none;
-  min-width: 0;
-  bottom: 12%;
-}
-@media (max-width: 700px) {
-  .safeGround { width: 43vw; right: -3%; bottom: 15%; }
-  .roverPosition { width: 35vw; bottom: 15%; }
-}
+/* Artwork is positioned in the same 1528 × 862 coordinate space as the reference. */
+.game{position:fixed;inset:0;width:100vw;height:100dvh;margin:0;z-index:10;font-family:system-ui,-apple-system,sans-serif;color:#fff5e7}
+.scene{position:relative;width:100%;height:100%;overflow:hidden;background:#d86831;cursor:pointer;touch-action:manipulation;user-select:none;isolation:isolate}
+.landscape{position:absolute;inset:0;background-image:url('/assets/rescue-sojo/rescue-sojo-background.png');background-size:100% 100%;background-position:center;pointer-events:none}
+/* Screenshot reference: rover at 36%, safe ground at 80%, Yogi label at 16%. */
+.yogiLabel{position:absolute;left:16.3%;top:29.3%;transform:translateX(-50%);background:#fff0d3;border:3px solid #252333;color:#252333;border-radius:32px;padding:8px 31px;font-weight:850;font-size:clamp(13px,1.45vw,23px);box-shadow:0 5px 0 #452f28;z-index:2}
+.yogiLabel:after{content:'';position:absolute;bottom:-11px;left:44%;width:13px;height:13px;transform:rotate(45deg);background:#fff0d3;border-right:3px solid #252333;border-bottom:3px solid #252333}
+.safeGround{position:absolute;left:61.9%;top:49.5%;width:34.5%;height:auto;pointer-events:none;object-fit:contain;z-index:2}
+.roverPosition{position:absolute;top:51.3%;width:17%;aspect-ratio:1200/984;transform:translateX(-50%);pointer-events:none;z-index:3;transition:left 90ms linear}
+.roverBody{position:relative;width:100%;height:100%;transform-origin:50% 68%;filter:drop-shadow(0 8px 5px #48251988);transition:transform 90ms linear}
+.roverImage{display:block;width:100%;height:100%;object-fit:contain}
+.spinningWheel{position:absolute;top:87.8%;width:17.4%;height:auto;aspect-ratio:1;object-fit:contain;pointer-events:none}
+.dustCloud{position:absolute;width:38%;height:12%;bottom:4%;left:0;background:#edb17d;border-radius:50%;filter:blur(12px)}
+.warning{position:absolute;left:38.7%;top:44.2%;height:6.8%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:#f9c52c;color:#242333;border:4px solid #242333;font-weight:950;font-size:clamp(20px,3vw,42px);z-index:4;pointer-events:none}
+.warning:after{content:'';position:absolute;bottom:-12px;right:9px;border-left:10px solid transparent;border-right:4px solid transparent;border-top:15px solid #242333}
+.angleGuide{position:absolute;left:35.5%;top:55.1%;width:12%;height:13%;pointer-events:none;z-index:3}
+.angleDash{position:absolute;left:0;top:24%;width:100%;border-top:3px dashed #fff3dd}
+.angleSlope{position:absolute;left:0;top:0;width:88%;border-top:4px solid #ffcf3b;transform:rotate(41deg);transform-origin:left center}
+.angleBubble{position:absolute;left:43.9%;top:53.1%;background:#fff0d3;border:3px solid #242333;color:#242333;padding:5px 18px;border-radius:28px;font-size:clamp(14px,1.6vw,25px);font-weight:850;z-index:4;pointer-events:none}
+.route{position:absolute;left:62%;top:73.5%;width:22%;height:5%;pointer-events:none;z-index:2}
+.routeLine{position:absolute;inset:0;border-top:4px dashed #fff0d3;opacity:.9}
+.routeArrow{position:absolute;left:0;top:0;color:#fff5dc;font-size:clamp(12px,2vw,24px);text-shadow:1px 1px #252333}
+/* Status and progress at the top center. */
+.topPanel{position:absolute;left:50%;top:3%;transform:translateX(-50%);width:min(370px,90vw);padding:12px 18px;background:#211b1cdb;border:2px solid #ffe2bd70;border-radius:19px;box-shadow:0 6px 24px #3b170b77;z-index:10;text-align:center;cursor:default}
+/* Instruction is plain text: no panel, border or background. */
+.bottomInstruction{position:absolute;left:50%;bottom:4%;transform:translateX(-50%);width:max-content;max-width:94vw;text-align:center;color:#fff5e7;font-weight:800;font-size:clamp(15px,1.6vw,23px);text-shadow:0 2px 5px #351408,0 0 14px #351408;z-index:10;pointer-events:none}
+.headingRow{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.progressLabel{font-size:clamp(10px,1.1vw,14px);font-weight:850;letter-spacing:.07em}
+.percent{font-size:clamp(12px,1.3vw,18px);color:#ffd18c;margin-left:auto}
+.track{position:relative;height:10px;border-radius:20px;overflow:hidden;background:#68483b;margin-top:6px}
+.fill{position:absolute;inset:0;background:linear-gradient(90deg,#f18b4c,#f8c96e,#8ad7a6);transform-origin:left center}
+.track i{position:absolute;top:0;height:100%;width:2px;background:#fff9}
+.status{font-size:clamp(11px,1.15vw,16px);font-weight:850;color:#ffd08e;margin-top:5px}
+.safe{color:#aaf0b9}
+.instruction{font-size:clamp(10px,1.05vw,14px);margin-top:2px;font-weight:600}
+.restart{border:1px solid #ffe2bd88;border-radius:8px;background:#4d3227;color:#fff3dd;padding:3px 9px;font:inherit;font-size:12px;cursor:pointer}
+@media(max-width:700px){.topPanel{width:min(92vw,370px);top:2%;padding:8px 12px}.bottomInstruction{bottom:5%;font-size:14px}.safeGround{width:40%;left:59%}.roverPosition{width:22%}.angleGuide{opacity:.8}}
+@media(prefers-reduced-motion:reduce){.roverPosition,.roverBody{transition:none}}
