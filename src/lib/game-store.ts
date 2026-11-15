@@ -1,5 +1,21 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist, type StateStorage } from "zustand/middleware";
+
+// Keep persistence available even when the browser blocks localStorage.
+const safeStorage: StateStorage = {
+  getItem: (name) => {
+    try { return typeof window === "undefined" ? null : window.localStorage.getItem(name); }
+    catch { return null; }
+  },
+  setItem: (name, value) => {
+    try { if (typeof window !== "undefined") window.localStorage.setItem(name, value); }
+    catch { /* The game can still run without saved progress. */ }
+  },
+  removeItem: (name) => {
+    try { if (typeof window !== "undefined") window.localStorage.removeItem(name); }
+    catch { /* Storage is optional. */ }
+  },
+};
 
 type GameData = {
   chapter: number;
@@ -22,6 +38,8 @@ type GameData = {
   setReducedMotion: (enabled: boolean) => void;
 };
 export const useGameStore = create<GameData>()(persist((set) => ({
+  roverProgress: {},
+  setRoverProgress: (roverProgress) => set({ roverProgress }),
   chapter: 0, completed: false, volume: 0.45, soundVolume: 0.55, reducedMotion: false,
   narrationEnabled: false, narrationVoice: "", narrationVolume: .8,
   setNarrationEnabled: (narrationEnabled) => set({ narrationEnabled }),
@@ -32,4 +50,4 @@ export const useGameStore = create<GameData>()(persist((set) => ({
   setVolume: (volume) => set({ volume }),
   setSoundVolume: (soundVolume) => set({ soundVolume }),
   setReducedMotion: (reducedMotion) => set({ reducedMotion }),
-}), { name: "sojourner-v1", partialize: ({ chapter, completed, roverProgress, volume, soundVolume, reducedMotion, narrationEnabled, narrationVoice, narrationVolume }) => ({ chapter, completed, roverProgress, volume, soundVolume, reducedMotion, narrationEnabled, narrationVoice, narrationVolume }), skipHydration: true }));
+}), { name: "sojourner-v1", storage: createJSONStorage(() => safeStorage), partialize: ({ chapter, completed, roverProgress, volume, soundVolume, reducedMotion, narrationEnabled, narrationVoice, narrationVolume }) => ({ chapter, completed, roverProgress, volume, soundVolume, reducedMotion, narrationEnabled, narrationVoice, narrationVolume }), skipHydration: true }));

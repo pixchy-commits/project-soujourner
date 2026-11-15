@@ -14,6 +14,7 @@ export type RoverOptions = {
   initialProgress?: Record<string, { stars: number; best: number }>;
   onProgress?: (progress: Record<string, { stars: number; best: number }>) => void;
   onComplete?: () => void;
+  onSuccess?: (sol: number, replay: () => void, proceed: () => void) => void;
   /** Limit gameplay to the three rounds belonging to this SOL (1–4). */
   missionNumber?: 1 | 2 | 3 | 4;
   /** Called after the final round of a mission. */
@@ -530,7 +531,8 @@ function success(executed){
     `Can you find a route that uses only ${L.optimal} blocks? Fewer turns help!`;
   const isLastRound = missionIndices.indexOf(L.idx) === missionIndices.length - 1;
    $('#resNext').textContent = isLastRound ? 'Replay Mission ↻' : 'Next Round ▶';
-  setTimeout(()=>openOv('result'),450);
+  if (opts.onSuccess) opts.onSuccess(L.sol, () => startLevel(L.idx), advanceMissionLoop);
+  else setTimeout(()=>openOv('result'),450);
 }
 $('#resRetry').onclick=()=>{ closeOv('result'); setFeedback('info','Edit your program and press Run to try for more stars.'); };
 // Advance only through the three rounds selected by the page URL.

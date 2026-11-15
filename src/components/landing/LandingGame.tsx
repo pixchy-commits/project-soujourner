@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createActor, createMachine } from "xstate";
+import MissionAccomplished from "../MissionAccomplished";
 import styles from "./LandingGame.module.css";
 
 export type LandingResult = { stars: number; maxStars: number };
@@ -27,6 +28,8 @@ export default function LandingGame({ onComplete, onHome, className }: LandingGa
   const actorRef = useRef<ReturnType<typeof createActor<typeof landingMachine>> | null>(null);
   const completeRef = useRef(onComplete);
   const homeRef = useRef(onHome);
+  const [result, setResult] = useState<LandingResult | null>(null);
+  const [attempt, setAttempt] = useState(0);
   const [status, setStatus] = useState("ready");
 
   useEffect(() => { completeRef.current = onComplete; homeRef.current = onHome; }, [onComplete, onHome]);
@@ -46,7 +49,7 @@ export default function LandingGame({ onComplete, onHome, className }: LandingGa
       }
       if (message.type === "COMPLETE" && actor.getSnapshot().matches("playing")) {
         actor.send({ type: "COMPLETE" });
-        completeRef.current?.({ stars: Number(message.stars) || 0, maxStars: 24 });
+        setResult({ stars: Number(message.stars) || 0, maxStars: 24 });
       }
     };
     window.addEventListener("message", onMessage);
@@ -55,8 +58,9 @@ export default function LandingGame({ onComplete, onHome, className }: LandingGa
 
   return (
     <main className={`${styles.fullscreen} ${className ?? ""}`} data-landing-state={status}>
-      <iframe ref={frameRef} className={styles.frame} src="/games/landing.html"
+      <iframe key={attempt} ref={frameRef} className={styles.frame} src="/games/landing.html"
         title="Sojourner — Landing on Mars" allow="autoplay; fullscreen" />
+      {result && <MissionAccomplished mission="landing" metrics={[{ label: "stars earned", value: result.stars }]} onReplay={() => { setResult(null); actorRef.current?.send({ type: "RESET" }); setAttempt(value => value + 1); }} onContinue={() => { const completed = result; setResult(null); completeRef.current?.(completed); }} />}
     </main>
   );
 }

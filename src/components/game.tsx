@@ -131,7 +131,7 @@ export default function Game() {
   const instant = data.reducedMotion || systemReducedMotion;
 
   useEffect(() => {
-    void Promise.resolve(useGameStore.persist.rehydrate())
+    void Promise.resolve().then(() => useGameStore.persist.rehydrate())
       .catch(() => undefined)
       .finally(() => setReady(true));
   }, []);

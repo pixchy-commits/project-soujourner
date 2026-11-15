@@ -1,10 +1,11 @@
 "use client";
 
 import "./rover.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGameStore } from "@/lib/game-store";
 import { ROVER_ASSETS, type RoverAssets } from "@/lib/rover/assets";
 import { createRoverEngine } from "./engine";
+import MissionAccomplished, { type MissionPopupName } from "../MissionAccomplished";
 import RoverMarkup from "./RoverMarkup";
 
 type RoverProgress = Record<string, { stars: number; best: number }>;
@@ -40,6 +41,7 @@ type Props = {
 };
 
 export default function RoverGame({ onComplete, onMissionComplete, missionNumber, onExit, reducedMotion = false, assets = ROVER_ASSETS }: Props) {
+  const [completion, setCompletion] = useState<{ mission: MissionPopupName; replay: () => void; proceed: () => void } | null>(null);
   const root = useRef<HTMLDivElement>(null);
   const latest = useRef({ onComplete, onMissionComplete });
   useEffect(() => { latest.current = { onComplete, onMissionComplete }; });
@@ -51,6 +53,7 @@ export default function RoverGame({ onComplete, onMissionComplete, missionNumber
       reducedMotion,
       initialProgress: readRoverProgress(),
       onProgress: saveRoverProgress,
+      onSuccess: (sol, replay, proceed) => setCompletion({ mission: sol === 1 ? "barnacle" : sol === 4 ? "soil" : "yogi", replay, proceed }),
       missionNumber,
       onMissionComplete: (number) => latest.current.onMissionComplete?.(number),
       onComplete: () => latest.current.onComplete?.(),
@@ -59,6 +62,7 @@ export default function RoverGame({ onComplete, onMissionComplete, missionNumber
   return (
     <div className="rv" ref={root}>
       <RoverMarkup />
+      {completion && <MissionAccomplished mission={completion.mission} onReplay={() => { setCompletion(null); completion.replay(); }} onContinue={() => { setCompletion(null); completion.proceed(); }} />}
       {onExit && <button type="button" className="rv-exit" onClick={onExit}>‹ BACK</button>}
     </div>
   );

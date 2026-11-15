@@ -120,8 +120,6 @@ svg{display:block}
 .bigicon{width:96px;height:96px;border-radius:50%;background:var(--gold);display:grid;place-items:center;margin:8px auto 4px;box-shadow:0 5px 0 var(--gold-d)}
 .bigicon svg{transform:scale(1.9)}
 .demo{background:var(--sand);border-radius:22px;padding:10px;margin:10px 0 16px}
-#results{justify-content:flex-end;padding-right:40px}
-#results .card{width:440px}
 .tapRing{position:absolute;border-radius:50%;border:6px solid var(--gold);pointer-events:none;transform:translate(-50%,-50%);opacity:0;z-index:2;box-shadow:0 0 0 3px rgba(28,36,56,.6)}
 .tapRing.go{border-color:#7fd6cc;box-shadow:0 0 0 3px rgba(28,36,56,.6),0 0 30px 8px rgba(127,214,204,.8)}
 .tapRing span{position:absolute;left:50%;top:-46px;transform:translateX(-50%);font-family:'Fredoka',sans-serif;font-weight:700;font-size:26px;color:#fff4e2;-webkit-text-stroke:1.5px #1c2438;white-space:nowrap}
@@ -207,18 +205,7 @@ html,body,.wrap,.game{width:100%;height:100%;height:100dvh;max-width:none}
       <button class="cta octa" id="introGo">I’m ready!</button>
     </div>
   </div>
-  <div class="overlay soft" id="results" hidden>
-    <div class="card" style="margin-top:60px">
-      <div class="starrow" id="resStars"></div>
-      <h3 style="margin-top:14px">Safe landing!</h3>
-      <p id="resMsg"></p>
-      <div class="tiles" id="resTable"></div>
-      <div style="display:flex;gap:12px;justify-content:center;margin-top:18px;flex-wrap:wrap">
-        <button class="ghost" id="homeBtn2"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg>Home</button>
-        <button class="cta octa" id="againBtn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/></svg>Play again</button>
-      </div>
-    </div>
-  </div>
+
 </div>
 <div class="note">Made simple for young players: the real 1997 landing took about 5 minutes and Pathfinder's own computer did every step. The facts in the game are from the real mission.</div>
 </div>
@@ -1002,15 +989,13 @@ function hud(){ ringHud(); const ph = P(), a = altAGL(), v = landerV(), V = s.b.
   updGauge(); }
 
 /* ============ results ============ */
-function showResults(){ hideCoach();
-  const keys = ['entry', 'chute', 'shield', 'rope', 'airbags', 'rockets', 'snip', 'boing']; let tot = 0; keys.forEach(k => tot += (s.stars[k] || 1));
-  const big = tot >= 21 ? 3 : tot >= 15 ? 2 : 1;
-  $('resStars').innerHTML = `<span style="transform:rotate(-12deg) translateY(14px)">${star(big >= 1, 76)}</span>${star(big >= 2, 96)}<span style="transform:rotate(12deg) translateY(14px)">${star(big >= 3, 76)}</span>`
-    .replace(/rgba\(255,240,220,\.18\)/g, '#e6d7b8').replace(/rgba\(255,240,220,\.35\)/g, '#c9b896');
-  $('resMsg').textContent = big === 3 ? 'Amazing! Sojourner is safe and ready to explore Mars.' : big === 2 ? 'Great landing! Sojourner is safe on Mars.' : 'You made it! Play again to win more stars.';
-  const tile = (v, label) => `<div class="tile"><b>${v}</b><span>${label}</span></div>`;
-  $('resTable').innerHTML = tile(tot + '/24', 'Stars') + tile(NB, 'Bounces') + tile(s.b.hits + '/' + NB, 'Bounces you caught');
-  $('results').hidden = false; window.parent.postMessage({source:'sojourner-landing',type:'COMPLETE',stars:tot,maxStars:24}, window.location.origin); sfx.ding(); }
+function showResults(){
+  hideCoach();
+  const keys = ['entry', 'chute', 'shield', 'rope', 'airbags', 'rockets', 'snip', 'boing'];
+  const tot = keys.reduce((total, key) => total + (s.stars[key] || 1), 0);
+  window.parent.postMessage({source:'sojourner-landing',type:'COMPLETE',stars:tot,maxStars:24}, window.location.origin);
+  sfx.ding();
+}
 
 /* ============ flow ============ */
 const PAUSE_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.5" fill="#fff4e2"/><rect x="14" y="5" width="4" height="14" rx="1.5" fill="#fff4e2"/></svg>';
@@ -1026,13 +1011,13 @@ function reset(){ s = newState(); bagsG.visible = false; chuteG.visible = false;
   rover.visible = mast.visible = false; dust.forEach(d => { d.life = d.max; d.sp.visible = false; }); s.pingT = -1; s.b.nextHit = () => false; s.unpackT = -1;
   s.capQ.setFromUnitVectors(UP, new V3(-s.ph.v.x, -s.ph.v.y, 0).normalize());
   cam.rel.set(0, 0, 0); cam.dist = 14; cam.pitch = 0.1; cam.yaw = 0.35; cam.userYaw = 0; cam.userPitch = 0; cam.zoom = 1; cam.smooth = null; rockKey = '';
-  $('results').hidden = true; $('overview').hidden = true; $('titleScreen').hidden = false; $('stepNo').textContent = 'Step 1 of 7'; $('stepName').textContent = 'Ready?';
+  $('overview').hidden = true; $('titleScreen').hidden = false; $('stepNo').textContent = 'Step 1 of 7'; $('stepName').textContent = 'Ready?';
   setObjective('Press Play to start!', 'play'); act.style.display = 'none'; $('controls').innerHTML = ''; hideCoach();
   $('howText').textContent = 'Press Play to start.'; $('howIcon').innerHTML = ICON.play; $('factText').textContent = ' Pathfinder landed on Mars on 4 July 1997.'; $('stepStars').innerHTML = ''; bigIcon('rocket', '');
   $('dots').innerHTML = STEPS.map(() => '<i></i>').join(''); s.layer = -2; }
 function start(){ window.parent.postMessage({source:'sojourner-landing',type:'START'}, window.location.origin); ac(); sfx.whooshStart(); sfx.click(); $('titleScreen').hidden = true; $('overview').hidden = false; }
 function go(){ if (!$('overview').hidden){ ac(); sfx.click(); $('overview').hidden = true; s.startT = s.realT; setStage('entry'); } }
-$('playBtn').onclick = start; $('goBtn').onclick = go; $('againBtn').onclick = () => { reset(); start(); }; $('homeBtn').onclick = () => { reset(); window.parent.postMessage({source:'sojourner-landing',type:'HOME'}, window.location.origin); }; $('homeBtn2').onclick = () => { reset(); window.parent.postMessage({source:'sojourner-landing',type:'HOME'}, window.location.origin); };
+$('playBtn').onclick = start; $('goBtn').onclick = go; $('homeBtn').onclick = () => { reset(); window.parent.postMessage({source:'sojourner-landing',type:'HOME'}, window.location.origin); };
 $('pauseBtn').onclick = () => { paused = !paused; $('pauseBtn').innerHTML = paused ? RESUME_SVG : PAUSE_SVG; };
 $('muteBtn').onclick = () => { SND.muted = !SND.muted; $('muteBtn').innerHTML = SND.muted ? MUTE_SVG : SOUND_SVG; };
 $('hintBtn').onclick = () => { const st = STAGE[s.stage]; if (st && st.coach) showCoach(st.coach, st.step + 1); chip('<b>How to play</b>' + (st ? st.how : 'Press Play to start.')); };

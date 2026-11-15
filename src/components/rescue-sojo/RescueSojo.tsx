@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import MissionAccomplished from "../MissionAccomplished";
 import styles from "./RescueSojo.module.css";
 
 /** Independent minigame: does not read or write the pathfinding/Zustand store. */
@@ -31,6 +32,7 @@ const initial = (): RescueState => ({ distance: 0, active: false, done: false, l
 const stageFor = (progress: number) => STAGES.find((stage) => progress < stage.until) ?? STAGES[2];
 
 export default function RescueSojo({ onComplete, className = "" }: RescueSojoProps) {
+  const [accomplished, setAccomplished] = useState(false);
   const stateRef = useRef<RescueState>(initial());
   const completeRef = useRef(onComplete);
   const rafRef = useRef<number | null>(null);
@@ -47,11 +49,12 @@ export default function RescueSojo({ onComplete, className = "" }: RescueSojoPro
     const done = distance >= TRAVEL_DISTANCE;
     stateRef.current = { distance, active: true, done, lastPush: now, dust: 0.7 };
     setDisplay({ ...stateRef.current });
-    if (done) completeRef.current?.();
+    if (done) setAccomplished(true);
   }, []);
 
   const restart = useCallback((event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.stopPropagation();
+    setAccomplished(false);
     stateRef.current = initial();
     lastFrameRef.current = null;
     setDisplay({ ...stateRef.current });
@@ -125,6 +128,7 @@ export default function RescueSojo({ onComplete, className = "" }: RescueSojoPro
         </div>
         <div className={styles.bottomInstruction}>{display.done ? "Sojo rescued!" : "Press scene or space bar to rescue Sojo"}</div>
       </div>
+      {accomplished && <MissionAccomplished mission="rescue" onReplay={() => restart()} onContinue={() => { setAccomplished(false); completeRef.current?.(); }} />}
     </section>
   );
 }
