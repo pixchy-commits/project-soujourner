@@ -4,9 +4,7 @@ export const scene = {
   "id": "ch02-baby-steps",
   "title": "Baby Steps",
   "chapter": 2,
-  "sourcePages": [
-    13
-  ],
+  "sourcePages": [30],
   "status": "prototype",
   "shots": [
     {

@@ -12,9 +12,11 @@ for (const [id, asset] of Object.entries(manifest)) {
  if (!found) continue;
  const src = "/" + path.relative(path.join(root, "public"), found).split(path.sep).join("/");
  if (asset.src === src) continue;
+ if (asset.src) asset.fallbackSrc = asset.src;
  asset.src = src;
+ asset.approved = false;
  count++;
  console.log(`${id} -> ${src}`);
 }
 if (count) writeFileSync(file, JSON.stringify(manifest, null, 2) + "\n");
-console.log(count ? `Registered ${count} artwork file(s). Artwork approval flags were preserved.` : "No new artwork files found. Existing mappings were preserved.");
+console.log(count ? `Registered ${count} artwork file(s) for review. Previous sources were retained as fallbacks; replacement art is unapproved.` : "No new artwork files found. Existing mappings were preserved.");

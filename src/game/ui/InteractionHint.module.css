@@ -1,0 +1,14 @@
+.hint { display:inline-flex; justify-content:center; align-items:center; gap:10px; font:400 17px/1.25 var(--font-narrative),sans-serif; text-transform:none; letter-spacing:.025em; }
+.mouse,.touch { width:17px; height:22px; opacity:.75; }.mouse svg,.touch svg { width:100%; height:100%; }.arrow { width:17px; height:17px; opacity:.8; animation:invite 2.4s ease-in-out infinite; }
+.tap,.touch,.keyboard { display:none; }
+@media(pointer:coarse) { .click,.mouse { display:none; }.tap,.touch { display:inline-block; } }
+:global(.game[data-input="mouse"]) .tap,:global(.game[data-input="mouse"]) .touch { display:none; }
+:global(.game[data-input="mouse"]) .click,:global(.game[data-input="mouse"]) .mouse { display:inline; }
+:global(.game[data-input="touch"]) .click,:global(.game[data-input="touch"]) .mouse { display:none; }
+:global(.game[data-input="touch"]) .tap,:global(.game[data-input="touch"]) .touch { display:inline; }
+:global(.game[data-input="keyboard"]) .click,:global(.game[data-input="keyboard"]) .tap,:global(.game[data-input="keyboard"]) .mouse,:global(.game[data-input="keyboard"]) .touch { display:none; }
+:global(.game[data-input="keyboard"]) .keyboard { display:inline; }
+@media(max-height:550px) { .hint { font-size:15px; gap:7px; }.mouse,.touch { height:18px; width:15px; } }
+@media(prefers-reduced-motion:reduce) { .arrow { animation:none; } }
+:global(.motion-off) .arrow { animation:none; }
+@keyframes invite { 0%,70%,100% { transform:translateX(0); } 80% { transform:translateX(3px); } }

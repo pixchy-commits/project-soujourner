@@ -12,8 +12,10 @@ import { scene as scene10 } from "./scenes/ch02-mission-introduction/script";
 import { scene as scene11 } from "./scenes/prologue-archive/script";
 import { scene as scene12 } from "./scenes/prologue-identification/script";
 import type { NarrativeScene } from "./types";
+import { futureScenes } from "./scenes/future";
 
 export const scenes = {
+  ...futureScenes,
   "ch01-arrival": scene0,
   "ch01-atmospheric-entry": scene1,
   "ch01-first-look": scene2,

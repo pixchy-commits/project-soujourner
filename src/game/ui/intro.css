@@ -1,7 +1,7 @@
 ﻿/* Intro approval sample: local supplied fonts and retro-space controls. */
 @font-face { font-family: Thunderstrike; src: url('/fonts/thunderstrike.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: GloriaHallelujah; src: url('/fonts/gloriahallelujah.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
-.menu .landscape { background-image: url('/art/intro-v2/title-landscape-v3.webp'); background-position: center; }
+.menu .landscape { background-image: url('/art/intro-v2/title-rover-model-v4-sheet-v1.webp'); background-position: center; }
 .menu .vignette { background: radial-gradient(ellipse at 50% 40%, #713e1905 15%, #36241e20 75%, #25223566); }
 .menu .title-screen { justify-content: center; gap: clamp(30px,5vh,60px); padding: 50px 28px; }
 .menu .title-lockup { filter: none; }

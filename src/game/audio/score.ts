@@ -29,5 +29,7 @@ export function sceneScore(step: string, shot: string | null, title: boolean): S
  if (step === "ch02-mission-briefing") return "briefing";
  if (step === "rock-analysis") return "analysis";
  if (step === "exploration-barnacle-bill" || step === "ch02-mission-introduction") return "exploration";
- return "wonder";
+ if (["ch01-lander-unfolding", "deployment", "ch01-first-look"].includes(step)) return "wonder";
+ // New draft beats wait for contextual music approval; do not carry a cheerful cue into grief.
+ return "quiet";
 }

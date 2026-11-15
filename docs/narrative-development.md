@@ -1,3 +1,5 @@
+> Current implementation and source: [Playable narrative skeleton — PDF v6](narrative-preview-v6.md). The notes below are historical and may refer to retired designs or older PDF pagination.
+
 > Current source of truth: NASA Hackathon Visual (3)_compressed.pdf, 53 pages. Scene source-page references and workspace thumbnails use this version. Older artwork is temporary and will be replaced scene by scene.
 
 # Narrative scenes and artwork

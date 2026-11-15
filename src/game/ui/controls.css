@@ -1,0 +1,80 @@
+/* Soft storybook controls: pale enamel, drawn rim and light rather than stacked frames. */
+.game .game-button,.game .painted-button,.menu .game-menu .painted-button {
+ --control-fill:linear-gradient(125deg,#eefbf7,#b9eeeb);
+ --control-ink:#33485b; --control-rim:#e7fffa;
+ position:relative; display:inline-flex; justify-content:center; align-items:center; gap:12px;
+ min-height:48px; padding:11px 25px; border:1.5px solid var(--control-rim);
+ border-radius:22px 26px 23px 25px; background:var(--control-fill); color:var(--control-ink);
+ box-shadow:inset 0 2px 0 #ffffff99,0 3px 0 #41647555,0 6px 15px #172b3f20;
+ font:400 20px/1.2 var(--font-narrative),sans-serif; letter-spacing:.015em; text-transform:none;
+ filter:none; text-shadow:none; transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
+}
+.game .painted-button span,.menu .game-menu .painted-button span { font:inherit; letter-spacing:inherit; text-shadow:none; transform:none; }
+.game .painted-button::before,.game .painted-button::after,.menu .game-menu .painted-button::before,.menu .game-menu .painted-button::after { display:none; }
+.game .game-button:hover,.game .painted-button:hover,.menu .game-menu .painted-button:hover {
+ background:var(--control-fill); filter:brightness(1.045); transform:translateY(-2px);
+ box-shadow:inset 0 2px 0 #ffffffbb,0 4px 0 #41647555,0 10px 22px #172b3f28;
+}
+.game .game-button:active,.game .painted-button:active,.menu .game-menu .painted-button:active { transform:translateY(2px); box-shadow:inset 0 1px 3px #37546a22,0 1px 0 #41647555; }
+.game .game-button:focus-visible,.game .painted-button:focus-visible,.game .story-advance:focus-visible { outline:2px solid #fff6d4; outline-offset:5px; }
+.game button:disabled { cursor:default; }
+.game .game-button:disabled,.game .painted-button:disabled { opacity:.5; transform:none; filter:none; }
+.menu .game-menu { gap:13px; width:clamp(230px,23vw,310px); }
+.menu .game-menu .painted-button { height:clamp(51px,6.4vh,62px); font-size:clamp(20px,1.8vw,27px); }
+.menu .game-menu .painted-button:first-child { --control-fill:linear-gradient(125deg,#fff4c8,#f8d87d); --control-rim:#fff5cf; color:#514731; }
+.menu .game-menu .painted-button:focus-visible { background:var(--control-fill); }
+.game .cutscene-controls .game-button,.game .game-button-small {
+ min-height:44px; border:1px solid #daefed66; border-radius:18px;
+ padding:8px 17px; background:#20374ab3; color:#e9f6ee; box-shadow:inset 0 1px 0 #ffffff12;
+ font:400 17px/1.2 var(--font-narrative),sans-serif; backdrop-filter:blur(6px);
+}
+.game .cutscene-controls .game-button:hover,.game .game-button-small:hover { background:#375568d9; box-shadow:inset 0 1px 0 #ffffff25; }
+.game .cutscene-controls .game-button span { font:22px/1 var(--font-narrative),sans-serif; opacity:.85; }
+.game .story-advance {
+ display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:11px 21px;
+ color:#fff2cf; background:#20334680; border:0; border-radius:25px;
+ box-shadow:none; text-shadow:0 1px 5px #18263999; cursor:pointer;
+ transition:background .2s,transform .2s;
+}
+.game .story-advance:hover { background:#203346bd; }
+.game .story-advance:active { transform:translateY(1px); }
+.cinematic-stage>.story-advance { position:absolute; z-index:4; bottom:11%; left:50%; transform:translateX(-50%); white-space:nowrap; }
+.cinematic-stage>.story-advance:active { transform:translate(-50%,1px); }
+.game .music-button,.menu .music-button { border:1px solid #e4fffbcc; color:#dcfaf6; background:linear-gradient(135deg,#526f80e8,#2b435be8); box-shadow:inset 0 2px 0 #ffffff33,0 3px 12px #14283c30; }
+.game .music-button:hover { filter:brightness(1.15); }
+.game .close-button { display:grid; place-items:center; border:1px solid #d9f3ee88; background:#355064; color:#eaf8ed; box-shadow:inset 0 1px 0 #ffffff33; }
+@media(max-width:650px) { .game .game-button,.game .painted-button { padding:10px 20px; font-size:18px; }.game .cutscene-controls .game-button { padding:8px 13px; font-size:16px; }.cinematic-stage>.story-advance { bottom:13%; }.menu .game-menu .painted-button { height:53px; font-size:22px; } }
+@media(max-height:550px) { .menu .game-menu { gap:8px; }.menu .game-menu .painted-button { height:43px; min-height:43px; font-size:19px; }.game .cutscene-controls .game-button { min-height:36px; font-size:14px; }.cinematic-stage>.story-advance { bottom:12%; } }
+@media(prefers-reduced-motion:reduce) { .game button { transition:none; } }
+.game.motion-off button { transition:none; }
+
+/* Narrative controls stay out of the picture. Keep the approved music control above. */
+.game .story-advance,.game .story-advance:hover,.game .story-advance:active {
+ gap:12px; background:transparent; border:0; border-radius:0; box-shadow:none;
+ padding:10px 12px; color:#fff0cd; text-shadow:0 2px 8px #101b2c;
+}
+.game .story-advance::before { content:""; width:32px; height:1px; background:linear-gradient(90deg,transparent,#fde593aa); }
+.game .story-advance:focus-visible { outline:none; }
+.game[data-input="keyboard"] .story-advance:focus-visible { outline:1px dashed #fff0cd; outline-offset:4px; }
+.game .cutscene-controls {
+ top:max(24px,env(safe-area-inset-top)); bottom:auto; left:max(24px,env(safe-area-inset-left)); right:auto;
+ display:flex; justify-content:flex-start; gap:12px; z-index:12;
+}
+.game .cutscene-controls .game-button,.game .cutscene-controls .game-button:hover,.game .cutscene-controls .game-button:active {
+ display:grid; place-items:center; width:var(--nav-size,48px); height:var(--nav-size,48px); min-height:var(--nav-size,48px); padding:12px; border-radius:50%;
+ border:1px solid #e4fffb99; background:linear-gradient(135deg,#526f80d9,#2b435bd9); color:#dcfaf6;
+ box-shadow:inset 0 2px 0 #ffffff25,0 3px 12px #14283c30; backdrop-filter:none; transform:none; filter:none;
+}
+.game .cutscene-controls .game-button:hover { background:linear-gradient(135deg,#648596e8,#3b596ee8); }
+.game .cutscene-controls .game-button svg { width:23px; height:23px; }
+.game .cutscene-controls .game-button .control-label {
+ position:absolute; top:calc(100% + 7px); left:50%; transform:translateX(-50%); white-space:nowrap;
+ font:15px/1.2 var(--font-narrative),sans-serif; color:#fff0cd; text-shadow:0 1px 5px #102033; opacity:0; pointer-events:none;
+}
+.game .cutscene-controls .game-button:hover .control-label,.game .cutscene-controls .game-button:focus-visible .control-label { opacity:1; }
+.game:not([data-input="keyboard"]) .cutscene-controls .game-button:focus-visible { outline:none; }
+@media(max-width:650px),(max-height:550px) {
+ .game .cutscene-controls { --nav-size:42px; top:max(12px,env(safe-area-inset-top)); left:max(14px,env(safe-area-inset-left)); gap:9px; }
+ .game .cutscene-controls .game-button { width:42px; height:42px; min-height:42px; padding:10px; }
+ .game .cutscene-controls .game-button svg { width:21px; height:21px; }
+}

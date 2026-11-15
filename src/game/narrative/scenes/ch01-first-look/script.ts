@@ -4,9 +4,7 @@ export const scene = {
   "id": "ch01-first-look",
   "title": "A brand-new world",
   "chapter": 1,
-  "sourcePages": [
-    27
-  ],
+  "sourcePages": [28],
   "status": "storyboard",
   "shots": [
     {
@@ -14,6 +12,7 @@ export const scene = {
       "kind": "illustration",
       "art": "ch01-first-look/rover-view",
       "framing": "first-person",
+      "overlay": "ui/goggle-frame",
       "motion": "still",
       "dialogue": {
         "speaker": "MISSION ARCHIVE",

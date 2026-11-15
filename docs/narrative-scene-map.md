@@ -1,3 +1,5 @@
+> Current implementation and source: [Playable narrative skeleton — PDF v6](narrative-preview-v6.md). The notes below are historical and may refer to retired designs or older PDF pagination.
+
 ﻿# Narrative production map
 
 Source: `C:/Users/USER/Downloads/NASA Hackathon Visual (2)_compressed.pdf` (55 PDF pages).

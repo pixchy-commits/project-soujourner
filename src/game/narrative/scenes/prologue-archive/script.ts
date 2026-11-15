@@ -5,9 +5,7 @@ export const scene = {
   "id": "prologue-archive",
   "title": "The ones we left behind",
   "chapter": 0,
-  "sourcePages": [
-    4
-  ],
+  "sourcePages": [19,20],
   "status": "prototype",
   "shots": [
     {

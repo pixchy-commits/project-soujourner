@@ -27,12 +27,14 @@
 .box:disabled { opacity:1; cursor:default; }
 .portrait { position:absolute; z-index:2; left:-118px; top:50%; transform:translateY(-50%); width:180px; aspect-ratio:1; border:5px solid var(--rim); border-radius:50%; overflow:hidden; background:#46657c; box-shadow:0 3px 8px #17293d25; }
 .portrait img { display:block; width:100%; height:100%; object-fit:cover; }
+.box[data-tone="sojo"] .portrait { border:0; border-radius:0; background:transparent; box-shadow:none; overflow:visible; }
+.box[data-tone="sojo"] .portrait img { object-fit:contain; }
 .measure,.box.box :global(.dialogue-text) { grid-area:copy; min-height:0; font:400 clamp(20px,1.8vw,28px)/1.4 var(--font-narrative),sans-serif; color:var(--ink); overflow-wrap:anywhere; }
 .measure { visibility:hidden; }
 .name { position:absolute; top:-18px; left:48px; padding:7px 22px; border:2px solid var(--rim); border-radius:18px 18px 10px 10px; background:var(--panel); color:var(--ink); box-shadow:0 2px 5px #17293d15; font:400 20px/1.1 var(--font-narrative),sans-serif; white-space:nowrap; }
 .box[data-kind="dialogue"] .name { left:82px; }
 .box.box :global(.type-caret) { color:var(--ink); opacity:.5; }
-.box.box :global(.dialogue-prompt) { position:absolute; bottom:12px; right:46px; padding:0; background:none; color:var(--ink); font:11px/1.2 var(--font-narrative),sans-serif; letter-spacing:.03em; opacity:.7; }
+.box.box :global(.dialogue-prompt) { position:absolute; bottom:-34px; right:24px; min-height:28px; padding:0; background:none; color:#fff0cf; text-shadow:0 1px 5px #142030; letter-spacing:.03em; opacity:.85; }
 @media(max-width:650px) {
  .box.box:global(.dialogue-box) { width:90%; min-height:120px; bottom:12%; padding:22px 28px 32px; border-radius:38px; }
  .box.box:global(.dialogue-box)[data-kind="dialogue"] { left:56%; width:76%; padding-left:42px; padding-right:22px; }
@@ -40,7 +42,7 @@
  .name { left:28px; top:-16px; padding:5px 15px; font-size:18px; }
  .box[data-kind="dialogue"] .name { left:42px; }
  .measure,.box.box :global(.dialogue-text) { font-size:18px; line-height:1.35; }
- .box.box :global(.dialogue-prompt) { right:27px; bottom:10px; font-size:10px; }
+ .box.box :global(.dialogue-prompt) { right:20px; bottom:-32px; }
  .box.box:global(.dialogue-box)::before { width:65px; right:12px; top:8px; height:23px; }
  .box.box:global(.dialogue-box)::after { width:48px; right:19px; top:16px; height:14px; }
 }

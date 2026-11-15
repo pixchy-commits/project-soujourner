@@ -4,6 +4,7 @@ import { firstShot, getStep, isFinalShot, nextCheckpoint, previousCheckpoint, re
 type FlowEvent =
  | { type: "START" | "NEXT" | "BACK" | "HOME" }
  | { type: "RESUME"; checkpoint: Checkpoint | null }
+ | { type: "JUMP"; checkpoint: Checkpoint }
  | { type: "ACTIVITY_COMPLETE"; activityId: ActivityId };
 
 export const gameFlow = setup({
@@ -11,6 +12,7 @@ export const gameFlow = setup({
  actions: {
   reset: assign(() => firstShot(story[0])),
   resume: assign(({ event }) => resolveCheckpoint(event.type === "RESUME" ? event.checkpoint : null)),
+  jump: assign(({ event }) => resolveCheckpoint(event.type === "JUMP" ? event.checkpoint : null)),
   next: assign(({ context }) => nextCheckpoint(context)),
   back: assign(({ context }) => previousCheckpoint(context)),
  },
@@ -24,7 +26,7 @@ export const gameFlow = setup({
  },
 }).createMachine({
  id: "game-flow", initial: "title", context: firstShot(story[0]),
- on: { HOME: ".title" },
+ on: { HOME: ".title", JUMP: { target: ".playing", actions: "jump" } },
  states: {
   title: { on: { START: { target: "playing", actions: "reset" }, RESUME: { target: "playing", actions: "resume" } } },
   playing: { on: {

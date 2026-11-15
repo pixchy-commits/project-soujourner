@@ -8,6 +8,10 @@ type ShotBase = {
  transition?: "black" | "memory";
  motion?: "still" | "drift" | "push-in" | "pan";
  notes?: string;
+ placeholder?: string;
+ exitTransition?: "black";
+ /** Transparent foreground art; shares the illustration's 16:9 coordinate space. */
+ overlay?: ArtId;
 };
 export type SceneShot = ShotBase & (
  | { kind: "illustration"; art: ArtId; framing?: "wide" | "closeup" | "first-person" | "overhead"; confetti?: boolean; hotspot?: { label: string; x: number; y: number; width: number; height: number }; missionSheet?: { title: string; duration: string; note?: string; items: readonly string[] } }
@@ -17,7 +21,7 @@ export type SceneShot = ShotBase & (
 export type NarrativeScene = {
  id: string;
  title: string;
- chapter: 0 | 1 | 2;
+ chapter: 0 | 1 | 2 | 3 | 4 | 5;
  sourcePages: readonly number[];
  status: "prototype" | "storyboard" | "needs-script";
  shots: readonly [SceneShot, ...SceneShot[]];

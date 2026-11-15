@@ -54,8 +54,8 @@
     "approved": true
   },
   "entry-cabin": {
-    "src": "/art/scenes/ch01-atmospheric-entry/cabin-heat-style-v4.webp",
-    "fallbackSrc": null,
+    "src": "/art/scenes/ch01-atmospheric-entry/cabin-model-v5-sheet-v1.webp",
+    "fallbackSrc": "/art/scenes/ch01-atmospheric-entry/cabin-model-v5.webp",
     "expectedPath": "/art/scenes/ch01-atmospheric-entry/cabin.webp",
     "alt": "Rear three-quarter view of Sojo looking toward Mars, with no hands, lit by orange entry light in a navy transport bay.",
     "objectPosition": "50% 50%",
@@ -63,8 +63,8 @@
     "approved": false
   },
   "entry-eyes": {
-    "src": "/art/scenes/ch01-atmospheric-entry/eyes-heat-style-v4.webp",
-    "fallbackSrc": null,
+    "src": "/art/scenes/ch01-atmospheric-entry/eyes-model-v5-sheet-v1.webp",
+    "fallbackSrc": "/art/scenes/ch01-atmospheric-entry/eyes-model-v5.webp",
     "expectedPath": "/art/scenes/ch01-atmospheric-entry/eyes-closeup.webp",
     "alt": "Sojo reacts with delighted sparkling oval camera eyes, painted in the heat-shield scene’s navy and orange style.",
     "objectPosition": "50% 50%",
@@ -90,8 +90,8 @@
     "approved": false
   },
   "ch01-lander-unfolding/open-petals": {
-    "src": "/art/scenes/ch01-lander-unfolding/open-petals-v3.webp",
-    "fallbackSrc": null,
+    "src": "/art/scenes/ch01-lander-unfolding/open-petals-model-v4-sheet-v1.webp",
+    "fallbackSrc": "/art/scenes/ch01-lander-unfolding/open-petals-model-v4.webp",
     "expectedPath": "/art/scenes/ch01-lander-unfolding/open-petals.webp",
     "alt": "Straight overhead view of three open metal petals, with six-wheeled Sojo stowed on the upper petal and equipment on the base.",
     "objectPosition": "50% 50%",
@@ -99,10 +99,10 @@
     "approved": false
   },
   "ch01-first-look/rover-view": {
-    "src": "/art/scenes/ch01-first-look/rover-view-heat-v6.webp",
-    "fallbackSrc": null,
+    "src": "/art/scenes/ch01-first-look/rover-view-clean-v7.webp",
+    "fallbackSrc": "/art/scenes/ch01-first-look/rover-view-heat-v6.webp",
     "expectedPath": "/art/scenes/ch01-first-look/rover-view.webp",
-    "alt": "Sojo looks down the ramp at Mars through a painted binocular view, with sun and rock labels and pointers, in the heat-shield scene’s navy and orange palette.",
+    "alt": "First-person view down the lander ramp across Mars, with painted sun and rock annotations. The goggles are a separate overlay.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
@@ -117,10 +117,10 @@
     "approved": false
   },
   "ch01-pathfinder-friendship/pathfinder": {
-    "src": "/art/scenes/ch01-pathfinder-friendship/pathfinder-goggles-v5.webp",
-    "fallbackSrc": null,
+    "src": "/art/scenes/ch01-pathfinder-friendship/pathfinder-clean-v6.webp",
+    "fallbackSrc": "/art/scenes/ch01-pathfinder-friendship/pathfinder-goggles-v5.webp",
     "expectedPath": "/art/scenes/ch01-pathfinder-friendship/pathfinder.webp",
-    "alt": "Friendly JPL Pathfinder seen through painted binocular goggles with a thick orange contour, in navy and orange heat-shield art direction.",
+    "alt": "Friendly JPL Pathfinder on Mars; the goggles are a separate overlay.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
@@ -135,8 +135,8 @@
     "approved": true
   },
   "ch02-earth-flashback/blink": {
-    "src": "/art/scenes/ch02-earth-flashback/pre-memory-new-model-v1.webp",
-    "fallbackSrc": null,
+    "src": "/art/scenes/ch02-earth-flashback/blink-model-v2-sheet-v1.webp",
+    "fallbackSrc": "/art/scenes/ch02-earth-flashback/pre-memory-new-model-v1.webp",
     "expectedPath": "/art/scenes/ch02-earth-flashback/blink.webp",
     "alt": "A third-person closeup of Sojo’s excited sparkling eyes on Mars, just before remembering Earth.",
     "objectPosition": "50% 50%",
@@ -144,8 +144,8 @@
     "approved": false
   },
   "ch02-earth-flashback/construction": {
-    "src": "/art/scenes/ch02-earth-flashback/construction-new-model-v1.webp",
-    "fallbackSrc": null,
+    "src": "/art/scenes/ch02-earth-flashback/construction-model-v2-sheet-v1.webp",
+    "fallbackSrc": "/art/scenes/ch02-earth-flashback/construction-new-model-v1.webp",
     "expectedPath": "/art/scenes/ch02-earth-flashback/construction.webp",
     "alt": "Two smiling engineers work on Sojourner in a warmly lit Earth laboratory.",
     "objectPosition": "50% 50%",
@@ -153,17 +153,17 @@
     "approved": false
   },
   "ch02-earth-flashback/introduction": {
-    "src": "/art/scenes/ch02-earth-flashback/introduction-v2.webp",
-    "fallbackSrc": null,
+    "src": "/art/scenes/ch02-earth-flashback/introduction-model-v3-sheet-v1.webp",
+    "fallbackSrc": "/art/scenes/ch02-earth-flashback/introduction-v2.webp",
     "expectedPath": "/art/scenes/ch02-earth-flashback/introduction.webp",
     "alt": "The same scientists hold Sojourner turned around, showing its single plain rear camera.",
     "objectPosition": "50% 50%",
     "fit": "contain",
-    "approved": true
+    "approved": false
   },
   "ch02-earth-flashback/mission": {
-    "src": "/art/scenes/ch02-earth-flashback/mission-v2.webp",
-    "fallbackSrc": null,
+    "src": "/art/scenes/ch02-earth-flashback/mission-model-v3-sheet-v1.webp",
+    "fallbackSrc": "/art/scenes/ch02-earth-flashback/mission-v2.webp",
     "expectedPath": "/art/scenes/ch02-earth-flashback/mission.webp",
     "alt": "Scientists gesture toward a board headed Mission, showing Earth and Mars, as Sojo watches.",
     "objectPosition": "50% 50%",
@@ -171,8 +171,8 @@
     "approved": false
   },
   "ch02-earth-flashback/memory-eyes": {
-    "src": "/art/scenes/ch02-earth-flashback/memory-eyes-v3.webp",
-    "fallbackSrc": null,
+    "src": "/art/scenes/ch02-earth-flashback/memory-eyes-model-v4-sheet-v1.webp",
+    "fallbackSrc": "/art/scenes/ch02-earth-flashback/memory-eyes-v3.webp",
     "expectedPath": "/art/scenes/ch02-earth-flashback/memory-eyes.webp",
     "alt": "Sojo sparkles with excitement while imagining its mission on Mars in a painted thought cloud.",
     "objectPosition": "50% 50%",
@@ -180,8 +180,8 @@
     "approved": false
   },
   "ch02-mission-introduction/sojo-introduction": {
-    "src": "/art/scenes/ch02-mission-introduction/sojo-new-model-v1.webp",
-    "fallbackSrc": null,
+    "src": "/art/scenes/ch02-mission-introduction/sojo-model-v2-sheet-v1.webp",
+    "fallbackSrc": "/art/scenes/ch02-mission-introduction/sojo-new-model-v1.webp",
     "expectedPath": "/art/scenes/ch02-mission-introduction/sojo-introduction.webp",
     "alt": "Sojo faces the viewer directly in the Rock Garden, with friendly Pathfinder behind to the right.",
     "objectPosition": "50% 50%",
@@ -189,8 +189,8 @@
     "approved": false
   },
   "ch02-mission-introduction/mission-description": {
-    "src": "/art/scenes/ch02-mission-introduction/sojo-new-model-v1.webp",
-    "fallbackSrc": null,
+    "src": "/art/scenes/ch02-mission-introduction/sojo-model-v2-sheet-v1.webp",
+    "fallbackSrc": "/art/scenes/ch02-mission-introduction/sojo-new-model-v1.webp",
     "expectedPath": "/art/scenes/ch02-mission-introduction/mission-description.webp",
     "alt": "Sojo faces the viewer directly in the Rock Garden, with friendly Pathfinder behind to the right.",
     "objectPosition": "50% 50%",
@@ -198,8 +198,8 @@
     "approved": false
   },
   "ch02-celebration/scientists": {
-    "src": "/art/scenes/ch02-celebration/scientists-v2.webp",
-    "fallbackSrc": null,
+    "src": "/art/scenes/ch02-celebration/scientists-model-v3-sheet-v1.webp",
+    "fallbackSrc": "/art/scenes/ch02-celebration/scientists-v2.webp",
     "expectedPath": "/art/scenes/ch02-celebration/scientists.webp",
     "alt": "The familiar scientists celebrate Sojo completing its baby steps while watching the Mars monitor.",
     "objectPosition": "50% 50%",
@@ -207,8 +207,8 @@
     "approved": false
   },
   "ch02-mission-briefing/briefing": {
-    "src": "/art/scenes/ch02-mission-briefing/briefing-v1.webp",
-    "fallbackSrc": null,
+    "src": "/art/scenes/ch02-mission-briefing/briefing-model-v2-sheet-v1.webp",
+    "fallbackSrc": "/art/scenes/ch02-mission-briefing/briefing-v1.webp",
     "expectedPath": "/art/scenes/ch02-mission-briefing/briefing.webp",
     "alt": "The same mission-control scientists settle into a calm briefing, gesturing toward Sojo on the monitor.",
     "objectPosition": "50% 50%",
@@ -259,5 +259,311 @@
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": true
+  },
+  "ch03-viewpoint-rest/closing-eyes": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch03-viewpoint-rest/closing-eyes.webp",
+    "alt": "Sojo slowly closes its eyes after the mission. Sleep transition; artwork pending.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch03-yogi-panorama/panorama": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch03-yogi-panorama/panorama.webp",
+    "alt": "First-person panorama reveals the terrain around Yogi and how difficult the approach will be. Panorama artwork and final narration are pending.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch03-yogi-reassurance/worried": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch03-yogi-reassurance/worried.webp",
+    "alt": "Sojo worries about approaching Yogi. Inner-monologue wording is unresolved; leave the spoken line empty.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch03-yogi-reassurance/pathfinder-comfort": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch03-yogi-reassurance/pathfinder-comfort.webp",
+    "alt": "Pathfinder reassures Sojo. Final art pending.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch03-yogi-observation/uneasy-rock": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch03-yogi-observation/uneasy-rock.webp",
+    "alt": "Sojo observes Yogi and feels something is unusual. Foreshadow the later positioning problem; final monologue is missing.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch03-yogi-tilt/backwards-approach": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch03-yogi-tilt/backwards-approach.webp",
+    "alt": "Sojo attempts to maneuver backward near Yogi. Exact geometry and historical details await approved reference.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch03-yogi-tilt/tilted-rover": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch03-yogi-tilt/tilted-rover.webp",
+    "alt": "Sojo accidentally climbs the rock and becomes tilted. Keep this as a draft narrative placeholder; do not invent danger dialogue or technical claims.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch03-yogi-reflection/explanation": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch03-yogi-reflection/explanation.webp",
+    "alt": "Sojo explains why the first analysis attempt failed and resolves to try another approach. Spoken explanation remains empty until approved research/script arrives.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch03-ready-to-scan/ready": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch03-ready-to-scan/ready.webp",
+    "alt": "Sojo reaches a suitable position and is ready to start analysis. Pages 61 and 62 repeat this beat; use one shared placeholder until the team distinguishes them.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch03-analysis-celebration/scientists": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch03-analysis-celebration/scientists.webp",
+    "alt": "Scientists celebrate the successful Yogi analysis on Earth. Final celebration art and dialogue are pending.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch03-analysis-celebration/sleep": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch03-analysis-celebration/sleep.webp",
+    "alt": "Sojo falls asleep wondering what comes next. Final internal line is missing.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch04-more-memories/waking": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-more-memories/waking.webp",
+    "alt": "Sojo wakes after the planned mission with no next assignment. It still wants to explore and bring back more data.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch04-more-memories/companions": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-more-memories/companions.webp",
+    "alt": "Sojo and Pathfinder celebrate their friendship and the completed primary mission. PDF dialogue is explicitly a demo, so leave it empty.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch04-more-memories/new-hopes": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-more-memories/new-hopes.webp",
+    "alt": "Sojo wants more good memories and missions together. Final script is pending.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch04-time-passing/early-days": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-time-passing/early-days.webp",
+    "alt": "The first view of Sojo during the time-passing montage. Final artwork and approved timestamps pending.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch04-time-passing/weathering": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-time-passing/weathering.webp",
+    "alt": "Later view: the wheels show more weathering. Match the same composition as the preceding shot for a dissolve.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch04-time-passing/late-days": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-time-passing/late-days.webp",
+    "alt": "Final view of the time-passing montage. The storyboard calls for increasingly rusty wheels; historical visual treatment needs confirmation.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch04-last-signal/opening-eyes": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-last-signal/opening-eyes.webp",
+    "alt": "First-person blink: Sojo opens its eyes to see Pathfinder.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch04-last-signal/fading-energy": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-last-signal/fading-energy.webp",
+    "alt": "Pathfinder grows quiet as its energy fades. Battery UI and exact technical interpretation remain placeholders.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch04-last-signal/quiet-pathfinder": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-last-signal/quiet-pathfinder.webp",
+    "alt": "Pathfinder closes its eyes. The storyboard asks for this to connect to time passing, rather than happen suddenly.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch04-shared-memories/memories": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-shared-memories/memories.webp",
+    "alt": "Sojo recalls good memories with Pathfinder during its final mission. Final memory selection and dialogue pending.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch04-earth-dot/earth": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-earth-dot/earth.webp",
+    "alt": "Sojo looks toward Earth as a tiny dot in the sky. Leave the frame spacious; final artwork and narration pending.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch04-earth-dot/eyes": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-earth-dot/eyes.webp",
+    "alt": "Close view of Sojo looking toward home. Expression art pending.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch04-resting-together/leaning": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-resting-together/leaning.webp",
+    "alt": "Sojo sits down and leans against Pathfinder. No spoken line has been supplied.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ch04-resting-together/wide-rest": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-resting-together/wide-rest.webp",
+    "alt": "Wide view of both companions resting with Earth as a dot behind them. End the scene with the storyboard fade.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "legacy-title/title": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/legacy-title/title.webp",
+    "alt": "THE LEGACY — Present Time. Dedicated title artwork pending.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "legacy-return-to-tv/pull-back": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/legacy-return-to-tv/pull-back.webp",
+    "alt": "Pull back out of the story into the archive television. Final room art and camera choreography pending.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "legacy-return-to-tv/television-wall": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/legacy-return-to-tv/television-wall.webp",
+    "alt": "Reveal the archive wall of multiple televisions. The numbered drawings on page 86 are camera framing references, not dialogue.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "legacy-rover-evolution/sojourner": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/legacy-rover-evolution/sojourner.webp",
+    "alt": "First television: Sojourner. Final archival art and approved informational text pending.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "legacy-rover-evolution/later-rovers": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/legacy-rover-evolution/later-rovers.webp",
+    "alt": "Move to the next television and show the evolution toward later rovers. Final sequence and motivational narration pending.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "legacy-rover-evolution/wide-evolution": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/legacy-rover-evolution/wide-evolution.webp",
+    "alt": "Pull back to show the rover evolution together. Exact comparisons must follow approved research.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "legacy-museum/museum": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/legacy-museum/museum.webp",
+    "alt": "Final exhibit / Marie Curie reference scene. The PDF includes an optional fourth-wall idea; exact execution and spoken script remain unresolved.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "legacy-museum/farewell": {
+    "src": null,
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/legacy-museum/farewell.webp",
+    "alt": "Final quiet frame and fade out. Final art and ending text pending.",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
+  },
+  "ui/goggle-frame": {
+    "src": "/art/overlays/sojo-goggles-v1.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/overlays/sojo-goggles.webp",
+    "alt": "Painted purple binocular frame with a transparent lens opening",
+    "objectPosition": "50% 50%",
+    "fit": "contain",
+    "approved": false
   }
 }

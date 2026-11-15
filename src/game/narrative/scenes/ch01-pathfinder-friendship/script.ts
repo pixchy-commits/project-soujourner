@@ -4,13 +4,12 @@ export const scene = {
   "id": "ch01-pathfinder-friendship",
   "title": "A trusted friend",
   "chapter": 1,
-  "sourcePages": [
-    28
-  ],
+  "sourcePages": [29],
   "status": "storyboard",
   "shots": [
     {
       "id": "sojo-question",
+      "overlay": "ui/goggle-frame",
       "kind": "illustration",
       "art": "ch01-pathfinder-friendship/pathfinder",
       "framing": "first-person",
@@ -21,6 +20,7 @@ export const scene = {
     },
     {
       "id": "pathfinder-reply",
+      "overlay": "ui/goggle-frame",
       "kind": "illustration",
       "art": "ch01-pathfinder-friendship/pathfinder",
       "framing": "first-person",

@@ -4,9 +4,7 @@ export const scene = {
   "id": "ch02-mission-introduction",
   "title": "Welcome to the Rock Garden",
   "chapter": 2,
-  "sourcePages": [
-    15
-  ],
+  "sourcePages": [32],
   "status": "storyboard",
   "shots": [
     {

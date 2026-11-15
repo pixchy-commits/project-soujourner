@@ -11,10 +11,10 @@ export default function TitleScreen({ ready, hasSave, busy, onStart, onOpenPanel
         const current = buttons.indexOf(document.activeElement as HTMLButtonElement);
         buttons[(current + (event.key === "ArrowDown" ? 1 : -1) + buttons.length) % buttons.length]?.focus();
       }}>
-        <button className="painted-button" disabled={busy} onClick={() => onStart(false)}><span>START</span></button>
-        {ready && (hasSave) && <button className="painted-button" disabled={busy} onClick={() => onStart(true)}><span>CONTINUE</span></button>}
-        <button className="painted-button" onClick={() => onOpenPanel("settings")}><span>SETTINGS</span></button>
-        <button className="painted-button" onClick={() => onOpenPanel("reports")}><span>REPORTS</span></button>
+        <button className="painted-button" disabled={busy} onClick={() => onStart(false)}><span>Begin journey</span></button>
+        {ready && (hasSave) && <button className="painted-button" disabled={busy} onClick={() => onStart(true)}><span>Resume journey</span></button>}
+        <button className="painted-button" disabled={busy} onClick={() => onOpenPanel("settings")}><span>Settings</span></button>
+        <button className="painted-button" disabled={busy} onClick={() => onOpenPanel("reports")}><span>Mission journal</span></button>
       </nav>
     </section>
  );

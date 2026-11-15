@@ -5,13 +5,12 @@ import gsap from "gsap";
 import { gameFlow } from "./flow/machine";
 import { getStep, resolveCheckpoint, type ActivityResult, type Checkpoint } from "./flow/story";
 import { ActivityGate, type ActivityModules } from "./flow/ActivityGate";
-import { narrativeActivities } from "./narrative/missions/BarnacleMission";
 import { chapterPhotos } from "./narrative/art/chapter-photos";
 import { getScene } from "./narrative/catalog";
 import type { SceneShot } from "./narrative/types";
 import SceneStage from "./narrative/player/SceneStage";
 import { Artwork, type ArtOverrides } from "./narrative/player/Artwork";
-import { usePageVisibility, useReducedMotion, useSceneFocus } from "./narrative/player/use-player-environment";
+import { useInputMethod, usePageVisibility, useReducedMotion, useSceneFocus } from "./narrative/player/use-player-environment";
 import { useGameStore } from "./state/game-store";
 import { useGameEffects } from "./audio/use-game-effects";
 import { useNarration } from "./audio/use-narration";
@@ -22,6 +21,7 @@ import TitleScreen from "./ui/TitleScreen";
 import MusicButton from "./ui/MusicButton";
 import GamePanels, { type Panel } from "./ui/GamePanels";
 import Dust from "./ui/Dust";
+import { SceneDebugger } from "./ui/SceneDebugger";
 
 type Props = {
  initialCheckpoint?: Checkpoint;
@@ -35,7 +35,11 @@ export default function Game({ initialCheckpoint, previewMode = false, artOverri
  const [panel, setPanel] = useState<Panel>(null);
  const [ready, setReady] = useState(false);
  const [busy, setBusy] = useState(false);
+ const [debugOpen, setDebugOpen] = useState(false);
+ const [reviewing, setReviewing] = useState(false);
+ const toggleDebug = useCallback(() => setDebugOpen(value => !value), []);
  const root = useRef<HTMLElement>(null);
+ useInputMethod(root);
  const curtain = useRef<HTMLDivElement>(null);
  const transition = useRef<gsap.core.Timeline | null>(null);
  const transitionContext = useRef<gsap.Context | null>(null);
@@ -52,10 +56,10 @@ export default function Game({ initialCheckpoint, previewMode = false, artOverri
  const scene = playing && step.kind === "narrative" ? getScene(step.sceneId) : null;
  const shot: SceneShot | null = scene ? scene.shots.find((shot) => shot.id === flow.context.shotId) ?? scene.shots[0] : null;
  const line = shot?.dialogue;
- const paused = busy || panel !== null || !visible;
+ const paused = busy || debugOpen || panel !== null || !visible;
  const voiceActive = Boolean(line && data.narrationEnabled && !paused);
- const music = useMusic(data.volume, voiceActive || busy || panel !== null, sceneScore(step.id, flow.context.shotId, title), !visible);
- useSceneAmbience(ambienceFor(scene?.id === "ch02-earth-flashback" && shot?.id === "blink" ? "ch01-first-look" : step.id), effects.unlocked && visible && playing && panel === null, data.soundVolume, voiceActive || busy);
+ const music = useMusic(data.volume, voiceActive || busy || debugOpen || panel !== null, sceneScore(step.id, flow.context.shotId, title), !visible);
+ useSceneAmbience(ambienceFor(scene?.id === "ch02-earth-flashback" && shot?.id === "blink" ? "ch01-first-look" : step.id), effects.unlocked && visible && playing && !debugOpen && panel === null, data.soundVolume, voiceActive || busy);
  const lastAudioScene = useRef("");
  const sceneKey = `${flow.value}/${flow.context.stepId}/${flow.context.shotId}`;
  useEffect(() => {
@@ -75,9 +79,9 @@ export default function Game({ initialCheckpoint, previewMode = false, artOverri
  }, [send]);
  useEffect(() => {
   if (playing) onCheckpointChange?.(flow.context);
-  if (!previewMode && playing) useGameStore.getState().saveCheckpoint(flow.context);
-  if (!previewMode && flow.matches("complete")) useGameStore.getState().finish();
- }, [playing, flow.context, flow.value, previewMode, flow, onCheckpointChange]);
+  if (!previewMode && !reviewing && playing) useGameStore.getState().saveCheckpoint(flow.context);
+  if (!previewMode && !reviewing && flow.matches("complete")) useGameStore.getState().finish();
+ }, [playing, flow.context, flow.value, previewMode, reviewing, flow, onCheckpointChange]);
  useEffect(() => {
   if (instant) return;
   const context = gsap.context(() => {
@@ -96,13 +100,13 @@ export default function Game({ initialCheckpoint, previewMode = false, artOverri
   if (!useGameStore.getState().narrationEnabled) effects.play(character ? (line?.speaker === "PATHFINDER" ? "pathfinder" : "rover") : "type");
  }, [effects.play, line?.speaker]);
 
- function cutTo(action: () => void, mode: "soft" | "memory" | "rewind" = "soft") {
+ function cutTo(action: () => void, mode: "soft" | "memory" | "rewind" | "sleep" = "soft") {
   if (locked.current) return;
   narration.stop();
   if (instant) { action(); return; }
   locked.current = true;
   setBusy(true);
-  if (mode !== "soft") effects.play(mode === "rewind" ? "rewind" : "memory");
+  if (mode === "rewind" || mode === "memory") effects.play(mode === "rewind" ? "rewind" : "memory");
   if (mode === "soft") {
    action();
    transition.current = gsap.timeline({ onComplete: () => { locked.current = false; setBusy(false); } }).to({}, { duration: .5 });
@@ -187,7 +191,7 @@ export default function Game({ initialCheckpoint, previewMode = false, artOverri
    memory = scene.shots[index + 1]?.transition === "memory";
   }
   const rewind = scene?.id === "prologue-identification" && shot?.id === "rewind";
-  cutTo(() => send({ type: "NEXT" }), rewind ? "rewind" : memory ? "memory" : "soft");
+  cutTo(() => send({ type: "NEXT" }), rewind ? "rewind" : memory ? "memory" : shot?.exitTransition === "black" ? "sleep" : "soft");
  }
  function home() { cutTo(() => send({ type: "HOME" })); }
  function back() {
@@ -195,17 +199,24 @@ export default function Game({ initialCheckpoint, previewMode = false, artOverri
   else cutTo(() => send({ type: "BACK" }));
  }
  function start(resume: boolean) {
+  setReviewing(false);
   const checkpoint = resolveCheckpoint(data.checkpoint);
   cutTo(() => resume ? send({ type: "RESUME", checkpoint }) : send({ type: "START" }));
  }
  function completeActivity(result: ActivityResult) {
   if (!playing || step.kind !== "activity" || result.activityId !== step.activityId || locked.current) return;
   cutTo(() => {
-   if (!previewMode) useGameStore.getState().recordActivity(result);
+   if (!previewMode && !reviewing) useGameStore.getState().recordActivity(result);
    send({ type: "ACTIVITY_COMPLETE", activityId: result.activityId });
   });
  }
- const Activity = step.kind === "activity" ? activities?.[step.activityId] ?? narrativeActivities[step.activityId] : undefined;
+ function jump(checkpoint: Checkpoint) {
+  if (locked.current) return;
+  setReviewing(true);
+  setDebugOpen(false);
+  cutTo(() => send({ type: "JUMP", checkpoint }));
+ }
+ const Activity = step.kind === "activity" ? activities?.[step.activityId] : undefined;
  const backdropArt = shot?.kind === "archive" ? "archive-room" : shot?.kind === "chapter" ? chapterPhotos[shot.number] ?? shot.art : shot?.art;
  return <main ref={root} className={`game ${title ? "menu" : "cutscene"} ${instant ? "motion-off" : ""}`} aria-busy={busy} onClickCapture={(event) => {
   if ((event.target as Element).closest("button:not(:disabled)")) effects.click();
@@ -213,10 +224,11 @@ export default function Game({ initialCheckpoint, previewMode = false, artOverri
   <div className={`landscape ${shot?.kind === "archive" ? "archive-backdrop" : ""}`} aria-hidden="true">{!title && backdropArt && <Artwork key={backdropArt} id={backdropArt} overrides={artOverrides} fit={shot?.kind === "chapter" ? "cover" : undefined} />}</div><div className="vignette" aria-hidden="true" /><div className="grain" aria-hidden="true" />
   <Dust paused={instant || !title} />
   <MusicButton muted={music.muted} onClick={music.toggle} />
-  {title ? <TitleScreen ready={ready} hasSave={Boolean(data.checkpoint)} busy={busy} onStart={start} onOpenPanel={setPanel} />
+  {title ? <TitleScreen ready={ready} hasSave={Boolean(data.checkpoint)} busy={paused} onStart={start} onOpenPanel={setPanel} />
    : scene && shot ? <SceneStage key={shot.kind === "archive" ? "archive-stage" : shot.kind === "illustration" ? "illustration-stage" : `${scene.id}/${shot.id}`} scene={scene} shot={shot} paused={paused} instant={instant} artOverrides={artOverrides} onNext={next} onBack={back} onHome={home} onType={onType} onMontageSound={effects.play} />
-   : playing && step.kind === "activity" ? (Activity ? <Activity key={step.id} onComplete={completeActivity} onExit={home} paused={paused} instant={instant} /> : <ActivityGate title={step.title} activityId={step.activityId} onComplete={completeActivity} onExit={home} />)
-   : <section className="ending-screen"><p className="scene-enter">CHAPTERS 1–2</p><h1 className="scene-enter">A little rover.<br />A new beginning.</h1><p className="preview-end scene-enter">END OF NARRATIVE PREVIEW</p><button className="painted-button scene-enter" disabled={busy} onClick={home}><span>TITLE SCREEN</span></button></section>}
+   : playing && step.kind === "activity" ? (Activity ? <Activity key={step.id} onComplete={completeActivity} onExit={home} paused={paused} instant={instant} /> : <ActivityGate title={step.title} activityId={step.activityId} category={step.category} description={step.description} sourcePage={step.sourcePage} references={step.references} onComplete={completeActivity} onExit={home} onBack={back} paused={paused} />)
+   : <section className="ending-screen"><p className="scene-enter">THE JOURNEY</p><h1 className="scene-enter">A little rover.<br />A new beginning.</h1><p className="preview-end scene-enter">END OF STORY FLOW PREVIEW</p><button className="painted-button scene-enter" disabled={busy} onClick={home}><span>TITLE SCREEN</span></button></section>}
+  <SceneDebugger open={debugOpen} busy={busy || panel !== null} checkpoint={flow.context} reviewing={reviewing} onToggle={toggleDebug} onJump={jump} />
   <div ref={curtain} className="scene-curtain" aria-hidden="true" />
   <GamePanels panel={panel} onClose={() => setPanel(null)} muted={music.muted} onToggleMusic={music.toggle} narration={narration} />
  </main>;

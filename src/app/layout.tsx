@@ -4,6 +4,7 @@ import "./globals.css";
 import "../game/game.css";
 import "../game/ui/cutscene.css";
 import "../game/ui/intro.css";
+import "../game/ui/controls.css";
 const narrativeFont = Bubblegum_Sans({
   subsets: ["latin"],
   weight: "400",

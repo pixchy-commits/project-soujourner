@@ -2,9 +2,10 @@
 import { useEffect, useRef, useState } from "react";
 import type { DialogueLine } from "../types";
 import styles from "./Dialogue.module.css";
+import { InteractionHint } from "../../ui/InteractionHint";
 
 const voices: Record<string, { name: string; portrait: string; tone: string }> = {
- SOJOURNER: { name: "Sojo", portrait: "/art/portraits/sojo-placeholder.svg", tone: "sojo" },
+ SOJOURNER: { name: "Sojo", portrait: "/art/portraits/sojo-original-front.svg", tone: "sojo" },
  PATHFINDER: { name: "Pathfinder", portrait: "/art/portraits/pathfinder-placeholder.svg", tone: "pathfinder" },
  "MISSION CONTROL": { name: "Mission Control", portrait: "/art/portraits/control-placeholder.svg", tone: "control" },
 };
@@ -39,6 +40,6 @@ export function Dialogue({ line, instant, paused, onNext, onType, className = ""
   {!hideSpeaker && <span className={styles.name}>{voice?.name ?? "Narrator"}</span>}
   <span className={styles.measure} aria-hidden="true">{line.text}</span>
   <span className="dialogue-text" aria-hidden="true">{instant ? line.text : line.text.slice(0, revealed)}<span className={finished ? "type-caret hidden" : "type-caret"}>▍</span></span>
-  <span className="dialogue-prompt">{finished ? "CONTINUE" : "REVEAL TEXT"}<span className={finished ? "advance-diamond" : ""}>◆</span></span>
+  <span className="dialogue-prompt"><InteractionHint intent={finished ? "continue" : "reveal"} /></span>
  </button>;
 }

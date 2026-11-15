@@ -1,0 +1,147 @@
+{
+  "reference": "public/art/characters/sojo/model-2026-11/sojo-reference-sheet-v1.png",
+  "tool": "Built-in image_gen",
+  "replacements": [
+    {
+      "key": "title",
+      "source": "public/art/intro-v2/title-landscape-v3.webp",
+      "dest": "/art/intro-v2/title-rover-model-v4-sheet-v1.webp",
+      "ids": [],
+      "detail": "Title-screen landscape: keep the huge open golden sky and clear center for HTML title and menu. Sojo is entirely visible, small in the lower-left third around x24%,y70%, front-three-quarter view with three wheels on near side and correct far-side wheels. Keep margins around antenna and wheels. Do not add any text or title.",
+      "prompt": "Use case: identity-preserve / precise-object-edit. IMAGE 1 is the APPROVED SOJO MODEL SHEET and the ONLY authority for the rover's design. IMAGE 2 is solely the scene composition, environment and lighting to preserve; its old rover is WRONG and must be fully replaced. Select the matching labeled view from image1 and reproduce its geometry; NEVER combine a side chassis with a front face. FRONT: short front face, two white oval blue-edged eyes, dark pupils/navy eyebrows/red smile, orange front cable to navy box at viewerRIGHT, cyan tipped bent antenna viewerLEFT. Wheels form TWO columns on left/right receding behind the front wheels, NEVER three wheels across the front. SIDE: long low cyan/yellow body, three wheels along each side, gray side rocker bogie; eyes only at leading FRONT edge. REAR: single large central plain BLUE camera, no rear eyeballs, orange cable and tiny port matching sheet. TOP: cyan blue gridded rectangular deck, three wheels per side. Thin blue solar panel, navy tires with blue/orange accents. No human arms/hands. Keep the approved handdrawn textured 2D character design, integrate scene's warm light without turning blue components gold. Preserve scene layout, humans and setting from image2. No UI/dialogue/goggles/watermark. Widescreen 16:9. Title-screen landscape: keep the huge open golden sky and clear center for HTML title and menu. Sojo is entirely visible, small in the lower-left third around x24%,y70%, front-three-quarter view with three wheels on near side and correct far-side wheels. Keep margins around antenna and wheels. Do not add any text or title.",
+      "generatedPath": "C:\\Users\\USER\\.codex\\generated_images\\01a1cfc2-2cac-7eb1-876b-7e162d7c6aaa\\exec-2e98677e-27f0-4adb-81c5-dcecf6d28742.png"
+    },
+    {
+      "key": "cabin",
+      "source": "public/art/scenes/ch01-atmospheric-entry/cabin-heat-style-v4.webp",
+      "dest": "/art/scenes/ch01-atmospheric-entry/cabin-model-v5-sheet-v1.webp",
+      "ids": [
+        "entry-cabin"
+      ],
+      "detail": "Cabin scene is seen from BEHIND Sojo, rear-three-quarter view. Keep the single orange-glowing round porthole upper-left and navy cabin. Sojo lower-right looks OUT toward that porthole. Its visible BACK must show the single large central circular BLUE lens matching the rear model; do not copy the small rear camera of the obsolete last-image rover. Thin bright blue solar panel, low yellow/cyan chassis, six dark wheels, gray suspension. No hands, no extra eyes on rear.",
+      "prompt": "Use case: identity-preserve / precise-object-edit. IMAGE 1 is the APPROVED SOJO MODEL SHEET and the ONLY authority for the rover's design. IMAGE 2 is solely the scene composition, environment and lighting to preserve; its old rover is WRONG and must be fully replaced. Select the matching labeled view from image1 and reproduce its geometry; NEVER combine a side chassis with a front face. FRONT: short front face, two white oval blue-edged eyes, dark pupils/navy eyebrows/red smile, orange front cable to navy box at viewerRIGHT, cyan tipped bent antenna viewerLEFT. Wheels form TWO columns on left/right receding behind the front wheels, NEVER three wheels across the front. SIDE: long low cyan/yellow body, three wheels along each side, gray side rocker bogie; eyes only at leading FRONT edge. REAR: single large central plain BLUE camera, no rear eyeballs, orange cable and tiny port matching sheet. TOP: cyan blue gridded rectangular deck, three wheels per side. Thin blue solar panel, navy tires with blue/orange accents. No human arms/hands. Keep the approved handdrawn textured 2D character design, integrate scene's warm light without turning blue components gold. Preserve scene layout, humans and setting from image2. No UI/dialogue/goggles/watermark. Widescreen 16:9. Cabin scene is seen from BEHIND Sojo, rear-three-quarter view. Keep the single orange-glowing round porthole upper-left and navy cabin. Sojo lower-right looks OUT toward that porthole. Its visible BACK must show the single large central circular BLUE lens matching the rear model; do not copy the small rear camera of the obsolete last-image rover. Thin bright blue solar panel, low yellow/cyan chassis, six dark wheels, gray suspension. No hands, no extra eyes on rear.",
+      "generatedPath": "C:\\Users\\USER\\.codex\\generated_images\\01a1cfc2-2cac-7eb1-876b-7e162d7c6aaa\\exec-ca12fb6c-29d4-45e2-b5fb-4b9b88ef60ce.png"
+    },
+    {
+      "key": "entry-eyes",
+      "source": "public/art/scenes/ch01-atmospheric-entry/eyes-heat-style-v4.webp",
+      "dest": "/art/scenes/ch01-atmospheric-entry/eyes-model-v5-sheet-v1.webp",
+      "ids": [
+        "entry-eyes"
+      ],
+      "detail": "EXTREME CLOSEUP of delighted FRONT eyes in navy entry cabin. Two eyes fill central55%width65%height. Only thin cyan deckedge and narrow yellow/cyanfrontstrip/orangecable atBOTTOM. Warmorangeporthole lightLEFT. No wheels or suspension in frame. Do NOT show whole rover. Sparkling eyes and redsmile, notbrassrim.",
+      "prompt": "Use case: identity-preserve / precise-object-edit. IMAGE 1 is the APPROVED SOJO MODEL SHEET and the ONLY authority for the rover's design. IMAGE 2 is solely the scene composition, environment and lighting to preserve; its old rover is WRONG and must be fully replaced. Select the matching labeled view from image1 and reproduce its geometry; NEVER combine a side chassis with a front face. FRONT: short front face, two white oval blue-edged eyes, dark pupils/navy eyebrows/red smile, orange front cable to navy box at viewerRIGHT, cyan tipped bent antenna viewerLEFT. Wheels form TWO columns on left/right receding behind the front wheels, NEVER three wheels across the front. SIDE: long low cyan/yellow body, three wheels along each side, gray side rocker bogie; eyes only at leading FRONT edge. REAR: single large central plain BLUE camera, no rear eyeballs, orange cable and tiny port matching sheet. TOP: cyan blue gridded rectangular deck, three wheels per side. Thin blue solar panel, navy tires with blue/orange accents. No human arms/hands. Keep the approved handdrawn textured 2D character design, integrate scene's warm light without turning blue components gold. Preserve scene layout, humans and setting from image2. No UI/dialogue/goggles/watermark. Widescreen 16:9. EXTREME CLOSEUP of delighted FRONT eyes in navy entry cabin. Two eyes fill central55%width65%height. Only thin cyan deckedge and narrow yellow/cyanfrontstrip/orangecable atBOTTOM. Warmorangeporthole lightLEFT. No wheels or suspension in frame. Do NOT show whole rover. Sparkling eyes and redsmile, notbrassrim.",
+      "generatedPath": "C:\\Users\\USER\\.codex\\generated_images\\01a1cfc2-2cac-7eb1-876b-7e162d7c6aaa\\exec-a42a47f4-85b1-4939-a700-4d4a9ac8bdea.png"
+    },
+    {
+      "key": "petals",
+      "source": "public/art/scenes/ch01-lander-unfolding/open-petals-v3.webp",
+      "dest": "/art/scenes/ch01-lander-unfolding/open-petals-model-v4-sheet-v1.webp",
+      "ids": [
+        "ch01-lander-unfolding/open-petals"
+      ],
+      "detail": "Strict straight TOP-DOWN scene. Preserve Pathfinder's exactly three triangular open petals, central triangular platform, surrounding collapsed airbags, rocks, lander equipment. Replace ONLY the small Sojo stowed on the UPPER petal with the top-view new rover. Bright pale blue gridded rectangular solar deck, exactly THREE wheels on each side, visible eye-housings only at front edge, bent antenna. Do not turn the central lander equipment into a second rover. Preserve one actual rover only.",
+      "prompt": "Use case: identity-preserve / precise-object-edit. IMAGE 1 is the APPROVED SOJO MODEL SHEET and the ONLY authority for the rover's design. IMAGE 2 is solely the scene composition, environment and lighting to preserve; its old rover is WRONG and must be fully replaced. Select the matching labeled view from image1 and reproduce its geometry; NEVER combine a side chassis with a front face. FRONT: short front face, two white oval blue-edged eyes, dark pupils/navy eyebrows/red smile, orange front cable to navy box at viewerRIGHT, cyan tipped bent antenna viewerLEFT. Wheels form TWO columns on left/right receding behind the front wheels, NEVER three wheels across the front. SIDE: long low cyan/yellow body, three wheels along each side, gray side rocker bogie; eyes only at leading FRONT edge. REAR: single large central plain BLUE camera, no rear eyeballs, orange cable and tiny port matching sheet. TOP: cyan blue gridded rectangular deck, three wheels per side. Thin blue solar panel, navy tires with blue/orange accents. No human arms/hands. Keep the approved handdrawn textured 2D character design, integrate scene's warm light without turning blue components gold. Preserve scene layout, humans and setting from image2. No UI/dialogue/goggles/watermark. Widescreen 16:9. Strict straight TOP-DOWN scene. Preserve Pathfinder's exactly three triangular open petals, central triangular platform, surrounding collapsed airbags, rocks, lander equipment. Replace ONLY the small Sojo stowed on the UPPER petal with the top-view new rover. Bright pale blue gridded rectangular solar deck, exactly THREE wheels on each side, visible eye-housings only at front edge, bent antenna. Do not turn the central lander equipment into a second rover. Preserve one actual rover only.",
+      "generatedPath": "C:\\Users\\USER\\.codex\\generated_images\\01a1cfc2-2cac-7eb1-876b-7e162d7c6aaa\\exec-5e090638-e319-43f2-9032-cb16109079ae.png"
+    },
+    {
+      "key": "blink",
+      "source": "public/art/scenes/ch02-earth-flashback/pre-memory-new-model-v1.webp",
+      "dest": "/art/scenes/ch02-earth-flashback/blink-model-v2-sheet-v1.webp",
+      "ids": [
+        "ch02-earth-flashback/blink"
+      ],
+      "detail": "Closeup straight FRONT face on golden Mars just before flashback. Eyes and upperfront fillcentral65%width. Bottomrock obscures all wheels and suspension. AntennaLEFT, navyboxRIGHT, orangefrontcable, cyanpanel. No sidechassis, no gray diagonal suspension acrossfront.",
+      "prompt": "Use case: identity-preserve / precise-object-edit. IMAGE 1 is the APPROVED SOJO MODEL SHEET and the ONLY authority for the rover's design. IMAGE 2 is solely the scene composition, environment and lighting to preserve; its old rover is WRONG and must be fully replaced. Select the matching labeled view from image1 and reproduce its geometry; NEVER combine a side chassis with a front face. FRONT: short front face, two white oval blue-edged eyes, dark pupils/navy eyebrows/red smile, orange front cable to navy box at viewerRIGHT, cyan tipped bent antenna viewerLEFT. Wheels form TWO columns on left/right receding behind the front wheels, NEVER three wheels across the front. SIDE: long low cyan/yellow body, three wheels along each side, gray side rocker bogie; eyes only at leading FRONT edge. REAR: single large central plain BLUE camera, no rear eyeballs, orange cable and tiny port matching sheet. TOP: cyan blue gridded rectangular deck, three wheels per side. Thin blue solar panel, navy tires with blue/orange accents. No human arms/hands. Keep the approved handdrawn textured 2D character design, integrate scene's warm light without turning blue components gold. Preserve scene layout, humans and setting from image2. No UI/dialogue/goggles/watermark. Widescreen 16:9. Closeup straight FRONT face on golden Mars just before flashback. Eyes and upperfront fillcentral65%width. Bottomrock obscures all wheels and suspension. AntennaLEFT, navyboxRIGHT, orangefrontcable, cyanpanel. No sidechassis, no gray diagonal suspension acrossfront.",
+      "generatedPath": "C:\\Users\\USER\\.codex\\generated_images\\01a1cfc2-2cac-7eb1-876b-7e162d7c6aaa\\exec-f3477700-355e-4c41-a5b5-16ffd0fd026a.png"
+    },
+    {
+      "key": "construction",
+      "source": "public/art/scenes/ch02-earth-flashback/construction-new-model-v1.webp",
+      "dest": "/art/scenes/ch02-earth-flashback/construction-model-v2-sheet-v1.webp",
+      "ids": [
+        "ch02-earth-flashback/construction"
+      ],
+      "detail": "Warm Earth laboratory. Preserve EXACT same two scientists, faces, clothing, pose, softpaintstyle and composition. Man onleft wavybrownhairroundglasses, tealshirtpalelabcoat; womanright sweptbrownhairbun redshirtpalelabcoat. They hold SMALL microwave-size Sojo between their hands, frontthreequarter view, carefully supported from below. Exactly3wheelsperside, thinCYANgriddedpanel, new yellowcyanbody and expressivewhiteblueeyes. Do not enlarge rover.",
+      "prompt": "Use case: compositing. Image1 is approvedmodelreference, image2 is scene composition. Replace ONLY the Sojo in image2 by COPYING the FRONT VIEW drawing, including two whiteblueeyes, red smile, orangefrontcable, navyboxRIGHT and antennaLEFT from image1 exactly as a flat front/rear elevation. Absolutely NO three-quarter view. Preserve exact contour and hardware of that specific panel. There are SIX wheels total: THREE in a left column receding in depth and THREE in a right column. Each column has exactly ONE full frontmost tire plus TWO partially overlapping tires behind it; no fourth/fifth tire. Front/back body has no side suspension stretched diagonally across it. Keep same small rover size and placement in the scientists' hands/foreground as existing scene. Preserve all scientists, faces, hands, lab lighting, room and composition of image2. Keep 'Mission' board text if present. New rover must be low yellow/cyan with thin blue panel, gray suspension only along sides and orangecable, matching approved sheet, not generic rover. Warm 2D painted storybook. No new text, no labels, no overlays. Widescreen16:9.",
+      "generatedPath": "C:\\Users\\USER\\.codex\\generated_images\\01a1cfc2-2cac-7eb1-876b-7e162d7c6aaa\\exec-de41023c-07c7-4e2b-a2a7-9cb2683ec312.png"
+    },
+    {
+      "key": "introduction",
+      "source": "public/art/scenes/ch02-earth-flashback/introduction-v2.webp",
+      "dest": "/art/scenes/ch02-earth-flashback/introduction-model-v3-sheet-v1.webp",
+      "ids": [
+        "ch02-earth-flashback/introduction"
+      ],
+      "detail": "Keep exactly same scientists and composition: womanforegroundright inprofile holding Sojo up, bespectacledmanbehind. RoverisviewedfromREARthreequarter, largecentralplainBLUEcamera matchingrearref, cyanupperyellowlowerbody, orange cable atback, thinBLUEpanel and6wheels. No frontface visible on back, no rear eyes, no tiny obsolete cameramodel.",
+      "prompt": "Use case: identity-preserve / precise-object-edit. IMAGE 1 is the APPROVED SOJO MODEL SHEET and the ONLY authority for the rover's design. IMAGE 2 is solely the scene composition, environment and lighting to preserve; its old rover is WRONG and must be fully replaced. Select the matching labeled view from image1 and reproduce its geometry; NEVER combine a side chassis with a front face. FRONT: short front face, two white oval blue-edged eyes, dark pupils/navy eyebrows/red smile, orange front cable to navy box at viewerRIGHT, cyan tipped bent antenna viewerLEFT. Wheels form TWO columns on left/right receding behind the front wheels, NEVER three wheels across the front. SIDE: long low cyan/yellow body, three wheels along each side, gray side rocker bogie; eyes only at leading FRONT edge. REAR: single large central plain BLUE camera, no rear eyeballs, orange cable and tiny port matching sheet. TOP: cyan blue gridded rectangular deck, three wheels per side. Thin blue solar panel, navy tires with blue/orange accents. No human arms/hands. Keep the approved handdrawn textured 2D character design, integrate scene's warm light without turning blue components gold. Preserve scene layout, humans and setting from image2. No UI/dialogue/goggles/watermark. Widescreen 16:9. Keep exactly same scientists and composition: womanforegroundright inprofile holding Sojo up, bespectacledmanbehind. RoverisviewedfromREARthreequarter, largecentralplainBLUEcamera matchingrearref, cyanupperyellowlowerbody, orange cable atback, thinBLUEpanel and6wheels. No frontface visible on back, no rear eyes, no tiny obsolete cameramodel.",
+      "generatedPath": "C:\\Users\\USER\\.codex\\generated_images\\01a1cfc2-2cac-7eb1-876b-7e162d7c6aaa\\exec-4ce48050-3830-434b-92f3-57e597c14501.png"
+    },
+    {
+      "key": "mission",
+      "source": "public/art/scenes/ch02-earth-flashback/mission-v2.webp",
+      "dest": "/art/scenes/ch02-earth-flashback/mission-model-v3-sheet-v1.webp",
+      "ids": [
+        "ch02-earth-flashback/mission"
+      ],
+      "detail": "Preserve the laboratory, the two scientists gesturing, exact board headed 'Mission' with Earth-to-Mars arrow and planets. Replace the Sojo in foreground with new model fromBEHIND: bright cyanBLUE griddeddeck, two backs of white eyehousings atfront far edge, bentantenna, new yellowcyan chassis only where visible. Keep board text 'Mission' verbatim. No other text or narrative box. Visible backbody MUST show single large central plain blue camera matching REAR panel ofsheet.",
+      "prompt": "Targeted removal ONLY. Image1 is approved model sheet. Image2 is scene. The rover in image2 has one extra wheel on EACH side, at the FAR END just behind the solar deck. ERASE the two small distant tire tops at approximately (620,650) and (1048,650) in the 1672x941 scene, reconstruct floor/background behind them. Keep the THREE closer tires on each side untouched (their tops around y710,y750,y800). Final total SIX wheels only, THREE per side. Keep all other pixels/composition: scientists, board Mission EarthMars, foregroundrover, camera, solar deck, antenna, colors. Do not remove the middle or front tires. Do not add wheels. No other changes.",
+      "generatedPath": "C:\\Users\\USER\\.codex\\generated_images\\01a1cfc2-2cac-7eb1-876b-7e162d7c6aaa\\exec-88129e8b-a44c-4a45-a3c1-b67ea5eb0da6.png"
+    },
+    {
+      "key": "memory-eyes",
+      "source": "public/art/scenes/ch02-earth-flashback/memory-eyes-v3.webp",
+      "dest": "/art/scenes/ch02-earth-flashback/memory-eyes-model-v4-sheet-v1.webp",
+      "ids": [
+        "ch02-earth-flashback/memory-eyes"
+      ],
+      "detail": "Preserve the close-up composition and warm hazy Earthlab. New Sojo's WHITE oval eyes thin BLUE rims fillforeground with charcoalpupils and twinklehighlights, darkbrows, tinyREDmouth, yellowcyanfront. Keep a painted thoughtcloud inupperright; ALSO replace the tiny imagined rover inside that cloud with the SAME newblueyellow6wheelmodel onMars. Bothdepictionsconsistent. No goldbrassgoggleyes.",
+      "prompt": "Use case: identity-preserve / precise-object-edit. IMAGE 1 is the APPROVED SOJO MODEL SHEET and the ONLY authority for the rover's design. IMAGE 2 is solely the scene composition, environment and lighting to preserve; its old rover is WRONG and must be fully replaced. Select the matching labeled view from image1 and reproduce its geometry; NEVER combine a side chassis with a front face. FRONT: short front face, two white oval blue-edged eyes, dark pupils/navy eyebrows/red smile, orange front cable to navy box at viewerRIGHT, cyan tipped bent antenna viewerLEFT. Wheels form TWO columns on left/right receding behind the front wheels, NEVER three wheels across the front. SIDE: long low cyan/yellow body, three wheels along each side, gray side rocker bogie; eyes only at leading FRONT edge. REAR: single large central plain BLUE camera, no rear eyeballs, orange cable and tiny port matching sheet. TOP: cyan blue gridded rectangular deck, three wheels per side. Thin blue solar panel, navy tires with blue/orange accents. No human arms/hands. Keep the approved handdrawn textured 2D character design, integrate scene's warm light without turning blue components gold. Preserve scene layout, humans and setting from image2. No UI/dialogue/goggles/watermark. Widescreen 16:9. Preserve the close-up composition and warm hazy Earthlab. New Sojo's WHITE oval eyes thin BLUE rims fillforeground with charcoalpupils and twinklehighlights, darkbrows, tinyREDmouth, yellowcyanfront. Keep a painted thoughtcloud inupperright; ALSO replace the tiny imagined rover inside that cloud with the SAME newblueyellow6wheelmodel onMars. Bothdepictionsconsistent. No goldbrassgoggleyes.",
+      "generatedPath": "C:\\Users\\USER\\.codex\\generated_images\\01a1cfc2-2cac-7eb1-876b-7e162d7c6aaa\\exec-c36901cb-2ecd-444a-a033-633f1347515f.png"
+    },
+    {
+      "key": "sojo-intro",
+      "source": "public/art/scenes/ch02-mission-introduction/sojo-new-model-v1.webp",
+      "dest": "/art/scenes/ch02-mission-introduction/sojo-model-v2-sheet-v1.webp",
+      "ids": [
+        "ch02-mission-introduction/sojo-introduction",
+        "ch02-mission-introduction/mission-description"
+      ],
+      "detail": "Keep identical RockGardencomposition: Sojo frontfacing atcenter x52%, allwheels and antenna framed, tiny friendlygoldPathfinder on upper-right distant ridge unchanged. Keep leftthird QUIET empty Marsground for HTMLpaper and bottom22%quiet for HTMLdialogue. Accurate thinCYANbluegriddedpanel and6wheels. NO added paper or speechtext. STRICT FRONT VIEW copy FRONT panel of sheet exactly, only TWO wheelcolumns left/right receding in depth. No wheel in middle, no diagonal suspension acrossfront. AntennaLEFT. Do not use sideprofile.",
+      "prompt": "Use case: identity-preserve / precise-object-edit. IMAGE 1 is the APPROVED SOJO MODEL SHEET and the ONLY authority for the rover's design. IMAGE 2 is solely the scene composition, environment and lighting to preserve; its old rover is WRONG and must be fully replaced. Select the matching labeled view from image1 and reproduce its geometry; NEVER combine a side chassis with a front face. FRONT: short front face, two white oval blue-edged eyes, dark pupils/navy eyebrows/red smile, orange front cable to navy box at viewerRIGHT, cyan tipped bent antenna viewerLEFT. Wheels form TWO columns on left/right receding behind the front wheels, NEVER three wheels across the front. SIDE: long low cyan/yellow body, three wheels along each side, gray side rocker bogie; eyes only at leading FRONT edge. REAR: single large central plain BLUE camera, no rear eyeballs, orange cable and tiny port matching sheet. TOP: cyan blue gridded rectangular deck, three wheels per side. Thin blue solar panel, navy tires with blue/orange accents. No human arms/hands. Keep the approved handdrawn textured 2D character design, integrate scene's warm light without turning blue components gold. Preserve scene layout, humans and setting from image2. No UI/dialogue/goggles/watermark. Widescreen 16:9. Keep identical RockGardencomposition: Sojo frontfacing atcenter x52%, allwheels and antenna framed, tiny friendlygoldPathfinder on upper-right distant ridge unchanged. Keep leftthird QUIET empty Marsground for HTMLpaper and bottom22%quiet for HTMLdialogue. Accurate thinCYANbluegriddedpanel and6wheels. NO added paper or speechtext. STRICT FRONT VIEW copy FRONT panel of sheet exactly, only TWO wheelcolumns left/right receding in depth. No wheel in middle, no diagonal suspension acrossfront. AntennaLEFT. Do not use sideprofile.",
+      "generatedPath": "C:\\Users\\USER\\.codex\\generated_images\\01a1cfc2-2cac-7eb1-876b-7e162d7c6aaa\\exec-563e0e3c-a26f-414e-a075-2192c5d5c315.png"
+    },
+    {
+      "key": "celebration",
+      "source": "public/art/scenes/ch02-celebration/scientists-v2.webp",
+      "dest": "/art/scenes/ch02-celebration/scientists-model-v3-sheet-v1.webp",
+      "ids": [
+        "ch02-celebration/scientists"
+      ],
+      "detail": "Change ONLY the Sojo depiction INSIDE the large mission-control monitor. Preserve every scientist, expression, celebration pose, lab setting, lighting and screen border. Monitor rover frontthreequarterview must nowbe newblueyellowmodel with WHITEbluerim expressiveeyes, grayrockerbogie sixwheels and thinbrightBLUEsolar deck. Maintain warm Mars landscape onscreen.",
+      "prompt": "Use case: identity-preserve / precise-object-edit. IMAGE 1 is the APPROVED SOJO MODEL SHEET and the ONLY authority for the rover's design. IMAGE 2 is solely the scene composition, environment and lighting to preserve; its old rover is WRONG and must be fully replaced. Select the matching labeled view from image1 and reproduce its geometry; NEVER combine a side chassis with a front face. FRONT: short front face, two white oval blue-edged eyes, dark pupils/navy eyebrows/red smile, orange front cable to navy box at viewerRIGHT, cyan tipped bent antenna viewerLEFT. Wheels form TWO columns on left/right receding behind the front wheels, NEVER three wheels across the front. SIDE: long low cyan/yellow body, three wheels along each side, gray side rocker bogie; eyes only at leading FRONT edge. REAR: single large central plain BLUE camera, no rear eyeballs, orange cable and tiny port matching sheet. TOP: cyan blue gridded rectangular deck, three wheels per side. Thin blue solar panel, navy tires with blue/orange accents. No human arms/hands. Keep the approved handdrawn textured 2D character design, integrate scene's warm light without turning blue components gold. Preserve scene layout, humans and setting from image2. No UI/dialogue/goggles/watermark. Widescreen 16:9. Change ONLY the Sojo depiction INSIDE the large mission-control monitor. Preserve every scientist, expression, celebration pose, lab setting, lighting and screen border. Monitor rover frontthreequarterview must nowbe newblueyellowmodel with WHITEbluerim expressiveeyes, grayrockerbogie sixwheels and thinbrightBLUEsolar deck. Maintain warm Mars landscape onscreen.",
+      "generatedPath": "C:\\Users\\USER\\.codex\\generated_images\\01a1cfc2-2cac-7eb1-876b-7e162d7c6aaa\\exec-d372c8da-181d-462f-ba78-0ac2fa9f242b.png"
+    },
+    {
+      "key": "briefing",
+      "source": "public/art/scenes/ch02-mission-briefing/briefing-v1.webp",
+      "dest": "/art/scenes/ch02-mission-briefing/briefing-model-v2-sheet-v1.webp",
+      "ids": [
+        "ch02-mission-briefing/briefing"
+      ],
+      "detail": "Change ONLY the rover INSIDE large mission-control monitor. Preserve calmbriefing scientists, theirposes,faces,coats, furniture, warm nostalgic lighting and composition. Monitor rover frontthreequarterview must be accurate newblueyellow6wheeledSojo with whiteblueeyes, not obsolete grayrover.",
+      "prompt": "Use case: compositing. Image1 is approvedmodelreference, image2 is scene composition. Replace ONLY the Sojo in image2 by COPYING the FRONT VIEW drawing, including two whiteblueeyes, red smile, orangefrontcable, navyboxRIGHT and antennaLEFT from image1 exactly as a flat front/rear elevation. Absolutely NO three-quarter view. Preserve exact contour and hardware of that specific panel. There are SIX wheels total: THREE in a left column receding in depth and THREE in a right column. Each column has exactly ONE full frontmost tire plus TWO partially overlapping tires behind it; no fourth/fifth tire. Front/back body has no side suspension stretched diagonally across it. Keep same small rover size and placement INSIDE the mission-control monitor only. Preserve all scientists, faces, hands, lab lighting, room and composition of image2. Keep 'Mission' board text if present. New rover must be low yellow/cyan with thin blue panel, gray suspension only along sides and orangecable, matching approved sheet, not generic rover. Warm 2D painted storybook. No new text, no labels, no overlays. Widescreen16:9.",
+      "generatedPath": "C:\\Users\\USER\\.codex\\generated_images\\01a1cfc2-2cac-7eb1-876b-7e162d7c6aaa\\exec-729c00d2-a244-4212-a75d-2d38da0d19a8.png"
+    },
+    {
+      "key": "portrait",
+      "source": null,
+      "dest": "/art/portraits/sojo-original-front.svg",
+      "ids": [],
+      "detail": "Use case: identity-preserve. Generate a transparent square game dialogue portrait of precisely Sojo from the four attached authoritative character model views. Front view, happy white oval eyes thin blue rims, charcoal pupils with white sparkle, raised navy eyebrows, small red delighted mouth. Include the thin cyan gridded solar deck, bent antenna with cyan tip, pale cyan upper and yellow lower rectangular body, curved orange cable across front to navy utility box at viewer-right, and correct gray rocker-bogie suspension with six wheels, three per side, as reference. Cute textured painted storybook art, softly lit warm golden highlights. Do not add arms or hands. Faithful proportions, not glossy 3D. Entire rover and antenna visible tightly framed with a small transparent margin. Fully transparent background, no circle, no scenery, no text, no white fill. Square canvas.",
+      "prompt": null,
+      "generatedPath": null,
+      "mode": "Original supplied PNG embedded unchanged in SVG viewport"
+    }
+  ]
+}

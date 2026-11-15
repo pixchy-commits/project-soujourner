@@ -1,0 +1,151 @@
+{
+  "modelReferences": [
+    "public/art/characters/sojo/model-2026-11/front.png",
+    "public/art/characters/sojo/model-2026-11/right.png",
+    "public/art/characters/sojo/model-2026-11/back.png",
+    "public/art/characters/sojo/model-2026-11/top.png"
+  ],
+  "commonPrompt": "Use case: precise-object-edit / illustration-story. Replace every depiction of Sojourner in the LAST image with the EXACT character in the first four model-view references. Model images are authoritative for identity and anatomy; ignore the obsolete rover design in the last image. Ignore the large transparent margins of the model sheets. Sojo is a LOW rectangular six-wheeled rover, three wheels per side with gray rocker-bogie arms, dark navy tires with blue edging and orange tread accents; pale cyan upper chassis and yellow lower body; very thin cyan/blue rectangular gridded solar deck; bent thin antenna with cyan tip. Front: two white vertical oval camera-eyes with thin BLUE outlines, charcoal oval pupils and white highlights, dark arched eyebrows, small red smiling mouth, orange cable curving across front to small dark blue box at viewer-right. Rear: ONE large plain central circular blue camera with pale gray rim and one tiny utility port; backs of front eye housings may peek above deck but NO rear eyeballs/pupils/faces. Side has orange triangular JPL badge. NO humanoid hands or arms. Keep hardware proportions low, wheels mechanically attached, no extra wheels/eyes/cameras. Render the character with the same friendly textured 2D painted storybook treatment as the scene, not glossy 3D. Preserve composition, environment, lighting, color script and existing people from the LAST image, changing only the rover identity and contact shadows. Never add speech boxes, UI, goggles or watermarks. Widescreen 16:9. ",
+  "jobs": [
+    {
+      "key": "title",
+      "source": "public/art/intro-v2/title-landscape-v3.webp",
+      "dest": "/art/intro-v2/title-rover-model-v4.webp",
+      "ids": [],
+      "detail": "Title-screen landscape: keep the huge open golden sky and clear center for HTML title and menu. Sojo is entirely visible, small in the lower-left third around x24%,y70%, front-three-quarter view with three wheels on near side and correct far-side wheels. Keep margins around antenna and wheels. Do not add any text or title."
+    },
+    {
+      "key": "cabin",
+      "source": "public/art/scenes/ch01-atmospheric-entry/cabin-heat-style-v4.webp",
+      "dest": "/art/scenes/ch01-atmospheric-entry/cabin-model-v5.webp",
+      "ids": [
+        "entry-cabin"
+      ],
+      "detail": "Cabin scene is seen from BEHIND Sojo, rear-three-quarter view. Keep the single orange-glowing round porthole upper-left and navy cabin. Sojo lower-right looks OUT toward that porthole. Its visible BACK must show the single large central circular BLUE lens matching the rear model; do not copy the small rear camera of the obsolete last-image rover. Thin bright blue solar panel, low yellow/cyan chassis, six dark wheels, gray suspension. No hands, no extra eyes on rear."
+    },
+    {
+      "key": "entry-eyes",
+      "source": "public/art/scenes/ch01-atmospheric-entry/eyes-heat-style-v4.webp",
+      "dest": "/art/scenes/ch01-atmospheric-entry/eyes-model-v5.webp",
+      "ids": [
+        "entry-eyes"
+      ],
+      "detail": "Preserve the excited FRONT close-up, orange porthole light from left and navy cabin. Replace BRASS old eyes with WHITE large oval eyes thinBLUErims as firstmodel, huge sparkling charcoal pupils and delighted smallREDsmile; paleCYAN/yellowbodyorangefrontcable and brightBLUE solar panel. Keep the warm orange rimlight but eye housings are NOT brass or mechanical goggles."
+    },
+    {
+      "key": "petals",
+      "source": "public/art/scenes/ch01-lander-unfolding/open-petals-v3.webp",
+      "dest": "/art/scenes/ch01-lander-unfolding/open-petals-model-v4.webp",
+      "ids": [
+        "ch01-lander-unfolding/open-petals"
+      ],
+      "detail": "Strict straight TOP-DOWN scene. Preserve Pathfinder's exactly three triangular open petals, central triangular platform, surrounding collapsed airbags, rocks, lander equipment. Replace ONLY the small Sojo stowed on the UPPER petal with the top-view new rover. Bright pale blue gridded rectangular solar deck, exactly THREE wheels on each side, visible eye-housings only at front edge, bent antenna. Do not turn the central lander equipment into a second rover. Preserve one actual rover only."
+    },
+    {
+      "key": "blink",
+      "source": "public/art/scenes/ch02-earth-flashback/pre-memory-new-model-v1.webp",
+      "dest": "/art/scenes/ch02-earth-flashback/blink-model-v2.webp",
+      "ids": [
+        "ch02-earth-flashback/blink"
+      ],
+      "detail": "Keep the same front-facing delighted Sojo closeup on Mars before the flashback. Match the model's precise thinbluewhiteeyes, redmouth, orange cable and thinpaleBLUE solar deck; correct sixwheeledunderbody, no hand. Warm golden Mars storybook lighting, emotional anticipation. Keep foreground rock and landscape positions."
+    },
+    {
+      "key": "construction",
+      "source": "public/art/scenes/ch02-earth-flashback/construction-new-model-v1.webp",
+      "dest": "/art/scenes/ch02-earth-flashback/construction-model-v2.webp",
+      "ids": [
+        "ch02-earth-flashback/construction"
+      ],
+      "detail": "Warm Earth laboratory. Preserve EXACT same two scientists, faces, clothing, pose, softpaintstyle and composition. Man onleft wavybrownhairroundglasses, tealshirtpalelabcoat; womanright sweptbrownhairbun redshirtpalelabcoat. They hold SMALL microwave-size Sojo between their hands, frontthreequarter view, carefully supported from below. Exactly3wheelsperside, thinCYANgriddedpanel, new yellowcyanbody and expressivewhiteblueeyes. Do not enlarge rover."
+    },
+    {
+      "key": "introduction",
+      "source": "public/art/scenes/ch02-earth-flashback/introduction-v2.webp",
+      "dest": "/art/scenes/ch02-earth-flashback/introduction-model-v3.webp",
+      "ids": [
+        "ch02-earth-flashback/introduction"
+      ],
+      "detail": "Keep exactly same scientists and composition: womanforegroundright inprofile holding Sojo up, bespectacledmanbehind. RoverisviewedfromREARthreequarter, largecentralplainBLUEcamera matchingrearref, cyanupperyellowlowerbody, orange cable atback, thinBLUEpanel and6wheels. No frontface visible on back, no rear eyes, no tiny obsolete cameramodel."
+    },
+    {
+      "key": "mission",
+      "source": "public/art/scenes/ch02-earth-flashback/mission-v2.webp",
+      "dest": "/art/scenes/ch02-earth-flashback/mission-model-v3.webp",
+      "ids": [
+        "ch02-earth-flashback/mission"
+      ],
+      "detail": "Preserve the laboratory, the two scientists gesturing, exact board headed 'Mission' with Earth-to-Mars arrow and planets. Replace the Sojo in foreground with new model fromBEHIND: bright cyanBLUE griddeddeck, two backs of white eyehousings atfront far edge, bentantenna, new yellowcyan chassis only where visible. Keep board text 'Mission' verbatim. No other text or narrative box."
+    },
+    {
+      "key": "memory-eyes",
+      "source": "public/art/scenes/ch02-earth-flashback/memory-eyes-v3.webp",
+      "dest": "/art/scenes/ch02-earth-flashback/memory-eyes-model-v4.webp",
+      "ids": [
+        "ch02-earth-flashback/memory-eyes"
+      ],
+      "detail": "Preserve the close-up composition and warm hazy Earthlab. New Sojo's WHITE oval eyes thin BLUE rims fillforeground with charcoalpupils and twinklehighlights, darkbrows, tinyREDmouth, yellowcyanfront. Keep a painted thoughtcloud inupperright; ALSO replace the tiny imagined rover inside that cloud with the SAME newblueyellow6wheelmodel onMars. Bothdepictionsconsistent. No goldbrassgoggleyes."
+    },
+    {
+      "key": "sojo-intro",
+      "source": "public/art/scenes/ch02-mission-introduction/sojo-new-model-v1.webp",
+      "dest": "/art/scenes/ch02-mission-introduction/sojo-model-v2.webp",
+      "ids": [
+        "ch02-mission-introduction/sojo-introduction",
+        "ch02-mission-introduction/mission-description"
+      ],
+      "detail": "Keep identical RockGardencomposition: Sojo frontfacing atcenter x52%, allwheels and antenna framed, tiny friendlygoldPathfinder on upper-right distant ridge unchanged. Keep leftthird QUIET empty Marsground for HTMLpaper and bottom22%quiet for HTMLdialogue. Accurate thinCYANbluegriddedpanel and6wheels. NO added paper or speechtext."
+    },
+    {
+      "key": "celebration",
+      "source": "public/art/scenes/ch02-celebration/scientists-v2.webp",
+      "dest": "/art/scenes/ch02-celebration/scientists-model-v3.webp",
+      "ids": [
+        "ch02-celebration/scientists"
+      ],
+      "detail": "Change ONLY the Sojo depiction INSIDE the large mission-control monitor. Preserve every scientist, expression, celebration pose, lab setting, lighting and screen border. Monitor rover frontthreequarterview must nowbe newblueyellowmodel with WHITEbluerim expressiveeyes, grayrockerbogie sixwheels and thinbrightBLUEsolar deck. Maintain warm Mars landscape onscreen."
+    },
+    {
+      "key": "briefing",
+      "source": "public/art/scenes/ch02-mission-briefing/briefing-v1.webp",
+      "dest": "/art/scenes/ch02-mission-briefing/briefing-model-v2.webp",
+      "ids": [
+        "ch02-mission-briefing/briefing"
+      ],
+      "detail": "Change ONLY the rover INSIDE large mission-control monitor. Preserve calmbriefing scientists, theirposes,faces,coats, furniture, warm nostalgic lighting and composition. Monitor rover frontthreequarterview must be accurate newblueyellow6wheeledSojo with whiteblueeyes, not obsolete grayrover."
+    }
+  ],
+  "tool": "Built-in image_gen",
+  "installed": [
+    {
+      "key": "title",
+      "oldPath": "public/art/intro-v2/title-landscape-v3.webp",
+      "newPath": "public/art/intro-v2/title-rover-model-v4.webp",
+      "artIds": []
+    },
+    {
+      "key": "cabin",
+      "oldPath": "public/art/scenes/ch01-atmospheric-entry/cabin-heat-style-v4.webp",
+      "newPath": "public/art/scenes/ch01-atmospheric-entry/cabin-model-v5.webp",
+      "artIds": [
+        "entry-cabin"
+      ]
+    },
+    {
+      "key": "entry-eyes",
+      "oldPath": "public/art/scenes/ch01-atmospheric-entry/eyes-heat-style-v4.webp",
+      "newPath": "public/art/scenes/ch01-atmospheric-entry/eyes-model-v5.webp",
+      "artIds": [
+        "entry-eyes"
+      ]
+    },
+    {
+      "key": "petals",
+      "oldPath": "public/art/scenes/ch01-lander-unfolding/open-petals-v3.webp",
+      "newPath": "public/art/scenes/ch01-lander-unfolding/open-petals-model-v4.webp",
+      "artIds": [
+        "ch01-lander-unfolding/open-petals"
+      ]
+    }
+  ]
+}

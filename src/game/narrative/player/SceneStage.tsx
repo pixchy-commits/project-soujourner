@@ -7,6 +7,8 @@ import { ArchiveMontage } from "./ArchiveMontage";
 import { ChapterTelevision } from "./ChapterTelevision";
 import { chapterPhotos } from "../art/chapter-photos";
 import styles from "./SceneStage.module.css";
+import manifest from "../art/manifest.json";
+import { InteractionHint } from "../../ui/InteractionHint";
 
 type Props = {
  scene: NarrativeScene; shot: SceneShot; paused: boolean; instant: boolean; artOverrides?: ArtOverrides;
@@ -26,7 +28,11 @@ function PictureDissolve({ visualKey, children, instant }: { visualKey: string; 
 export default function SceneStage({ scene, shot, paused, instant, artOverrides, onNext, onBack, onHome, onType, onMontageSound }: Props) {
  const art = (id: SceneShot["art"], className?: string) => <Artwork id={id} key={id} overrides={artOverrides} className={className} />;
  const motion = !instant ? styles[shot.motion ?? "still"] : "";
- return <section className={`cinematic-stage ${styles.stage} ${!shot.dialogue ? styles.silent : ""} ${paused ? styles.paused : ""}`} aria-label={`${scene.title}: ${shot.id}`}>
+ const waitingForArt = Boolean(shot.placeholder && !artOverrides?.[shot.art] && !manifest[shot.art].src);
+ const advanceCue = <button data-scene-advance className="story-advance" disabled={paused} onClick={onNext}><InteractionHint /></button>;
+ return <section className={`cinematic-stage ${styles.stage} ${!shot.dialogue ? styles.silent : ""} ${paused ? styles.paused : ""}`} aria-label={`${scene.title}: ${shot.id}`} onClick={event => {
+  if (!shot.dialogue && !paused && !(event.target as Element).closest("button, a, input, select, textarea")) onNext();
+ }}>
   <div className="letterbox top" aria-hidden="true" /><div className="letterbox bottom" aria-hidden="true" />
   {shot.kind === "archive" ? <div className="archive-stage scene-enter"><div className="tv-aerial" aria-hidden="true"><i /><i /></div><div className="monitor-housing" data-archive-monitor>
    <span className="monitor-screw screw-a" /><span className="monitor-screw screw-b" />
@@ -35,15 +41,25 @@ export default function SceneStage({ scene, shot, paused, instant, artOverrides,
     <span className="monitor-location">{shot.date}</span><div className="scanlines" aria-hidden="true" />
    </div><div className="monitor-base"><div className="tv-speaker"><span /><span /><span /><span /><span /></div><span className="tv-brand">MISSION ARCHIVE</span><div className="tv-knobs" aria-hidden="true"><i /><i /></div><span className="tv-power" aria-hidden="true" /></div>
   </div>{shot.caption && <p className="rewind-caption">{shot.caption}</p>}</div>
-  : shot.kind === "chapter" ? <div className="chapter-card scene-enter"><ChapterTelevision>{art(chapterPhotos[shot.number] ?? shot.art)}</ChapterTelevision><p className="chapter-date">{shot.date}</p><div className="chapter-rule" /><h1><span>CHAPTER {shot.number}</span>{shot.title}</h1></div>
+  : shot.kind === "chapter" ? <div className="chapter-card scene-enter"><ChapterTelevision>{art(chapterPhotos[shot.number] ?? shot.art)}</ChapterTelevision><p className="chapter-date">{shot.date}</p><div className="chapter-rule" /><h1><span>CHAPTER {shot.number}</span>{shot.title}</h1><div className={styles.chapterAdvance}>{advanceCue}</div></div>
   : <div data-illustration data-memory-eyes={scene.id === "ch02-earth-flashback" && shot.id === "blink" ? "true" : undefined} className={`${styles.illustration} ${styles[shot.framing ?? "wide"]} scene-enter`}>
-    <PictureDissolve visualKey={`${shot.art}/${JSON.stringify(artOverrides ?? {})}`} instant={instant}><div className={`${styles.shotArt} ${motion}`}>{art(shot.art)}</div></PictureDissolve><div className={styles.shade} />
+    <div className={shot.overlay ? styles.opticalCanvas : styles.shotCanvas}>
+     <PictureDissolve visualKey={`${shot.art}/${JSON.stringify(artOverrides ?? {})}`} instant={instant}><div className={`${styles.shotArt} ${motion}`}><Artwork id={shot.art} overrides={artOverrides} fit={shot.overlay ? "cover" : undefined} /></div></PictureDissolve>
+     {shot.overlay && <div className={styles.opticalOverlay} aria-hidden="true"><Artwork id={shot.overlay} overrides={artOverrides} fit="cover" decorative /></div>}
+    </div><div className={styles.shade} />
     {shot.hotspot && <div className={styles.hotspotSurface}><button
       className={styles.roverHotspot} disabled={paused} onClick={onNext}
       aria-label={shot.hotspot.label}
       style={{ left: `${shot.hotspot.x}%`, top: `${shot.hotspot.y}%`, width: `${shot.hotspot.width}%`, height: `${shot.hotspot.height}%` }}
     ><span>{shot.hotspot.label}</span></button></div>}
     {shot.caption && <p className={styles.caption}>{shot.caption}</p>}
+    {waitingForArt && <div className={styles.pendingArt}>
+      <span>STORYBOARD PLACEHOLDER · PDF {scene.sourcePages.join(", ")}</span>
+      <h1>{scene.title}</h1><h2>{shot.id.replaceAll("-", " ")}</h2>
+      <p>{shot.placeholder}</p>
+      <small>{shot.dialogue ? "Script available · artwork pending" : "No approved spoken line · this beat is silent"}</small>
+      <code>public{manifest[shot.art].expectedPath}</code>
+    </div>}
     {shot.missionSheet && <aside className={styles.missionSheet} aria-label={shot.missionSheet.title}>
       <h2>{shot.missionSheet.title}</h2>
       <p>{shot.missionSheet.duration}</p>
@@ -53,7 +69,10 @@ export default function SceneStage({ scene, shot, paused, instant, artOverrides,
     {shot.confetti && !instant && <div className={styles.confetti} aria-hidden="true">{Array.from({length:24},(_,i)=><i key={i} style={{left:`${(i * 37) % 100}%`,animationDelay:`${(i % 7) * -.4}s`,background:i%2 ? "#d4a66b" : "#e1d5b4"}} />)}</div>}
    </div>}
   {shot.dialogue ? <Dialogue key={`${scene.id}/${shot.id}`} line={shot.dialogue} instant={instant} paused={paused} onNext={onNext} onType={onType} />
-   : <button data-scene-advance className={`game-button ${styles.silentContinue}`} disabled={paused} onClick={onNext}>CONTINUE <span aria-hidden="true">◆</span></button>}
-  <div className="cutscene-controls"><button className="game-button game-button-small" disabled={paused} onClick={onBack}>‹ BACK</button><button className="game-button game-button-small" disabled={paused} onClick={onHome}>RETURN TO TITLE</button></div>
+   : shot.kind !== "chapter" ? advanceCue : null}
+  <nav className="cutscene-controls" aria-label="Story navigation">
+   <button className="game-button game-button-small" disabled={paused} onClick={onBack} aria-label="Previous scene" title="Previous scene"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m13 5-7 7 7 7M6 12h14" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg><span className="control-label">Back</span></button>
+   <button className="game-button game-button-small" disabled={paused} onClick={onHome} aria-label="Return to title screen" title="Return to title screen"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m3 11 9-8 9 8M6 9v12h5v-7h3v7h4V9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg><span className="control-label">Title screen</span></button>
+  </nav>
  </section>;
 }
