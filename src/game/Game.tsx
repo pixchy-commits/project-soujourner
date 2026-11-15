@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useMachine } from "@xstate/react";
 import gsap from "gsap";
 import { gameFlow } from "./flow/machine";
-import { getStep, resolveCheckpoint, type ActivityResult, type Checkpoint } from "./flow/story";
+import { getStep, nextCheckpoint, previousCheckpoint, resolveCheckpoint, type ActivityResult, type Checkpoint } from "./flow/story";
 import { ActivityGate, type ActivityModules } from "./flow/ActivityGate";
 import { chapterPhotos } from "./narrative/art/chapter-photos";
 import { getScene } from "./narrative/catalog";
@@ -20,6 +20,7 @@ import { ambienceFor, useSceneAmbience } from "./audio/use-scene-ambience";
 import TitleScreen from "./ui/TitleScreen";
 import MusicButton from "./ui/MusicButton";
 import GamePanels, { type Panel } from "./ui/GamePanels";
+import { GameHostContext } from "@/components/GameHostContext";
 import Dust from "./ui/Dust";
 import { SceneDebugger } from "./ui/SceneDebugger";
 
@@ -190,25 +191,26 @@ export default function Game({ initialCheckpoint, previewMode = false, artOverri
    const index = scene.shots.findIndex((candidate) => candidate.id === shot.id);
    memory = scene.shots[index + 1]?.transition === "memory";
   }
+  const enteringGame = getStep(nextCheckpoint(flow.context).stepId).kind === "activity";
   const rewind = scene?.id === "prologue-identification" && shot?.id === "rewind";
-  cutTo(() => send({ type: "NEXT" }), rewind ? "rewind" : memory ? "memory" : shot?.exitTransition === "black" ? "sleep" : "soft");
+  cutTo(() => send({ type: "NEXT" }), enteringGame ? "sleep" : rewind ? "rewind" : memory ? "memory" : shot?.exitTransition === "black" ? "sleep" : "soft");
  }
- function home() { cutTo(() => send({ type: "HOME" })); }
+ function home() { cutTo(() => send({ type: "HOME" }), step.kind === "activity" ? "sleep" : "soft"); }
  function back() {
   if (flow.context.stepId === "prologue-archive" && flow.context.shotId === "report") home();
-  else cutTo(() => send({ type: "BACK" }));
+  else cutTo(() => send({ type: "BACK" }), step.kind === "activity" || getStep(previousCheckpoint(flow.context).stepId).kind === "activity" ? "sleep" : "soft");
  }
  function start(resume: boolean) {
   setReviewing(false);
   const checkpoint = resolveCheckpoint(data.checkpoint);
-  cutTo(() => resume ? send({ type: "RESUME", checkpoint }) : send({ type: "START" }));
+  cutTo(() => resume ? send({ type: "RESUME", checkpoint }) : send({ type: "START" }), resume && getStep(checkpoint.stepId).kind === "activity" ? "sleep" : "soft");
  }
  function completeActivity(result: ActivityResult) {
   if (!playing || step.kind !== "activity" || result.activityId !== step.activityId || locked.current) return;
   cutTo(() => {
    if (!previewMode && !reviewing) useGameStore.getState().recordActivity(result);
    send({ type: "ACTIVITY_COMPLETE", activityId: result.activityId });
-  });
+  }, "sleep");
  }
  function jump(checkpoint: Checkpoint) {
   if (locked.current) return;
@@ -218,18 +220,19 @@ export default function Game({ initialCheckpoint, previewMode = false, artOverri
  }
  const Activity = step.kind === "activity" ? activities?.[step.activityId] : undefined;
  const backdropArt = shot?.kind === "archive" ? "archive-room" : shot?.kind === "chapter" ? chapterPhotos[shot.number] ?? shot.art : shot?.art;
- return <main ref={root} className={`game ${title ? "menu" : "cutscene"} ${instant ? "motion-off" : ""}`} aria-busy={busy} onClickCapture={(event) => {
+ return <GameHostContext.Provider value={{ soundVolume: data.soundVolume }}><main ref={root} className={`game ${title ? "menu" : "cutscene"} ${instant ? "motion-off" : ""}`} aria-busy={busy} onClickCapture={(event) => {
   if ((event.target as Element).closest("button:not(:disabled)")) effects.click();
  }}>
   <div className={`landscape ${shot?.kind === "archive" ? "archive-backdrop" : ""}`} aria-hidden="true">{!title && backdropArt && <Artwork key={backdropArt} id={backdropArt} overrides={artOverrides} fit={shot?.kind === "chapter" ? "cover" : undefined} />}</div><div className="vignette" aria-hidden="true" /><div className="grain" aria-hidden="true" />
   <Dust paused={instant || !title} />
-  <MusicButton muted={music.muted} onClick={music.toggle} />
+  <MusicButton muted={music.muted} onClick={music.toggle} showHint={title && ready && !paused} />
+  {!title && <button className="music-button game-settings-button" type="button" aria-label="Open game settings" onClick={() => setPanel("settings")}><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 3-1 3-3 1-2 3 2 2-1 3 3 2 3-1 2 2 3-1 1-3 3-1 1-3-2-2 1-3-3-2-3 1-2-2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/><circle cx="11" cy="10" r="3" stroke="currentColor" strokeWidth="1.5"/></svg></button>}
   {title ? <TitleScreen ready={ready} hasSave={Boolean(data.checkpoint)} busy={paused} onStart={start} onOpenPanel={setPanel} />
    : scene && shot ? <SceneStage key={shot.kind === "archive" ? "archive-stage" : shot.kind === "illustration" ? "illustration-stage" : `${scene.id}/${shot.id}`} scene={scene} shot={shot} paused={paused} instant={instant} artOverrides={artOverrides} onNext={next} onBack={back} onHome={home} onType={onType} onMontageSound={effects.play} />
-   : playing && step.kind === "activity" ? (Activity ? <Activity key={step.id} onComplete={completeActivity} onExit={home} paused={paused} instant={instant} /> : <ActivityGate title={step.title} activityId={step.activityId} category={step.category} description={step.description} sourcePage={step.sourcePage} references={step.references} onComplete={completeActivity} onExit={home} onBack={back} paused={paused} />)
+   : playing && step.kind === "activity" ? (Activity ? <Activity key={step.id} onComplete={completeActivity} onExit={home} onBack={back} paused={paused} instant={instant} /> : <ActivityGate title={step.title} activityId={step.activityId} category={step.category} description={step.description} sourcePage={step.sourcePage} references={step.references} onComplete={completeActivity} onExit={home} onBack={back} paused={paused} />)
    : <section className="ending-screen"><p className="scene-enter">THE JOURNEY</p><h1 className="scene-enter">A little rover.<br />A new beginning.</h1><p className="preview-end scene-enter">END OF STORY FLOW PREVIEW</p><button className="painted-button scene-enter" disabled={busy} onClick={home}><span>TITLE SCREEN</span></button></section>}
   <SceneDebugger open={debugOpen} busy={busy || panel !== null} checkpoint={flow.context} reviewing={reviewing} onToggle={toggleDebug} onJump={jump} />
   <div ref={curtain} className="scene-curtain" aria-hidden="true" />
   <GamePanels panel={panel} onClose={() => setPanel(null)} muted={music.muted} onToggleMusic={music.toggle} narration={narration} />
- </main>;
+ </main></GameHostContext.Provider>;
 }

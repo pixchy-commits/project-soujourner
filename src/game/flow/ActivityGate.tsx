@@ -2,7 +2,7 @@ import type { ComponentType } from "react";
 import type { ActivityId, ActivityResult } from "./story";
 import styles from "./Handoff.module.css";
 import { InteractionHint } from "../ui/InteractionHint";
-export type ActivityProps = { onComplete: (result: ActivityResult) => void; onExit: () => void; paused?: boolean; instant?: boolean };
+export type ActivityProps = { onComplete: (result: ActivityResult) => void; onExit: () => void; onBack?: () => void; paused?: boolean; instant?: boolean };
 export type ActivityModules = Partial<Record<ActivityId, ComponentType<ActivityProps>>>;
 type Props = ActivityProps & { title: string; activityId: ActivityId; onBack?: () => void; category?: "gameplay" | "mission" | "historical"; description?: string; sourcePage?: number; references?: readonly number[] };
 const labels = { gameplay: "GAMEPLAY TEAM HANDOFF", mission: "MISSION UI TEAM HANDOFF", historical: "HISTORICAL POP-UP TEAM HANDOFF" };

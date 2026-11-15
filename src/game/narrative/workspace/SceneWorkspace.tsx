@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Game from "../../Game";
@@ -25,7 +26,7 @@ export default function SceneWorkspace() {
   return () => { urls.forEach((url) => URL.revokeObjectURL(url)); };
  }, []);
  function choose(id: string) { setSelected(id); setPosition(firstShot(getStep(id))); }
- function useImage(id: ArtId, file?: File) {
+ function previewImage(id: ArtId, file?: File) {
   if (!file) return;
   if (!file.type.startsWith("image/")) { setFileError("Choose an image file."); return; }
   if (file.size > 25 * 1024 * 1024) { setFileError("Choose an image under 25 MB."); return; }
@@ -38,7 +39,7 @@ export default function SceneWorkspace() {
  }
  return <div className={styles.workspace}>
   <aside className={styles.inspector}>
-   <a className={styles.back} href="/">← Game title</a><h1>Narrative workspace</h1>
+   <Link className={styles.back} href="/">← Game title</Link><h1>Narrative workspace</h1>
    <p className={styles.intro}>Scene-by-scene reference and local artwork preview. Game progress is not changed here.</p>
    <label htmlFor="scene-select">Jump to a scene or handoff</label>
    <select id="scene-select" value={selected.split("#")[0]} onChange={(event) => choose(event.target.value)}>
@@ -54,7 +55,7 @@ export default function SceneWorkspace() {
      setPosition(checkpoint); setSelected(`${step.id}#${candidate.id}`);
     }}>{candidate.id}{!candidate.dialogue && <small>Silent</small>}</button></li>)}</ol></>}
    {shot && <section className={styles.script}><h2>Dialogue</h2>{shot.dialogue ? <><strong>{shot.dialogue.speaker}</strong><p>{shot.dialogue.text}</p></> : <p>No spoken line. This shot plays silently.</p>}{shot.notes && <p className={styles.note}>{shot.notes}</p>}</section>}
-   {assets.map((id) => <section key={id} className={styles.asset}><h2>Artwork slot</h2><code>{id}</code><p>{manifest[id].alt}</p><label>Try a local image<input type="file" accept="image/*" onChange={(event) => useImage(id,event.target.files?.[0])} /></label><small>Local preview only; the file is not uploaded.</small><h3>Permanent file path</h3><code>public{manifest[id].expectedPath}</code><p>Copy the file there, then set this slot’s <code>src</code> in <code>art/manifest.json</code> to the path without <code>public</code>.</p></section>)}
+   {assets.map((id) => <section key={id} className={styles.asset}><h2>Artwork slot</h2><code>{id}</code><p>{manifest[id].alt}</p><label>Try a local image<input type="file" accept="image/*" onChange={(event) => previewImage(id,event.target.files?.[0])} /></label><small>Local preview only; the file is not uploaded.</small><h3>Permanent file path</h3><code>public{manifest[id].expectedPath}</code><p>Copy the file there, then set this slot’s <code>src</code> in <code>art/manifest.json</code> to the path without <code>public</code>.</p></section>)}
    {fileError && <p role="alert">{fileError}</p>}
   </aside>
   <div className={styles.stage}><Game key={selected} initialCheckpoint={selected.includes("#") ? { stepId: selected.split("#")[0], shotId: selected.split("#")[1] } : firstShot(getStep(selected))} previewMode artOverrides={overrides} onCheckpointChange={onPosition} /></div>

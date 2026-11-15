@@ -15,12 +15,10 @@ export const story = [
   { kind: "narrative", id: "ch01-atmospheric-entry", sceneId: "ch01-atmospheric-entry" },
   { kind: "activity", id: "landing", activityId: "landing", title: "Landing on Mars", sourcePage: 27 },
   { kind: "narrative", id: "ch01-lander-unfolding", sceneId: "ch01-lander-unfolding" },
-  { kind: "activity", id: "hardware-activation", activityId: "hardware-activation", title: "System activation", sourcePage: 30 },
-  { kind: "activity", id: "deployment", activityId: "deployment", title: "First steps onto Mars", sourcePage: 31 },
   { kind: "narrative", id: "ch01-first-look", sceneId: "ch01-first-look" },
+  { kind: "narrative", id: "ch02-earth-flashback", sceneId: "ch02-earth-flashback" },
   { kind: "narrative", id: "ch01-pathfinder-friendship", sceneId: "ch01-pathfinder-friendship" },
   { kind: "narrative", id: "ch02-baby-steps", sceneId: "ch02-baby-steps" },
-  { kind: "narrative", id: "ch02-earth-flashback", sceneId: "ch02-earth-flashback" },
   { kind: "narrative", id: "ch02-mission-introduction", sceneId: "ch02-mission-introduction" },
   { kind: "activity", id: "exploration-barnacle-bill", activityId: "exploration-barnacle-bill", title: "Exploring the Rock Garden", sourcePage: 36 },
   { kind: "activity", id: "rock-analysis", activityId: "rock-analysis", title: "Studying Barnacle Bill", sourcePage: 38 },
@@ -34,8 +32,6 @@ export const story = [
   {"kind":"activity","id":"viewpoint-summary","activityId":"viewpoint-summary","title":"Viewpoint mission summary","sourcePage":46,"category":"mission","description":"Mission UI team handoff: summarize the completed journey. The following narrative beat is Sojo closing its eyes.","references":[47]},
   {"kind":"narrative","id":"ch03-viewpoint-rest","sceneId":"ch03-viewpoint-rest"},
   {"kind":"narrative","id":"ch03-yogi-panorama","sceneId":"ch03-yogi-panorama"},
-  {"kind":"activity","id":"photograph-yogi-notice","activityId":"photograph-yogi-notice","title":"Photograph Yogi: mission notice","sourcePage":50,"category":"mission","description":"Scientists ask for a photograph of Yogi from a distance, delivered through Pathfinder in first person. Mission-window artwork/text are a team handoff.","references":[48,51,52]},
-  {"kind":"activity","id":"photograph-yogi","activityId":"photograph-yogi","title":"Photograph Yogi from the observation point","sourcePage":50,"category":"gameplay","description":"Gameplay team handoff for the requested distant photograph. Photography controls and results are not implemented in this narrative preview.","references":[]},
   {"kind":"activity","id":"approach-yogi-notice","activityId":"approach-yogi-notice","title":"Approach Yogi: next mission","sourcePage":53,"category":"mission","description":"After Sojo wakes, Pathfinder relays the next mission: go directly to Yogi. Keep the task window as a handoff; do not invent its final wording.","references":[51,52]},
   {"kind":"narrative","id":"ch03-yogi-reassurance","sceneId":"ch03-yogi-reassurance"},
   {"kind":"activity","id":"travel-yogi","activityId":"travel-yogi","title":"Travel from the viewpoint to Yogi","sourcePage":55,"category":"gameplay","description":"Gameplay team handoff: Sojo navigates from the observation point toward Yogi.","references":[]},
@@ -74,6 +70,8 @@ export function resolveCheckpoint(saved: Checkpoint | null): Checkpoint {
  if (saved?.stepId === "ch01-first-look" && saved.shotId === "camera-eyes") return { stepId: "ch01-pathfinder-friendship", shotId: "sojo-question" };
  // Retired pre-landing reveal resumes at landing, before the arrival shots.
  if (saved?.stepId === "ch01-window-transition") return { stepId: "landing", shotId: null };
+ if (saved?.stepId === "hardware-activation" || saved?.stepId === "deployment") return { stepId: "landing", shotId: null };
+ if (saved?.stepId === "photograph-yogi-notice" || saved?.stepId === "photograph-yogi") return { stepId: "approach-yogi-notice", shotId: null };
  const step = saved && story.find((step) => step.id === saved.stepId);
  if (!step) return firstShot(story[0]);
  if (step.kind === "activity") return firstShot(step);

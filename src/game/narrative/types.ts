@@ -3,6 +3,9 @@ export type ArtId = keyof typeof manifest;
 export type DialogueLine = { speaker: string; text: string };
 type ShotBase = {
  id: string;
+ intertitle?: string;
+ timeLabel?: string;
+ memoryMontage?: readonly ArtId[];
  dialogue?: DialogueLine;
  caption?: string;
  transition?: "black" | "memory";

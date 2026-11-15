@@ -20,7 +20,7 @@ export const scene = {
     {
       "id": "tilted-rover",
       "kind": "illustration",
-      "notes": "Sojo accidentally climbs the rock and becomes tilted. Keep this as a draft narrative placeholder; do not invent danger dialogue or technical claims.",
+      "notes": "Jenny feedback: rear wheels stranded high on the steep curved Yogi boulder, front low on sand. Narrative illustration; no gameplay.",
       "motion": "still",
       "art": "ch03-yogi-tilt/tilted-rover"
     }

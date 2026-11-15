@@ -8,15 +8,21 @@ export const scene = {
     76
   ],
   "sourceEdition": "v7",
-  "status": "needs-script",
+  "status": "prototype",
   "shots": [
     {
       "id": "memories",
       "kind": "illustration",
-      "notes": "Sojo recalls good memories with Pathfinder during its final mission. Final memory selection and dialogue pending.",
+      "art": "ch04-shared-memories/memories",
       "motion": "still",
-      "transition": "memory",
-      "art": "ch04-shared-memories/memories"
+      "memoryMontage": [
+        "ch04-shared-memories/memories",
+        "ch04-shared-memories/laughter",
+        "ch04-shared-memories/discovery",
+        "ch04-shared-memories/sunset",
+        "ch04-shared-memories/homecoming"
+      ],
+      "notes": "Jenny feedback: a quick, warm montage of happy memories. No spoken line."
     }
   ]
 } as const satisfies NarrativeScene;

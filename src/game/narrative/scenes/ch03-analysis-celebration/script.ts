@@ -8,14 +8,18 @@ export const scene = {
     71
   ],
   "sourceEdition": "v7",
-  "status": "needs-script",
+  "status": "prototype",
   "shots": [
     {
       "id": "scientists",
       "kind": "illustration",
       "notes": "Scientists celebrate the successful Yogi analysis on Earth. Final celebration art and dialogue are pending.",
       "motion": "still",
-      "art": "ch03-analysis-celebration/scientists"
+      "art": "ch03-analysis-celebration/scientists",
+      "dialogue": {
+        "speaker": "NARRATOR",
+        "text": "Back on Earth, Sojo and Pathfinder's creators celebrate a successful seven-sol mission. Together, the two friends have made them proud."
+      }
     },
     {
       "id": "sleep",
@@ -23,7 +27,11 @@ export const scene = {
       "notes": "Sojo falls asleep wondering what comes next. Final internal line is missing.",
       "motion": "still",
       "exitTransition": "black",
-      "art": "ch03-analysis-celebration/sleep"
+      "art": "ch03-analysis-celebration/sleep",
+      "dialogue": {
+        "speaker": "NARRATOR",
+        "text": "Their main mission is complete. But what will come next? Let's see what our little Sojo and Pathfinder are up to, shall we?"
+      }
     }
   ]
 } as const satisfies NarrativeScene;

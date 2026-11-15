@@ -24,7 +24,8 @@ export function useSceneFocus(key: string, busy: boolean, target: RefObject<HTML
 export function useInputMethod(target: RefObject<HTMLElement | null>) {
  useEffect(() => {
   const set = (method: string) => {
-   if (target.current && target.current.dataset.input !== method) target.current.dataset.input = method;
+   const element = target.current;
+   if (element && element.dataset.input !== method) element.setAttribute("data-input", method);
   };
   set(window.matchMedia("(pointer: coarse)").matches ? "touch" : "mouse");
   const pointer = (event: PointerEvent) => set(event.pointerType === "touch" || event.pointerType === "pen" ? "touch" : "mouse");

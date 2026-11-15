@@ -133,3 +133,11 @@
 .activity-gate .painted-button { width:min(310px,80vw); }
 .activity-exit { font:10px var(--mono); letter-spacing:1px; margin-top:22px; padding:12px; opacity:.7; }
 .scene-curtain { background:#000; }
+.game .music-button { z-index: 24; }
+.game .game-settings-button { right: max(94px, calc(env(safe-area-inset-right) + 66px)); }
+.music-invitation { position:absolute; z-index:25; top:max(94px, calc(env(safe-area-inset-top) + 70px)); right:max(28px, env(safe-area-inset-right)); width:min(280px, calc(100% - 40px)); padding:18px 34px 18px 20px; background:#fff4da; color:#263349; border:2px solid #b7eff1; border-radius:22px 7px 22px 22px; box-shadow:0 8px 30px #151d3030; }
+.music-invitation::before { content:""; position:absolute; right:17px; top:-12px; width:19px; height:19px; background:#fff4da; border-left:2px solid #b7eff1; border-top:2px solid #b7eff1; transform:rotate(45deg); }
+.music-invitation-enable { text-align:left; font:inherit; font-size:20px; line-height:1.2; background:none; border:0; color:inherit; cursor:pointer; }
+.music-invitation-enable span { display:block; font-size:14px; margin-top:7px; opacity:.8; }
+.music-invitation-close { position:absolute; right:9px; top:11px; width:28px; height:28px; border:0; background:none; color:inherit; font-size:24px; cursor:pointer; }
+.music-invitation button:focus-visible { outline:2px solid #2998ff; outline-offset:4px; border-radius:4px; }

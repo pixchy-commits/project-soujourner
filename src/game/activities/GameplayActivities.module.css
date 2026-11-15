@@ -1,0 +1,7 @@
+﻿.stage{position:absolute;inset:0;z-index:12;background:#1c2438}
+.content{position:absolute;inset:0;isolation:isolate;z-index:0}
+.navigation{position:absolute;left:80px;bottom:18px;z-index:30;display:flex;gap:10px}
+.navigation button{padding:10px 16px;min-height:44px;border:1px solid #b4dce3;border-radius:24px;background:#223947ed;color:#fff4e2;cursor:pointer;font:inherit}
+.navigation button:disabled{opacity:.45;cursor:default}
+.navigation button:focus-visible{outline:3px solid #f2c14e;outline-offset:4px}
+.paused{position:fixed;inset:0;z-index:40;display:grid;place-items:center;background:#14233399;color:#fff4e2;backdrop-filter:blur(4px);pointer-events:auto}

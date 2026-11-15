@@ -10,9 +10,9 @@ export function ArchiveMontage({ images, instant, paused, overrides, onSound }: 
   const container = useRef<HTMLDivElement>(null);
   const playback = useRef<gsap.core.Timeline | null>(null);
   const sound = useRef(onSound);
-  sound.current = onSound;
+
   const pausedAtStart = useRef(paused);
-  pausedAtStart.current = paused;
+  useEffect(() => { sound.current = onSound; pausedAtStart.current = paused; }, [onSound, paused]);
   const sequenceKey = images.join("/");
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { firstShot, story, type Checkpoint } from "../flow/story";
+import { firstShot, story, type Checkpoint, type StoryStep } from "../flow/story";
 import { getScene } from "../narrative/catalog";
 import styles from "./SceneDebugger.module.css";
 
@@ -25,7 +25,7 @@ export function SceneDebugger({ open, busy, checkpoint, reviewing, onToggle, onJ
    <label htmlFor="debug-search">Find a scene, shot, handoff, or PDF page</label>
    <input ref={input} id="debug-search" value={query} onChange={event => setQuery(event.target.value)} placeholder="e.g. 50, Yogi, Earth…" />
    <div className={styles.list}>
-    {story.map((step,index) => {
+    {story.map((step: StoryStep,index) => {
      const scene = step.kind === "narrative" ? getScene(step.sceneId) : null;
      const title = scene?.title ?? (step.kind === "activity" ? step.title : "");
      const pages = scene?.sourcePages ?? (step.kind === "activity" ? [step.sourcePage,...(step.references ?? [])] : []);

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-label="Sojo rover facing upward">
+  <defs>
+    <linearGradient id="solar" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#06417d"/><stop offset=".52" stop-color="#0754a2"/><stop offset="1" stop-color="#073a77"/></linearGradient>
+    <linearGradient id="wheel" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#ff9a1c"/><stop offset="1" stop-color="#ff7900"/></linearGradient>
+  </defs>
+  <!-- six orange wheels -->
+  <g fill="url(#wheel)" stroke="#281005" stroke-width="24" stroke-linejoin="round">
+    <rect x="90" y="267" width="145" height="207" rx="72"/>
+    <rect x="90" y="487" width="145" height="207" rx="72"/>
+    <rect x="90" y="707" width="145" height="207" rx="72"/>
+    <rect x="765" y="267" width="145" height="207" rx="72"/>
+    <rect x="765" y="487" width="145" height="207" rx="72"/>
+    <rect x="765" y="707" width="145" height="207" rx="72"/>
+  </g>
+  <!-- white chassis -->
+  <rect x="220" y="265" width="560" height="645" rx="110" fill="#fff" stroke="#281005" stroke-width="26"/>
+  <!-- upper camera housing -->
+  <path d="M350 278 Q346 215 415 203 L585 203 Q655 215 650 278 L694 356 Q708 383 672 390 H328 Q292 383 306 356 Z" fill="#fff" stroke="#281005" stroke-width="26" stroke-linejoin="round"/>
+  <path d="M500 56 L616 204 H384 Z" fill="#ffd01a" stroke="#281005" stroke-width="26" stroke-linejoin="round"/>
+  <rect x="318" y="190" width="364" height="175" rx="88" fill="#fff" stroke="#281005" stroke-width="26"/>
+  <circle cx="420" cy="280" r="41" fill="#281005"/><circle cx="420" cy="280" r="19" fill="#ffe58e"/>
+  <circle cx="580" cy="280" r="41" fill="#281005"/><circle cx="580" cy="280" r="19" fill="#ffe58e"/>
+  <!-- solar panel -->
+  <rect x="217" y="394" width="566" height="427" rx="67" fill="url(#solar)" stroke="#281005" stroke-width="28"/>
+  <g stroke="#73b2ec" stroke-width="17" opacity=".88">
+    <path d="M359 408 V808 M500 408 V808 M641 408 V808"/>
+    <path d="M230 610 H770"/>
+  </g>
+</svg>

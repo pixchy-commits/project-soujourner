@@ -10,14 +10,14 @@ export function useNarration() {
   }, []);
   useEffect(() => {
     if (!("speechSynthesis" in window)) return;
-    setSupported(true);
+
     const synth = window.speechSynthesis;
     const refresh = () => setVoices(synth.getVoices().filter((voice) => voice.lang.startsWith("en")));
     const visibility = () => { if (document.hidden) synth.cancel(); };
-    refresh();
+    const timer = window.setTimeout(() => { setSupported(true); refresh(); }, 0);
     synth.addEventListener("voiceschanged", refresh);
     document.addEventListener("visibilitychange", visibility);
-    return () => { synth.removeEventListener("voiceschanged", refresh); document.removeEventListener("visibilitychange", visibility); synth.cancel(); };
+    return () => { window.clearTimeout(timer); synth.removeEventListener("voiceschanged", refresh); document.removeEventListener("visibilitychange", visibility); synth.cancel(); };
   }, []);
   const speak = useCallback((text: string, speaker = "MISSION ARCHIVE") => {
     if (!("speechSynthesis" in window) || document.hidden) return;

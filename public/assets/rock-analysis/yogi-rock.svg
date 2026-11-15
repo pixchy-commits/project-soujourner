@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 205 200">
+<!-- Edit these paths to customize Yogi Rock. The image fits into a 205x200 scene region. -->
+<ellipse cx="103" cy="181" rx="100" ry="16" fill="#633b2f" opacity=".35"/>
+<path d="M19 166L7 83 37 23 96 -5 162 17 198 80 192 168 123 185Z" fill="#a97957" stroke="#71442f" stroke-width="4" transform="translate(0 5)"/>
+<path d="M7 88L96 0 74 95 19 171Z" fill="#d0a07b"/>
+<path d="M96 0L162 22 198 85 137 106 74 95Z" fill="#bc8864"/>
+<path d="M74 95L137 106 192 173 123 190 19 171Z" fill="#8b5942"/>
+</svg>
