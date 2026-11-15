@@ -26,7 +26,7 @@ export default function Calculation({ onFinish }: { onFinish?: () => void }) {
     const n = index === 2 ? turns : Number(answer);
     if ((index !== 2 && !answer.trim()) || !Number.isFinite(n)) { setResult("wrong"); setMessage("Enter a number first."); return; }
     if (Math.abs(n - question.answer) < 0.0001) {
-      setResult("correct"); setMessage(question.success); 
+      setResult("correct"); setMessage(question.success);
     } else { setResult("wrong"); setMessage(n > question.answer ? question.high : question.low); }
   };
   useEffect(() => {
@@ -90,7 +90,7 @@ export default function Calculation({ onFinish }: { onFinish?: () => void }) {
           <rect x="678" y="395" width="148" height="50" rx="19" fill="#fff3df"/><text x="752" y="427" textAnchor="middle" fill="#27283b" fontWeight="900" fontSize="23">136 cm gap</text>
           <rect x="72" y="625" width="253" height="48" rx="18" fill="#fff3df"/><text x="88" y="656" fill="#25283b" fontSize="20" fontWeight="900">My arm can reach 6 cm!</text>
           <image href="/assets/rock-analysis/sojourner-rover.svg" x="365" y="565" width="135" height="170"/>
-          
+
         </> : <>        <circle cx="194" cy="410" r="130" fill="#eba16e" stroke="#fff3dc" strokeWidth="6"/>
         <path d="M70 476 Q130 461 193 482 T319 476 L319 518 Q200 560 90 520Z" fill="#c77b4c"/>
         <g stroke="#f6bb8d" strokeWidth="5" fill="none" strokeLinecap="round"><path d="M100 516q23 -9 47 0M174 533q33 -10 65 0M235 507q25 -10 49 0"/></g>
@@ -114,10 +114,10 @@ export default function Calculation({ onFinish }: { onFinish?: () => void }) {
       {index === 2 ? <div className={styles.turnFacts}><div><small>Drive</small><strong>130 cm</strong></div><div><small>1 turn</small><strong>20 cm</strong></div></div> : index === 1 ? <div className={styles.sensorDiagram}>
         <div className={styles.sensorRover} aria-hidden="true">▣</div>
         <div className={styles.sensorDistance}>
-          <div className={styles.sensorBlocks}><strong>? cm</strong><b>6</b></div>
+          <div className={styles.sensorBlocks}><strong>? cm</strong><b></b></div>
           <div className={styles.sensorMeasure}>Gap to Yogi = 136 cm</div>
         </div>
-        <div className={styles.sensorRock} aria-hidden="true">◧<small>arm 6</small></div>
+        <div className={styles.sensorRock} aria-hidden="true">◧</div>
       </div> : <div className={styles.slipDiagram}>
         <div className={styles.slipWheel}><span>●</span><small>1 turn</small></div>
         <div className={styles.slipDistance}><div className={styles.slipNote}>slips back 4 cm</div><div className={styles.slipBlocks}><strong>? cm</strong><b>4</b></div><div className={styles.slipMeasure}>1 turn = 24 cm</div></div>

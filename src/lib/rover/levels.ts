@@ -37,66 +37,242 @@ export type RoverLevel = MissionDefinition & {
 
 export const MISSION_DATA: readonly MissionDefinition[] = [
   {
-    id: 'binacle-bill', sol: 1, title: 'Go to Binacle Bill',
-    targetName: 'Binacle Bill', objective: 'Navigate to Binacle Bill.',
-    tip: 'Forward moves in the direction the rover faces. Turns change direction without moving.',
-    startDir: 'N', maxBlocks: 10, recommended: 9, seed: 11,
-    map: [
-      '.....',
-      '...T.',
-      '.#...',
-      '.....',
-      'S....',
-    ],
+    "id": "mission-1-round-1",
+    "sol": 1,
+    "title": "Pathfinder → Barnacle Bill — Round 1",
+    "targetName": "Barnacle Bill",
+    "objective": "Reach the target.",
+    "tip": "Plan your turns before driving.",
+    "startDir": "N",
+    "maxBlocks": 8,
+    "recommended": 6,
+    "seed": 301,
+    "map": [
+      "....",
+      "#T.#",
+      "....",
+      "#..S"
+    ]
   },
   {
-    id: 'yogi-observation', sol: 2, title: 'Binacle Bill → Yogi Observation Point',
-    targetName: 'Yogi Observation Point',
-    objective: 'Drive from Binacle Bill to the Yogi observation point.',
-    tip: 'Rocks block movement. Plan your turns to travel around them.',
-    startDir: 'E', maxBlocks: 17, recommended: 15, seed: 23,
-    map: [
-      '......',
-      '..##T.',
-      '..#...',
-      '......',
-      '.##...',
-      'S.....',
-    ],
+    "id": "mission-1-round-2",
+    "sol": 1,
+    "title": "Pathfinder → Barnacle Bill — Round 2",
+    "targetName": "Barnacle Bill",
+    "objective": "Reach the target.",
+    "tip": "Plan your turns before driving.",
+    "startDir": "W",
+    "maxBlocks": 9,
+    "recommended": 7,
+    "seed": 302,
+    "map": [
+      ".T#.",
+      "....",
+      "...#",
+      ".#S."
+    ]
   },
   {
-    id: 'yogi-inspection', sol: 3, title: 'Yogi Observation Point → Yogi',
-    targetName: 'Yogi Inspection Position', featureName: 'Yogi',
-    objective: 'Reach the inspection position and face Yogi to investigate the problem.',
-    tip: 'Arriving is not enough: finish facing north toward Yogi.',
-    startDir: 'E', faceDir: 'N', maxBlocks: 23, recommended: 21, seed: 37,
-    map: [
-      '...Y...',
-      '...T...',
-      '.###...',
-      '...#...',
-      '.#...#.',
-      '...#...',
-      'S......',
-    ],
+    "id": "mission-1-round-3",
+    "sol": 1,
+    "title": "Pathfinder → Barnacle Bill — Round 3",
+    "targetName": "Barnacle Bill",
+    "objective": "Reach the target.",
+    "tip": "Plan your turns before driving.",
+    "startDir": "N",
+    "maxBlocks": 8,
+    "recommended": 8,
+    "seed": 303,
+    "map": [
+      ".###",
+      "T..#",
+      "#.#.",
+      "...S"
+    ]
   },
   {
-    id: 'rescue-rock-crossing', sol: 4, title: 'Rescued Position → Other Side of Rock',
-    targetName: 'Other Side of Rock',
-    objective: 'Navigate around the rock formation to reach the opposite side.',
-    tip: 'A direct path is blocked. Look for a safe passage around the formation.',
-    startDir: 'N', maxBlocks: 30, recommended: 27, seed: 53,
-    map: [
-      '...#....',
-      '...#..T.',
-      '.#####..',
-      '.#......',
-      '.#.####.',
-      '.#......',
-      '.#####..',
-      'S.......',
-    ],
+    "id": "mission-2-round-1",
+    "sol": 2,
+    "title": "Barnacle Bill → Yogi Observation Point — Round 1",
+    "targetName": "Yogi Observation Point",
+    "objective": "Reach the target.",
+    "tip": "Look ahead for dead ends and holes.",
+    "startDir": "E",
+    "maxBlocks": 10,
+    "recommended": 8,
+    "seed": 304,
+    "map": [
+      "HH.#T",
+      ".....",
+      ".##.#",
+      "#.#.#",
+      "...S."
+    ]
   },
+  {
+    "id": "mission-2-round-2",
+    "sol": 2,
+    "title": "Barnacle Bill → Yogi Observation Point — Round 2",
+    "targetName": "Yogi Observation Point",
+    "objective": "Reach the target.",
+    "tip": "Look ahead for dead ends and holes.",
+    "startDir": "E",
+    "maxBlocks": 11,
+    "recommended": 9,
+    "seed": 305,
+    "map": [
+      ".T...",
+      "H.#.H",
+      "#..##",
+      ".H.H#",
+      ".S..."
+    ]
+  },
+  {
+    "id": "mission-2-round-3",
+    "sol": 2,
+    "title": "Barnacle Bill → Yogi Observation Point — Round 3",
+    "targetName": "Yogi Observation Point",
+    "objective": "Reach the target.",
+    "tip": "Look ahead for dead ends and holes.",
+    "startDir": "W",
+    "maxBlocks": 10,
+    "recommended": 10,
+    "seed": 306,
+    "map": [
+      "##.#.",
+      ".....",
+      "#.H#T",
+      "#.H.H",
+      ".S..."
+    ]
+  },
+  {
+    "id": "mission-3-round-1",
+    "sol": 3,
+    "title": "Yogi Observation Point → Yogi — Round 1",
+    "targetName": "Yogi inspection position",
+    "objective": "Reach the target and face Yogi.",
+    "tip": "Reach the target and face Yogi.",
+    "startDir": "W",
+    "maxBlocks": 11,
+    "recommended": 9,
+    "seed": 307,
+    "map": [
+      "#..#.",
+      "..HY.",
+      "#..T.",
+      "#..#.",
+      "H.HS."
+    ],
+    "faceDir": "N",
+    "featureName": "Yogi"
+  },
+  {
+    "id": "mission-3-round-2",
+    "sol": 3,
+    "title": "Yogi Observation Point → Yogi — Round 2",
+    "targetName": "Yogi inspection position",
+    "objective": "Reach the target and face Yogi.",
+    "tip": "Reach the target and face Yogi.",
+    "startDir": "E",
+    "maxBlocks": 10,
+    "recommended": 10,
+    "seed": 308,
+    "map": [
+      "...H.",
+      "#H.Y.",
+      ".#.T.",
+      "...#.",
+      "SH..#"
+    ],
+    "faceDir": "N",
+    "featureName": "Yogi"
+  },
+  {
+    "id": "mission-3-round-3",
+    "sol": 3,
+    "title": "Yogi Observation Point → Yogi — Round 3",
+    "targetName": "Yogi inspection position",
+    "objective": "Reach the target and face Yogi.",
+    "tip": "Reach the target and face Yogi.",
+    "startDir": "W",
+    "maxBlocks": 11,
+    "recommended": 11,
+    "seed": 309,
+    "map": [
+      "##.Y.",
+      "##.T.",
+      ".H.#.",
+      "....H",
+      "SH.HH"
+    ],
+    "faceDir": "N",
+    "featureName": "Yogi"
+  },
+  {
+    "id": "mission-4-round-1",
+    "sol": 4,
+    "title": "Yogi → Other side of Yogi — Round 1",
+    "targetName": "Other side of Yogi",
+    "objective": "Reach the target and face Yogi.",
+    "tip": "Find a safe way around Yogi.",
+    "startDir": "N",
+    "maxBlocks": 12,
+    "recommended": 10,
+    "seed": 310,
+    "map": [
+      "H.H.H",
+      ".T...",
+      "#Y#..",
+      ".S...",
+      ".#.H."
+    ],
+    "faceDir": "S",
+    "featureName": "Yogi"
+  },
+  {
+    "id": "mission-4-round-2",
+    "sol": 4,
+    "title": "Yogi → Other side of Yogi — Round 2",
+    "targetName": "Other side of Yogi",
+    "objective": "Reach the target and face Yogi.",
+    "tip": "Find a safe way around Yogi.",
+    "startDir": "E",
+    "maxBlocks": 11,
+    "recommended": 11,
+    "seed": 311,
+    "map": [
+      ".H.H#",
+      ".....",
+      ".#TH.",
+      "#.Y..",
+      "..S.."
+    ],
+    "faceDir": "S",
+    "featureName": "Yogi"
+  },
+  {
+    "id": "mission-4-round-3",
+    "sol": 4,
+    "title": "Yogi → Other side of Yogi — Round 3",
+    "targetName": "Other side of Yogi",
+    "objective": "Reach the target and face Yogi.",
+    "tip": "Find a safe way around Yogi.",
+    "startDir": "N",
+    "maxBlocks": 12,
+    "recommended": 12,
+    "seed": 312,
+    "map": [
+      ".#.#.",
+      "....#",
+      "#T#..",
+      ".YH.#",
+      ".S..."
+    ],
+    "faceDir": "S",
+    "featureName": "Yogi"
+  }
 ];
 
 const DIRECTIONS: Direction[] = ['N', 'E', 'S', 'W'];
