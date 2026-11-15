@@ -8,29 +8,43 @@ export const scene = {
     74
   ],
   "sourceEdition": "v7",
-  "status": "needs-script",
+  "status": "prototype",
   "shots": [
     {
       "id": "early-days",
       "kind": "illustration",
-      "notes": "The first view of Sojo during the time-passing montage. Final artwork and approved timestamps pending.",
+      "notes": "Illustrative time markers proposed in Jenny feedback; not an exact dated reconstruction.",
       "motion": "still",
-      "art": "ch04-time-passing/early-days"
+      "art": "ch04-time-passing/early-days",
+      "dialogue": {
+        "speaker": "NARRATOR",
+        "text": "Sojo continued his journey beyond what his creators had planned, gathering more data to send back to Earth."
+      },
+      "timeLabel": "SOL 12"
     },
     {
       "id": "weathering",
       "kind": "illustration",
-      "notes": "Later view: the wheels show more weathering. Match the same composition as the preceding shot for a dissolve.",
+      "notes": "Illustrative time markers proposed in Jenny feedback; not an exact dated reconstruction.",
       "motion": "still",
-      "art": "ch04-time-passing/weathering"
+      "art": "ch04-time-passing/weathering",
+      "dialogue": {
+        "speaker": "NARRATOR",
+        "text": "Day by day, Martian dirt and sand gathered on his wheels, leaving traces of every journey."
+      },
+      "timeLabel": "SOL 50"
     },
     {
       "id": "late-days",
       "kind": "illustration",
-      "notes": "Final view of the time-passing montage. The storyboard calls for increasingly rusty wheels; historical visual treatment needs confirmation.",
+      "notes": "Illustrative time markers proposed in Jenny feedback; not an exact dated reconstruction.",
       "motion": "still",
-      "exitTransition": "black",
-      "art": "ch04-time-passing/late-days"
+      "art": "ch04-time-passing/late-days",
+      "dialogue": {
+        "speaker": "NARRATOR",
+        "text": "Our little Sojo had come so far. And along the way, he made wonderful memories with his friend Pathfinder."
+      },
+      "timeLabel": "SOL 80"
     }
   ]
 } as const satisfies NarrativeScene;

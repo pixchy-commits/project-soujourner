@@ -48,7 +48,7 @@
     "src": "/art/scenes/ch01-atmospheric-entry/heat-shield-v2.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch01-atmospheric-entry/heat-shield.webp",
-    "alt": "Pathfinder\u00e2\u20ac\u2122s entry capsule descending through the atmosphere toward curved Mars",
+    "alt": "Pathfinderâ€™s entry capsule descending through the atmosphere toward curved Mars",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": true
@@ -66,7 +66,7 @@
     "src": "/art/scenes/ch01-atmospheric-entry/eyes-model-v5-sheet-v1.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch01-atmospheric-entry/eyes-closeup.webp",
-    "alt": "Sojo reacts with delighted sparkling oval camera eyes, painted in the heat-shield scene\u00e2\u20ac\u2122s navy and orange style.",
+    "alt": "Sojo reacts with delighted sparkling oval camera eyes, painted in the heat-shield sceneâ€™s navy and orange style.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
@@ -138,7 +138,7 @@
     "src": "/art/scenes/ch02-earth-flashback/blink-model-v2-sheet-v1.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-earth-flashback/blink.webp",
-    "alt": "A third-person closeup of Sojo\u00e2\u20ac\u2122s excited sparkling eyes on Mars, just before remembering Earth.",
+    "alt": "A third-person closeup of Sojoâ€™s excited sparkling eyes on Mars, just before remembering Earth.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
@@ -315,10 +315,10 @@
     "approved": false
   },
   "ch03-yogi-tilt/tilted-rover": {
-    "src": "/art/scenes/ch03-yogi-tilt/tilted-rover-v7-draft.webp",
+    "src": "/art/scenes/ch03-yogi-tilt/tilted-rover-jenny-v1.webp",
     "fallbackSrc": null,
-    "expectedPath": "/art/scenes/ch03-yogi-tilt/tilted-rover.webp",
-    "alt": "Sojo accidentally climbs the rock and becomes tilted. Keep this as a draft narrative placeholder; do not invent danger dialogue or technical claims.",
+    "expectedPath": "/art/scenes/ch03-yogi-tilt/tilted-rover-jenny-v1.webp",
+    "alt": "ch03 yogi tilt   tilted rover",
     "objectPosition": "50% 50%",
     "fit": "cover",
     "approved": false
@@ -459,28 +459,28 @@
     "approved": false
   },
   "ch04-earth-dot/eyes": {
-    "src": "/art/scenes/ch04-earth-dot/eyes-team-v2.webp",
+    "src": "/art/scenes/ch04-earth-dot/eyes-jenny-v1.webp",
     "fallbackSrc": null,
-    "expectedPath": "/art/scenes/ch04-earth-dot/eyes.webp",
-    "alt": "Close view of Sojo looking toward home. Expression art pending.",
+    "expectedPath": "/art/scenes/ch04-earth-dot/eyes-jenny-v1.webp",
+    "alt": "ch04 earth dot   eyes",
     "objectPosition": "50% 50%",
     "fit": "cover",
     "approved": false
   },
   "ch04-resting-together/leaning": {
-    "src": "/art/scenes/ch04-resting-together/leaning-v7-draft.webp",
+    "src": "/art/scenes/ch04-resting-together/leaning-jenny-v1.webp",
     "fallbackSrc": null,
-    "expectedPath": "/art/scenes/ch04-resting-together/leaning.webp",
-    "alt": "Sojo sits down and leans against Pathfinder. No spoken line has been supplied.",
+    "expectedPath": "/art/scenes/ch04-resting-together/leaning-jenny-v1.webp",
+    "alt": "ch04 resting together   leaning",
     "objectPosition": "50% 50%",
     "fit": "cover",
     "approved": false
   },
   "ch04-resting-together/wide-rest": {
-    "src": "/art/scenes/ch04-resting-together/wide-rest-v7-draft.webp",
+    "src": "/art/scenes/ch04-resting-together/wide-rest-jenny-v1.webp",
     "fallbackSrc": null,
-    "expectedPath": "/art/scenes/ch04-resting-together/wide-rest.webp",
-    "alt": "Wide view of both companions resting with Earth as a dot behind them. End the scene with the storyboard fade.",
+    "expectedPath": "/art/scenes/ch04-resting-together/wide-rest-jenny-v1.webp",
+    "alt": "ch04 resting together   wide rest",
     "objectPosition": "50% 50%",
     "fit": "cover",
     "approved": false
@@ -489,7 +489,7 @@
     "src": "/art/scenes/legacy-title/title-v7-draft.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/legacy-title/title.webp",
-    "alt": "THE LEGACY \u00e2\u20ac\u201d Present Time. Dedicated title artwork pending.",
+    "alt": "THE LEGACY â€” Present Time. Dedicated title artwork pending.",
     "objectPosition": "50% 50%",
     "fit": "cover",
     "approved": false
@@ -564,6 +564,42 @@
     "alt": "Painted purple binocular frame with a transparent lens opening",
     "objectPosition": "50% 50%",
     "fit": "contain",
+    "approved": false
+  },
+  "ch04-shared-memories/laughter": {
+    "src": "/art/scenes/ch04-shared-memories/laughter-jenny-v1.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-shared-memories/laughter-jenny-v1.webp",
+    "alt": "ch04 shared memories   laughter",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch04-shared-memories/discovery": {
+    "src": "/art/scenes/ch04-shared-memories/discovery-jenny-v1.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-shared-memories/discovery-jenny-v1.webp",
+    "alt": "ch04 shared memories   discovery",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch04-shared-memories/sunset": {
+    "src": "/art/scenes/ch04-shared-memories/sunset-jenny-v1.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-shared-memories/sunset-jenny-v1.webp",
+    "alt": "ch04 shared memories   sunset",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
+    "approved": false
+  },
+  "ch04-shared-memories/homecoming": {
+    "src": "/art/scenes/ch04-shared-memories/homecoming-jenny-v1.webp",
+    "fallbackSrc": null,
+    "expectedPath": "/art/scenes/ch04-shared-memories/homecoming-jenny-v1.webp",
+    "alt": "ch04 shared memories   homecoming",
+    "objectPosition": "50% 50%",
+    "fit": "cover",
     "approved": false
   }
 }

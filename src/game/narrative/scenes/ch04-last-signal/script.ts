@@ -8,17 +8,21 @@ export const scene = {
     75
   ],
   "sourceEdition": "v7",
-  "status": "needs-script",
+  "status": "prototype",
   "shots": [
     {
       "id": "opening-eyes",
       "kind": "illustration",
       "overlay": "ui/goggle-frame",
       "overlayScale": 1.16,
-      "notes": "First-person blink: Sojo opens its eyes to see Pathfinder.",
+      "notes": "Storybook personification adapted from Jenny feedback; technical history is a separate team handoff.",
       "motion": "still",
       "framing": "first-person",
-      "art": "ch04-last-signal/opening-eyes"
+      "art": "ch04-last-signal/opening-eyes",
+      "dialogue": {
+        "speaker": "NARRATOR",
+        "text": "At Ares Vallis, one sol passed, and then another. Sojo kept exploring, with his trusty friend Pathfinder always waiting for his return."
+      }
     },
     {
       "id": "fading-energy",
@@ -26,9 +30,13 @@ export const scene = {
       "framing": "first-person",
       "overlay": "ui/goggle-frame",
       "overlayScale": 1.16,
-      "notes": "Pathfinder grows quiet as its energy fades. Battery UI and exact technical interpretation remain placeholders.",
+      "notes": "Storybook personification adapted from Jenny feedback; technical history is a separate team handoff.",
       "motion": "still",
-      "art": "ch04-last-signal/fading-energy"
+      "art": "ch04-last-signal/fading-energy",
+      "dialogue": {
+        "speaker": "NARRATOR",
+        "text": "As the Martian nights grew colder, Pathfinder's energy began to fade."
+      }
     },
     {
       "id": "quiet-pathfinder",
@@ -36,9 +44,13 @@ export const scene = {
       "framing": "first-person",
       "overlay": "ui/goggle-frame",
       "overlayScale": 1.16,
-      "notes": "Pathfinder closes its eyes. The storyboard asks for this to connect to time passing, rather than happen suddenly.",
+      "notes": "Storybook personification adapted from Jenny feedback; technical history is a separate team handoff.",
       "motion": "still",
-      "art": "ch04-last-signal/quiet-pathfinder"
+      "art": "ch04-last-signal/quiet-pathfinder",
+      "dialogue": {
+        "speaker": "NARRATOR",
+        "text": "Then, one day, Pathfinder finally fell asleep, resting after a long, long mission, with all the good memories they had made together."
+      }
     }
   ]
 } as const satisfies NarrativeScene;

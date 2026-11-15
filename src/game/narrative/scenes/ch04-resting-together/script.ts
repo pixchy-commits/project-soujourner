@@ -8,22 +8,30 @@ export const scene = {
     78
   ],
   "sourceEdition": "v7",
-  "status": "needs-script",
+  "status": "prototype",
   "shots": [
     {
       "id": "leaning",
       "kind": "illustration",
-      "notes": "Sojo sits down and leans against Pathfinder. No spoken line has been supplied.",
+      "notes": "Jenny feedback: closed eyes, warm cinematic backlight, peaceful ending.",
       "motion": "still",
-      "art": "ch04-resting-together/leaning"
+      "art": "ch04-resting-together/leaning",
+      "dialogue": {
+        "speaker": "NARRATOR",
+        "text": "And then... the two friends rested side by side, beneath the first stars."
+      }
     },
     {
       "id": "wide-rest",
       "kind": "illustration",
-      "notes": "Wide view of both companions resting with Earth as a dot behind them. End the scene with the storyboard fade.",
+      "notes": "Jenny feedback: closed eyes, warm cinematic backlight, peaceful ending.",
       "motion": "still",
       "exitTransition": "black",
-      "art": "ch04-resting-together/wide-rest"
+      "art": "ch04-resting-together/wide-rest",
+      "dialogue": {
+        "speaker": "NARRATOR",
+        "text": "After their long mission, these little pioneers could finally rest beneath the Martian sky. To their creators back on Earth, they were heroes."
+      }
     }
   ]
 } as const satisfies NarrativeScene;
