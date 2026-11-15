@@ -4,23 +4,29 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./RockAnalysis.module.css";
 
 const TURN_DURATION = 2.2;
-const DRIVE_DURATION = 6.5;
-const TOTAL = TURN_DURATION + DRIVE_DURATION;
+const DRIVE_SECONDS_PER_TURN = 0.85;
+const TARGET_DISTANCE = 130;
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
 
-/** Step 3: execute the already-validated plan. No position controls appear here. */
-export default function Run({ onFinish }: { onFinish?: () => void }) {
+/** Step 3: execute any player program and show the actual result. */
+export default function Run({ program, onFinish, onEdit }: { program: { turn: number; back: number }; onFinish?: () => void; onEdit?: () => void }) {
+  const total = TURN_DURATION + Math.max(0.4, program.back * DRIVE_SECONDS_PER_TURN);
+  const correctTurn = program.turn === 180;
+  const correctDistance = program.back === 6.5;
+  const success = correctTurn && correctDistance;
   const [elapsed, setElapsed] = useState(0);
-  const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(false);
   const lastFrame = useRef<number | null>(null);
-  const completed = elapsed >= TOTAL;
+  const completed = elapsed >= total;
   const turned = elapsed >= TURN_DURATION;
   const turnFraction = clamp(elapsed / TURN_DURATION);
-  const driveFraction = clamp((elapsed - TURN_DURATION) / DRIVE_DURATION);
-  const traveled = driveFraction * 130;
-  const wheelTurns = driveFraction * 6.5;
-  const roverY = 612 - driveFraction * 338;
-  const phaseLabel = completed ? "My arm touched Yogi!" : !turned ? "Half turn around" : `Wheel turns: ${wheelTurns.toFixed(1)} of 6½`;
+  const driveFraction = clamp((elapsed - TURN_DURATION) / (total - TURN_DURATION));
+  const traveled = driveFraction * program.back * 20;
+  const wheelTurns = driveFraction * program.back;
+  const direction = (program.turn - 180) * Math.PI / 180;
+  const roverY = 612 - driveFraction * (program.back * 20 / TARGET_DISTANCE) * 338 * Math.cos(direction);
+  const roverX = 431 + driveFraction * (program.back * 20 / TARGET_DISTANCE) * 338 * Math.sin(direction);
+  const phaseLabel = completed ? (success ? "My arm touched Yogi!" : "Program finished — check the result") : !turned ? `Turning ${program.turn}°` : `Wheel turns: ${wheelTurns.toFixed(1)} of ${program.back.toFixed(1)}`;
 
   useEffect(() => {
     if (!playing || completed) return;
@@ -28,14 +34,14 @@ export default function Run({ onFinish }: { onFinish?: () => void }) {
     const tick = (now: number) => {
       const dt = lastFrame.current === null ? 0 : Math.min(0.06, (now - lastFrame.current) / 1000);
       lastFrame.current = now;
-      setElapsed(previous => Math.min(TOTAL, previous + dt));
+      setElapsed(previous => Math.min(total, previous + dt));
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
     return () => { cancelAnimationFrame(frame); lastFrame.current = null; };
-  }, [playing, completed]);
+  }, [playing, completed, total]);
 
-  const restart = () => { lastFrame.current = null; setElapsed(0); setPlaying(true); };
+  const restart = () => { lastFrame.current = null; setElapsed(0); setPlaying(false); };
 
   return <div className={styles.layout}>
     <section className={`${styles.scene} ${styles.runScene}`} aria-label="Sojourner executes its movement program">
@@ -51,15 +57,15 @@ export default function Run({ onFinish }: { onFinish?: () => void }) {
         <line x1="662" y1="612" x2="662" y2="270" stroke="#fff1d9" strokeWidth="3"/>
         {[0,20,40,60,80,100,120].map(n => { const y = 612 - n / 130 * 338; return <g key={n}><line x1="645" x2="679" y1={y} y2={y} stroke="#fff1d9" strokeWidth="3"/><text x="636" y={y+6} textAnchor="end" fill="#fff1d9" fontSize="17" fontWeight="900">{n}</text></g>; })}
         <line x1="623" x2="701" y1="270" y2="270" stroke="#f8c64e" strokeWidth="5"/>
-        {Array.from({length:7},(_,i) => {
+        {Array.from({length:8},(_,i) => {
           const amount = Math.max(0, Math.min(1, wheelTurns-i));
           if (amount <= 0) return null;
           const bottom = 612-i*52;
           return <rect key={i} x="705" y={bottom-49*amount} width="23" height={49*amount} rx="5" fill="#59c6bd" stroke="#29283b" strokeWidth="2"/>;
         })}
         <g><rect x="738" y="254" width="113" height="37" rx="17" fill="#f8c64e"/><text x="794" y="279" fontSize="17" textAnchor="middle" fontWeight="900" fill="#28283b">Stop here!</text></g>
-        <g transform={`translate(431 ${roverY}) rotate(${180 * turnFraction})`}><image href="/assets/rock-analysis/sojourner-rover.svg" x="-58" y="-75" width="116" height="150"/></g>
-        {completed && <g><circle cx="431" cy="264" r="18" fill="#59c6bd" stroke="#fff2df" strokeWidth="4"/><text x="431" y="272" textAnchor="middle" fill="#173d3b" fontSize="24" fontWeight="900">✓</text><rect x="475" y="307" width="160" height="42" rx="19" fill="#fff3df"/><text x="555" y="334" textAnchor="middle" fill="#29283b" fontSize="19" fontWeight="900">Contact!</text></g>}
+        <g transform={`translate(${roverX} ${roverY}) rotate(${program.turn * turnFraction})`}><image href="/assets/rock-analysis/sojourner-rover.svg" x="-58" y="-75" width="116" height="150"/></g>
+        {completed && success && <g><circle cx="431" cy="264" r="18" fill="#59c6bd" stroke="#fff2df" strokeWidth="4"/><text x="431" y="272" textAnchor="middle" fill="#173d3b" fontSize="24" fontWeight="900">✓</text><rect x="475" y="307" width="160" height="42" rx="19" fill="#fff3df"/><text x="555" y="334" textAnchor="middle" fill="#29283b" fontSize="19" fontWeight="900">Contact!</text></g>}
         {!completed && <g><rect x="480" y={Math.max(322,roverY-34)} width="166" height="43" rx="18" fill="#fff3df"/><text x="563" y={Math.max(322,roverY-34)+28} textAnchor="middle" fill="#29283b" fontSize="18" fontWeight="900">{turned ? "Wheel turn!" : "Turning around"}</text></g>}
         <g><rect x="25" y="671" width="200" height="40" rx="18" fill="#27232e"/><circle cx="48" cy="691" r="10" fill="#59c8bf" stroke="#fff3df" strokeWidth="2"/><text x="66" y="698" fill="#fff3df" fontSize="17" fontWeight="900">APXS sensor</text></g>
       </svg>
@@ -67,15 +73,15 @@ export default function Run({ onFinish }: { onFinish?: () => void }) {
     <aside className={`${styles.panel} ${styles.calcPanel} ${styles.runPanel}`}>
       <div className={styles.questionKicker}>STEP 3 OF 4 · RUN</div>
       <h1 className={styles.runHeading}>Watch me go!</h1>
-      <div className={styles.runSpeech}><span className={styles.calcFace}>▣</span><strong>{completed ? "My arm touched Yogi!" : "Back me up 6½ turns!"}</strong></div>
-      <div className={styles.progressBox}><div className={styles.progressIcon}>✦</div><div className={styles.progressText}><strong>{phaseLabel}</strong><div className={styles.bar}><div className={styles.barFill} style={{ transform: `scaleX(${clamp(traveled/130)})` }}/></div><small>{Math.round(traveled)} of 130 cm</small></div></div>
-      <div className={`${styles.task} ${turned ? styles.taskDone : styles.taskCurrent}`}><span>{turned ? "✓" : "1"}</span><strong>Turn around</strong></div>
-      <div className={`${styles.task} ${completed ? styles.taskDone : turned ? styles.taskCurrent : ""}`}><span>{completed ? "✓" : "2"}</span><strong>Back up 6½ turns</strong><div className={styles.dots}>{Array.from({length:7},(_,i)=><i key={i} className={wheelTurns >= Math.min(6.5,i+1) ? styles.dotOn : ""}/>)}</div></div>
+      <div className={styles.runSpeech}><span className={styles.calcFace}>▣</span><strong>{completed ? (success ? "My arm touched Yogi!" : "That did not reach Yogi!") : `Turn ${program.turn}°, then back up ${program.back.toFixed(1)} turns!`}</strong></div>
+      <div className={styles.progressBox}><div className={styles.progressIcon}>✦</div><div className={styles.progressText}><strong>{phaseLabel}</strong><div className={styles.bar}><div className={styles.barFill} style={{ transform: `scaleX(${clamp(traveled/160)})` }}/></div><small>{Math.round(traveled)} cm traveled · target 130 cm</small></div></div>
+      <div className={`${styles.task} ${turned ? styles.taskDone : styles.taskCurrent}`}><span>{turned ? "✓" : "1"}</span><strong>Turn {program.turn}°</strong></div>
+      <div className={`${styles.task} ${completed ? styles.taskDone : turned ? styles.taskCurrent : ""}`}><span>{completed ? "✓" : "2"}</span><strong>Back up {program.back.toFixed(1)} turns</strong><div className={styles.dots}>{Array.from({length:8},(_,i)=><i key={i} className={wheelTurns >= Math.min(6.5,i+1) ? styles.dotOn : ""}/>)}</div></div>
       <div className={`${styles.task} ${completed ? styles.taskDone : ""}`}><span>{completed ? "✓" : "3"}</span><strong>Touch Yogi</strong></div>
-      {completed && <div className={`${styles.answerFeedback} ${styles.feedbackCorrect}`} role="status">Success! Sojourner reached Yogi Rock.</div>}
+      {completed && <div className={`${styles.answerFeedback} ${success ? styles.feedbackCorrect : styles.feedbackWrong}`} role="status">{success ? "Success! Sojourner reached Yogi Rock." : !correctTurn ? "Wrong direction! Sojourner did not face Yogi. Edit your turn angle." : !correctDistance && program.back < 6.5 ? `Stopped ${Math.round(130 - program.back * 20)} cm short of Yogi. Try again.` : `Overshot Yogi by ${Math.round(program.back * 20 - 130)} cm. Try again.`}</div>}
       <div className={styles.panelBottom}>
-        {completed ? <button className={styles.primaryOrange} onClick={onFinish}>Study Yogi →</button> : <button className={styles.primary} onClick={() => setPlaying(value => !value)}>{playing ? "Pause" : "Resume"}</button>}
-        <button className={styles.replay} onClick={restart} aria-label="Restart run">↻</button>
+        {completed ? <button className={styles.primaryOrange} onClick={success ? onFinish : onEdit}>{success ? "Study Yogi →" : "Edit program →"}</button> : <button className={styles.primary} onClick={() => setPlaying(value => !value)}>{playing ? "Pause" : elapsed === 0 ? "Run program ▶" : "Resume"}</button>}
+        <button className={styles.replay} onClick={restart} aria-label="Reset run">↻</button>
       </div>
     </aside>
   </div>;

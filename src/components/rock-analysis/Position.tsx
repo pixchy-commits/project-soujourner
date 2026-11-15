@@ -8,9 +8,11 @@ const TARGET_BACK = 6.5;
 const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
 
 /** Step 2 only: configure the plan; the real rover never drives on this screen. */
-export default function Position({ onFinish }: { onFinish?: () => void }) {
-  const [turn, setTurn] = useState(0);
-  const [back, setBack] = useState(0);
+export type RoverProgram = { turn: number; back: number };
+
+export default function Position({ onFinish, initialProgram }: { onFinish?: (program: RoverProgram) => void; initialProgram?: RoverProgram }) {
+  const [turn, setTurn] = useState(initialProgram?.turn ?? 0);
+  const [back, setBack] = useState(initialProgram?.back ?? 0);
   const [showHint, setShowHint] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const aligned = turn === TARGET_TURN;
@@ -48,7 +50,7 @@ export default function Position({ onFinish }: { onFinish?: () => void }) {
       <div className={styles.positionSpeech}><span className={styles.calcFace}>▣</span><div>Turn around, then back up to the right spot!</div></div>
       <div className={`${styles.positionStatus} ${ready ? styles.positionStatusReady : ""}`} role="status">
         <strong>{ready ? "✓ Ready!" : !aligned ? "Adjust turn" : "Adjust distance"}</strong>
-        <span>{ready ? "Your plan is correct. Continue to the Run step." : !aligned ? "Face Yogi by turning 180°." : "Now set the backward travel to 6½ turns."}</span>
+        <span>{ready ? "Your plan looks right. Run it to find out." : !aligned ? "Face Yogi by turning 180°." : "Now set the backward travel to 6½ turns."}</span>
       </div>
       <div className={styles.positionControl}>
         <div className={styles.positionControlTitle}><strong>Turn</strong><b>{turn}°</b></div>
@@ -61,11 +63,11 @@ export default function Position({ onFinish }: { onFinish?: () => void }) {
         <div className={styles.positionControlRow}><button aria-label="Decrease backward turns by half" onClick={() => updateBack(back-.5)}>−</button><input aria-label="Backward wheel turns" type="range" min="0" max="8" step="0.5" value={back} onChange={e => updateBack(Number(e.target.value))}/><button aria-label="Increase backward turns by half" onClick={() => updateBack(back+.5)}>+</button></div>
         <div className={styles.positionScale}><span>0 turns</span><span>Target: 6½</span><span>8 turns</span></div>
       </div>
-      <p className={styles.positionNote}>Preview only — Sojourner will not move until Step 3: Run.</p>
+      <p className={styles.positionNote}>Preview only — the rover moves only when you run the program. You can test any settings, including incorrect ones.</p>
       {showHint && <div className={styles.hintBox}>From your calculations: turn around 180°, then travel 130 cm. Each wheel turn moves 20 cm, so 130 ÷ 20 = 6½ turns.</div>}
-      {confirmed && !ready && <div className={styles.answerFeedback} role="status">Adjust both settings before continuing.</div>}
+      {confirmed && !ready && <div className={styles.answerFeedback} role="status">Testing your program — see what happens in Run!</div>}
       <div className={styles.panelBottom}>
-        <button className={styles.primaryOrange} disabled={!ready} onClick={() => { setConfirmed(true); if (ready) onFinish?.(); }}>{ready ? "Next: Run →" : "Run locked"}</button>
+        <button className={styles.primaryOrange} onClick={() => { setConfirmed(true); onFinish?.({ turn, back }); }}>Run program →</button>
         <button className={styles.hintButton} aria-label="Show positioning hint" onClick={() => setShowHint(v=>!v)}>♧</button>
       </div>
     </aside>
