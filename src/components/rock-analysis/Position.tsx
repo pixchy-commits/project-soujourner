@@ -1,5 +1,6 @@
 "use client";
 
+import type { RockMission } from "./RockAnalysis";
 import { useState } from "react";
 import styles from "./RockAnalysis.module.css";
 
@@ -10,7 +11,7 @@ const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(mi
 /** Step 2 only: configure the plan; the real rover never drives on this screen. */
 export type RoverProgram = { turn: number; back: number };
 
-export default function Position({ onFinish, initialProgram }: { onFinish?: (program: RoverProgram) => void; initialProgram?: RoverProgram }) {
+export default function Position({ mission = "yogi", onFinish, initialProgram }: { onFinish?: (program: RoverProgram) => void; initialProgram?: RoverProgram; mission?: RockMission }) {
   const [turn, setTurn] = useState(initialProgram?.turn ?? 0);
   const [back, setBack] = useState(initialProgram?.back ?? 0);
   const [showHint, setShowHint] = useState(false);
@@ -24,12 +25,12 @@ export default function Position({ onFinish, initialProgram }: { onFinish?: (pro
   const plannedY = 615 - (plannedDistance / 130) * 330;
   return <div className={styles.layout}>
     <section className={`${styles.scene} ${styles.positionScene}`} aria-label="Plan Sojourner's position">
-      <svg viewBox="0 0 860 740" className={styles.sceneSvg} role="img" aria-label="Yogi, stationary rover, and adjustable projected route">
+      <svg viewBox="0 0 860 740" className={styles.sceneSvg} role="img" aria-label="Target rock, stationary rover, and adjustable projected route">
         <defs><linearGradient id="positionMars" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#d77e49"/><stop offset="1" stopColor="#a34d30"/></linearGradient></defs>
         <rect width="860" height="740" fill="url(#positionMars)"/>
         {[[90,110,7],[760,155,8],[61,300,4],[731,350,5],[795,581,6],[211,659,9]].map(([x,y,r],i)=><circle key={i} cx={x} cy={y} r={r} fill="#9b4b30" opacity=".48"/>)}
-        <image href="/assets/rock-analysis/yogi-rock.svg" x="320" y="68" width="220" height="172"/>
-        <rect x="398" y="20" width="66" height="35" rx="17" fill="#fff3df"/><text x="431" y="44" fontSize="18" fontWeight="900" textAnchor="middle" fill="#29283b">Yogi</text>
+        <image href={mission === "yogi" ? "/assets/rock-analysis/yogi-rock.svg" : "/assets/rock-analysis/yogi-rock.svg"} x="320" y="68" width="220" height="172"/>
+        <rect x="398" y="20" width="66" height="35" rx="17" fill="#fff3df"/><text x="431" y="44" fontSize="18" fontWeight="900" textAnchor="middle" fill="#29283b">{mission === "yogi" ? "Yogi" : "Barnacle"}</text>
         <line x1="323" x2="610" y1="270" y2="270" stroke="#fff2db" strokeWidth="3" strokeDasharray="7 8"/>
         <line x1="323" x2="610" y1="615" y2="615" stroke="#fff2db" strokeWidth="3" strokeDasharray="7 8" opacity=".5"/>
         <line x1="431" y1="615" x2="431" y2="270" stroke="#f9c64e" strokeWidth="3" strokeDasharray="5 9" opacity=".6"/>
@@ -46,11 +47,11 @@ export default function Position({ onFinish, initialProgram }: { onFinish?: (pro
     </section>
     <aside className={`${styles.panel} ${styles.calcPanel} ${styles.positionPanel}`}>
       <div className={styles.questionKicker}>STEP 2 · POSITION</div>
-      <h1 className={styles.positionHeading}>Move me to Yogi</h1>
+      <h1 className={styles.positionHeading}>Move me to {mission === "yogi" ? "Yogi" : "Barnacle Bill"}</h1>
       <div className={styles.positionSpeech}><span className={styles.calcFace}>▣</span><div>Turn around, then back up to the right spot!</div></div>
       <div className={`${styles.positionStatus} ${ready ? styles.positionStatusReady : ""}`} role="status">
         <strong>{ready ? "✓ Ready!" : !aligned ? "Adjust turn" : "Adjust distance"}</strong>
-        <span>{ready ? "Your plan looks right. Run it to find out." : !aligned ? "Face Yogi by turning 180°." : "Now set the backward travel to 6½ turns."}</span>
+        <span>{ready ? "Your plan looks right. Run it to find out." : !aligned ? "Face the rock by turning 180°." : "Now set the backward travel to 6½ turns."}</span>
       </div>
       <div className={styles.positionControl}>
         <div className={styles.positionControlTitle}><strong>Turn</strong><b>{turn}°</b></div>

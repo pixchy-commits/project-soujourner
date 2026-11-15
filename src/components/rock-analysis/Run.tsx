@@ -1,5 +1,6 @@
 "use client";
 
+import type { RockMission } from "./RockAnalysis";
 import { useEffect, useRef, useState } from "react";
 import styles from "./RockAnalysis.module.css";
 
@@ -9,7 +10,7 @@ const TARGET_DISTANCE = 130;
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
 
 /** Step 3: execute any player program and show the actual result. */
-export default function Run({ program, onFinish, onEdit }: { program: { turn: number; back: number }; onFinish?: () => void; onEdit?: () => void }) {
+export default function Run({ mission = "yogi", program, onFinish, onEdit }: { program: { turn: number; back: number }; onFinish?: () => void; onEdit?: () => void; mission?: RockMission }) {
   const total = TURN_DURATION + Math.max(0.4, program.back * DRIVE_SECONDS_PER_TURN);
   const correctTurn = program.turn === 180;
   const correctDistance = program.back === 6.5;
@@ -26,7 +27,7 @@ export default function Run({ program, onFinish, onEdit }: { program: { turn: nu
   const direction = (program.turn - 180) * Math.PI / 180;
   const roverY = 612 - driveFraction * (program.back * 20 / TARGET_DISTANCE) * 338 * Math.cos(direction);
   const roverX = 431 + driveFraction * (program.back * 20 / TARGET_DISTANCE) * 338 * Math.sin(direction);
-  const phaseLabel = completed ? (success ? "My arm touched Yogi!" : "Program finished — check the result") : !turned ? `Turning ${program.turn}°` : `Wheel turns: ${wheelTurns.toFixed(1)} of ${program.back.toFixed(1)}`;
+  const phaseLabel = completed ? (success ? "My arm touched the rock!" : "Program finished — check the result") : !turned ? `Turning ${program.turn}°` : `Wheel turns: ${wheelTurns.toFixed(1)} of ${program.back.toFixed(1)}`;
 
   useEffect(() => {
     if (!playing || completed) return;
@@ -45,12 +46,12 @@ export default function Run({ program, onFinish, onEdit }: { program: { turn: nu
 
   return <div className={styles.layout}>
     <section className={`${styles.scene} ${styles.runScene}`} aria-label="Sojourner executes its movement program">
-      <svg viewBox="0 0 860 740" className={styles.sceneSvg} role="img" aria-label="Animated Sojourner driving toward Yogi Rock">
+      <svg viewBox="0 0 860 740" className={styles.sceneSvg} role="img" aria-label="Animated Sojourner driving toward target rock">
         <defs><linearGradient id="runMarsGround" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#d77d48"/><stop offset="1" stopColor="#a14a2f"/></linearGradient></defs>
         <rect width="860" height="740" fill="url(#runMarsGround)"/>
         {[[90,110,7],[760,155,8],[61,300,4],[731,350,5],[795,581,6],[211,659,9]].map(([x,y,r],i)=><circle key={i} cx={x} cy={y} r={r} fill="#9b4b30" opacity=".48"/>)}
-        <image href="/assets/rock-analysis/yogi-rock.svg" x="320" y="68" width="220" height="172"/>
-        <rect x="398" y="20" width="66" height="35" rx="17" fill="#fff3df"/><text x="431" y="44" fontSize="18" fontWeight="900" textAnchor="middle" fill="#29283b">Yogi</text>
+        <image href={mission === "yogi" ? "/assets/rock-analysis/yogi-rock.svg" : "/assets/rock-analysis/yogi-rock.svg"} x="320" y="68" width="220" height="172"/>
+        <rect x="398" y="20" width="66" height="35" rx="17" fill="#fff3df"/><text x="431" y="44" fontSize="18" fontWeight="900" textAnchor="middle" fill="#29283b">{mission === "yogi" ? "Yogi" : "Barnacle"}</text>
         <line x1="323" x2="690" y1="270" y2="270" stroke="#fff2db" strokeWidth="3" strokeDasharray="7 8"/>
         <line x1="323" x2="690" y1="612" y2="612" stroke="#fff2db" strokeWidth="3" strokeDasharray="7 8" opacity=".55"/>
         <line x1="431" y1="612" x2="431" y2="270" stroke="#f9c64e" strokeWidth="3" strokeDasharray="5 9" opacity=".6"/>
@@ -73,14 +74,14 @@ export default function Run({ program, onFinish, onEdit }: { program: { turn: nu
     <aside className={`${styles.panel} ${styles.calcPanel} ${styles.runPanel}`}>
       <div className={styles.questionKicker}>STEP 3 OF 4 · RUN</div>
       <h1 className={styles.runHeading}>Watch me go!</h1>
-      <div className={styles.runSpeech}><span className={styles.calcFace}>▣</span><strong>{completed ? (success ? "My arm touched Yogi!" : "That did not reach Yogi!") : `Turn ${program.turn}°, then back up ${program.back.toFixed(1)} turns!`}</strong></div>
+      <div className={styles.runSpeech}><span className={styles.calcFace}>▣</span><strong>{completed ? (success ? "My arm touched the rock!" : "That did not reach the rock!") : `Turn ${program.turn}°, then back up ${program.back.toFixed(1)} turns!`}</strong></div>
       <div className={styles.progressBox}><div className={styles.progressIcon}>✦</div><div className={styles.progressText}><strong>{phaseLabel}</strong><div className={styles.bar}><div className={styles.barFill} style={{ transform: `scaleX(${clamp(traveled/160)})` }}/></div><small>{Math.round(traveled)} cm traveled · target 130 cm</small></div></div>
       <div className={`${styles.task} ${turned ? styles.taskDone : styles.taskCurrent}`}><span>{turned ? "✓" : "1"}</span><strong>Turn {program.turn}°</strong></div>
       <div className={`${styles.task} ${completed ? styles.taskDone : turned ? styles.taskCurrent : ""}`}><span>{completed ? "✓" : "2"}</span><strong>Back up {program.back.toFixed(1)} turns</strong><div className={styles.dots}>{Array.from({length:8},(_,i)=><i key={i} className={wheelTurns >= Math.min(6.5,i+1) ? styles.dotOn : ""}/>)}</div></div>
-      <div className={`${styles.task} ${completed ? styles.taskDone : ""}`}><span>{completed ? "✓" : "3"}</span><strong>Touch Yogi</strong></div>
-      {completed && <div className={`${styles.answerFeedback} ${success ? styles.feedbackCorrect : styles.feedbackWrong}`} role="status">{success ? "Success! Sojourner reached Yogi Rock." : !correctTurn ? "Wrong direction! Sojourner did not face Yogi. Edit your turn angle." : !correctDistance && program.back < 6.5 ? `Stopped ${Math.round(130 - program.back * 20)} cm short of Yogi. Try again.` : `Overshot Yogi by ${Math.round(program.back * 20 - 130)} cm. Try again.`}</div>}
+      <div className={`${styles.task} ${completed ? styles.taskDone : ""}`}><span>{completed ? "✓" : "3"}</span><strong>Touch the rock</strong></div>
+      {completed && <div className={`${styles.answerFeedback} ${success ? styles.feedbackCorrect : styles.feedbackWrong}`} role="status">{success ? "Success! Sojourner reached the target rock." : !correctTurn ? "Wrong direction! Sojourner did not face the rock. Edit your turn angle." : !correctDistance && program.back < 6.5 ? `Stopped ${Math.round(130 - program.back * 20)} cm short of the rock. Try again.` : `Overshot the rock by ${Math.round(program.back * 20 - 130)} cm. Try again.`}</div>}
       <div className={styles.panelBottom}>
-        {completed ? <button className={styles.primaryOrange} onClick={success ? onFinish : onEdit}>{success ? "Study Yogi →" : "Edit program →"}</button> : <button className={styles.primary} onClick={() => setPlaying(value => !value)}>{playing ? "Pause" : elapsed === 0 ? "Run program ▶" : "Resume"}</button>}
+        {completed ? <button className={styles.primaryOrange} onClick={success ? onFinish : onEdit}>{success ? "Study rock →" : "Edit program →"}</button> : <button className={styles.primary} onClick={() => setPlaying(value => !value)}>{playing ? "Pause" : elapsed === 0 ? "Run program ▶" : "Resume"}</button>}
         <button className={styles.replay} onClick={restart} aria-label="Reset run">↻</button>
       </div>
     </aside>
