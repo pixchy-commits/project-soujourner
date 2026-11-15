@@ -14,6 +14,10 @@ export type RoverOptions = {
   initialProgress?: Record<string, { stars: number; best: number }>;
   onProgress?: (progress: Record<string, { stars: number; best: number }>) => void;
   onComplete?: () => void;
+  /** Limit gameplay to the three rounds belonging to this SOL (1–4). */
+  missionNumber?: 1 | 2 | 3 | 4;
+  /** Called after the final round of a mission. */
+  onMissionComplete?: (missionNumber: number) => void;
 };
 
 // Only one rover engine may own the global keyboard/drag handlers at a time.
@@ -29,6 +33,9 @@ export function createRoverEngine(root: HTMLElement, opts: RoverOptions): () => 
 /* ================= Data & constants ================= */
 const DNAME = ['NORTH','EAST','SOUTH','WEST'];
 const $ = (s) => root.querySelector(s);
+const missionIndices = LEVELS.flatMap((level, index) => opts.missionNumber == null || level.sol === opts.missionNumber ? [index] : []);
+const firstMissionIndex = missionIndices[0] ?? 0;
+const isAllowedLevel = (index) => missionIndices.includes(index);
 const ICON = {
   F:'<svg viewBox="0 0 40 40"><path d="M20 5 L33 19 H25 V35 H15 V19 H7 Z" fill="#fff" stroke="#1a2a55" stroke-width="2.5" stroke-linejoin="round"/></svg>',
   L:'<svg viewBox="0 0 40 40"><path d="M29 31 V20 A9 9 0 0 0 20 11 H15" fill="none" stroke="#1d0f3a" stroke-width="9" stroke-linecap="round"/><path d="M29 31 V20 A9 9 0 0 0 20 11 H15" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M17 3 L6 11 L17 19 Z" fill="#fff" stroke="#1d0f3a" stroke-width="2.5" stroke-linejoin="round"/></svg>',
@@ -135,10 +142,10 @@ function closeOv(id){ $('#'+id).classList.remove('on'); }
 
 
 $('#musicGame').onclick=()=>setMusic(settings.music!=='on');
-$('#homeBtn').onclick=()=>startLevel(0);
+$('#homeBtn').onclick=()=>startLevel(firstMissionIndex);
 $('#missionsBtn').onclick=()=>{ cancelRun(); renderReports(); show('reports'); };
 $('#setBtn').onclick=openSettings;
-$('#repBack').onclick=()=>startLevel(0);
+$('#repBack').onclick=()=>startLevel(firstMissionIndex);
 $('#howtoGo').onclick=()=>{ closeOv('howto'); seenHowto=true; store.set('howto',true); };
 
 /* ---- Settings ---- */
@@ -157,12 +164,12 @@ $('#resetProg').onclick=e=>{ if(!eraseArm){ eraseArm=true; e.target.textContent=
 /* ---- Reports ---- */
 function renderReports(){
   let total=0;
-  $('#repList').innerHTML=LEVELS.map((L,i)=>{ const p=progress[i]; total+=p?p.stars:0;
+  $('#repList').innerHTML=LEVELS.map((L,i)=>{ if (!isAllowedLevel(i)) return '';  const p=progress[i]; total+=p?p.stars:0;
     return `<div class="rep panel"><div class="sol">SOL<b>${L.sol}</b></div>
       <div><h3>${L.title}</h3><p>${p?`Reached ${L.featureName||L.targetName} · best program ${p.best} blocks (shortest: ${L.optimal})`:`${L.cols}×${L.rows} grid · up to ${L.maxBlocks} blocks · not attempted`}</p></div>
       <div class="st">${[1,2,3].map(n=>STAR(p&&p.stars>=n)).join('')}</div>
       <button class="ci-btn small" data-go="${i}">${p?'Replay':'Play'}</button></div>`; }).join('');
-  $('#repTotal').textContent=`${total} / ${LEVELS.length*3} stars collected`;
+  $('#repTotal').textContent=`${total} / ${missionIndices.length*3} stars collected`;
   $('#repList').querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>startLevel(+b.dataset.go));
 }
 
@@ -171,6 +178,7 @@ function startLevel(i){
   // Reset the previous mission completely before rendering the next one.
   cancelRun();
   const L = LEVELS[i];
+  if (!isAllowedLevel(i)) return;
   if (!L || !Number.isInteger(L.maxBlocks) || L.maxBlocks <= 0) {
     console.error('Cannot start mission: invalid level or block limit', i, L);
     return;
@@ -520,19 +528,22 @@ function success(executed){
   $('#resTip').textContent = stars===3 ? 'Perfect program — the shortest route possible! ⭐' :
     unused>0 ? `Sojourner arrived before the last ${unused} block${unused>1?'s':''} ran — remove them for more stars.` :
     `Can you find a route that uses only ${L.optimal} blocks? Fewer turns help!`;
-  $('#resNext').textContent = L.idx<LEVELS.length-1 ? 'Next Mission ▶' : 'Restart Journey ↻';
+  const isLastRound = missionIndices.indexOf(L.idx) === missionIndices.length - 1;
+   $('#resNext').textContent = isLastRound ? 'Replay Mission ↻' : 'Next Round ▶';
   setTimeout(()=>openOv('result'),450);
 }
 $('#resRetry').onclick=()=>{ closeOv('result'); setFeedback('info','Edit your program and press Run to try for more stars.'); };
-// Temporary game-state loop: PATHFINDING -> (future INVESTIGATION) -> next PATHFINDING.
-// Investigation is not implemented yet, so advance directly to the next map.
-// Completing the final map wraps back to SOL 1.
+// Advance only through the three rounds selected by the page URL.
 function advanceMissionLoop(){
   if (!G.L) return;
-  const currentIndex = LEVELS.indexOf(G.L);
-  const nextIndex = (currentIndex + 1) % LEVELS.length;
+  const position = missionIndices.indexOf(G.L.idx);
   closeOv('result');
-  startLevel(nextIndex);
+  if (position >= 0 && position < missionIndices.length - 1) {
+    startLevel(missionIndices[position + 1]);
+  } else {
+    // Stay on this page; replay the same mission rather than navigating.
+    startLevel(firstMissionIndex);
+  }
 }
 $('#resNext').onclick=advanceMissionLoop;
 
@@ -557,7 +568,7 @@ if (guide && guideDone && !guideSeen && window.matchMedia('(max-width: 760px)').
 }
 // Initialize synchronously so command clicks never encounter a null mission.
 // Optional PNG loading can finish later without resetting player progress.
-startLevel(0);
+startLevel(firstMissionIndex);
 assetReady.then(() => {
   if (!destroyed && G.L && !G.running) layoutBoard();
 });

@@ -1,4 +1,5 @@
 import RoverGame from "@/components/rover/RoverGame";
-export default function LandingTestPage() {
-  return <RoverGame />;
+
+export default function RoverPage() {
+  return <RoverGame missionNumber={1} />;
 }

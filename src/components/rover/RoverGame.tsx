@@ -29,7 +29,9 @@ function saveRoverProgress(progress: RoverProgress): void {
 
 type Props = {
   /** Called when the player finishes the last mission. */
-  onComplete: () => void;
+  onComplete?: () => void;
+  missionNumber?: 1 | 2 | 3 | 4;
+  onMissionComplete?: (missionNumber: number) => void;
   /** Optional: shows a small BACK button. */
   onExit?: () => void;
   reducedMotion?: boolean;
@@ -37,10 +39,10 @@ type Props = {
   assets?: RoverAssets;
 };
 
-export default function RoverGame({ onComplete, onExit, reducedMotion = false, assets = ROVER_ASSETS }: Props) {
+export default function RoverGame({ onComplete, onMissionComplete, missionNumber, onExit, reducedMotion = false, assets = ROVER_ASSETS }: Props) {
   const root = useRef<HTMLDivElement>(null);
-  const latest = useRef(onComplete);
-  useEffect(() => { latest.current = onComplete; });
+  const latest = useRef({ onComplete, onMissionComplete });
+  useEffect(() => { latest.current = { onComplete, onMissionComplete }; });
   useEffect(() => {
     const el = root.current;
     if (!el) return;
@@ -49,9 +51,11 @@ export default function RoverGame({ onComplete, onExit, reducedMotion = false, a
       reducedMotion,
       initialProgress: readRoverProgress(),
       onProgress: saveRoverProgress,
-      onComplete: () => latest.current(),
+      missionNumber,
+      onMissionComplete: (number) => latest.current.onMissionComplete?.(number),
+      onComplete: () => latest.current.onComplete?.(),
     });
-  }, [assets, reducedMotion]);
+  }, [assets, reducedMotion, missionNumber]);
   return (
     <div className="rv" ref={root}>
       <RoverMarkup />
