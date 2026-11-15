@@ -1,41 +1,62 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createActor, createMachine } from "xstate";
 import styles from "./LandingGame.module.css";
 
+export type LandingResult = { stars: number; maxStars: number };
 export type LandingGameProps = {
-  onComplete?: (result: { stars: number }) => void;
+  onComplete?: (result: LandingResult) => void;
   onHome?: () => void;
   className?: string;
 };
 
-/** Isolated Chapter 1 game. Does not touch the Pathfinding or Rescue Sojo state. */
-export default function LandingGame({ onComplete, onHome, className = "" }: LandingGameProps) {
+/** XState owns the host's landing lifecycle; the original Three.js game stays isolated. */
+export const landingMachine = createMachine({
+  id: "landing",
+  initial: "ready",
+  states: {
+    ready: { on: { START: "playing", HOME: "ready" } },
+    playing: { on: { COMPLETE: "completed", HOME: "ready", RESET: "ready" } },
+    completed: { on: { START: "playing", HOME: "ready", RESET: "ready" } },
+  },
+});
+
+export default function LandingGame({ onComplete, onHome, className }: LandingGameProps) {
   const frameRef = useRef<HTMLIFrameElement>(null);
+  const actorRef = useRef<ReturnType<typeof createActor<typeof landingMachine>> | null>(null);
   const completeRef = useRef(onComplete);
   const homeRef = useRef(onHome);
-  useEffect(() => { completeRef.current = onComplete; }, [onComplete]);
-  useEffect(() => { homeRef.current = onHome; }, [onHome]);
+  const [status, setStatus] = useState("ready");
+
+  useEffect(() => { completeRef.current = onComplete; homeRef.current = onHome; }, [onComplete, onHome]);
   useEffect(() => {
-    function receive(event: MessageEvent) {
+    const actor = createActor(landingMachine);
+    actorRef.current = actor;
+    const subscription = actor.subscribe(snapshot => setStatus(String(snapshot.value)));
+    actor.start();
+    const onMessage = (event: MessageEvent) => {
       if (event.origin !== window.location.origin || event.source !== frameRef.current?.contentWindow) return;
       const message = event.data;
       if (!message || message.source !== "sojourner-landing") return;
-      if (message.type === "complete") completeRef.current?.({ stars: Math.max(0, Math.min(3, Number(message.stars) || 0)) });
-      if (message.type === "home") homeRef.current?.();
-    }
-    window.addEventListener("message", receive);
-    return () => window.removeEventListener("message", receive);
+      if (message.type === "START") actor.send({ type: "START" });
+      if (message.type === "HOME") {
+        actor.send({ type: "HOME" });
+        homeRef.current?.();
+      }
+      if (message.type === "COMPLETE" && actor.getSnapshot().matches("playing")) {
+        actor.send({ type: "COMPLETE" });
+        completeRef.current?.({ stars: Number(message.stars) || 0, maxStars: 24 });
+      }
+    };
+    window.addEventListener("message", onMessage);
+    return () => { window.removeEventListener("message", onMessage); subscription.unsubscribe(); actor.stop(); actorRef.current = null; };
   }, []);
+
   return (
-    <section className={`${styles.container} ${className}`} aria-label="Sojourner Chapter 1: Landing on Mars">
-      <iframe
-        ref={frameRef}
-        className={styles.frame}
-        src="/games/landing.html"
-        title="Sojourner — Chapter 1: Landing on Mars"
-        allow="autoplay"
-      />
-    </section>
+    <main className={`${styles.fullscreen} ${className ?? ""}`} data-landing-state={status}>
+      <iframe ref={frameRef} className={styles.frame} src="/games/landing.html"
+        title="Sojourner — Landing on Mars" allow="autoplay; fullscreen" />
+    </main>
   );
 }

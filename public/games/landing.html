@@ -6,141 +6,142 @@
 <title>Sojourner — Chapter 1: Landing on Mars (Copy)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Russo+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&family=Russo+One&display=swap" rel="stylesheet">
 <style>
-/* Palette: fde593 · ffc90c · fa8b25 · ff5c00 · bb9e85 · 3a4457  (+ UI kit cream/teal/navy) */
-:root{--cream:#fde593;--cream2:#f5d590;--gold:#ffc90c;--orange:#fa8b25;--red:#ff5c00;--sand:#bb9e85;--navy:#3a4457;
-  --teal:#88b8aa;--ink:#15141f;--panel:#262a38;--panel2:#1d202c;--text:#fff7e2;--mute:#c9bfa8}
+/* Visual language taken from the Sojourner gameplay screen: navy glass panels, cream cards, gold hints, orange pill buttons */
+:root{--navy:rgba(22,28,44,.88);--navy-solid:#1c2438;--line:rgba(255,240,220,.3);--cream:#fff4e2;--ink:#1c2438;--gold:#f2c14e;--gold-d:#a9802a;
+  --teal:#3fb8a9;--teal2:#7fd6cc;--red:#ff6b57;--sand:#efe2c6}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--ink);color:var(--text);font-family:'Bubblegum Sans','Comic Sans MS','Chalkboard SE',system-ui,sans-serif;letter-spacing:.2px}
-.wrap{max-width:1320px;margin:auto;padding:14px}
-.game{position:relative;aspect-ratio:16/10;border-radius:24px;overflow:hidden;background:#000;user-select:none;touch-action:none;box-shadow:0 0 0 3px #2a2840}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#2a120a;color:var(--cream);font-family:'Nunito',system-ui,sans-serif}
+.f{font-family:'Fredoka','Nunito',system-ui,sans-serif;font-weight:600}
+.wrap{width:100%;height:100%;max-width:none;margin:0;padding:0}
+.game{position:relative;width:100%;height:100%;aspect-ratio:auto;border-radius:0;overflow:hidden;background:#2a120a;user-select:none;touch-action:none}
 .game canvas{display:block;width:100%;height:100%}
 .title-font{font-family:'Sojourner Title','Russo One',sans-serif;font-style:italic}
-/* ---- top bar ---- */
-.top{position:absolute;left:16px;right:16px;top:14px;display:flex;align-items:center;gap:10px;pointer-events:none}
+svg{display:block}
+/* round buttons + pill (top bar) */
+.top{position:absolute;left:24px;right:24px;top:20px;display:flex;align-items:center;gap:12px;pointer-events:none;z-index:3}
 .top>*{pointer-events:auto}
-.icon{width:44px;height:44px;border-radius:50%;border:0;background:rgba(21,20,31,.82);color:var(--cream);font-size:19px;cursor:pointer;display:grid;place-items:center;box-shadow:0 0 0 2px rgba(253,229,147,.18)}
-.icon:active{transform:scale(.94)}
-.pill{background:rgba(21,20,31,.82);border-radius:999px;padding:9px 16px;display:flex;align-items:center;gap:12px;font-size:17px;color:var(--cream)}
-.pill .ttl{font-family:'Russo One';font-size:14px;letter-spacing:.5px}
-.dots{display:flex;gap:5px}.dots i{width:9px;height:9px;border-radius:50%;background:#5a5a6a}
-.dots i.done{background:var(--teal)}.dots i.now{background:var(--cream);box-shadow:0 0 0 3px rgba(253,229,147,.3)}
+.rbtn{width:52px;height:52px;border-radius:50%;background:var(--navy);border:2px solid rgba(255,240,220,.35);color:var(--cream);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 16px rgba(60,18,6,.35);padding:0}
+.rbtn:active{transform:scale(.94)}
+.pill{height:52px;padding:0 20px;border-radius:26px;background:var(--navy);border:2px solid rgba(255,240,220,.35);display:flex;align-items:center;gap:14px;box-shadow:0 6px 16px rgba(60,18,6,.35)}
+.pill .ttl{font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px}
+.pips{display:flex;gap:6px}.pips i{width:12px;height:12px;border-radius:50%;background:rgba(255,240,220,.25)}
+.pips i.done{background:var(--teal2)}.pips i.now{background:var(--cream);box-shadow:0 0 0 3px rgba(255,244,226,.35)}
 .sp{flex:1}
-.objective{position:absolute;left:50%;top:70px;transform:translateX(-50%);background:var(--cream);color:var(--ink);border-radius:16px;padding:9px 18px;font-size:20px;display:flex;align-items:center;gap:10px;box-shadow:0 6px 0 rgba(0,0,0,.18);white-space:nowrap;max-width:calc(100% - 380px);overflow:hidden;text-overflow:ellipsis;transition:transform .25s}
-.objective.bump{animation:bump .5s}
+/* goal chip (cream) */
+.goal{position:absolute;left:calc((100% - 460px) / 2);transform:translateX(-50%);top:86px;height:54px;padding:0 22px 0 10px;border-radius:27px;background:var(--cream);color:var(--ink);display:flex;align-items:center;gap:10px;
+  box-shadow:0 8px 20px rgba(60,18,6,.35);font-family:'Fredoka',sans-serif;font-weight:600;font-size:21px;white-space:nowrap;z-index:2}
+.goal .gi{width:38px;height:38px;border-radius:50%;background:var(--gold);display:grid;place-items:center}
+.goal.bump{animation:bump .5s}
 @keyframes bump{40%{transform:translateX(-50%) scale(1.08)}}
-.warp{position:absolute;left:50%;top:118px;transform:translateX(-50%);font-size:15px;color:var(--cream);background:rgba(21,20,31,.7);padding:3px 12px;border-radius:999px;opacity:0;transition:opacity .3s}
+.warp{position:absolute;left:calc((100% - 460px) / 2);transform:translateX(-50%);top:150px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:var(--cream);background:var(--navy);padding:4px 14px;border-radius:999px;opacity:0;transition:opacity .3s;z-index:2}
 .warp.on{opacity:1}
-/* ---- altitude rail ---- */
-.rail{position:absolute;left:18px;top:120px;bottom:90px;width:16px;border-radius:10px;overflow:hidden;background:#222;box-shadow:0 0 0 2px rgba(21,20,31,.6)}
+/* altitude rail */
+.rail{position:absolute;left:30px;top:110px;bottom:110px;width:14px;border-radius:10px;overflow:hidden;background:#222;box-shadow:0 0 0 2px rgba(255,240,220,.35)}
 .rail b{position:absolute;left:0;right:0}
-.railmark{position:absolute;left:10px;width:30px;height:30px;transform:translateY(-50%);font-size:22px;filter:drop-shadow(0 2px 2px rgba(0,0,0,.5))}
-.raillbl{position:absolute;left:42px;font-size:13px;color:#fff;text-shadow:0 1px 3px #000;transform:translateY(-50%);white-space:nowrap;opacity:.8}
-.raillbl.on{opacity:1;color:var(--cream);font-size:15px}
-.chip{position:absolute;left:18px;bottom:18px;max-width:330px;background:rgba(21,20,31,.85);border-left:5px solid var(--teal);border-radius:12px;padding:8px 12px;font-size:16px;line-height:1.3;opacity:0;transform:translateY(10px);transition:all .4s}
+.railmark{position:absolute;left:20px;width:34px;height:34px;transform:translateY(-50%);filter:drop-shadow(0 2px 3px rgba(0,0,0,.5))}
+.raillbl{position:absolute;left:56px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:14px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.7);transform:translateY(-50%);white-space:nowrap;opacity:.75}
+.raillbl.on{opacity:1;color:var(--gold);font-size:16px}
+.chip{position:absolute;left:24px;bottom:24px;max-width:340px;background:var(--navy);border:2px solid var(--line);border-radius:22px;padding:10px 16px;font-size:17px;font-weight:700;line-height:1.3;opacity:0;transform:translateY(10px);transition:all .4s;z-index:2}
 .chip.on{opacity:1;transform:none}
-.chip b{color:var(--cream)}
-/* ---- right panel ---- */
-.panel{position:absolute;right:16px;top:70px;bottom:16px;width:310px;background:rgba(38,42,56,.96);border-radius:24px;padding:16px;display:flex;flex-direction:column;gap:10px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-.panel .grab{width:40px;height:4px;border-radius:4px;background:#59607a;margin:-6px auto 0}
-.ph{display:flex;align-items:center;justify-content:space-between}
-.ph small{color:var(--mute);font-size:15px}
-.bulb{width:36px;height:36px;border-radius:50%;border:0;background:var(--gold);font-size:17px;cursor:pointer}
-.panel h2{margin:0;font-family:'Russo One';font-size:21px;color:var(--cream);letter-spacing:.5px}
-.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-.stats div{background:var(--panel2);border-radius:12px;padding:6px 8px}
-.stats span{display:block;font-size:12px;color:var(--mute)}
-.stats b{font-family:'Russo One';font-size:14px;font-weight:400;font-variant-numeric:tabular-nums;white-space:nowrap}
-.gauge{background:var(--panel2);border-radius:16px;padding:8px;min-height:120px;display:grid;place-items:center}
-.gauge svg{width:100%;height:auto;display:block}
-.controls{display:flex;gap:10px}
+.chip b{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--gold);display:block;font-size:18px}
+/* the control panel (navy glass, like "My moves") */
+.panel{position:absolute;right:24px;top:84px;bottom:24px;width:400px;padding:16px 22px 20px;border-radius:32px;background:var(--navy);border:2px solid rgba(255,240,220,.28);
+  box-shadow:0 30px 60px rgba(40,12,4,.45),inset 0 1px 0 rgba(255,255,255,.08);display:flex;flex-direction:column;gap:12px;z-index:2;overflow-y:auto}
+.handle{position:absolute;left:50%;top:8px;width:48px;height:5px;margin-left:-24px;border-radius:3px;background:rgba(255,240,220,.35)}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+.steptag{font-family:'Fredoka',sans-serif;font-weight:600;font-size:16px;color:var(--teal2)}
+.hint{width:48px;height:48px;border-radius:50%;border:0;background:var(--gold);color:var(--ink);display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 0 var(--gold-d)}
+.hint:active{transform:translateY(3px);box-shadow:0 1px 0 var(--gold-d)}
+.panel h2{margin:-6px 0 0;font-family:'Fredoka',sans-serif;font-weight:700;font-size:30px;line-height:1.1}
+.howto{flex:none;display:flex;align-items:center;gap:12px;background:var(--cream);color:var(--ink);border-radius:22px;padding:10px 14px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;line-height:1.2}
+.howto .hicon{flex:none;width:46px;height:46px;border-radius:50%;background:var(--gold);display:grid;place-items:center}
+.gauge{background:rgba(8,11,20,.45);border-radius:22px;padding:10px;min-height:128px;display:grid;place-items:center}
+.gauge{flex:none;overflow:hidden}.gauge svg{width:100%;height:auto;max-height:min(180px,13vw)}
+.gauge svg.dialsvg{max-height:min(206px,15vw)}
+.stars{display:flex;justify-content:center;gap:6px;min-height:26px}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .controls:empty{display:none}
-/* UI-kit buttons */
-.kbtn{font-family:'Russo One';font-size:21px;letter-spacing:1px;color:#1b1b25;border:3px solid var(--orange);border-radius:18px;height:66px;width:100%;cursor:pointer;
-  background:linear-gradient(var(--cream2) 0 60%,var(--orange) 60% 64%,var(--cream2) 64% 71%,var(--orange) 71% 75%,var(--cream2) 75% 82%,var(--orange) 82%);
-  box-shadow:0 0 0 3px var(--ink),0 0 0 5px var(--orange),0 6px 0 5px rgba(0,0,0,.25);transition:transform .08s,filter .2s}
-.kbtn:active{transform:translateY(3px) scale(.98)}
-.kbtn:disabled{filter:grayscale(.7) brightness(.6);cursor:default}
-.kbtn.hot{color:var(--cream);border-color:#ff8b6b;background:radial-gradient(circle,rgba(255,255,255,.35) 1.6px,transparent 2.2px) 0 0/11px 11px,linear-gradient(#ff2a12,#e81d0a);
-  box-shadow:0 0 0 3px var(--ink),0 0 0 5px #ff8b6b,0 0 24px 6px rgba(255,92,0,.65);animation:hot .7s infinite alternate}
+.mbtn{height:clamp(66px,7vw,104px);border-radius:24px;border:2.5px solid #8fa3cc;background:linear-gradient(#4a5d88,#2c3a5a);color:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;box-shadow:0 5px 0 #161e30;font-family:'Fredoka',sans-serif;font-weight:600;font-size:19px}
+.mbtn.on{transform:translateY(4px);box-shadow:0 1px 0 #161e30;background:linear-gradient(#5b70a0,#34456b);border-color:var(--gold)}
+.cta{height:74px;width:100%;border-radius:37px;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:26px;
+  background:linear-gradient(#e8793a,#c95a24);color:#fff9ee;box-shadow:0 5px 0 #8a3a14;transition:filter .2s}
+.cta:active{transform:translateY(3px);box-shadow:0 2px 0 #8a3a14}
+.cta:disabled{filter:grayscale(.85) brightness(.75);cursor:default}
+.cta.hot{background:linear-gradient(#ff8a5a,#e5533f);box-shadow:0 5px 0 #8a2414,0 0 0 5px rgba(242,193,78,.85),0 0 30px 8px rgba(255,140,60,.6);animation:hot .65s infinite alternate}
 @keyframes hot{to{transform:scale(1.035)}}
-.kbtn.hold{background:linear-gradient(var(--teal),#76a597);border-color:var(--cream);box-shadow:0 0 0 3px var(--ink),0 0 0 5px var(--teal),0 6px 0 5px rgba(0,0,0,.25)}
-.sbtn{flex:1;height:60px;border-radius:16px;border:3px solid var(--cream);background:var(--teal);font-size:28px;color:var(--ink);cursor:pointer;box-shadow:0 5px 0 #4f7a6f;font-family:'Russo One'}
-.sbtn.on{transform:translateY(4px);box-shadow:0 1px 0 #4f7a6f;background:#a7d3c6}
-.fact{background:var(--panel2);border-radius:16px;padding:10px 12px;font-size:16px;line-height:1.35;flex:1;overflow:auto;min-height:0}
-.fact b{color:var(--gold);font-weight:400;font-size:17px}
-.fact .real{display:inline-block;margin-top:6px;font-size:13px;color:var(--ink);background:var(--teal);border-radius:999px;padding:1px 9px}
-.stars{font-size:18px;color:var(--gold);letter-spacing:2px;min-height:22px;text-align:center}
-/* ---- pop text ---- */
-.pop{position:absolute;left:calc(50% - 160px);top:42%;transform:translate(-50%,-50%) scale(.6);font-family:'Russo One';font-size:44px;color:var(--cream);text-align:center;
-  text-shadow:0 3px 0 var(--orange),0 6px 0 #a3420e,0 10px 18px rgba(0,0,0,.45);opacity:0;pointer-events:none;white-space:nowrap}
-.pop small{display:block;font-family:'Bubblegum Sans';font-size:22px;text-shadow:0 2px 6px rgba(0,0,0,.6);margin-top:4px}
+.cta.hold{background:linear-gradient(#5fd0c2,#2f9e91);box-shadow:0 5px 0 #1d6a61}
+.cta.held{transform:translateY(4px);box-shadow:0 1px 0 #1d6a61;filter:brightness(1.1)}
+.stats{flex:none;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.stats div{background:rgba(8,11,20,.45);border-radius:16px;padding:6px 10px}
+.stats span{display:block;font-size:13px;color:rgba(255,240,220,.7);font-weight:700}
+.stats b{font-family:'Fredoka',sans-serif;font-weight:600;font-size:17px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fact{font-size:15.5px;line-height:1.35;color:rgba(255,244,226,.88);font-weight:700;overflow:auto;min-height:0}
+.fact b{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--teal2);margin-right:4px}
+/* pop words */
+.pop{position:absolute;left:calc((100% - 440px) / 2);top:40%;transform:translate(-50%,-50%) scale(.6);font-family:'Fredoka',sans-serif;font-weight:700;font-size:50px;color:var(--cream);text-align:center;
+  -webkit-text-stroke:2px var(--ink);text-shadow:0 5px 0 var(--ink),0 12px 20px rgba(0,0,0,.4);opacity:0;pointer-events:none;white-space:nowrap;z-index:4}
+.pop small{display:block;font-size:24px;-webkit-text-stroke:0;text-shadow:0 2px 8px rgba(0,0,0,.7);margin-top:6px}
 .pop.show{animation:pop 1.6s ease-out forwards}
 @keyframes pop{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}15%{opacity:1;transform:translate(-50%,-50%) scale(1.12)}25%{transform:translate(-50%,-50%) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-62%) scale(1)}}
-/* ---- overlays ---- */
-.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:auto;padding:12px 0;background:radial-gradient(ellipse at center,rgba(21,20,31,.35),rgba(21,20,31,.85));z-index:5}
+/* coach marks: dashed gold outline + numbered cream bubble, like the first-time guide */
+.coachRing{position:absolute;border:4px dashed var(--gold);border-radius:32px;pointer-events:none;opacity:0;transition:opacity .3s;z-index:3}
+.coachTip{position:absolute;width:250px;padding:14px 16px;border-radius:24px;background:var(--cream);color:var(--ink);box-shadow:0 14px 30px rgba(30,10,4,.45);display:flex;gap:12px;align-items:center;
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:19px;line-height:1.2;pointer-events:none;opacity:0;transition:opacity .3s;z-index:3}
+.coachTip .n{flex:none;width:42px;height:42px;border-radius:50%;background:var(--gold);display:grid;place-items:center;font-weight:700;font-size:22px}
+.coachRing.on,.coachTip.on{opacity:1}
+.coachTip:after{content:'';position:absolute;right:-10px;top:50%;margin-top:-10px;width:20px;height:20px;background:var(--cream);transform:rotate(45deg);border-radius:3px}
+/* overlays & cream cards */
+.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(40,12,4,.55);z-index:6;overflow:auto;padding:16px 0}
 .overlay[hidden]{display:none}
-.card{background:rgba(38,42,56,.96);border-radius:28px;padding:26px 30px;max-width:620px;width:92%;text-align:center;box-shadow:0 0 0 3px var(--orange),0 0 0 6px var(--ink),0 0 0 8px var(--cream)}
-.bigtitle{font-size:72px;line-height:1;color:var(--cream);margin:4px 0 2px;transform:skewX(-8deg);text-shadow:0 4px 0 var(--orange),0 8px 0 #a3420e,0 14px 20px rgba(0,0,0,.4);letter-spacing:2px}
-.chapter{font-size:24px;color:var(--teal);margin-bottom:12px}
-.steps{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:12px 0 18px}
-.steps span{background:var(--panel2);border-radius:999px;padding:5px 12px;font-size:16px}
-.card p{font-size:19px;line-height:1.4;margin:8px 0;color:#f3ead2}
-.card .kbtn{max-width:300px}
-.res{width:100%;border-collapse:collapse;margin:10px 0 14px;font-size:17px}
-.res td,.res th{padding:5px 6px;border-bottom:1px solid #3b4156;text-align:left}
-.res th{color:var(--mute);font-weight:400}
-.res td:nth-child(2){color:var(--gold)}
-.big-stars{font-size:46px;color:var(--gold);letter-spacing:4px;text-shadow:0 3px 0 #a3420e}
-.note{max-width:1320px;margin:10px auto 0;color:#8e8aa0;font-size:14px;line-height:1.4;padding:0 6px}
-@media (max-width:860px){
+.card{background:var(--cream);color:var(--ink);border-radius:36px;padding:32px 38px;width:min(560px,92%);text-align:center;box-shadow:0 30px 70px rgba(40,12,4,.5)}
+.card.wide{width:min(860px,94%)}
+.bigtitle{font-size:76px;line-height:1;color:#e8793a;margin:6px 0 4px;letter-spacing:2px;-webkit-text-stroke:2px var(--ink);text-shadow:0 6px 0 var(--ink)}
+.kicker{font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;color:#7a6a52}
+.card h3{font-family:'Fredoka',sans-serif;font-weight:700;font-size:40px;margin:4px 0 6px}
+.card p{font-size:20px;font-weight:700;line-height:1.35;margin:8px 0}
+.mission{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 22px;text-align:left}
+.mstep{display:flex;align-items:center;gap:12px;background:var(--sand);border-radius:22px;padding:10px 14px}
+.mstep .n{flex:none;width:40px;height:40px;border-radius:50%;background:var(--gold);display:grid;place-items:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:21px}
+.mstep .ic{flex:none;width:40px;height:40px;border-radius:12px;background:var(--ink);display:grid;place-items:center}
+.mstep span.t{font-family:'Fredoka',sans-serif;font-weight:600;font-size:18px;line-height:1.15}
+.mstep span.t small{display:block;font-family:'Nunito',sans-serif;font-weight:700;font-size:14px;color:#6b5d48}
+.octa{display:inline-flex;width:auto;padding:0 40px}
+.ghost{height:64px;padding:0 28px;border-radius:32px;border:2.5px solid var(--ink);background:transparent;color:var(--ink);font-family:'Fredoka',sans-serif;font-weight:600;font-size:21px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.tiles{display:flex;justify-content:center;gap:12px;margin:18px 0 6px;flex-wrap:wrap}
+.tile{width:150px;padding:12px 0;border-radius:22px;background:var(--sand);display:flex;flex-direction:column;align-items:center;gap:2px}
+.tile b{font-family:'Fredoka',sans-serif;font-weight:700;font-size:30px}
+.tile span{font-weight:800;font-size:14px}
+.starrow{display:flex;justify-content:center;gap:14px;margin-top:-82px}
+.overlay.soft{background:rgba(40,12,4,.38)}
+.introcard{width:min(520px,92%);position:relative}
+.introcard .done{display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:18px;color:#2f9e91;min-height:28px}
+.bigicon{width:96px;height:96px;border-radius:50%;background:var(--gold);display:grid;place-items:center;margin:8px auto 4px;box-shadow:0 5px 0 var(--gold-d)}
+.bigicon svg{transform:scale(1.9)}
+.demo{background:var(--sand);border-radius:22px;padding:10px;margin:10px 0 16px}
+#results{justify-content:flex-end;padding-right:40px}
+#results .card{width:440px}
+.tapRing{position:absolute;border-radius:50%;border:6px solid var(--gold);pointer-events:none;transform:translate(-50%,-50%);opacity:0;z-index:2;box-shadow:0 0 0 3px rgba(28,36,56,.6)}
+.tapRing.go{border-color:#7fd6cc;box-shadow:0 0 0 3px rgba(28,36,56,.6),0 0 30px 8px rgba(127,214,204,.8)}
+.tapRing span{position:absolute;left:50%;top:-46px;transform:translateX(-50%);font-family:'Fredoka',sans-serif;font-weight:700;font-size:26px;color:#fff4e2;-webkit-text-stroke:1.5px #1c2438;white-space:nowrap}
+.fb{position:absolute;transform:translate(-50%,-50%);font-family:'Fredoka',sans-serif;font-weight:700;font-size:30px;-webkit-text-stroke:1.5px #1c2438;pointer-events:none;z-index:3;opacity:0}
+.fb.show{animation:fb 1s ease-out forwards}
+@keyframes fb{0%{opacity:0;transform:translate(-50%,-30%) scale(.7)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-140%) scale(1)}}
+.cta.wait{background:linear-gradient(#4a5d88,#2c3a5a);box-shadow:0 5px 0 #161e30;color:#c9d3ea}
+.note{max-width:1360px;margin:10px auto 0;color:#c9a88c;font-size:14px;line-height:1.4;padding:0 6px}
+@media (max-width:900px){
   .wrap{padding:0}.game{aspect-ratio:auto;height:100svh;border-radius:0}
-  .panel{left:10px;right:10px;width:auto;top:auto;bottom:10px;max-height:50%;padding:12px;gap:8px}
-  .fact{display:none}.rail,.raillbl,.railmark{display:none}
-  .objective{top:66px;font-size:16px;max-width:calc(100% - 24px)}
-  .pop{left:50%;top:30%;font-size:32px}
-  .pill .ttl{display:none}.bigtitle{font-size:46px}.kbtn{height:58px;font-size:18px}.stats b{font-size:12px}.gauge{min-height:90px}
+  .panel{left:10px;right:10px;width:auto;top:auto;bottom:10px;max-height:56%;padding:14px;gap:8px;border-radius:26px}
+  .fact,.stats,.rail,.raillbl,.railmark,.ph .steptag{display:none}
+  .goal,.warp,.pop{left:50%}.goal{top:80px;font-size:17px;max-width:94%}.warp{top:140px}.pop{top:28%;font-size:34px}
+  .pill .ttl{display:none}.panel h2{font-size:24px}.howto{font-size:17px}.gauge{min-height:90px}.mbtn{height:76px}.cta{height:62px;font-size:22px}
+  .coachRing,.coachTip{display:none}.bigtitle{font-size:48px}.mission{grid-template-columns:1fr}.card{padding:24px 18px}
 }
-
-/* Chapter 1 cartoon art-direction pass — visual only; gameplay logic unchanged. */
-:root{--cream:#fff0cb;--cream2:#ffebbc;--gold:#ffce47;--orange:#ff9347;--red:#ff6137;--teal:#62d0bf;--ink:#252134;--panel:#30283c;--panel2:#201d2e;--mute:#ddd0c1}
-html,body{background:#252134;color:#fff5df}
-.wrap{max-width:none;padding:0}
-.game{width:100%;height:100dvh;min-height:580px;aspect-ratio:auto;border-radius:0;box-shadow:none;background:#e9753d}
-.top{top:20px;left:22px;right:22px;gap:14px}
-.icon{width:50px;height:50px;background:#272237;border:3px solid #fff0cb;color:#fff0cb;font-size:23px;box-shadow:0 5px 0 #15101d,0 8px 18px #24111b55;transition:transform .12s}
-.icon:hover{transform:translateY(-2px)}
-.pill{background:#272237;border:3px solid #fff0cb;border-radius:999px;padding:12px 18px;box-shadow:0 5px 0 #15101d;color:#fff0cb}
-.pill .ttl{font-size:15px}
-.dots i{width:12px;height:12px;border:2px solid #242033}
-.objective{top:91px;border:3px solid #292237;background:#fff0cb;border-radius:18px;padding:11px 20px;box-shadow:0 6px 0 #292237,0 12px 24px #29223733;font-size:22px}
-.warp{top:153px;background:#282139;border:2px solid #fff0cb;color:#fff0cb}
-.panel{right:20px;top:91px;bottom:20px;width:326px;background:#30283cf5;border:3px solid #fff0cb;border-radius:28px;padding:18px;gap:12px;box-shadow:7px 8px 0 #211b2c,0 18px 32px #211b2c55}
-.panel .grab{background:#fff0cb88}
-.panel h2{font-size:23px;text-shadow:0 3px 0 #1b1728}
-.stats div,.gauge,.fact{border:2px solid #51445c;background:#211d2f}
-.stats div{border-radius:14px;padding:8px}
-.gauge{border-radius:18px;min-height:126px}
-.fact{border-radius:18px}
-.bulb{width:40px;height:40px;border:2px solid #242033;box-shadow:0 4px 0 #15101d}
-.kbtn{border:3px solid #272237;border-radius:20px;background:linear-gradient(#ffedc4 0 72%,#ffb753 72%);box-shadow:0 6px 0 #272237,0 10px 20px #0004;color:#272237;letter-spacing:.5px;transition:transform .12s,box-shadow .12s}
-.kbtn:hover:not(:disabled){filter:brightness(1.06);transform:translateY(-2px)}
-.kbtn:active:not(:disabled){transform:translateY(4px);box-shadow:0 2px 0 #272237}
-.kbtn.hot{border-color:#fff0cb;background:linear-gradient(#ff6e3d,#e83c29);box-shadow:0 6px 0 #722f30,0 0 22px #ff683b88}
-.kbtn.hold{background:linear-gradient(#91e3d3,#54bfae);border-color:#272237;box-shadow:0 6px 0 #272237}
-.sbtn{border:3px solid #272237;background:#74d7c5;box-shadow:0 5px 0 #272237}
-.sbtn.on{box-shadow:0 1px 0 #272237}
-.rail{width:20px;border:3px solid #272237;background:#272237;box-shadow:0 5px 0 #15101d}
-.raillbl{font-size:14px;font-weight:700;text-shadow:1px 2px #272237}
-.chip{border:3px solid #fff0cb;border-left:8px solid #62d0bf;background:#272237;border-radius:18px;box-shadow:0 5px 0 #15101d}
-.card{border:4px solid #fff0cb;background:#30283cf8;box-shadow:0 8px 0 #201b2c,0 0 0 8px #ff9347;border-radius:32px}
-.bigtitle{text-shadow:0 5px 0 #f47d3e,0 10px 0 #8b3b30,0 15px 24px #0006}
-.steps span{background:#211d2f;border:2px solid #65566d}
-.pop{text-shadow:0 4px 0 #fa8b25,0 8px 0 #8d382e,0 14px 18px #0007}
+/* Full viewport on desktop and mobile; no outer frame or note strip. */
+html,body,.wrap,.game{width:100%;height:100%;height:100dvh;max-width:none}
 .note{display:none}
-@media(max-width:860px){.game{min-height:0;height:100dvh}.panel{left:10px;right:10px;bottom:10px;top:auto;width:auto;max-height:49%;padding:12px;gap:8px;box-shadow:0 5px 0 #211b2c}.top{left:12px;right:12px;top:12px}.icon{width:43px;height:43px}.pill{padding:8px 12px}.objective{top:70px;max-width:calc(100% - 24px);font-size:16px;padding:7px 12px}.warp{top:116px}.gauge{min-height:90px}.card{max-height:94dvh;overflow:auto}}
-@media(prefers-reduced-motion:reduce){.kbtn,.icon,.objective{transition:none!important;animation:none!important}}
+@media(max-width:900px){.wrap{padding:0}.game{height:100dvh}}
 </style>
 </head>
 <body>
@@ -148,55 +149,79 @@ html,body{background:#252134;color:#fff5df}
 <div class="game" id="game">
   <div class="rail" id="rail"></div>
   <div id="railLbls"></div>
-  <div class="railmark" id="railMark">🛸</div>
+  <div class="railmark" id="railMark"><svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#fff4e2" stroke="#1c2438" stroke-width="3"/><path d="M12 15h16l-3 13H15z" fill="#f2c14e" stroke="#1c2438" stroke-width="2.5" stroke-linejoin="round"/></svg></div>
   <div class="top">
-    <button class="icon" id="homeBtn" title="Back to start">⌂</button>
-    <div class="pill"><span class="ttl">PATHFINDER → ARES VALLIS</span><div class="dots" id="dots"></div></div>
+    <button class="rbtn" id="homeBtn" aria-label="Back to start"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff4e2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg></button>
+    <div class="pill"><span class="ttl">Landing on Mars</span><span class="pips" id="dots" aria-label="Mission steps"></span></div>
     <div class="sp"></div>
-    <button class="icon" id="pauseBtn" title="Pause">❚❚</button>
-    <button class="icon" id="muteBtn" title="Sound">🔊</button>
+    <button class="rbtn" id="pauseBtn" aria-label="Pause"></button>
+    <button class="rbtn" id="muteBtn" aria-label="Sound on or off"></button>
   </div>
-  <div class="objective" id="objective">🚀 Get ready!</div>
-  <div class="warp" id="warp">⏩ fast-forward</div>
+  <div class="goal" id="goal"><span class="gi" id="objIcon"></span><span id="objective">Get ready!</span></div>
+  <div class="warp" id="warp"></div>
   <div class="chip" id="chip"></div>
   <div class="pop" id="pop"></div>
+  <div class="tapRing" id="tapRing"><span id="tapLbl">TAP!</span></div>
+  <div class="fb" id="fb"></div>
+  <div class="coachRing" id="coachRing"></div>
+  <div class="coachTip" id="coachTip"><span class="n" id="coachN">1</span><span id="coachText"></span></div>
 
-  <div class="panel" id="panel">
-    <div class="grab"></div>
-    <div class="ph"><small id="stepNo">Step 1 of 8</small><button class="bulb" id="hintBtn" title="How to play this step">💡</button></div>
-    <h2 id="stepName">Hot Entry</h2>
-    <div class="stats"><div><span>Height</span><b id="alt">130 km</b></div><div><span>Speed</span><b id="spd">7,260 m/s</b></div><div><span>Mission clock</span><b id="mt">0:00</b></div></div>
+  <section class="panel" id="panel" aria-label="Mission control">
+    <div class="handle" aria-hidden="true"></div>
+    <div class="ph"><span class="steptag" id="stepNo">Step 1 of 7</span><button class="hint" id="hintBtn" aria-label="Show me how"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></button></div>
+    <h2 id="stepName">Ready?</h2>
+    <div class="howto"><span class="hicon" id="howIcon"></span><span id="howText">Press Play to start.</span></div>
     <div class="gauge" id="gauge"></div>
     <div class="stars" id="stepStars"></div>
     <div class="controls" id="controls"></div>
-    <button class="kbtn" id="action">PLAY</button>
-    <div class="fact" id="fact"><b>Did you know?</b><div id="factText"></div><span class="real" id="factTag">Real mission fact</span></div>
-  </div>
+    <button class="cta" id="action">Go</button>
+    <div class="stats"><div><span>Height</span><b id="alt">130 km</b></div><div><span>Speed</span><b id="spd">7,260 m/s</b></div><div><span>Time</span><b id="mt">0:00</b></div></div>
+    <div class="fact" id="fact"><b>Real fact:</b><span id="factText"></span><span id="factTag" hidden></span></div>
+  </section>
 
   <div class="overlay" id="titleScreen">
     <div class="card">
-      <div class="chapter">The Little Rover That Never Came Home</div>
+      <div class="kicker">The Little Rover That Never Came Home</div>
       <div class="bigtitle title-font">SOJOURNER</div>
-      <div class="chapter">Chapter 1 · Landing on Mars</div>
-      <p>It's 4 July 1997. The Pathfinder lander is carrying a tiny rover called Sojourner. Help it land safely on Mars!</p>
-      <div class="steps"><span>🔥 Steer</span><span>🪂 Parachute</span><span>🛡️ Shield</span><span>🧵 Rope</span><span>🎈 Airbags</span><span>🚀 Rockets</span><span>🏀 Bounce</span><span>🌸 Unpack</span></div>
-      <button class="kbtn" id="playBtn">PLAY</button>
-      <p style="font-size:15px;color:#a9a3b8;margin-top:14px">Takes about 2 minutes · Space bar = big button · ◀ ▶ arrow keys to steer</p>
+      <div class="kicker">Chapter 1 · Landing on Mars</div>
+      <p>Pathfinder is carrying a little rover called Sojourner. Help it land safely on Mars!</p>
+      <button class="cta octa" id="playBtn" style="margin-top:12px"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.8l-12-7.5A1 1 0 0 0 7 4.5z" fill="currentColor"/></svg>Play</button>
     </div>
   </div>
-  <div class="overlay" id="results" hidden>
-    <div class="card">
-      <div class="bigtitle title-font" style="font-size:52px">MISSION COMPLETE!</div>
-      <div class="big-stars" id="resStars">★★★</div>
+  <div class="overlay" id="overview" hidden>
+    <div class="card wide">
+      <h3>Your mission</h3>
+      <p style="margin:0">Land on Mars in 7 steps. Look for the <b style="color:#c95a24">big orange button</b> and the <b style="color:#2f9e91">green zone</b>!</p>
+      <div class="mission" id="missionList"></div>
+      <button class="cta octa" id="goBtn">Let’s go!</button>
+    </div>
+  </div>
+  <div class="overlay soft" id="intro" hidden>
+    <div class="card introcard">
+      <div class="done" id="introDone"></div>
+      <div class="kicker" id="introStep">Step 1 of 7</div>
+      <div class="bigicon" id="introIcon"></div>
+      <h3 id="introTitle"></h3>
+      <p id="introHow"></p>
+      <div class="demo" id="introDemo" hidden></div>
+      <button class="cta octa" id="introGo">I’m ready!</button>
+    </div>
+  </div>
+  <div class="overlay soft" id="results" hidden>
+    <div class="card" style="margin-top:60px">
+      <div class="starrow" id="resStars"></div>
+      <h3 style="margin-top:14px">Safe landing!</h3>
       <p id="resMsg"></p>
-      <table class="res" id="resTable"></table>
-      <button class="kbtn" id="againBtn">PLAY AGAIN</button>
+      <div class="tiles" id="resTable"></div>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:18px;flex-wrap:wrap">
+        <button class="ghost" id="homeBtn2"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg>Home</button>
+        <button class="cta octa" id="againBtn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/></svg>Play again</button>
+      </div>
     </div>
   </div>
 </div>
-<div class="note">Simplified for young players: the real landing took about 5 minutes and was run by Pathfinder's own computer. Speeds, heights and timings in the facts are from the real 1997 mission; the game speeds up the quiet parts. The title uses the “Sojourner Title” font if it is installed on your computer, otherwise a similar font.</div>
+<div class="note">Made simple for young players: the real 1997 landing took about 5 minutes and Pathfinder's own computer did every step. The facts in the game are from the real mission.</div>
 </div>
-
 <script>
 /* If the 3D engine can't load (blocked network, WebGL off), say so instead of failing silently */
 window.addEventListener('error', e => { if (!window.__pf) showBootError(e.message || 'Script error'); });
@@ -229,8 +254,9 @@ const rho = h => { h = Math.max(h, 0); return h < HB ? RHO0 * Math.exp(-h / H1) 
 const BETA = 66, CHUTE_MCA = 9.5, HS_MCA = 45, BACK_MCA = 2.5;
 const ENTRY_ALT = 130000, ENTRY_V = 7260, ENTRY_GAMMA = -14.2 * PI / 180;
 const BRIDLE = 20, BAG_R = 2.9, BODY_R = 0.75, LANDER_BASE = 0.45;
-const BOUNCE_H = [12, 6.3, 3.3, 1.75, 0.92, 0.48, 0.25];   // exactly 7 bounces, each ~half as high
-const STEPS = ['Hot Entry', 'Parachute', 'Heat Shield', 'The Rope', 'Airbags', 'Rockets', 'Bounce!', 'Unpack'];
+const NB = 15;                                                     // the real Pathfinder bounced 15+ times
+const BOUNCE_H = Array.from({length:NB}, (_, i) => 12 * Math.pow(0.733, i));   // 12 m first, each a bit lower
+const STEPS = ['Steer', 'Parachute', 'Heat shield', 'Rope', 'Airbags', 'Rockets', 'Bounce'];
 
 /* ============ sound (tiny synth, no files) ============ */
 const SND = {ctx:null, muted:false, wind:null, windGain:null};
@@ -269,13 +295,13 @@ function resize(){ const r = game.getBoundingClientRect(); renderer.setSize(r.wi
 addEventListener('resize', resize); resize();
 const col = h => new THREE.Color(h);
 const SUN = new V3(-0.5, 0.55, 0.62).normalize();
-const sunLight = new THREE.DirectionalLight(0xffe9ba, 2.9); sunLight.position.copy(SUN); scene.add(sunLight, sunLight.target);
-const hemi = new THREE.HemisphereLight(0xffe6b7, 0x9a4a2a, 1.15); scene.add(hemi);
+const sunLight = new THREE.DirectionalLight(0xfff1d6, 2.6); sunLight.position.copy(SUN); scene.add(sunLight, sunLight.target);
+const hemi = new THREE.HemisphereLight(0xffd39a, 0x9a4a2a, 1.0); scene.add(hemi);
 scene.fog = new THREE.FogExp2(0xf8c98a, 0);
 const C = {spaceZen:col('#15162a'), spaceHor:col('#3a2a3a'), limb:col('#ff8a3d'), dayZen:col('#ffbf5e'), dayHor:col('#fde593'), haze:col('#f6c27f')};
 
 /* toon materials: flat colour blocks, no outlines */
-const gradTex = (() => { const d = new Uint8Array([75, 75, 75, 255, 185, 185, 185, 255, 255, 255, 255, 255]); const t = new THREE.DataTexture(d, 3, 1, THREE.RGBAFormat); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t; })();
+const gradTex = (() => { const d = new Uint8Array([95, 95, 95, 255, 175, 175, 175, 255, 255, 255, 255, 255]); const t = new THREE.DataTexture(d, 3, 1, THREE.RGBAFormat); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t; })();
 const toon = (c, o = {}) => new THREE.MeshToonMaterial({color:c, gradientMap:gradTex, ...o});
 
 /* sky */
@@ -349,7 +375,7 @@ const ground = new THREE.Mesh(polarGrid(), groundMat); ground.frustumCulled = fa
 
 /* distant mesas (Journey-like silhouettes) */
 const mesaG = new THREE.Group(); mesaG.visible = false; scene.add(mesaG);
-const mesaMat = toon('#df7540', {fog:true});
+const mesaMat = toon('#d9773a', {fog:true});
 function buildMesas(cx, cz){ mesaG.clear(); for (let i = 0; i < 18; i++){ const a = i / 18 * PI * 2 + Math.random() * 0.3, d = 900 + Math.random() * 3200, h = 50 + Math.random() * 230, r = 60 + Math.random() * 220;
   const m = new THREE.Mesh(new THREE.CylinderGeometry(r * 0.75, r, h, 7 + (i % 3)), mesaMat); m.position.set(cx + Math.cos(a) * d, h / 2 - 2, cz + Math.sin(a) * d); m.rotation.y = Math.random() * 3; mesaG.add(m);
   if (i % 3 === 0){ const t = new THREE.Mesh(new THREE.CylinderGeometry(r * 0.35, r * 0.5, h * 0.6, 6), mesaMat); t.position.set(m.position.x + r * 0.2, h + h * 0.3 - 2, m.position.z); mesaG.add(t); } }
@@ -361,7 +387,7 @@ const rockGeo = new THREE.IcosahedronGeometry(1, 1);
 const CELL = 80, PER = 45, WIN = 3, ROCKN = (2 * WIN + 1) ** 2 * PER;
 const rockMesh = new THREE.InstancedMesh(rockGeo, toon('#ffffff'), ROCKN);
 rockMesh.visible = false; rockMesh.frustumCulled = false; scene.add(rockMesh);
-const ROCKCOL = ['#a34c2c', '#c46839', '#e2a36b', '#833c2a'].map(col);
+const ROCKCOL = ['#8f4a2c', '#a85a33', '#bb9e85', '#7a3d26'].map(col);
 let rockKey = '';
 function rng(seed){ return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 function updateRocks(fx, fz){ const cx = Math.floor(fx / CELL), cz = Math.floor(fz / CELL), key = cx + ',' + cz + (s.restPos ? 'r' : ''); if (key === rockKey) return; rockKey = key;
@@ -417,7 +443,13 @@ const BASE_Y = -0.45, RB = 0.98, APEX = new V3(0, 0.78, 0);
 const Bv = [0, 1, 2].map(i => { const a = i / 3 * PI * 2 + PI / 6; return new V3(Math.cos(a) * RB, BASE_Y, Math.sin(a) * RB); });
 const triGeo = pts => { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pts.flatMap(p => [p.x, p.y, p.z]), 3)); g.computeVertexNormals(); return g; };
 const solarTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'); x.fillStyle = '#3a4457'; x.fillRect(0, 0, 64, 64); x.strokeStyle = '#88b8aa'; x.lineWidth = 1.5; for (let i = 8; i < 64; i += 11){ x.beginPath(); x.moveTo(i, 0); x.lineTo(i, 64); x.moveTo(0, i); x.lineTo(64, i); x.stroke(); } const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
-const goldMat = toon('#e3a93a'), solarMat = toon('#ffffff', {map:solarTex, side:THREE.BackSide});
+const foilTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d'); x.fillStyle = '#e3a93a'; x.fillRect(0, 0, 128, 128);
+  for (let i = 0; i < 70; i++){ x.fillStyle = Math.random() < 0.5 ? 'rgba(255,230,150,.35)' : 'rgba(150,90,20,.25)'; x.beginPath(); const cx = Math.random() * 128, cy = Math.random() * 128; x.moveTo(cx, cy);
+    for (let k = 0; k < 3; k++) x.lineTo(cx + (Math.random() - .5) * 30, cy + (Math.random() - .5) * 30); x.fill(); }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+const goldMat = toon('#ffffff', {map:foilTex}), solarMat = toon('#ffffff', {map:solarTex, side:THREE.BackSide});
+const frameMat = toon('#f2efe6'), metalDark = toon('#6c7489'), panelMat = toon('#d9d4c4');
+function rod(a, b, r, mat){ const d = b.clone().sub(a), L = d.length(), m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, L, 8), mat); m.position.copy(a).add(b).multiplyScalar(0.5); m.quaternion.setFromUnitVectors(new V3(0, 1, 0), d.normalize()); return m; }
 { const bg = triGeo([Bv[0], Bv[2], Bv[1]]); bg.setAttribute('uv', new THREE.Float32BufferAttribute([0, 0, 1, 0, 0.5, 1], 2)); spinG.add(new THREE.Mesh(bg, toon('#e8e2d2', {side:THREE.DoubleSide}))); }
 const petals = [];
 for (let i = 0; i < 3; i++){ const b0 = Bv[i], b1 = Bv[(i + 1) % 3], M = b0.clone().add(b1).multiplyScalar(0.5);
@@ -426,7 +458,21 @@ for (let i = 0; i < 3; i++){ const b0 = Bv[i], b1 = Bv[(i + 1) % 3], M = b0.clon
   if (new V3().subVectors(v[1], v[0]).cross(new V3().subVectors(v[2], v[0])).dot(outv) < 0) v = [v[1], v[0], v[2]];
   const g = triGeo(v); g.setAttribute('uv', new THREE.Float32BufferAttribute([0, 0, 1, 0, 0.5, 1], 2));
   pivot.add(new THREE.Mesh(g, goldMat), new THREE.Mesh(g, solarMat));
-  petals.push({pivot, full:new THREE.Quaternion().setFromUnitVectors(APEX.clone().sub(M).normalize(), outv)}); }
+  /* detail: white edge frame, hinges, retraction motor, cable fittings, small raised panels */
+  const nrm = new V3().subVectors(v[1], v[0]).cross(new V3().subVectors(v[2], v[0])).normalize();
+  [[v[0], v[1]], [v[1], v[2]], [v[2], v[0]]].forEach(([a, b]) => pivot.add(rod(a.clone().addScaledVector(nrm, 0.02), b.clone().addScaledVector(nrm, 0.02), 0.035, frameMat)));
+  for (const f of [0.22, 0.78]){ const hp = v[0].clone().lerp(v[1], f); const h = rod(hp.clone().addScaledVector(v[1].clone().sub(v[0]).normalize(), -0.07), hp.clone().addScaledVector(v[1].clone().sub(v[0]).normalize(), 0.07), 0.055, metalDark); pivot.add(h); }
+  const cen = v[0].clone().add(v[1]).add(v[2]).multiplyScalar(1 / 3);
+  const motor = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.08, 16), metalDark); motor.position.copy(cen).addScaledVector(nrm, 0.05); motor.quaternion.setFromUnitVectors(new V3(0, 1, 0), nrm); pivot.add(motor);
+  const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.04, 12), frameMat); cap.position.copy(cen).addScaledVector(nrm, 0.1); cap.quaternion.copy(motor.quaternion); pivot.add(cap);
+  for (const pnl of [[0.3, 0.25], [0.7, 0.25], [0.5, 0.55]]){ const pp = v[0].clone().lerp(v[1], pnl[0]).lerp(v[2], pnl[1]); const box = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.025, 0.11), panelMat); box.position.copy(pp).addScaledVector(nrm, 0.018); box.quaternion.setFromUnitVectors(new V3(0, 1, 0), nrm); pivot.add(box); }
+  for (const corner of [v[0], v[1]]){ const fit = new THREE.Mesh(new THREE.SphereGeometry(0.05, 10, 8), metalDark); fit.position.copy(corner.clone().lerp(v[2], 0.12)).addScaledVector(nrm, 0.04); pivot.add(fit); }
+  petals.push({pivot, full:new THREE.Quaternion().setFromUnitVectors(APEX.clone().sub(M).normalize(), outv), nrm, cen}); }
+/* apex latch where the three petals meet, and base frame */
+{ const latch = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.11, 0.1, 14), frameMat); latch.position.copy(APEX).add(new V3(0, 0.03, 0)); spinG.add(latch);
+  const bolt = new THREE.Mesh(new THREE.SphereGeometry(0.05, 10, 8), metalDark); bolt.position.copy(APEX).add(new V3(0, 0.1, 0)); spinG.add(bolt);
+  for (let i = 0; i < 3; i++) spinG.add(rod(Bv[i].clone().add(new V3(0, -0.02, 0)), Bv[(i + 1) % 3].clone().add(new V3(0, -0.02, 0)), 0.045, frameMat));
+  const under = new THREE.Mesh(triGeo([Bv[0], Bv[1], Bv[2]].map(p => p.clone().add(new V3(0, -0.07, 0)))), new THREE.MeshToonMaterial({color:'#9a8a70', gradientMap:gradTex, side:THREE.DoubleSide})); spinG.add(under); }
 /* Sojourner: cream body, navy solar panel, big friendly eyes */
 const rover = new THREE.Group(); rover.visible = false; spinG.add(rover);
 const eyes = [];
@@ -449,6 +495,18 @@ const bagMat = toon('#f8ecc8');
     for (let k = 0; k < 6; k++){ const a = k / 6 * PI * 2, rr = k % 2 ? 0.95 : 0.8; const m = new THREE.Mesh(sph, bagMat); m.position.copy(n).multiplyScalar(1.28 + (k % 2) * 0.12).addScaledVector(t1, Math.cos(a) * rr).addScaledVector(t2, Math.sin(a) * rr); bagsG.add(m); }
     const hub = new THREE.Mesh(new THREE.SphereGeometry(0.9, 14, 10), hubMat); hub.position.copy(n).multiplyScalar(1.55); bagsG.add(hub); }); }
 const BAG_SCALE = BAG_R / 2.6;
+const deflG = new THREE.Group(); spinG.add(deflG); deflG.visible = false;
+{ const crumple = new THREE.SphereGeometry(1, 28, 18), pa = crumple.attributes.position, p = new V3();
+  for (let i = 0; i < pa.count; i++){ p.fromBufferAttribute(pa, i); const k = 1 + 0.13 * Math.sin(7 * p.x + 1) * Math.sin(9 * p.y) * Math.sin(8 * p.z + 2) + 0.07 * Math.sin(19 * p.x + 3 * p.z) + 0.05 * Math.sin(23 * p.y + 5 * p.x); p.multiplyScalar(k); pa.setXYZ(i, p.x, p.y, p.z); }
+  crumple.computeVertexNormals();
+  const dMat = toon('#ecdfbc'), dMat2 = toon('#d9c9a0'), cordPts = [];
+  const sides = [0, 1, 2].map(i => { const a = i / 3 * PI * 2 + PI / 6 + PI / 3; return new V3(Math.cos(a) * 0.943, 0.333, Math.sin(a) * 0.943); });
+  sides.forEach((n, i) => { for (const off of [-0.35, 0.35]){ const t1 = new V3().crossVectors(n, new V3(0, 1, 0)).normalize();
+      const m = new THREE.Mesh(crumple, i % 2 ? dMat : dMat2); m.position.copy(n).multiplyScalar(0.55).addScaledVector(t1, off).add(new V3(0, -0.38, 0)); m.scale.set(0.3, 0.11, 0.24);
+      m.quaternion.setFromUnitVectors(new V3(0, 1, 0), n); deflG.add(m); cordPts.push(m.position.x, m.position.y, m.position.z, n.x * 0.35, 0.1 + n.y * 0.3, n.z * 0.35); } });
+  const bottom = new THREE.Mesh(crumple, dMat); bottom.position.set(0, -0.5, 0); bottom.scale.set(1.15, 0.08, 1.15); deflG.add(bottom);
+  for (let i = 0; i < 6; i++){ const a = i / 6 * PI * 2; const fold = new THREE.Mesh(crumple, dMat2); fold.position.set(Math.cos(a) * 1.1, -0.45, Math.sin(a) * 1.1); fold.scale.set(0.26, 0.08, 0.2); fold.rotation.y = -a; deflG.add(fold); }
+  const cg = new THREE.BufferGeometry(); cg.setAttribute('position', new THREE.Float32BufferAttribute(cordPts, 3)); deflG.add(new THREE.LineSegments(cg, new THREE.LineBasicMaterial({color:0x8a6a4a}))); }
 
 /* parachute */
 const chuteG = new THREE.Group(); scene.add(chuteG); chuteG.visible = false;
@@ -498,11 +556,11 @@ function newState(){
 const spd = o => Math.hypot(o.x, o.y, o.z);
 const relAir = v => ({x:v.x - P().wind.x, y:v.y, z:v.z - P().wind.z});
 const landerY = () => P().cut ? P().lp.y : P().p.y - BRIDLE * P().lower;
-const contactR = () => s.unpackT >= 0 ? lerp(BAG_R, LANDER_BASE, ease(s.unpackT / 2.5)) : P().bags ? BAG_R : BODY_R;
+const contactR = () => s.unpackT >= 0 ? lerp(BAG_R, LANDER_BASE, ease((s.unpackT - 0.6) / 2.6)) : P().bags ? BAG_R : BODY_R;
 const altAGL = () => s.b.active ? Math.max(0, landerY() - BAG_R) : Math.max(0, landerY() - contactR());
 const landerV = () => P().cut ? P().lv : P().v;
 function swayQ(){ const ph = P(); if (!ph.chute) return new THREE.Quaternion(); const tau = ph.t - ph.chuteT, A = 0.3 * Math.exp(-tau / 22) * (ph.rockets ? 0.3 : 1) + 0.03, w = 2 * PI / 17;
-  return new THREE.Quaternion().setFromEuler(new THREE.Euler(A * Math.sin(w * tau), 0, 0.6 * A * Math.sin(0.83 * w * tau + 1))); }
+  const rs = s.stage === 'rope' ? (s.sway || 0) * 0.16 : 0; return new THREE.Quaternion().setFromEuler(new THREE.Euler(A * Math.sin(w * tau), 0, 0.6 * A * Math.sin(0.83 * w * tau + 1) + rs)); }
 function stackQ(){ const ph = P(); if (!ph.chute) return new THREE.Quaternion(); const v = ph.cut ? ph.bs.v : ph.v, r = relAir(v), q = new THREE.Quaternion(), d = new V3(r.x, r.y, r.z);
   if (d.lengthSq() > 1) q.setFromUnitVectors(new V3(0, 1, 0), d.normalize().negate()); return q.multiply(swayQ()); }
 function landerPos(){ const ph = P(); if (ph.cut) return new V3(ph.lp.x - ph.origin.x, ph.lp.y, ph.lp.z - ph.origin.z);
@@ -555,23 +613,24 @@ function cutBridle(silent){ const ph = P(); if (ph.cut) return; const ly = lande
   ph.bs = {p:{...ph.p}, v:{...ph.v}, burn:0.8, dir:{x:ph.wind.x / 3, z:ph.wind.z / 3}, landed:false}; ph.rockets = false; s.w.set(0.2, 0, -0.2); }
 
 /* ---- the 7-bounce landing: real ballistic arcs in Mars gravity, with heights designed to halve each time ---- */
-function startBounce(){ const b = s.b; if (b.active) return; const ph = P(); b.active = true; b.k = 0; b.mode = 'air'; b.slowT = 0.9;
+function startBounce(){ const b = s.b; if (b.active) return; const ph = P(); b.active = true; b.k = 0; b.mode = 'air'; b.slowT = 0.9; b.missed = new Set();
   const hd = Math.hypot(ph.lv.x, ph.lv.z) || 1; const dir = {x:(ph.lv.x / hd) || 1, z:(ph.lv.z / hd) || 0};
   ph.lv.x = dir.x * 4.5; ph.lv.z = dir.z * 4.5; ph.lp.y = BAG_R;
-  b.angles = Array.from({length:8}, () => (Math.random() - 0.5) * 0.5); b.hitSet = new Set(); b.lastTap = -9;
+  b.angles = Array.from({length:NB + 1}, () => (Math.random() - 0.5) * 0.5); if (!b.hitSet) b.hitSet = new Set(); if (b.lastTap === undefined) b.lastTap = -9;
   { let L = landerPos(), vx = ph.lv.x, vz = ph.lv.z; s.landPath = [{x:L.x, z:L.z}];
-    for (let k = 0; k < 7; k++){ const c = Math.cos(b.angles[k]), sn = Math.sin(b.angles[k]); [vx, vz] = [(vx * c - vz * sn) * 0.82, (vx * sn + vz * c) * 0.82];
+    for (let k = 0; k < NB; k++){ const c = Math.cos(b.angles[k]), sn = Math.sin(b.angles[k]); [vx, vz] = [(vx * c - vz * sn) * 0.82, (vx * sn + vz * c) * 0.82];
       const T = 2 * Math.sqrt(2 * BOUNCE_H[k] / G); for (let i = 1; i <= 6; i++){ s.landPath.push({x:L.x + vx * T * i / 6, z:L.z + vz * T * i / 6}); } L = new V3(L.x + vx * T, 0, L.z + vz * T); }
     const hv = Math.hypot(vx, vz) || 1, rd = hv * 2.2 / 2 + 1; for (let i = 1; i <= 4; i++) s.landPath.push({x:L.x + vx / hv * rd * i / 4, z:L.z + vz / hv * rd * i / 4}); }
   rockKey = ''; setStage('bounce'); contact(-ph.lv.y); }
 function contact(vin){ const ph = P(), b = s.b, v = ph.lv, L = landerPos(); b.contacts.push(s.realT);
-  const ci = b.contacts.length - 1; if (ci < 7 && s.realT - b.lastTap < 0.3 && !b.hitSet.has(ci)){ b.hitSet.add(ci); b.hits++; setTimeout(() => markSlot(ci + 1), 30); }
+  const ci = b.contacts.length - 1; if (ci < NB && s.realT - b.lastTap < 0.28 && !b.hitSet.has(ci)) catchBounce(ci);
   s.squashV += Math.min(4, vin * 0.1); puff(new V3(L.x, 0.25, L.z), Math.min(26, 5 + vin * 1.6), Math.max(1.2, vin * 0.5));
   sfx.boing(clamp(vin / 12, 0.1, 1)); cam.shake = Math.min(1.1, vin * 0.07);
-  if (b.k < 7){ const h = BOUNCE_H[b.k]; v.y = Math.sqrt(2 * G * h);
+  if (b.k < NB){ const h = BOUNCE_H[b.k]; v.y = Math.sqrt(2 * G * h);
     const ang = b.angles[b.k], c = Math.cos(ang), sn = Math.sin(ang), keep = 0.82; const nx = (v.x * c - v.z * sn) * keep, nz = (v.x * sn + v.z * c) * keep; v.x = nx; v.z = nz;
     s.w.set(v.z / BAG_R, (Math.random() - 0.5) * 0.4, -v.x / BAG_R).addScaledVector(new V3(Math.random() - .5, 0, Math.random() - .5), 1.2 * (1 - b.k / 7));
-    b.k++; slotFill(b.k); popText('BOING ' + b.k + '!', b.k === 1 ? 'Count the bounces!' : '');
+    b.k++; slotFill(b.k); const gc = $('gCount'); if (gc) gc.textContent = b.k + ' / ' + NB;
+    if (b.k === 1) popText('BOING!', 'Tap every bounce!'); else if (b.k === NB) popText('LAST BOUNCE!', ''); else if (b.k === 10) popText('10 BOUNCES!', '');
   } else { v.y = 0; b.mode = 'roll'; b.rollV = Math.hypot(v.x, v.z); }
 }
 function stepBounce(dt){ const ph = P(), b = s.b, p = ph.lp, v = ph.lv;
@@ -590,170 +649,242 @@ function stepBounce(dt){ const ph = P(), b = s.b, p = ph.lp, v = ph.lv;
 }
 
 /* ============ stages ============ */
-const FACTS = {
-  entry:['Pathfinder hit Mars’s air at about <b>7 km every second</b> — around 26,000 km/h!', 'The air in front of the heat shield got so hot it <b>glowed</b>. The shield slowly burned away on purpose to protect the lander. Inside, everything felt up to <b>16 times heavier</b> than on Earth.', 'Real mission: the shield was pointed by the spacecraft’s own spin and shape.'],
-  chute:['The real parachute opened about <b>9.5 km up</b>, going <b>370 m/s</b> — faster than the speed of sound on Mars!', 'Open it too fast and it could rip. Open it too late and there’s no time to slow down.', 'Real mission: the computer opened it automatically.'],
-  shield:['About <b>20 seconds</b> after the parachute opened, the heat shield popped off. Its job was done!', '', 'Real mission: explosive bolts did this automatically.'],
-  rope:['The lander slid down a <b>20-metre rope</b> made of Kevlar — the same super-strong material used in bulletproof vests.', 'Hanging far below kept it away from the rocket fire later.', 'Real mission: lowered by a motor, automatically.'],
-  descend:['Now a long, swaying ride down under the parachute. <b>⏩ We’re fast-forwarding</b> this part — the real ride took about a minute and a half.', 'At 1.6 km up, the radar switches on and measures the distance to the ground with radio echoes.', 'Real mission fact'],
-  airbags:['The real airbags puffed up about <b>300 m above the ground — just 8 seconds</b> before landing!', 'Four bags with six round lobes each made a ball about <b>5.8 m wide</b> — about as tall as a giraffe.', 'Real mission: inflated in less than a second.'],
-  rockets:['Three rockets fired for about <b>2 seconds</b>, 50–98 m above the ground, to almost stop the fall.', 'They slowed the lander from about 60 m/s (216 km/h!) to nearly zero.', 'Real mission: fired automatically using the radar.'],
-  snip:['When the rockets burned out about <b>20 m up</b>, a cutter snipped the rope! The lander dropped the rest of the way.', 'The backshell and parachute flew off and landed somewhere else.', 'Real mission fact'],
-  bounce:['The real Pathfinder bounced <b>more than 15 times</b>! Its first bounce was about <b>15 m</b> high — as tall as a 5-storey building.', 'It bounced and rolled for about 2½ minutes and stopped about 1 km away. In the game we show 7 bounces.', 'Real mission fact'],
-  unpack:['Pathfinder stopped <b>right-side up</b> on its first try! Its three petals unfolded — the inside of each is a solar panel.', 'Then Sojourner became <b>the first rover ever to drive on Mars</b>.', 'Real mission fact']
+/* simple stroke icons (no emoji), drawn in the reference style */
+const ICON = {
+  flame:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1c2438" stroke-width="2.3" stroke-linejoin="round"><path d="M12 2.5c1 3.5 5.5 5.5 5.5 11a5.5 5.5 0 0 1-11 0c0-2.6 1.4-4.2 2.6-5.4.3 1.6 1 2.6 2.2 3.1-.6-3 .2-6 .7-8.7z" fill="#ff8a5a"/></svg>',
+  chute:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1c2438" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10a9 7 0 0 1 18 0z" fill="#ff8a5a"/><path d="M3.5 10 11 19M20.5 10 13 19M12 10v9"/><rect x="10" y="18.5" width="4" height="3.5" rx="1" fill="#fff4e2"/></svg>',
+  shield:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1c2438" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18l-3 5H6z" fill="#b5653a"/><path d="M12 15v6M9 18l3 3 3-3"/></svg>',
+  rope:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1c2438" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2.5h10l-2 4H9z" fill="#fff4e2"/><path d="M12 6.5v9" stroke-dasharray="2 2.2"/><path d="M8 16h8l-4 6z" fill="#f2c14e"/></svg>',
+  bag:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1c2438" stroke-width="2.1"><circle cx="8" cy="9" r="4.6" fill="#fff4e2"/><circle cx="16" cy="9" r="4.6" fill="#fff4e2"/><circle cx="8" cy="16" r="4.6" fill="#fff4e2"/><circle cx="16" cy="16" r="4.6" fill="#fff4e2"/></svg>',
+  rocket:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1c2438" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l-1.5 7h-9z" fill="#fff4e2"/><path d="M8.5 10 7 17M15.5 10 17 17M12 10v8"/><path d="M5.5 18c.5 1.8 1.5 2.8 1.5 2.8S8 19.8 8.5 18M15.5 18c.5 1.8 1.5 2.8 1.5 2.8s1-1 1.5-2.8" stroke="#e5533f"/></svg>',
+  snip:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1c2438" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3" fill="#fff4e2"/><circle cx="6" cy="18" r="3" fill="#fff4e2"/><path d="M8.5 7.5 20 17M8.5 16.5 20 7"/></svg>',
+  bounce:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1c2438" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="7" r="4" fill="#fff4e2"/><path d="M2 21h20" /><path d="M3 18q2.5-9 5 0 2-6 4 0 1.5-3.5 3 0" stroke-dasharray="1.5 2.5"/></svg>',
+  radar:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1c2438" stroke-width="2.2" stroke-linecap="round"><path d="M4 20a12 12 0 0 1 16 0M7.5 16.5a7 7 0 0 1 9 0M11 13a2 2 0 0 1 2 0"/></svg>',
+  air:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1c2438" stroke-width="2.2" stroke-linecap="round"><path d="M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/></svg>',
+  play:'<svg width="26" height="26" viewBox="0 0 24 24"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.8l-12-7.5A1 1 0 0 0 7 4.5z" fill="#1c2438"/></svg>'
 };
+const star = (on, size = 24) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17l-5.9 3.3 1.3-6.6L2.5 9.1l6.6-.8z" fill="${on ? '#f2c14e' : 'rgba(255,240,220,.18)'}" stroke="${on ? '#1c2438' : 'rgba(255,240,220,.35)'}" stroke-width="1.3" stroke-linejoin="round"/></svg>`;
+/* short, kid-sized words: what to do + one real fact */
 const STAGE = {
-  entry:{step:0, name:'Hot Entry', obj:'🔥 Keep the heat shield pointing forward!', hint:'Hold ◀ or ▶ (or the arrow keys) to keep the needle in the green zone. The hotter it gets, the more it wobbles!'},
-  chute:{step:1, name:'Parachute', obj:'🪂 Open the parachute when the needle hits green!', hint:'Watch the speed needle drop. Press the button when it is in the GREEN zone (around 370 m/s).'},
-  shield:{step:2, name:'Heat Shield', obj:'🛡️ Drop the heat shield!', hint:'The heat shield is too heavy to carry to the ground. Press the button to let it go.'},
-  rope:{step:3, name:'The Rope', obj:'🧵 Hold the button to lower the lander!', hint:'Press and HOLD the button (or Space) to let out the 20 m rope.'},
-  descend:{step:3, name:'The Rope', obj:'⏩ Falling toward Ares Vallis…', hint:'Nothing to do — enjoy the ride! The radar will wake up at 1.6 km.'},
-  airbags:{step:4, name:'Airbags', obj:'🎈 Inflate the airbags in the green zone!', hint:'Watch the height bar. Press the button when the lander is in the GREEN zone (about 300 m).'},
-  rockets:{step:5, name:'Rockets', obj:'🚀 Fire the rockets in the green zone!', hint:'Press FIRE when the lander is 50–100 m above the ground.'},
-  snip:{step:5, name:'Rockets', obj:'✂️ Snip the rope!', hint:'Quick! Press the button to cut the rope.'},
-  bounce:{step:6, name:'Bounce!', obj:'🏀 Tap BOING! every time it hits the ground', hint:'Tap the button (or Space) at the moment the airbags touch the ground.'},
-  unpack:{step:7, name:'Unpack', obj:'🌸 Open the petals to free Sojourner!', hint:'Press the button to deflate the airbags and open the petals.'}
+  entry:  {step:0, icon:'flame',  name:'Steer!',        goal:'Keep the shield in front!',  how:'Short taps on Left or Right. Keep the needle in the GREEN.', coach:'Hold these to steer!', fact:'Pathfinder flew into Mars’s air at 26,000 km per hour!',
+           intro:['Steer through the fire!', 'The capsule slowly drifts off course. Tap or hold Left and Right to keep the needle in the GREEN. Careful — the buttons are very strong!']},
+  chute:  {step:1, icon:'chute',  name:'Parachute',     goal:'Open the parachute!',        how:'Wait for GREEN. Then tap!', coach:'Tap when the needle is green!', fact:'The real parachute opened at 370 m/s. That is faster than sound!',
+           intro:['Open the parachute!', 'The speed needle drops fast. Tap when it is in the small GREEN part. Too early and the parachute rips!']},
+  shield: {step:2, icon:'shield', name:'Heat shield',   goal:'Drop the heat shield!',      how:'Wait for NOW. Then tap fast!', coach:'Wait… then tap fast!', fact:'The heat shield’s job is done. It is too heavy to keep.',
+           intro:['Drop the heat shield!', 'A quick reaction test! Wait until the button turns red and says DROP NOW. Then tap as fast as you can. Don’t tap too early!']},
+  rope:   {step:3, icon:'rope',   name:'Lower the lander', goal:'Lower the lander!',       how:'HOLD when the line is in the GREEN. Let go when it swings out.', coach:'Hold when the line is green!', fact:'The rope is 20 m long. It is made of super-strong Kevlar.',
+           intro:['Lower the lander!', 'Hold the button to let out the 20 m rope. The lander swings! Only hold while the swing line is in the GREEN.']},
+  descend:{step:3, icon:'radar',  name:'Falling…',      goal:'Get ready…',                 how:'Nothing to do. The radar is looking for the ground.', fact:'Radar uses radio echoes to find the ground.'},
+  airbags:{step:4, icon:'bag',    name:'Airbags',       goal:'Puff up the airbags!',       how:'Watch the bar. Tap when the lander is in the tiny GREEN zone!', coach:'Tap in the green zone!', fact:'The real airbags puffed up 8 seconds before landing.',
+           intro:['Puff up the airbags!', 'Watch the lander fall on the height bar. Tap when it is inside the tiny GREEN zone. It moves fast, and the button won’t warn you!']},
+  rockets:{step:5, icon:'rocket', name:'Rockets',       goal:'Fire the rockets!',          how:'Tap when the lander is in the GREEN.', coach:'Tap in the green zone!', fact:'Three rockets slowed it down to almost zero.',
+           intro:['Fire the rockets!', 'Watch the height bar and tap in the tiny GREEN zone to fire. Then tap CUT fast to cut the rope!']},
+  snip:   {step:5, icon:'snip',   name:'Cut the rope',  goal:'Cut the rope!',              how:'Tap fast!', coach:'Tap now!', fact:'Then the lander dropped the last 20 m.'},
+  fall:   {step:6, icon:'bounce', name:'Bounce!',       goal:'Tap when the ring turns green!', how:'A ring shrinks around the lander. Tap BOING when it turns GREEN.', coach:'Tap when the ring is green!', fact:'The real Pathfinder bounced more than 15 times!',
+           intro:['Catch the bounces!', 'A ring shrinks around the lander. When the ring turns GREEN, the lander touches the ground. Tap BOING right then! Catch as many of the 15 bounces as you can.'], demo:true},
+  bounce: {step:6, icon:'bounce', name:'Bounce!',       goal:'Tap when the ring turns green!', how:'A ring shrinks around the lander. Tap BOING when it turns GREEN.', fact:'The real Pathfinder bounced more than 15 times!'},
+  deflate:{step:6, icon:'air',    name:'Landed!',       goal:'Letting the air out…',       how:'The airbags let their air out. You did it!', fact:'Next, Sojourner will drive out onto Mars!'}
 };
+const DEMO = `<svg viewBox="0 0 420 110" role="img" aria-label="When the ring turns green and touches the ground, tap"><line x1="10" y1="96" x2="410" y2="96" stroke="#b5653a" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="70" cy="40" r="14" fill="#fff4e2" stroke="#1c2438" stroke-width="2"/><circle cx="70" cy="40" r="32" fill="none" stroke="#f2c14e" stroke-width="5"/><text x="70" y="14" text-anchor="middle" font-family="Fredoka" font-weight="600" font-size="13" fill="#6b5d48">1. Ring shrinks</text>
+  <circle cx="210" cy="66" r="14" fill="#fff4e2" stroke="#1c2438" stroke-width="2"/><circle cx="210" cy="66" r="22" fill="none" stroke="#f2c14e" stroke-width="5"/><text x="210" y="20" text-anchor="middle" font-family="Fredoka" font-weight="600" font-size="13" fill="#6b5d48">2. Getting close…</text>
+  <circle cx="350" cy="80" r="14" fill="#fff4e2" stroke="#1c2438" stroke-width="2"/><circle cx="350" cy="80" r="16" fill="none" stroke="#3fb8a9" stroke-width="5"/><text x="350" y="42" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="22" fill="#2f9e91">3. TAP!</text>
+  <path d="M110 40 Q150 40 180 60" stroke="#1c2438" stroke-width="2" fill="none" stroke-dasharray="4 4"/><path d="M245 66 Q290 70 320 78" stroke="#1c2438" stroke-width="2" fill="none" stroke-dasharray="4 4"/></svg>`;
 function setStage(id){ s.stage = id; s.stageT = 0; const st = STAGE[id]; if (!st) return;
-  $('stepNo').textContent = `Step ${st.step + 1} of 8`; $('stepName').textContent = st.name; setObjective(st.obj);
-  const f = FACTS[id] || FACTS.entry; $('factText').innerHTML = f[0] + (f[1] ? '<br><br>' + f[1] : ''); $('factTag').textContent = f[2];
+  $('stepNo').textContent = `Step ${st.step + 1} of 7`; $('stepName').textContent = st.name; setObjective(st.goal, st.icon);
+  $('howText').textContent = st.how; $('howIcon').innerHTML = ICON[st.icon]; $('factText').textContent = ' ' + st.fact;
   [...$('dots').children].forEach((d, i) => d.className = i < st.step ? 'done' : i === st.step ? 'now' : '');
-  $('stepStars').textContent = ''; $('controls').innerHTML = ''; buildGauge(id); setupAction(id); }
-function setObjective(t){ const o = $('objective'); if (o.textContent === t) return; o.textContent = t; o.classList.remove('bump'); void o.offsetWidth; o.classList.add('bump'); }
-
-function award(key, n, title, sub){ n = Math.min(n, s.capped[key] || 3); s.stars[key] = n; $('stepStars').textContent = '★'.repeat(n) + '☆'.repeat(3 - n); popText(title, '★'.repeat(n) + '☆'.repeat(3 - n) + (sub ? '  ' + sub : '')); n >= 3 ? sfx.ding() : sfx.click(); }
+  $('stepStars').innerHTML = ''; $('controls').innerHTML = ''; buildGauge(id); setupAction(id);
+  hideCoach(); if (st.intro) showIntro(st); else if (st.coach) setTimeout(() => s.stage === id && showCoach(st.coach, st.step + 1), 60); }
+/* step cards: pause the game, say what was done and what to do next */
+function showIntro(st){ s.introOpen = true; const L = s.lastAward;
+  $('introDone').innerHTML = L ? `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2f9e91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>${L.name} done! <span style="display:inline-flex">${star(L.n >= 1, 20)}${star(L.n >= 2, 20)}${star(L.n >= 3, 20)}</span>`.replace(/rgba\(255,240,220,\.18\)/g, '#e6d7b8').replace(/rgba\(255,240,220,\.35\)/g, '#c9b896') : '';
+  $('introStep').textContent = `Step ${st.step + 1} of 7`; $('introIcon').innerHTML = ICON[st.icon]; $('introTitle').textContent = st.intro[0]; $('introHow').textContent = st.intro[1];
+  const d = $('introDemo'); d.hidden = !st.demo; d.innerHTML = st.demo ? DEMO : ''; $('intro').hidden = false; sfx.ding(); }
+function closeIntro(){ if (!s.introOpen) return; s.introOpen = false; $('intro').hidden = true; sfx.click(); const st = STAGE[s.stage]; if (st && st.coach) setTimeout(() => showCoach(st.coach, st.step + 1), 80); }
+$('introGo').onclick = closeIntro;
+function setObjective(t, icon){ const o = $('goal'); $('objective').textContent = t; if (icon) $('objIcon').innerHTML = ICON[icon]; o.classList.remove('bump'); void o.offsetWidth; o.classList.add('bump'); }
+/* coach mark: dashed gold ring around what to press + numbered tip, like the first-time guide */
+let coachTimer = 0;
+function showCoach(text, n){ const tgt = s.stage === 'entry' ? $('controls') : act; if (!tgt || tgt.offsetParent === null) return;
+  const g = game.getBoundingClientRect(), r = tgt.getBoundingClientRect(), ring = $('coachRing'), tip = $('coachTip');
+  ring.style.left = (r.left - g.left - 10) + 'px'; ring.style.top = (r.top - g.top - 10) + 'px'; ring.style.width = (r.width + 20) + 'px'; ring.style.height = (r.height + 20) + 'px';
+  $('coachN').textContent = n; $('coachText').textContent = text;
+  tip.style.left = (r.left - g.left - 290) + 'px'; tip.style.top = (r.top - g.top + r.height / 2 - 36) + 'px';
+  ring.classList.add('on'); tip.classList.add('on'); clearTimeout(coachTimer); coachTimer = setTimeout(hideCoach, 4500); }
+function hideCoach(){ $('coachRing').classList.remove('on'); $('coachTip').classList.remove('on'); }
+const AWARD_NAME = {entry:'Steering', chute:'Parachute', shield:'Heat shield', rope:'Rope', airbags:'Airbags', rockets:'Rockets', snip:'Rope cut', boing:'Bouncing'};
+function award(key, n, title, sub){ n = Math.min(n, s.capped[key] || 3); s.stars[key] = n; s.lastAward = {name:AWARD_NAME[key], n}; $('stepStars').innerHTML = star(n >= 1, 28) + star(n >= 2, 28) + star(n >= 3, 28); popText(title, '★'.repeat(n) + '☆'.repeat(3 - n) + (sub ? '  ' + sub : '')); n >= 3 ? sfx.ding() : sfx.click(); }
 function snapshot(){ s.snap = structuredClone(s.ph); s.snapQ = s.capQ.clone(); }
-function rewind(key, msg){ s.ph = structuredClone(s.snap); s.capped[key] = 2; s.pv = null; s.rig.p.set(0, 0, 0); s.rig.v.set(0, 0, 0); popText('⏪ Too late!', msg); sfx.rewind(); }
+function rewind(key, msg){ s.ph = structuredClone(s.snap); s.capped[key] = 2; s.pv = null; s.rig.p.set(0, 0, 0); s.rig.v.set(0, 0, 0); popText('Too late!', msg); sfx.rewind(); }
 
 /* action button behaviour per stage */
 const act = $('action');
-function setupAction(id){ act.className = 'kbtn'; act.disabled = false; act.style.display = '';
-  const L = {entry:'STEER ◀ ▶', chute:'OPEN PARACHUTE', shield:'DROP SHIELD', rope:'HOLD TO LOWER ⬇', descend:'⏩ FALLING…', airbags:'INFLATE AIRBAGS', rockets:'FIRE ROCKETS', snip:'SNIP ✂', bounce:'BOING!', unpack:'OPEN PETALS 🌸'};
-  act.textContent = L[id] || 'GO';
+function setupAction(id){ act.className = 'cta'; act.disabled = false; act.style.display = '';
+  const L = {chute:'Open parachute', shield:'Drop shield', rope:'Hold to lower', descend:'Falling…', airbags:'Puff up airbags', rockets:'Fire rockets', snip:'Cut the rope', bounce:'BOING!', deflate:'Landed!'};
+  act.textContent = L[id] || 'Go';
   if (id === 'entry'){ act.style.display = 'none'; const c = $('controls');
-    c.innerHTML = '<button class="sbtn" id="stL">◀</button><button class="sbtn" id="stR">▶</button>';
-    const bind = (el, d) => { const on = e => { e.preventDefault(); s.steer = d; el.classList.add('on'); }, off = () => { if (s.steer === d) s.steer = 0; el.classList.remove('on'); };
+    const arrowL = '<svg width="44" height="44" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M30 20H10"/><path d="M18 11l-9 9 9 9"/></svg>';
+    c.innerHTML = `<button class="mbtn" id="stL" aria-label="Steer left">${arrowL}Left</button><button class="mbtn" id="stR" aria-label="Steer right"><span style="transform:scaleX(-1)">${arrowL}</span>Right</button>`;
+    const bind = (el, d) => { const on = e => { e.preventDefault(); hideCoach(); s.steer = d; el.classList.add('on'); }, off = () => { if (s.steer === d) s.steer = 0; el.classList.remove('on'); };
       el.addEventListener('pointerdown', on); el.addEventListener('pointerup', off); el.addEventListener('pointerleave', off); el.addEventListener('pointercancel', off); };
     bind($('stL'), -1); bind($('stR'), 1); }
   if (id === 'rope') act.classList.add('hold');
-  if (id === 'descend') act.disabled = true;
-  if (id === 'shield') act.disabled = true;
+  if (id === 'shield'){ act.textContent = 'Wait…'; act.classList.add('wait'); s.shieldGo = 1.2 + Math.random() * 1.8; s.shieldReady = false; }
+  if (id === 'fall') act.textContent = 'BOING!';
+  if (id === 'descend' || id === 'deflate') act.disabled = true;
 }
-function press(){ ac(); const id = s.stage, ph = P();
-  if (id === 'chute' && !ph.chute){ const V = spd(relAir(ph.v));
-    if (V > 500){ popText('Too fast!', 'It would rip! Wait for green'); sfx.buzz(); s.capped.chute = Math.min(s.capped.chute || 3, 2); shake(); return; }
+function press(){ ac(); hideCoach(); if (s.introOpen) return closeIntro(); const id = s.stage, ph = P();
+  if (id === 'chute' && !ph.chute){ const V = s.needleV || spd(relAir(ph.v));
+    if (V > 460){ popText('Too fast!', 'It would rip! Wait for green'); sfx.buzz(); s.capped.chute = Math.min(s.capped.chute || 3, 2); shake(); return; }
     ph.chute = true; ph.chuteT = ph.t; s.chuteV = V; s.chuteAlt = altAGL(); freezeOrigin(); sfx.pop();
-    const n = V <= 420 && V >= 320 ? 3 : 2; award('chute', n, n === 3 ? 'PERFECT!' : 'GOOD!', fmt(V) + ' m/s'); act.disabled = true; return; }
-  if (id === 'shield' && !act.disabled){ releaseHS(); act.disabled = true; sfx.pop(); popText('Shield away!', ''); later('rope', 1.2); return; }
+    const n = V <= 400 && V >= 340 ? 3 : 2; award('chute', n, n === 3 ? 'PERFECT!' : 'GOOD!', fmt(V) + ' m/s'); act.disabled = true; return; }
+  if (id === 'shield' && !ph.hsOff){
+    if (!s.shieldReady){ popText('Too early!', 'Wait for DROP NOW'); sfx.buzz(); s.capped.shield = 2; shake(); return; }
+    const rt = s.realT - s.shieldReadyT; releaseHS(); act.disabled = true; sfx.pop();
+    award('shield', rt < 0.6 ? 3 : rt < 1.1 ? 2 : 1, rt < 0.6 ? 'LIGHTNING FAST!' : 'SHIELD AWAY!', rt.toFixed(2) + ' seconds'); later('rope', 1.3); return; }
   if (id === 'airbags' && !ph.bags){ const a = altAGL();
     if (a > 600){ popText('Not yet!', 'Wait for the green zone'); sfx.buzz(); return; }
     ph.bags = true; ph.bagsT = ph.t; s.bagsAlt = a; bagsG.visible = true; sfx.pop();
-    const n = a >= 230 && a <= 420 ? 3 : 2; award('airbags', n, n === 3 ? 'PERFECT!' : a > 420 ? 'A BIT EARLY!' : 'JUST IN TIME!', fmt(a) + ' m'); act.disabled = true; return; }
+    const n = a >= 280 && a <= 350 ? 3 : a > 180 && a < 450 ? 2 : 1; award('airbags', n, n === 3 ? 'PERFECT!' : a > 350 ? 'A BIT EARLY!' : 'JUST IN TIME!', fmt(a) + ' m'); act.disabled = true; return; }
   if (id === 'rockets' && !ph.rockets){ const a = altAGL();
     if (a > 110){ popText('Not yet!', 'Wait for the green zone'); sfx.buzz(); return; }
-    ph.rockets = true; ph.rocketT = ph.t; s.rocketAlt = a; sfx.rocket(); const n = a >= 48 ? 3 : 2; award('rockets', n, n === 3 ? 'PERFECT!' : 'PHEW!', fmt(a) + ' m'); act.disabled = true; return; }
+    ph.rockets = true; ph.rocketT = ph.t; s.rocketAlt = a; sfx.rocket(); const n = a >= 60 && a <= 88 ? 3 : 2; award('rockets', n, n === 3 ? 'PERFECT!' : 'PHEW!', fmt(a) + ' m'); act.disabled = true; return; }
   if (id === 'snip' && !ph.cut && !act.disabled){ doSnip(true); return; }
-  if (id === 'bounce'){ const b = s.b, tNow = s.realT; b.lastTap = tNow; sfx.click();
-    const i = b.contacts.findIndex((t, j) => j < 7 && Math.abs(t - tNow) < 0.3 && !b.hitSet.has(j));
-    if (i >= 0){ b.hitSet.add(i); b.hits++; markSlot(i + 1); } return; }
-  if (id === 'unpack' && s.unpackT < 0){ s.unpackT = 0; act.disabled = true; sfx.ding(); return; }
+  if (id === 'fall' || id === 'bounce'){ const b = s.b, now = s.realT, tt = ttReal(); sfx.click();
+    const i = b.contacts.findIndex((t, j) => j < NB && now - t >= 0 && now - t < 0.25 && !b.hitSet.has(j));
+    if (i >= 0){ catchBounce(i); return; }
+    if (tt < 0.25){ b.lastTap = now; return; }
+    feedback(tt < 1.2 ? 'Too early!' : 'Wait for the ring!', '#ffb27a'); return; }
 }
+function catchBounce(i){ const b = s.b; b.hitSet.add(i); b.hits++; markSlot(i + 1); feedback('Perfect!', '#7fd6cc'); tone(1200, 1500, .12, 'triangle', .1); }
+function feedback(text, color){ const f = $('fb'), r = $('tapRing'); f.textContent = text; f.style.color = color;
+  const L = landerScreen(); f.style.left = L.x + 'px'; f.style.top = (L.y - L.r - 40) + 'px'; f.classList.remove('show'); void f.offsetWidth; f.classList.add('show'); }
+function landerScreen(){ const L = landerPos(), v = L.clone().project(camera), top = L.clone().add(new V3(0, BAG_R, 0)).project(camera), g = game.getBoundingClientRect();
+  const x = (v.x + 1) / 2 * g.width, y = (1 - v.y) / 2 * g.height, yt = (1 - top.y) / 2 * g.height; return {x, y, r:Math.max(12, Math.abs(y - yt)), ok:v.z < 1}; }
+/* real seconds until the airbags touch the ground */
+function ttReal(){ const ph = P(); if (!ph.cut || (s.b.active && s.b.mode !== 'air')) return 99; const h = Math.max(0, ph.lp.y - BAG_R), vy = ph.lv.y, ts = (vy + Math.sqrt(vy * vy + 2 * G * h)) / G, w = warp(); return w > 0 ? ts / w : 99; }
 function release(){}
-act.addEventListener('pointerdown', e => { e.preventDefault(); if (s.stage === 'rope') s.holding = true; else press(); });
-['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => act.addEventListener(ev, () => { s.holding = false; }));
+act.addEventListener('pointerdown', e => { e.preventDefault(); if (s.introOpen) return closeIntro(); if (s.stage === 'rope'){ hideCoach(); s.holding = true; act.classList.add('held'); } else press(); });
+['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => act.addEventListener(ev, () => { s.holding = false; act.classList.remove('held'); }));
 addEventListener('keydown', e => { if (e.repeat && e.code !== 'ArrowLeft' && e.code !== 'ArrowRight') return;
-  if (e.code === 'Space'){ e.preventDefault(); if (s.stage === 'title') return start(); if (s.stage === 'rope') s.holding = true; else if (!act.disabled) press(); }
+  if (e.code === 'Space'){ e.preventDefault(); if (s.stage === 'title') return $('titleScreen').hidden ? go() : start(); if (s.introOpen) return closeIntro(); if (s.stage === 'rope'){ s.holding = true; act.classList.add('held'); hideCoach(); } else if (!act.disabled) press(); }
   if (e.code === 'ArrowLeft' || e.code === 'KeyA') s.steer = -1; if (e.code === 'ArrowRight' || e.code === 'KeyD') s.steer = 1; });
-addEventListener('keyup', e => { if (e.code === 'Space') s.holding = false; if (['ArrowLeft', 'KeyA', 'ArrowRight', 'KeyD'].includes(e.code)) s.steer = 0; });
+addEventListener('keyup', e => { if (e.code === 'Space'){ s.holding = false; act.classList.remove('held'); } if (['ArrowLeft', 'KeyA', 'ArrowRight', 'KeyD'].includes(e.code)) s.steer = 0; });
 
 function releaseHS(){ const ph = P(); ph.hsOff = true; s.hs = {p:{...ph.p}, v:{x:ph.v.x, y:ph.v.y - 3, z:ph.v.z}, landed:false, q:s.capQ.clone(), tumble:new V3(Math.random(), 0, Math.random()).normalize()}; }
 function freezeOrigin(){ const ph = P(); ph.frozen = true; buildMesas(ph.p.x - ph.origin.x + ph.wind.x * 120, ph.p.z - ph.origin.z + ph.wind.z * 120);
   const side = new V3(-ph.wind.z, 0, ph.wind.x).normalize(); s.groundCamDir = side; }
-function doSnip(byPlayer){ const ph = P(); if (ph.cut) return; cutBridle(); ph.bs.burn = 0.8; sfx.snip(); act.disabled = true;
-  award('snip', byPlayer ? 3 : 2, byPlayer ? 'SNIP!' : 'AUTO-SNIP!', byPlayer ? '' : 'Be quicker next time'); }
-function onSettled(){ popText('LANDED!', 'Right-side up, just like the real one'); sfx.ding();
-  const b = s.b; award('boing', b.hits >= 6 ? 3 : b.hits >= 3 ? 2 : 1, 'LANDED!', b.hits + ' of 7 bounces caught');
-  later('unpack', 1.8); }
+function doSnip(byPlayer){ const ph = P(); if (ph.cut) return; const rt = s.stageT; cutBridle(); ph.bs.burn = 0.8; sfx.snip(); act.disabled = true;
+  award('snip', !byPlayer ? 1 : rt < 0.6 ? 3 : 2, !byPlayer ? 'TOO SLOW!' : rt < 0.6 ? 'SUPER QUICK!' : 'SNIP!', byPlayer ? '' : 'The computer cut it'); later('fall', 0.45); }
+function onSettled(){ const b = s.b; award('boing', b.hits >= 12 ? 3 : b.hits >= 7 ? 2 : 1, 'LANDED!', b.hits + ' of ' + NB + ' bounces caught');
+  s.unpackT = 0; setStage('deflate'); sfx.ding(); }
 
 /* scheduled stage changes run on game time, so they pause with the game */
 function later(stage, delay){ s.next = {stage, at:s.realT + delay, from:s.stage}; }
 /* per-frame stage logic (real time) */
-function stageLogic(rdt){ const ph = P(); s.stageT += rdt;
+function stageLogic(rdt){ const ph = P(); if (s.introOpen) return; s.stageT += rdt;
   if (s.next && s.realT >= s.next.at){ const n = s.next; s.next = null; if (s.stage === n.from) setStage(n.stage); }
   const id = s.stage; const a = altAGL(), V = spd(relAir(ph.v));
   if (id === 'entry'){ const m = s.aim, hk = clamp(ph.heat / peakHeatRef, 0, 1), t = s.realT;
-    const dist = (Math.sin(t * 1.3 + m.phase[0]) * 0.6 + Math.sin(t * 2.3 + m.phase[1]) * 0.4 + Math.sin(t * 0.7 + m.phase[2]) * 0.5) * (0.25 + 1.2 * hk) * 70;
-    m.w += (dist + s.steer * 150 - m.w * 2.4 - m.th * 0.9) * rdt; m.th = clamp(m.th + m.w * rdt, -40, 40); if (Math.abs(m.th) >= 40) m.w *= -0.3;
-    if (hk > 0.08){ m.total += rdt; if (Math.abs(m.th) < 12) m.good += rdt; }
+    /* predictable drift: a steady push that slowly swaps sides; no random gusts */
+    const drift = Math.tanh(3 * Math.sin(t * 0.85 + m.phase[0])) * (15 + 20 * hk);
+    /* sensitive steering: strong push, little damping, so it is easy to over-steer */
+    m.w += (drift + s.steer * 165 - m.w * 1.65) * rdt; m.th = clamp(m.th + m.w * rdt, -40, 40); if (Math.abs(m.th) >= 40) m.w *= -0.3;
+    if (hk > 0.08){ m.total += rdt; if (Math.abs(m.th) < 10) m.good += rdt; }
     if (V < 640 && a < 16000){ const f = m.total ? m.good / m.total : 1; award('entry', f >= 0.7 ? 3 : f >= 0.45 ? 2 : 1, f >= 0.7 ? 'GREAT STEERING!' : 'YOU MADE IT!', Math.round(f * 100) + '% in the green'); snapshot(); setStage('chute'); } }
   else if (id === 'chute'){ if (!ph.chute && V < 270) rewind('chute', 'Open it before the needle leaves green');
     if (ph.chute && ph.t - ph.chuteT > 6 && s.stageT > 3) setStage('shield'); }
-  else if (id === 'shield'){ if (s.stageT > 0.8 && act.disabled && !ph.hsOff){ act.disabled = false; act.classList.add('hot'); } }
-  else if (id === 'rope'){ if (s.holding && ph.lower < 1){ ph.lower = Math.min(1, ph.lower + rdt / 2.2); if (!s.ropeSnd || s.realT - s.ropeSnd > 0.18){ s.ropeSnd = s.realT; tone(300 + 400 * ph.lower, 280 + 400 * ph.lower, .05, 'square', .03); } }
-    if (ph.lower >= 1 && !s.ropeDone){ s.ropeDone = true; popText('ALL THE WAY DOWN!', 'Now we wait for the ground…'); sfx.ding(); later('descend', 1.1); } }
-  else if (id === 'descend'){ if (!ph.radar && a < 1600){ ph.radar = true; s.pingT = 0; popText('📡 RADAR LOCK!', '1.6 km to the ground'); sfx.ding(); later('airbags', 1.4); } }
+  else if (id === 'shield' && !ph.hsOff){ if (!s.shieldReady && s.stageT > s.shieldGo){ s.shieldReady = true; s.shieldReadyT = s.realT; act.className = 'cta hot'; act.textContent = 'DROP NOW!'; tone(880, 880, .15, 'square', .08); }
+    if (s.shieldReady && s.realT - s.shieldReadyT > 2.5){ releaseHS(); act.disabled = true; sfx.pop(); award('shield', 1, 'TOO SLOW!', 'The computer dropped it'); later('rope', 1.3); } }
+  else if (id === 'rope'){ const T = s.stageT; s.sway = Math.sin(T * 2.3) * 0.8 + Math.sin(T * 1.27 + 1) * 0.32; const safe = Math.abs(s.sway) < 0.5;
+    if (s.holding && ph.lower < 1){ if (safe){ ph.lower = Math.min(1, ph.lower + rdt / 2.6); if (!s.ropeSnd || s.realT - s.ropeSnd > 0.18){ s.ropeSnd = s.realT; tone(300 + 400 * ph.lower, 280 + 400 * ph.lower, .05, 'square', .03); } }
+      else if (!s.wobT || s.realT - s.wobT > 1.2){ s.wobT = s.realT; s.wobbles = (s.wobbles || 0) + 1; popText('Too wobbly!', 'Let go and wait for green'); sfx.buzz(); } }
+    if (ph.lower >= 1 && !s.ropeDone){ s.ropeDone = true; const w = s.wobbles || 0; award('rope', w === 0 ? 3 : w <= 2 ? 2 : 1, 'ALL THE WAY DOWN!', w === 0 ? 'No wobbles!' : w + ' wobbles'); later('descend', 1.2); } }
+  else if (id === 'descend'){ if (!ph.radar && a < 1600){ ph.radar = true; s.pingT = 0; popText('RADAR ON!', 'The ground is 1.6 km away'); sfx.ding(); later('airbags', 1.4); } }
   else if (id === 'airbags'){ if (!s.snapA && a < 820){ s.snapA = true; snapshot(); }
     if (!ph.bags && a < 120) rewind('airbags', 'Inflate them in the green zone');
-    if (!ph.bags) act.classList.toggle('hot', a <= 420 && a >= 230);
+    
     if (ph.bags && ph.t - ph.bagsT > 0.9) setStage('rockets'); }
   else if (id === 'rockets'){ if (!s.snapR && a < 200){ s.snapR = true; snapshot(); }
     if (!ph.rockets && a < 25) rewind('rockets', 'Fire when you reach the green zone');
-    if (!ph.rockets) act.classList.toggle('hot', a <= 100 && a >= 48);
+    
     if (ph.rockets && (a <= 21 || ph.t - ph.rocketT > 2.2)) setStage('snip'); }
-  else if (id === 'snip'){ if (!ph.cut){ act.classList.add('hot'); if (s.stageT > 1.6) doSnip(false); } }
-  else if (id === 'bounce'){ const b = s.b; if (b.mode !== 'air' && !act.disabled){ act.disabled = true; act.classList.remove('hot'); }
-    if (b.mode === 'air'){ const L = landerPos(), vy = P().lv.y, tt = vy < 0 ? (L.y - BAG_R) / -vy : 99; act.classList.toggle('hot', tt < 0.35); } }
-  else if (id === 'unpack'){ if (s.unpackT >= 0){ s.unpackT += rdt; if (s.unpackT > 7.5 && !s.resultsShown){ s.resultsShown = true; showResults(); } } }
+  else if (id === 'snip'){ if (!ph.cut){ act.classList.add('hot'); if (s.stageT > 1.3) doSnip(false); } }
+  else if (id === 'bounce' || id === 'fall'){ const b = s.b; if (id === 'bounce' && b.mode !== 'air' && !act.disabled){ act.disabled = true; act.classList.remove('hot'); }
+    const tt = ttReal(); act.classList.toggle('hot', tt < 0.25); act.textContent = tt < 0.25 ? 'TAP NOW!' : 'BOING!';
+    if (b.missed) b.contacts.forEach((ct, j) => { if (j < NB && !b.hitSet.has(j) && !b.missed.has(j) && s.realT - ct > 0.28){ b.missed.add(j); feedback('Missed!', '#ff8a72'); markMiss(j + 1); } }); }
+  else if (id === 'deflate'){ s.unpackT += rdt; if (s.unpackT > 1 && s.unpackT - rdt <= 1) noise(1.6, .25, 900); if (s.unpackT > 5 && !s.resultsShown){ s.resultsShown = true; showResults(); } }
 }
 
 /* time warp: quiet parts fast, key moments slow */
-function warp(){ const ph = P(), id = s.stage, a = altAGL();
+function warp(){ const ph = P(), id = s.stage, a = altAGL(); if (s.introOpen) return 0;
   switch (id){
     case 'title': return 0;
-    case 'entry': return a > 80000 ? 16 : a > 30000 ? 9 : 7;
-    case 'chute': { const V = spd(relAir(ph.v)); return !ph.chute ? (V > 460 ? 7 : 2.2) : ph.t - ph.chuteT < 2.5 ? 0.6 : 4; }
+    case 'entry': return a > 80000 ? 24 : a > 30000 ? 12.5 : 10;
+    case 'chute': { const V = spd(relAir(ph.v)); return !ph.chute ? (V > 470 ? 7 : 2.7) : ph.t - ph.chuteT < 2.5 ? 0.6 : 4; }
     case 'shield': case 'rope': return 3.5;
+    case 'fall': return 0.8;
     case 'descend': return ph.radar ? 3 : a > 2600 ? 18 : 8;
-    case 'airbags': return ph.bags ? 1.2 : a > 700 ? 4 : 1.2;
-    case 'rockets': return ph.rockets ? 0.9 : a > 130 ? 1.3 : 0.55;
+    case 'airbags': return ph.bags ? 1.2 : a > 700 ? 4 : 1.9;
+    case 'rockets': return ph.rockets ? 0.9 : a > 130 ? 1.4 : 0.8;
     case 'snip': return ph.cut ? 0.8 : 0.5;
-    case 'bounce': { const b = s.b; if (b.slowT > 0) return 0.35; return b.mode === 'air' ? 1.15 : 1; }
+    case 'bounce': { const b = s.b; if (b.slowT > 0) return 0.35; return b.mode === 'air' ? (b.k <= 2 ? 1.15 : 1.9) : 1.2; }
     default: return 1; } }
 
 /* ============ gauges (SVG) ============ */
 const gEl = $('gauge'); let gRef = {};
 function arc(f0, f1, r, cx = 130, cy = 132){ const p = f => [cx + r * Math.cos(PI * (1 - f)), cy - r * Math.sin(PI * (1 - f))]; const [x0, y0] = p(f0), [x1, y1] = p(f1); return `M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}`; }
-function dial(min, max, zones, unit){ let h = `<svg viewBox="0 0 260 150"><path d="${arc(0, 1, 104)}" stroke="#3a4457" stroke-width="20" fill="none" stroke-linecap="round"/>`;
-  zones.forEach(([a, b, c]) => h += `<path d="${arc((a - min) / (max - min), (b - min) / (max - min), 104)}" stroke="${c}" stroke-width="20" fill="none"/>`);
-  h += `<g id="gNeedle"><path d="M126 132 L130 40 L134 132 Z" fill="#fde593"/></g><circle cx="130" cy="132" r="11" fill="#fde593" stroke="#15141f" stroke-width="3"/>
-  <text id="gVal" x="130" y="98" text-anchor="middle" font-family="Russo One" font-size="22" fill="#fff7e2"></text><text x="130" y="116" text-anchor="middle" font-family="Bubblegum Sans" font-size="14" fill="#c9bfa8">${unit}</text></svg>`;
+const FONT = "font-family=\"Fredoka, Nunito, sans-serif\" font-weight=\"600\"";
+function dial(min, max, zones, label){ let h = `<svg class="dialsvg" viewBox="8 -12 244 196" role="img" aria-label="${label} dial"><path d="${arc(0, 1, 104)}" stroke="#2c3a5a" stroke-width="22" fill="none" stroke-linecap="round"/>`;
+  zones.forEach(([a, b, c]) => h += `<path d="${arc((a - min) / (max - min), (b - min) / (max - min), 104)}" stroke="${c}" stroke-width="22" fill="none"/>`);
+  const g = zones.find(z => z[3]); if (g){ const f = ((g[0] + g[1]) / 2 - min) / (max - min), x = 130 + 126 * Math.cos(PI * (1 - f)), y = 132 - 126 * Math.sin(PI * (1 - f)); h += `<text x="${x}" y="${y + 4}" text-anchor="middle" ${FONT} font-size="15" fill="#7fd6cc">GO</text>`; }
+  h += `<g id="gNeedle"><path d="M125 132 L130 36 L135 132 Z" fill="#fff4e2" stroke="#1c2438" stroke-width="2"/></g><circle cx="130" cy="132" r="12" fill="#f2c14e" stroke="#1c2438" stroke-width="3"/>
+  <text id="gVal" x="130" y="164" text-anchor="middle" ${FONT} font-size="22" fill="#fff4e2"></text><text x="130" y="181" text-anchor="middle" font-family="Nunito" font-weight="700" font-size="12" fill="rgba(255,240,220,.7)">${label}</text></svg>`;
   gEl.innerHTML = h; gRef = {needle:$('gNeedle'), val:$('gVal'), min, max}; }
-function bar(max, zone, unit, icon){ let h = `<svg viewBox="0 0 260 96"><text x="12" y="20" font-family="Bubblegum Sans" font-size="14" fill="#c9bfa8">ground</text><text x="248" y="20" text-anchor="end" font-family="Bubblegum Sans" font-size="14" fill="#c9bfa8">${fmt(max)} ${unit}</text>
-  <rect x="12" y="40" width="236" height="16" rx="8" fill="#3a4457"/><rect x="${12 + 236 * zone[0] / max}" y="40" width="${236 * (zone[1] - zone[0]) / max}" height="16" rx="4" fill="#88b8aa"/>`;
-  for (let i = 0; i <= 20; i++) h += `<circle cx="${12 + i * 11.8}" cy="66" r="${i % 5 ? 1.6 : 2.6}" fill="#fde593" opacity=".7"/>`;
-  h += `<g id="gMark"><text x="0" y="36" text-anchor="middle" font-size="22">${icon}</text><path d="M-6 38 L6 38 L0 46 Z" fill="#fde593"/></g><text id="gVal" x="130" y="90" text-anchor="middle" font-family="Russo One" font-size="17" fill="#fff7e2"></text></svg>`;
+const CAPSULE = '<g transform="translate(-14 -2)"><circle cx="14" cy="14" r="13" fill="#fff4e2" stroke="#1c2438" stroke-width="2.5"/><path d="M7 10h14l-3 10h-8z" fill="#f2c14e" stroke="#1c2438" stroke-width="2"/></g>';
+function bar(max, zone, unit){ const X = v => 14 + 232 * v / max;
+  let h = `<svg viewBox="0 0 260 116" role="img" aria-label="Height bar"><text id="gVal" x="130" y="18" text-anchor="middle" ${FONT} font-size="18" fill="#fff4e2"></text>
+  <rect x="14" y="64" width="232" height="18" rx="9" fill="#2c3a5a"/><rect x="${X(zone[0])}" y="60" width="${X(zone[1]) - X(zone[0])}" height="26" rx="8" fill="#3fb8a9" stroke="#7fd6cc" stroke-width="2"/>
+  ${X(zone[1]) - X(zone[0]) >= 30 ? `<text x="${(X(zone[0]) + X(zone[1])) / 2}" y="78" text-anchor="middle" ${FONT} font-size="14" fill="#1c2438">GO</text>` : ''}`;
+  for (let i = 0; i <= 20; i++) h += `<circle cx="${14 + i * 11.6}" cy="94" r="${i % 5 ? 1.6 : 2.6}" fill="#fff4e2" opacity=".6"/>`;
+  h += `<text x="14" y="112" ${FONT} font-size="13" fill="rgba(255,240,220,.7)">Ground</text><text x="246" y="112" text-anchor="end" ${FONT} font-size="13" fill="rgba(255,240,220,.7)">${fmt(max)} ${unit}</text>
+  <g id="gMark"><g transform="translate(0 26)">${CAPSULE}</g><path d="M-6 51 L6 51 L0 60 Z" fill="#fff4e2"/></g></svg>`;
   gEl.innerHTML = h; gRef = {mark:$('gMark'), val:$('gVal'), max}; }
-function slots(){ let h = '<svg viewBox="0 0 260 80">'; for (let i = 0; i < 7; i++){ const x = 22 + i * 36; h += `<g><rect id="sl${i}" x="${x - 15}" y="14" width="30" height="34" rx="9" fill="#262a38" stroke="#59607a" stroke-dasharray="3 3"/><text x="${x}" y="37" text-anchor="middle" font-family="Russo One" font-size="15" fill="#59607a" id="slt${i}">${i + 1}</text><text x="${x}" y="68" text-anchor="middle" font-size="14" id="sls${i}"></text></g>`; }
-  gEl.innerHTML = h + '</svg>'; gRef = {}; }
-function slotFill(k){ const r = $('sl' + (k - 1)), t = $('slt' + (k - 1)); if (r){ r.setAttribute('fill', '#fde593'); r.setAttribute('stroke', '#fa8b25'); r.removeAttribute('stroke-dasharray'); t.setAttribute('fill', '#15141f'); } }
-function markSlot(n){ const t = $('sls' + (n - 1)); if (t) t.textContent = '⭐'; }
+function slots(){ let h = '<svg viewBox="0 0 260 150" role="img" aria-label="Bounce counter">';
+  for (let i = 0; i < NB; i++){ const x = 30 + (i % 5) * 50, y = 8 + Math.floor(i / 5) * 40;
+    h += `<rect id="sl${i}" x="${x - 20}" y="${y}" width="40" height="32" rx="10" fill="rgba(8,11,20,.3)" stroke="rgba(255,240,220,.3)" stroke-dasharray="3 3"/><text x="${x}" y="${y + 22}" text-anchor="middle" ${FONT} font-size="15" fill="rgba(255,240,220,.4)" id="slt${i}">${i + 1}</text><g id="sls${i}"></g>`; }
+  h += `<text id="gCount" x="130" y="144" text-anchor="middle" ${FONT} font-size="17" fill="#fff4e2">0 / ${NB}</text></svg>`;
+  gEl.innerHTML = h; gRef = {}; }
+function ropeGauge(){ gEl.innerHTML = `<svg viewBox="0 0 260 124" role="img" aria-label="Swing meter and rope length"><text x="130" y="16" text-anchor="middle" ${FONT} font-size="15" fill="rgba(255,240,220,.75)">Swing</text>
+  <rect x="14" y="26" width="232" height="22" rx="11" fill="#e5533f"/><rect x="${130 - 58}" y="22" width="116" height="30" rx="9" fill="#3fb8a9" stroke="#7fd6cc" stroke-width="2"/><text x="130" y="42" text-anchor="middle" ${FONT} font-size="13" fill="#1c2438">HOLD</text>
+  <g id="gSway"><rect x="-4" y="18" width="8" height="38" rx="3" fill="#fff4e2" stroke="#1c2438" stroke-width="2.5"/><path d="M-7 14 L7 14 L0 22 Z" fill="#fff4e2" stroke="#1c2438" stroke-width="1.5"/></g>
+  <text id="gVal" x="130" y="80" text-anchor="middle" ${FONT} font-size="17" fill="#fff4e2"></text>
+  <rect x="14" y="92" width="232" height="18" rx="9" fill="#2c3a5a"/><rect id="gRope" x="14" y="92" width="0" height="18" rx="9" fill="#f2c14e"/></svg>`; gRef = {sway:$('gSway'), rope:$('gRope'), val:$('gVal'), keep:true}; }
+function markMiss(n){ const g = $('sls' + (n - 1)), r = $('sl' + (n - 1)); if (g && r){ const x = +r.getAttribute('x') + 32, y = +r.getAttribute('y') - 6;
+  g.innerHTML = `<circle cx="${x}" cy="${y + 4}" r="9" fill="#ff8a72" stroke="#1c2438" stroke-width="1.5"/><path d="M${x - 3.5} ${y + .5}l7 7M${x + 3.5} ${y + .5}l-7 7" stroke="#1c2438" stroke-width="2" stroke-linecap="round"/>`; } }
+function slotFill(k){ const r = $('sl' + (k - 1)), t = $('slt' + (k - 1)); if (r){ r.setAttribute('fill', '#fff7e8'); r.setAttribute('stroke', '#e6d7b8'); r.removeAttribute('stroke-dasharray'); t.setAttribute('fill', '#1c2438'); } }
+function markSlot(n){ const g = $('sls' + (n - 1)), r = $('sl' + (n - 1)); if (g && r){ const x = +r.getAttribute('x') + 32, y = +r.getAttribute('y') - 6;
+  g.innerHTML = `<circle cx="${x}" cy="${y + 4}" r="9" fill="#7fd6cc" stroke="#1c2438" stroke-width="1.5"/><path d="M${x - 4} ${y + 4}l3 3 5-6" stroke="#1c2438" stroke-width="2" fill="none" stroke-linecap="round"/>`; } }
+function bigIcon(name, text){ gEl.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:88px;height:88px;border-radius:50%;background:#f2c14e;display:grid;place-items:center"><div style="transform:scale(1.6)">${ICON[name]}</div></div><div id="gVal" class="f" style="font-size:22px;margin-top:8px">${text || ''}</div></div>`; gRef = {val:$('gVal'), keep:!!text}; }
 function buildGauge(id){
-  if (id === 'entry') dial(-40, 40, [[-40, -12, '#ff5c00'], [-12, 12, '#88b8aa'], [12, 40, '#ff5c00']], 'shield aim');
-  else if (id === 'chute') dial(0, 800, [[0, 270, '#ff5c00'], [270, 320, '#ffc90c'], [320, 420, '#88b8aa'], [420, 500, '#ffc90c'], [500, 800, '#ff5c00']], 'm/s');
-  else if (id === 'shield') gEl.innerHTML = '<div style="font-size:56px">🛡️⬇️</div>';
-  else if (id === 'rope' || id === 'descend') bar(20, [19, 20], 'm', '📦');
-  else if (id === 'airbags') bar(1000, [230, 420], 'm', '📦');
-  else if (id === 'rockets' || id === 'snip') bar(160, [48, 100], 'm', '📦');
-  else if (id === 'bounce') slots();
-  else if (id === 'unpack') gEl.innerHTML = '<div style="font-size:56px">🤖🌸</div>';
-  if (id === 'descend') gEl.innerHTML = '<div style="font-size:15px;text-align:center;line-height:1.5">📡 Radar wakes up at <b style="font-family:Russo One">1.6 km</b><div id="gVal" style="font-family:Russo One;font-size:26px;color:#fde593"></div></div>', gRef = {val:$('gVal')};
+  if (id === 'entry') dial(-40, 40, [[-40, -10, '#e5533f'], [-10, 10, '#3fb8a9', 1], [10, 40, '#e5533f']], 'Shield aim');
+  else if (id === 'chute') dial(0, 800, [[0, 270, '#e5533f'], [270, 340, '#f2c14e'], [340, 400, '#3fb8a9', 1], [400, 460, '#f2c14e'], [460, 800, '#e5533f']], 'Speed (m/s)');
+  else if (id === 'shield') bigIcon('shield', 'Let it go!');
+  else if (id === 'rope') ropeGauge();
+  else if (id === 'descend') bigIcon('radar', '');
+  else if (id === 'airbags') bar(1000, [280, 350], 'm');
+  else if (id === 'rockets' || id === 'snip') bar(160, [60, 88], 'm');
+  else if (id === 'bounce' || id === 'fall'){ if (!$('gCount')) slots(); }
+  else if (id === 'deflate') bigIcon('air', 'Safe on Mars!');
 }
 function updGauge(){ const ph = P(), id = s.stage, a = altAGL();
-  if (gRef.needle){ const v = id === 'entry' ? s.aim.th : spd(relAir(ph.v)); const f = clamp((v - gRef.min) / (gRef.max - gRef.min), 0, 1);
-    gRef.needle.setAttribute('transform', `rotate(${-90 + 180 * f} 130 132)`); gRef.val.textContent = id === 'entry' ? (Math.abs(v) < 12 ? 'STEADY' : v < 0 ? '◀ TILTED' : 'TILTED ▶') : fmt(v);
-    gRef.val.setAttribute('fill', id === 'entry' ? (Math.abs(v) < 12 ? '#88b8aa' : '#ff8b5c') : '#fff7e2'); }
-  else if (gRef.mark){ const v = id === 'rope' ? 20 * ph.lower : a; const x = 12 + 236 * clamp(v / gRef.max, 0, 1); gRef.mark.setAttribute('transform', `translate(${x} 0)`); gRef.val.textContent = id === 'rope' ? (20 * ph.lower).toFixed(1) + ' m of rope' : fmt(a) + ' m high'; }
-  else if (gRef.val) gRef.val.textContent = a >= 10000 ? (a / 1000).toFixed(1) + ' km' : fmt(a) + ' m';
+  if (gRef.sway){ gRef.sway.setAttribute('transform', `translate(${130 + 116 * clamp(s.sway || 0, -1, 1) * 0.95} 0)`); gRef.sway.querySelector('rect').setAttribute('fill', Math.abs(s.sway || 0) < 0.5 ? '#fff4e2' : '#ffb27a'); gRef.rope.setAttribute('width', 232 * ph.lower); gRef.val.textContent = 'Rope: ' + (20 * ph.lower).toFixed(0) + ' of 20 m'; return; }
+  if (gRef.needle){ const v = id === 'entry' ? s.aim.th : (s.needleV = spd(relAir(ph.v)) + (ph.chute ? 0 : Math.sin(s.realT * 7.3) * 16 + Math.sin(s.realT * 13.1 + 1) * 9 + Math.sin(s.realT * 29) * 4)); const f = clamp((v - gRef.min) / (gRef.max - gRef.min), 0, 1);
+    gRef.needle.setAttribute('transform', `rotate(${-90 + 180 * f} 130 132)`); gRef.val.textContent = id === 'entry' ? (Math.abs(v) < 10 ? 'Good!' : v < 0 ? 'Go right!' : 'Go left!') : fmt(v);
+    gRef.val.setAttribute('fill', id === 'entry' ? (Math.abs(v) < 10 ? '#7fd6cc' : '#ff8a72') : '#fff4e2'); }
+  else if (gRef.mark){ const v = id === 'rope' ? 20 * ph.lower : a; const x = 12 + 236 * clamp(v / gRef.max, 0, 1); gRef.mark.setAttribute('transform', `translate(${x} 0)`); gRef.val.textContent = id === 'rope' ? 'Rope: ' + (20 * ph.lower).toFixed(0) + ' of 20 m' : fmt(a) + ' m high'; }
+  else if (gRef.val && !gRef.keep) gRef.val.textContent = (a >= 10000 ? (a / 1000).toFixed(1) + ' km' : fmt(a) + ' m') + ' to the ground';
 }
 
 /* ============ pop text, chips, rail ============ */
@@ -761,10 +892,10 @@ let popTimer = 0;
 function popText(t, sub){ const p = $('pop'); p.innerHTML = t + (sub ? `<small>${sub}</small>` : ''); p.classList.remove('show'); void p.offsetWidth; p.classList.add('show'); }
 function shake(){ cam.shake = 0.8; }
 const LAYERS = [
-  {name:'Thermosphere', lo:100000, hi:135000, color:'#7f6bd6', fact:'So thin that air molecules hardly ever bump into each other.'},
-  {name:'Mesosphere', lo:45000, hi:100000, color:'#4a8fd6', fact:'The coldest layer — clouds of frozen CO₂ (dry ice!) can form here.'},
-  {name:'Troposphere', lo:10000, hi:45000, color:'#fa8b25', fact:'The weather layer. Dust in the air makes the sky look orange-yellow.'},
-  {name:'Boundary layer', lo:0, hi:10000, color:'#ff5c00', fact:'Close to the ground, where dust devils swirl.'}];
+  {name:'Thermosphere', lo:100000, hi:135000, color:'#7f6bd6', fact:'The air is so thin, it’s almost space!'},
+  {name:'Mesosphere', lo:45000, hi:100000, color:'#4a8fd6', fact:'The coldest layer. Brrr! Even dry-ice clouds form here.'},
+  {name:'Troposphere', lo:10000, hi:45000, color:'#fa8b25', fact:'Dusty air makes the sky look orange.'},
+  {name:'Boundary layer', lo:0, hi:10000, color:'#ff5c00', fact:'Near the ground. Dust devils swirl here!'}];
 const yS = a => 1 - Math.sqrt(clamp(a, 0, 135000) / 135000);
 (function buildRail(){ let h = '', l = ''; LAYERS.forEach((L, i) => { const t = yS(L.hi) * 100, b = yS(L.lo) * 100; h += `<b style="top:${t}%;height:${b - t}%;background:${L.color}"></b>`; l += `<div class="raillbl" id="rl${i}"></div>`; });
   $('rail').innerHTML = h; $('railLbls').innerHTML = l; })();
@@ -787,7 +918,7 @@ function updateCamera(rdt){ const ph = P(), L = landerPos(), a = altAGL();
     wantRel.copy(canopy.add(L).multiplyScalar(0.5)).sub(L); wantDist = 70 + 14 * ph.lower; wantPitch = 0.16;
     if (a < 450){ const k = ease((450 - a) / 330); wantRel.multiplyScalar(1 - k); wantDist = lerp(wantDist, 30, k); wantPitch = lerp(wantPitch, 0.12, k); } }
   if (ph.cut){ wantDist = 30; wantPitch = 0.12; }
-  if (s.stage === 'unpack'){ const k = ease((s.unpackT - 1.5) / 3); wantDist = lerp(30, 8.5, Math.max(k, s.unpackT < 0 ? 0.3 : k)); wantPitch = lerp(0.14, 0.45, k); }
+  if (s.stage === 'deflate'){ const k = ease(s.unpackT / 3); wantDist = lerp(30, 6, k); wantPitch = lerp(0.12, 0.32, k); cam.userYaw += rdt * 0.22 * k; }
   const k = 1 - Math.exp(-rdt * 1.6); cam.yaw += (wantYaw - cam.yaw) * k; cam.rel.lerp(wantRel, k); cam.dist += (wantDist - cam.dist) * k; cam.pitch += (wantPitch - cam.pitch) * k;
   s.rigMax = 0.28 * cam.dist * cam.zoom;
   let focus = L.clone().add(cam.rel).add(s.rig.p);
@@ -818,9 +949,10 @@ function render(rdt, now){ const ph = P(), O = ph.origin;
   // lander
   const L = landerPos(); landerG.position.copy(L);
   spinG.quaternion.copy(ph.cut ? s.spinQ : ph.chute ? stackQ() : s.capQ);
-  const ut = s.unpackT, defl = ut >= 0 ? ease(ut / 2.5) : 0, open = ut >= 0 ? ease((ut - 2) / 2.5) : 0;
+  const ut = s.unpackT, defl = ut >= 0 ? ease((ut - 0.6) / 2.6) : 0, open = 0;
   if (ut >= 0) ph.lp.y = lerp(BAG_R, LANDER_BASE, defl);
-  bagsG.visible = ph.bags && open < 0.98; bagsG.scale.set(1, 1 - 0.6 * defl, 1).multiplyScalar(Math.max(0.05, ph.bagScale) * BAG_SCALE * (1 - 0.68 * defl) * (1 - 0.85 * open)); bagsG.position.y = -0.25 * defl;
+  const keep = 1 - ease(defl * 1.2); bagsG.visible = ph.bags && keep > 0.02; bagsG.scale.set(1, 0.6 + 0.4 * keep, 1).multiplyScalar(Math.max(0.05, ph.bagScale) * BAG_SCALE * Math.max(0.02, keep)); bagsG.position.y = -0.3 * (1 - keep);
+  deflG.visible = defl > 0.02; deflG.scale.setScalar(lerp(0.4, 1, defl));
   petals.forEach(p => p.pivot.quaternion.slerpQuaternions(new THREE.Quaternion(), p.full, open));
   rover.visible = open > 0.3; mast.visible = open > 0.5; mast.scale.y = Math.max(0.01, ease((ut - 4.2) / 1.5));
   const blink = (now % 3200) < 140 ? 0.15 : 1; eyes.forEach(e => e.scale.y = blink);
@@ -856,50 +988,63 @@ function render(rdt, now){ const ph = P(), O = ph.origin;
 
 /* ============ HUD ============ */
 const cache = {}; const setT = (id, v) => { if (cache[id] !== v){ cache[id] = v; $(id).textContent = v; } };
-function hud(){ const ph = P(), a = altAGL(), v = landerV(), V = s.b.active ? Math.hypot(v.x, v.y, v.z) : spd(v);
+function ringHud(){ const r = $('tapRing'), tt = (s.stage === 'fall' || s.stage === 'bounce') && !s.introOpen ? ttReal() : 99;
+  if (tt > 1.1){ r.style.opacity = 0; return; } const L = landerScreen(); if (!L.ok){ r.style.opacity = 0; return; }
+  const k = clamp(tt / 1.1, 0, 1), d = 2 * L.r * (1.05 + 2.4 * k); r.style.opacity = 1; r.style.left = L.x + 'px'; r.style.top = L.y + 'px'; r.style.width = r.style.height = d + 'px';
+  r.classList.toggle('go', tt < 0.25); $('tapLbl').textContent = tt < 0.25 ? 'TAP!' : ''; }
+function hud(){ ringHud(); const ph = P(), a = altAGL(), v = landerV(), V = s.b.active ? Math.hypot(v.x, v.y, v.z) : spd(v);
   setT('alt', a >= 10000 ? (a / 1000).toFixed(1) + ' km' : fmt(a) + ' m'); setT('spd', V >= 100 ? fmt(V) + ' m/s' : V.toFixed(1) + ' m/s');
   const mt = ph.t; setT('mt', Math.floor(mt / 60) + ':' + String(Math.floor(mt % 60)).padStart(2, '0'));
-  const w = warp(); const wl = s.stage === 'title' ? '' : w >= 2.5 ? '⏩ Fast-forward ×' + Math.round(w) : w < 0.7 ? '🐢 Slow motion' : ''; const we = $('warp'); setT('warp', wl); we.classList.toggle('on', !!wl);
+  const w = warp(); const wl = s.stage === 'title' ? '' : w >= 2.5 ? 'Fast-forward ×' + Math.round(w) : w < 0.7 ? 'Slow motion' : ''; const we = $('warp'); setT('warp', wl); we.classList.toggle('on', !!wl);
   $('railMark').style.top = ($('rail').getBoundingClientRect().top - game.getBoundingClientRect().top + $('rail').getBoundingClientRect().height * yS(a)) + 'px';
   const li = s.b.active || s.unpackT >= 0 ? -1 : LAYERS.findIndex(L => a >= L.lo);
-  if (li !== s.layer){ const prev = s.layer; s.layer = li; LAYERS.forEach((L, i) => $('rl' + i).classList.toggle('on', i === li)); if (prev !== -2 && li >= 0 && s.stage !== 'title') chip(`<b>🌫️ ${LAYERS[li].name}</b><br>${LAYERS[li].fact}`); }
+  if (li !== s.layer){ const prev = s.layer; s.layer = li; LAYERS.forEach((L, i) => $('rl' + i).classList.toggle('on', i === li)); if (prev !== -2 && li >= 0 && s.stage !== 'title') chip(`<b>${LAYERS[li].name}</b>${LAYERS[li].fact}`); }
   updGauge(); }
 
 /* ============ results ============ */
-function showResults(){ const keys = [['entry', '🔥 Steering'], ['chute', '🪂 Parachute'], ['airbags', '🎈 Airbags'], ['rockets', '🚀 Rockets'], ['snip', '✂️ Snip'], ['boing', '🏀 Bounce count']];
-  let tot = 0; let rows = '<tr><th>Step</th><th>Stars</th><th></th></tr>';
-  keys.forEach(([k, n]) => { const v = s.stars[k] || 1; tot += v; rows += `<tr><td>${n}</td><td>${'★'.repeat(v)}${'☆'.repeat(3 - v)}</td><td></td></tr>`; });
-  rows += `<tr><th colspan="3" style="padding-top:12px">Game vs. the real 1997 landing</th></tr>
-  <tr><td>Whole landing</td><td>≈${((s.realT - s.startT) / 60).toFixed(1)} min (you)</td><td>≈5 min</td></tr>
-  <tr><td>Bounces</td><td>7</td><td>15 or more</td></tr>
-  <tr><td>Who pressed the buttons</td><td>You!</td><td>Pathfinder's computer</td></tr>`;
-  const big = Math.round(tot / 6); $('resStars').textContent = '★'.repeat(big) + '☆'.repeat(3 - big);
-  $('resMsg').textContent = tot >= 16 ? 'Amazing! Mission control is cheering. Sojourner is ready to explore!' : tot >= 11 ? 'Great landing! Sojourner is safe and ready to roll.' : 'You made it! Try again to earn more stars.';
-  $('resTable').innerHTML = rows; $('results').hidden = false; sfx.ding();
-  window.parent?.postMessage({ source: 'sojourner-landing', type: 'complete', stars: big }, window.location.origin); }
+function showResults(){ hideCoach();
+  const keys = ['entry', 'chute', 'shield', 'rope', 'airbags', 'rockets', 'snip', 'boing']; let tot = 0; keys.forEach(k => tot += (s.stars[k] || 1));
+  const big = tot >= 21 ? 3 : tot >= 15 ? 2 : 1;
+  $('resStars').innerHTML = `<span style="transform:rotate(-12deg) translateY(14px)">${star(big >= 1, 76)}</span>${star(big >= 2, 96)}<span style="transform:rotate(12deg) translateY(14px)">${star(big >= 3, 76)}</span>`
+    .replace(/rgba\(255,240,220,\.18\)/g, '#e6d7b8').replace(/rgba\(255,240,220,\.35\)/g, '#c9b896');
+  $('resMsg').textContent = big === 3 ? 'Amazing! Sojourner is safe and ready to explore Mars.' : big === 2 ? 'Great landing! Sojourner is safe on Mars.' : 'You made it! Play again to win more stars.';
+  const tile = (v, label) => `<div class="tile"><b>${v}</b><span>${label}</span></div>`;
+  $('resTable').innerHTML = tile(tot + '/24', 'Stars') + tile(NB, 'Bounces') + tile(s.b.hits + '/' + NB, 'Bounces you caught');
+  $('results').hidden = false; window.parent.postMessage({source:'sojourner-landing',type:'COMPLETE',stars:tot,maxStars:24}, window.location.origin); sfx.ding(); }
 
 /* ============ flow ============ */
+const PAUSE_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.5" fill="#fff4e2"/><rect x="14" y="5" width="4" height="14" rx="1.5" fill="#fff4e2"/></svg>';
+const RESUME_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.8l-12-7.5A1 1 0 0 0 7 4.5z" fill="#fff4e2"/></svg>';
+const SOUND_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff4e2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L12 5v14l-4.5-4.5H4z" fill="#fff4e2"/><path d="M16 9a4.5 4.5 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg>';
+const MUTE_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff4e2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L12 5v14l-4.5-4.5H4z" fill="#fff4e2"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>';
+$('pauseBtn').innerHTML = PAUSE_SVG; $('muteBtn').innerHTML = SOUND_SVG;
+/* mission overview cards */
+$('missionList').innerHTML = [['flame', 'Steer', 'Keep the hot shield in front'], ['chute', 'Parachute', 'Open it in the green zone'], ['shield', 'Heat shield', 'Drop it fast when it says NOW'], ['rope', 'Rope', 'Hold to lower — not when it swings!'],
+  ['bag', 'Airbags', 'Puff them up in the green zone'], ['rocket', 'Rockets', 'Fire them, then cut the rope'], ['bounce', 'Bounce!', 'Tap when the ring turns green']]
+  .map(([ic, t, d], i) => `<div class="mstep"><span class="n">${i + 1}</span><span class="ic">${ICON[ic].replace(/#1c2438/g, '#fff4e2')}</span><span class="t">${t}<small>${d}</small></span></div>`).join('');
 function reset(){ s = newState(); bagsG.visible = false; chuteG.visible = false; heatshield.visible = true; rockMesh.visible = false; mesaG.visible = false; petals.forEach(p => p.pivot.quaternion.identity());
-  rover.visible = mast.visible = false; dust.forEach(d => { d.life = d.max; d.sp.visible = false; }); s.pingT = -1; s.b.nextHit = () => false;
+  rover.visible = mast.visible = false; dust.forEach(d => { d.life = d.max; d.sp.visible = false; }); s.pingT = -1; s.b.nextHit = () => false; s.unpackT = -1;
   s.capQ.setFromUnitVectors(UP, new V3(-s.ph.v.x, -s.ph.v.y, 0).normalize());
   cam.rel.set(0, 0, 0); cam.dist = 14; cam.pitch = 0.1; cam.yaw = 0.35; cam.userYaw = 0; cam.userPitch = 0; cam.zoom = 1; cam.smooth = null; rockKey = '';
-  $('results').hidden = true; $('titleScreen').hidden = false; $('stepNo').textContent = 'Step 1 of 8'; $('stepName').textContent = 'Ready?'; setObjective('🚀 Press PLAY to start'); act.style.display = 'none'; $('controls').innerHTML = '';
-  $('factText').innerHTML = 'Mars Pathfinder landed on <b>4 July 1997</b>. It carried Sojourner, the first rover ever to drive on Mars.'; $('factTag').textContent = 'Real mission fact'; $('stepStars').textContent = ''; gEl.innerHTML = '<div style="font-size:56px">🛸</div>';
+  $('results').hidden = true; $('overview').hidden = true; $('titleScreen').hidden = false; $('stepNo').textContent = 'Step 1 of 7'; $('stepName').textContent = 'Ready?';
+  setObjective('Press Play to start!', 'play'); act.style.display = 'none'; $('controls').innerHTML = ''; hideCoach();
+  $('howText').textContent = 'Press Play to start.'; $('howIcon').innerHTML = ICON.play; $('factText').textContent = ' Pathfinder landed on Mars on 4 July 1997.'; $('stepStars').innerHTML = ''; bigIcon('rocket', '');
   $('dots').innerHTML = STEPS.map(() => '<i></i>').join(''); s.layer = -2; }
-function start(){ s.startT = s.realT; ac(); sfx.whooshStart(); sfx.click(); $('titleScreen').hidden = true; setStage('entry'); }
-$('playBtn').onclick = start; $('againBtn').onclick = () => { reset(); start(); }; $('homeBtn').onclick = () => { reset(); window.parent?.postMessage({ source: 'sojourner-landing', type: 'home' }, window.location.origin); };
-$('pauseBtn').onclick = () => { paused = !paused; $('pauseBtn').textContent = paused ? '▶' : '❚❚'; };
-$('muteBtn').onclick = () => { SND.muted = !SND.muted; $('muteBtn').textContent = SND.muted ? '🔇' : '🔊'; };
-$('hintBtn').onclick = () => { const st = STAGE[s.stage]; popText('💡', st ? st.hint : 'Press PLAY!'); chip('💡 ' + (st ? st.hint : 'Press PLAY to start.')); };
+function start(){ window.parent.postMessage({source:'sojourner-landing',type:'START'}, window.location.origin); ac(); sfx.whooshStart(); sfx.click(); $('titleScreen').hidden = true; $('overview').hidden = false; }
+function go(){ if (!$('overview').hidden){ ac(); sfx.click(); $('overview').hidden = true; s.startT = s.realT; setStage('entry'); } }
+$('playBtn').onclick = start; $('goBtn').onclick = go; $('againBtn').onclick = () => { reset(); start(); }; $('homeBtn').onclick = () => { reset(); window.parent.postMessage({source:'sojourner-landing',type:'HOME'}, window.location.origin); }; $('homeBtn2').onclick = () => { reset(); window.parent.postMessage({source:'sojourner-landing',type:'HOME'}, window.location.origin); };
+$('pauseBtn').onclick = () => { paused = !paused; $('pauseBtn').innerHTML = paused ? RESUME_SVG : PAUSE_SVG; };
+$('muteBtn').onclick = () => { SND.muted = !SND.muted; $('muteBtn').innerHTML = SND.muted ? MUTE_SVG : SOUND_SVG; };
+$('hintBtn').onclick = () => { const st = STAGE[s.stage]; if (st && st.coach) showCoach(st.coach, st.step + 1); chip('<b>How to play</b>' + (st ? st.how : 'Press Play to start.')); };
 
 let prev = 0;
-function tick(rdt){ if (paused || s.stage === 'title' && false) return;
+function tick(rdt){ if (paused || s.introOpen) return;
   s.realT += rdt; stageLogic(rdt); if (s.b.slowT > 0) s.b.slowT -= rdt;
   const simDt = rdt * warp(); const n = Math.max(1, Math.ceil(simDt / (1 / 120))); for (let i = 0; i < n && simDt > 0; i++) stepPhys(simDt / n); }
 function frame(now){ const rdt = Math.min(0.05, (now - prev) / 1000 || 0); prev = now; tick(rdt); render(paused ? 0.0001 : rdt, now); hud(); requestAnimationFrame(frame); }
 reset(); placeRail(); addEventListener('resize', placeRail); requestAnimationFrame(frame);
 /* test hook */
-window.__pf = {get s(){ return s; }, tick, press, start, altAGL, spd, relAir};
+window.__pf = {get s(){ return s; }, tick, press, start, go, altAGL, spd, relAir};
 </script>
 </body>
 </html>
