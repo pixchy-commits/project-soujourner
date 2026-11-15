@@ -1,0 +1,319 @@
+{
+  "removedCount": 78,
+  "removedBytes": 64448164,
+  "scope": "Unreferenced public/art images and superseded fallback versions; character references, montage and overlays preserved. Git history not rewritten.",
+  "removed": [
+    {
+      "path": "public/art/atmospheric-entry.png",
+      "bytes": 2561137
+    },
+    {
+      "path": "public/art/atmospheric-entry.webp",
+      "bytes": 224234
+    },
+    {
+      "path": "public/art/mars.png",
+      "bytes": 2895104
+    },
+    {
+      "path": "public/art/mars.webp",
+      "bytes": 354620
+    },
+    {
+      "path": "public/art/sojourner-window.png",
+      "bytes": 2570356
+    },
+    {
+      "path": "public/art/sojourner-window.webp",
+      "bytes": 297354
+    },
+    {
+      "path": "public/art/intro-v2/title-landscape-v3.png",
+      "bytes": 2004588
+    },
+    {
+      "path": "public/art/intro-v2/title-landscape-v3.webp",
+      "bytes": 149136
+    },
+    {
+      "path": "public/art/intro-v2/title-landscape.png",
+      "bytes": 2209293
+    },
+    {
+      "path": "public/art/intro-v2/title-landscape.webp",
+      "bytes": 191330
+    },
+    {
+      "path": "public/art/intro-v2/title-rover-model-v4.webp",
+      "bytes": 282850
+    },
+    {
+      "path": "public/art/portraits/pathfinder-original-front.svg",
+      "bytes": 9795216
+    },
+    {
+      "path": "public/art/portraits/pathfinder-placeholder.svg",
+      "bytes": 562
+    },
+    {
+      "path": "public/art/portraits/sojo-cutout-v1.png",
+      "bytes": 1521457
+    },
+    {
+      "path": "public/art/portraits/sojo-cutout-v1.webp",
+      "bytes": 71502
+    },
+    {
+      "path": "public/art/portraits/sojo-placeholder.svg",
+      "bytes": 709
+    },
+    {
+      "path": "public/art/review/sojo-expression-storyboard-v1.png",
+      "bytes": 2404884
+    },
+    {
+      "path": "public/art/scenes/ch01-atmospheric-entry/cabin-heat-style-v4.webp",
+      "bytes": 252396
+    },
+    {
+      "path": "public/art/scenes/ch01-atmospheric-entry/cabin-model-v5.webp",
+      "bytes": 259456
+    },
+    {
+      "path": "public/art/scenes/ch01-atmospheric-entry/cabin-storyboard-v3.png",
+      "bytes": 2167918
+    },
+    {
+      "path": "public/art/scenes/ch01-atmospheric-entry/cabin-storyboard-v3.webp",
+      "bytes": 178440
+    },
+    {
+      "path": "public/art/scenes/ch01-atmospheric-entry/cabin-v2.png",
+      "bytes": 2283767
+    },
+    {
+      "path": "public/art/scenes/ch01-atmospheric-entry/cabin-v2.webp",
+      "bytes": 244690
+    },
+    {
+      "path": "public/art/scenes/ch01-atmospheric-entry/exterior-storyboard-v3.png",
+      "bytes": 2150077
+    },
+    {
+      "path": "public/art/scenes/ch01-atmospheric-entry/exterior-storyboard-v3.webp",
+      "bytes": 164520
+    },
+    {
+      "path": "public/art/scenes/ch01-atmospheric-entry/eyes-heat-style-v4.webp",
+      "bytes": 314470
+    },
+    {
+      "path": "public/art/scenes/ch01-atmospheric-entry/eyes-model-v5.webp",
+      "bytes": 269980
+    },
+    {
+      "path": "public/art/scenes/ch01-atmospheric-entry/eyes-storyboard-v3.png",
+      "bytes": 2404884
+    },
+    {
+      "path": "public/art/scenes/ch01-atmospheric-entry/eyes-storyboard-v3.webp",
+      "bytes": 236478
+    },
+    {
+      "path": "public/art/scenes/ch01-atmospheric-entry/heat-shield-v2.png",
+      "bytes": 2397111
+    },
+    {
+      "path": "public/art/scenes/ch01-first-look/rover-view-heat-v4.webp",
+      "bytes": 409664
+    },
+    {
+      "path": "public/art/scenes/ch01-first-look/rover-view-heat-v5.webp",
+      "bytes": 361988
+    },
+    {
+      "path": "public/art/scenes/ch01-first-look/rover-view-heat-v6.webp",
+      "bytes": 375990
+    },
+    {
+      "path": "public/art/scenes/ch01-first-look/rover-view-v1.webp",
+      "bytes": 324156
+    },
+    {
+      "path": "public/art/scenes/ch01-first-look/rover-view-v2.webp",
+      "bytes": 361560
+    },
+    {
+      "path": "public/art/scenes/ch01-first-look/rover-view-v3.webp",
+      "bytes": 438160
+    },
+    {
+      "path": "public/art/scenes/ch01-lander-unfolding/landed-capsule-v2.webp",
+      "bytes": 362768
+    },
+    {
+      "path": "public/art/scenes/ch01-lander-unfolding/open-petals-model-v4.webp",
+      "bytes": 476206
+    },
+    {
+      "path": "public/art/scenes/ch01-lander-unfolding/open-petals-v2.webp",
+      "bytes": 504462
+    },
+    {
+      "path": "public/art/scenes/ch01-lander-unfolding/open-petals-v3.webp",
+      "bytes": 387380
+    },
+    {
+      "path": "public/art/scenes/ch01-pathfinder-friendship/pathfinder-clean-v6.webp",
+      "bytes": 489340
+    },
+    {
+      "path": "public/art/scenes/ch01-pathfinder-friendship/pathfinder-goggles-v5.webp",
+      "bytes": 435160
+    },
+    {
+      "path": "public/art/scenes/ch01-pathfinder-friendship/pathfinder-v2.webp",
+      "bytes": 396358
+    },
+    {
+      "path": "public/art/scenes/ch01-pathfinder-friendship/pathfinder-v3.webp",
+      "bytes": 268100
+    },
+    {
+      "path": "public/art/scenes/ch01-pathfinder-friendship/pathfinder-v4.webp",
+      "bytes": 218846
+    },
+    {
+      "path": "public/art/scenes/ch01-window-transition/glass-storyboard-v3.png",
+      "bytes": 2614283
+    },
+    {
+      "path": "public/art/scenes/ch01-window-transition/glass-storyboard-v3.webp",
+      "bytes": 293888
+    },
+    {
+      "path": "public/art/scenes/ch01-window-transition/mars-arrival-wide-v4.png",
+      "bytes": 2649915
+    },
+    {
+      "path": "public/art/scenes/ch01-window-transition/mars-arrival-wide-v4.webp",
+      "bytes": 355764
+    },
+    {
+      "path": "public/art/scenes/ch02-celebration/scientists-model-v3-sheet-v1.webp",
+      "bytes": 250636
+    },
+    {
+      "path": "public/art/scenes/ch02-celebration/scientists-v1.webp",
+      "bytes": 428596
+    },
+    {
+      "path": "public/art/scenes/ch02-celebration/scientists-v2.webp",
+      "bytes": 225092
+    },
+    {
+      "path": "public/art/scenes/ch02-earth-flashback/blink-v1.webp",
+      "bytes": 288626
+    },
+    {
+      "path": "public/art/scenes/ch02-earth-flashback/construction-new-model-v1.webp",
+      "bytes": 403552
+    },
+    {
+      "path": "public/art/scenes/ch02-earth-flashback/construction-v1.webp",
+      "bytes": 544082
+    },
+    {
+      "path": "public/art/scenes/ch02-earth-flashback/construction-v2.webp",
+      "bytes": 156932
+    },
+    {
+      "path": "public/art/scenes/ch02-earth-flashback/introduction-v1.webp",
+      "bytes": 459844
+    },
+    {
+      "path": "public/art/scenes/ch02-earth-flashback/introduction-v2.webp",
+      "bytes": 153142
+    },
+    {
+      "path": "public/art/scenes/ch02-earth-flashback/memory-eyes-v2.webp",
+      "bytes": 223322
+    },
+    {
+      "path": "public/art/scenes/ch02-earth-flashback/memory-eyes-v3.webp",
+      "bytes": 137578
+    },
+    {
+      "path": "public/art/scenes/ch02-earth-flashback/mission-v1.webp",
+      "bytes": 381212
+    },
+    {
+      "path": "public/art/scenes/ch02-earth-flashback/mission-v2.webp",
+      "bytes": 138424
+    },
+    {
+      "path": "public/art/scenes/ch02-earth-flashback/pre-memory-eyes-v1.webp",
+      "bytes": 360826
+    },
+    {
+      "path": "public/art/scenes/ch02-earth-flashback/pre-memory-new-model-v1.webp",
+      "bytes": 317948
+    },
+    {
+      "path": "public/art/scenes/ch02-mission-briefing/briefing-model-v2-sheet-v1.webp",
+      "bytes": 209480
+    },
+    {
+      "path": "public/art/scenes/ch02-mission-briefing/briefing-v1.webp",
+      "bytes": 199992
+    },
+    {
+      "path": "public/art/scenes/ch02-mission-introduction/mission-description-v2.webp",
+      "bytes": 411520
+    },
+    {
+      "path": "public/art/scenes/ch02-mission-introduction/mission-description-v3.webp",
+      "bytes": 246960
+    },
+    {
+      "path": "public/art/scenes/ch02-mission-introduction/sojo-frontal-v1.webp",
+      "bytes": 150528
+    },
+    {
+      "path": "public/art/scenes/ch02-mission-introduction/sojo-introduction-v1.webp",
+      "bytes": 465504
+    },
+    {
+      "path": "public/art/scenes/ch02-mission-introduction/sojo-introduction-v2.webp",
+      "bytes": 228338
+    },
+    {
+      "path": "public/art/scenes/ch02-mission-introduction/sojo-model-v2-sheet-v1.webp",
+      "bytes": 371190
+    },
+    {
+      "path": "public/art/scenes/ch02-mission-introduction/sojo-new-model-v1.webp",
+      "bytes": 350030
+    },
+    {
+      "path": "public/art/scenes/ch04-earth-dot/earth-v7-draft.webp",
+      "bytes": 113966
+    },
+    {
+      "path": "public/art/scenes/ch04-earth-dot/eyes-v7-draft.webp",
+      "bytes": 194152
+    },
+    {
+      "path": "public/art/scenes/prologue-archive/control-room.png",
+      "bytes": 1951829
+    },
+    {
+      "path": "public/art/scenes/prologue-identification/pathfinder-v2.png",
+      "bytes": 2268042
+    },
+    {
+      "path": "public/art/scenes/prologue-identification/pathfinder-v2.webp",
+      "bytes": 234314
+    }
+  ]
+}

@@ -48,14 +48,14 @@
     "src": "/art/scenes/ch01-atmospheric-entry/heat-shield-v2.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch01-atmospheric-entry/heat-shield.webp",
-    "alt": "Pathfinder’s entry capsule descending through the atmosphere toward curved Mars",
+    "alt": "Pathfinder\u00e2\u20ac\u2122s entry capsule descending through the atmosphere toward curved Mars",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": true
   },
   "entry-cabin": {
     "src": "/art/scenes/ch01-atmospheric-entry/cabin-model-v5-sheet-v1.webp",
-    "fallbackSrc": "/art/scenes/ch01-atmospheric-entry/cabin-model-v5.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch01-atmospheric-entry/cabin.webp",
     "alt": "Rear three-quarter view of Sojo looking toward Mars, with no hands, lit by orange entry light in a navy transport bay.",
     "objectPosition": "50% 50%",
@@ -64,9 +64,9 @@
   },
   "entry-eyes": {
     "src": "/art/scenes/ch01-atmospheric-entry/eyes-model-v5-sheet-v1.webp",
-    "fallbackSrc": "/art/scenes/ch01-atmospheric-entry/eyes-model-v5.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch01-atmospheric-entry/eyes-closeup.webp",
-    "alt": "Sojo reacts with delighted sparkling oval camera eyes, painted in the heat-shield scene’s navy and orange style.",
+    "alt": "Sojo reacts with delighted sparkling oval camera eyes, painted in the heat-shield scene\u00e2\u20ac\u2122s navy and orange style.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
@@ -91,7 +91,7 @@
   },
   "ch01-lander-unfolding/open-petals": {
     "src": "/art/scenes/ch01-lander-unfolding/open-petals-model-v4-sheet-v1.webp",
-    "fallbackSrc": "/art/scenes/ch01-lander-unfolding/open-petals-model-v4.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch01-lander-unfolding/open-petals.webp",
     "alt": "Straight overhead view of three open metal petals, with six-wheeled Sojo stowed on the upper petal and equipment on the base.",
     "objectPosition": "50% 50%",
@@ -100,7 +100,7 @@
   },
   "ch01-first-look/rover-view": {
     "src": "/art/scenes/ch01-first-look/rover-view-clean-v7.webp",
-    "fallbackSrc": "/art/scenes/ch01-first-look/rover-view-heat-v6.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch01-first-look/rover-view.webp",
     "alt": "First-person view down the lander ramp across Mars, with painted sun and rock annotations. The goggles are a separate overlay.",
     "objectPosition": "50% 50%",
@@ -118,7 +118,7 @@
   },
   "ch01-pathfinder-friendship/pathfinder": {
     "src": "/art/scenes/ch01-pathfinder-friendship/pathfinder-front-v7.webp",
-    "fallbackSrc": "/art/scenes/ch01-pathfinder-friendship/pathfinder-clean-v6.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch01-pathfinder-friendship/pathfinder.webp",
     "alt": "Friendly JPL Pathfinder on Mars; the goggles are a separate overlay.",
     "objectPosition": "50% 50%",
@@ -136,16 +136,16 @@
   },
   "ch02-earth-flashback/blink": {
     "src": "/art/scenes/ch02-earth-flashback/blink-model-v2-sheet-v1.webp",
-    "fallbackSrc": "/art/scenes/ch02-earth-flashback/pre-memory-new-model-v1.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-earth-flashback/blink.webp",
-    "alt": "A third-person closeup of Sojo’s excited sparkling eyes on Mars, just before remembering Earth.",
+    "alt": "A third-person closeup of Sojo\u00e2\u20ac\u2122s excited sparkling eyes on Mars, just before remembering Earth.",
     "objectPosition": "50% 50%",
     "fit": "contain",
     "approved": false
   },
   "ch02-earth-flashback/construction": {
     "src": "/art/scenes/ch02-earth-flashback/construction-model-v2-sheet-v1.webp",
-    "fallbackSrc": "/art/scenes/ch02-earth-flashback/construction-new-model-v1.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-earth-flashback/construction.webp",
     "alt": "Two smiling engineers work on Sojourner in a warmly lit Earth laboratory.",
     "objectPosition": "50% 50%",
@@ -154,7 +154,7 @@
   },
   "ch02-earth-flashback/introduction": {
     "src": "/art/scenes/ch02-earth-flashback/introduction-model-v3-sheet-v1.webp",
-    "fallbackSrc": "/art/scenes/ch02-earth-flashback/introduction-v2.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-earth-flashback/introduction.webp",
     "alt": "The same scientists hold Sojourner turned around, showing its single plain rear camera.",
     "objectPosition": "50% 50%",
@@ -163,7 +163,7 @@
   },
   "ch02-earth-flashback/mission": {
     "src": "/art/scenes/ch02-earth-flashback/mission-model-v3-sheet-v1.webp",
-    "fallbackSrc": "/art/scenes/ch02-earth-flashback/mission-v2.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-earth-flashback/mission.webp",
     "alt": "Scientists gesture toward a board headed Mission, showing Earth and Mars, as Sojo watches.",
     "objectPosition": "50% 50%",
@@ -172,7 +172,7 @@
   },
   "ch02-earth-flashback/memory-eyes": {
     "src": "/art/scenes/ch02-earth-flashback/memory-eyes-model-v4-sheet-v1.webp",
-    "fallbackSrc": "/art/scenes/ch02-earth-flashback/memory-eyes-v3.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-earth-flashback/memory-eyes.webp",
     "alt": "Sojo sparkles with excitement while imagining its mission on Mars in a painted thought cloud.",
     "objectPosition": "50% 50%",
@@ -181,7 +181,7 @@
   },
   "ch02-mission-introduction/sojo-introduction": {
     "src": "/art/scenes/ch02-mission-introduction/sojo-pathfinder-v3.webp",
-    "fallbackSrc": "/art/scenes/ch02-mission-introduction/sojo-model-v2-sheet-v1.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-mission-introduction/sojo-introduction.webp",
     "alt": "Sojo faces the viewer directly in the Rock Garden, with friendly Pathfinder behind to the right.",
     "objectPosition": "50% 50%",
@@ -190,7 +190,7 @@
   },
   "ch02-mission-introduction/mission-description": {
     "src": "/art/scenes/ch02-mission-introduction/sojo-pathfinder-v3.webp",
-    "fallbackSrc": "/art/scenes/ch02-mission-introduction/sojo-model-v2-sheet-v1.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-mission-introduction/mission-description.webp",
     "alt": "Sojo faces the viewer directly in the Rock Garden, with friendly Pathfinder behind to the right.",
     "objectPosition": "50% 50%",
@@ -199,7 +199,7 @@
   },
   "ch02-celebration/scientists": {
     "src": "/art/review/page39-celebration-v2.webp",
-    "fallbackSrc": "/art/scenes/ch02-celebration/scientists-model-v3-sheet-v1.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-celebration/scientists.webp",
     "alt": "The familiar scientists celebrate Sojo completing its baby steps while watching the Mars monitor.",
     "objectPosition": "50% 50%",
@@ -208,7 +208,7 @@
   },
   "ch02-mission-briefing/briefing": {
     "src": "/art/scenes/ch02-mission-briefing/briefing-v7-draft.webp",
-    "fallbackSrc": "/art/scenes/ch02-mission-briefing/briefing-model-v2-sheet-v1.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch02-mission-briefing/briefing.webp",
     "alt": "The same mission-control scientists settle into a calm briefing, gesturing toward Sojo on the monitor.",
     "objectPosition": "50% 50%",
@@ -451,7 +451,7 @@
   },
   "ch04-earth-dot/earth": {
     "src": "/art/scenes/ch04-earth-dot/earth-team-v2.webp",
-    "fallbackSrc": "/art/scenes/ch04-earth-dot/earth-v7-draft.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch04-earth-dot/earth.webp",
     "alt": "Sojo looks toward Earth as a tiny dot in the sky. Leave the frame spacious; final artwork and narration pending.",
     "objectPosition": "50% 50%",
@@ -460,7 +460,7 @@
   },
   "ch04-earth-dot/eyes": {
     "src": "/art/scenes/ch04-earth-dot/eyes-team-v2.webp",
-    "fallbackSrc": "/art/scenes/ch04-earth-dot/eyes-v7-draft.webp",
+    "fallbackSrc": null,
     "expectedPath": "/art/scenes/ch04-earth-dot/eyes.webp",
     "alt": "Close view of Sojo looking toward home. Expression art pending.",
     "objectPosition": "50% 50%",
@@ -489,7 +489,7 @@
     "src": "/art/scenes/legacy-title/title-v7-draft.webp",
     "fallbackSrc": null,
     "expectedPath": "/art/scenes/legacy-title/title.webp",
-    "alt": "THE LEGACY — Present Time. Dedicated title artwork pending.",
+    "alt": "THE LEGACY \u00e2\u20ac\u201d Present Time. Dedicated title artwork pending.",
     "objectPosition": "50% 50%",
     "fit": "cover",
     "approved": false
