@@ -21,6 +21,7 @@ import TitleScreen from "./ui/TitleScreen";
 import MusicButton from "./ui/MusicButton";
 import GamePanels, { type Panel } from "./ui/GamePanels";
 import { GameHostContext } from "@/components/GameHostContext";
+import { LegacyTelevision } from "./ui/LegacyTelevision";
 import Dust from "./ui/Dust";
 import { SceneDebugger } from "./ui/SceneDebugger";
 
@@ -230,8 +231,9 @@ export default function Game({ initialCheckpoint, previewMode = false, artOverri
   {title ? <TitleScreen ready={ready} hasSave={Boolean(data.checkpoint)} busy={paused} onStart={start} onOpenPanel={setPanel} />
    : scene && shot ? <SceneStage key={shot.kind === "archive" ? "archive-stage" : shot.kind === "illustration" ? "illustration-stage" : `${scene.id}/${shot.id}`} scene={scene} shot={shot} paused={paused} instant={instant} artOverrides={artOverrides} onNext={next} onBack={back} onHome={home} onType={onType} onMontageSound={effects.play} />
    : playing && step.kind === "activity" ? (Activity ? <Activity key={step.id} onComplete={completeActivity} onExit={home} onBack={back} paused={paused} instant={instant} /> : <ActivityGate title={step.title} activityId={step.activityId} category={step.category} description={step.description} sourcePage={step.sourcePage} references={step.references} onComplete={completeActivity} onExit={home} onBack={back} paused={paused} />)
-   : <section className="ending-screen"><p className="scene-enter">THE JOURNEY</p><h1 className="scene-enter">A little rover.<br />A new beginning.</h1><p className="preview-end scene-enter">END OF STORY FLOW PREVIEW</p><button className="painted-button scene-enter" disabled={busy} onClick={home}><span>TITLE SCREEN</span></button></section>}
-  <SceneDebugger open={debugOpen} busy={busy || panel !== null} checkpoint={flow.context} reviewing={reviewing} onToggle={toggleDebug} onJump={jump} />
+   : <LegacyTelevision mode="credits" paused={paused} instant={instant} onHome={home} />}
+
+  {(data.completed || previewMode) && <SceneDebugger open={debugOpen} busy={busy || panel !== null} checkpoint={flow.context} reviewing={reviewing} onToggle={toggleDebug} onJump={jump} />}
   <div ref={curtain} className="scene-curtain" aria-hidden="true" />
   <GamePanels panel={panel} onClose={() => setPanel(null)} muted={music.muted} onToggleMusic={music.toggle} narration={narration} />
  </main></GameHostContext.Provider>;

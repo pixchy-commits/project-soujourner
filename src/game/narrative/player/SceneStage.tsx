@@ -8,6 +8,7 @@ import { ChapterTelevision } from "./ChapterTelevision";
 import { chapterPhotos } from "../art/chapter-photos";
 import styles from "./SceneStage.module.css";
 import manifest from "../art/manifest.json";
+import { LegacyTelevision } from "../../ui/LegacyTelevision";
 import { InteractionHint } from "../../ui/InteractionHint";
 
 type Props = {
@@ -30,6 +31,7 @@ export default function SceneStage({ scene, shot, paused, instant, artOverrides,
  const motion = !instant ? styles[shot.motion ?? "still"] : "";
  const waitingForArt = Boolean(shot.placeholder && !artOverrides?.[shot.art] && !manifest[shot.art].src);
  const advanceCue = <button data-scene-advance className="story-advance" disabled={paused} onClick={onNext}><InteractionHint /></button>;
+ if (scene.id === "legacy-return-to-tv") return <LegacyTelevision key={shot.id} mode="archive" archiveArt={shot.art} paused={paused} instant={instant} onNext={onNext} onBack={onBack} onHome={onHome} />;
  return <section className={`cinematic-stage ${styles.stage} ${!shot.dialogue ? styles.silent : ""} ${paused ? styles.paused : ""}`} aria-label={`${scene.title}: ${shot.id}`} onClick={event => {
   if (!shot.dialogue && !paused && !(event.target as Element).closest("button, a, input, select, textarea")) onNext();
  }}>

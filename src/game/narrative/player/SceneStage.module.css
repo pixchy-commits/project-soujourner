@@ -95,3 +95,10 @@
 .stage .missionSheet li { display: flex; gap: 12px; align-items: center; white-space: nowrap; }
 .stage .missionSheet li::after { content: ''; height: 1px; flex: 1; background: #886b4e88; }
 @media(max-width:650px) { .missionSheet { left: 4%; top: 5%; width: 45%; max-height: 43%; padding: 14px 12px; }.missionSheet h2 { font-size: 9px; margin-bottom: 8px; }.missionSheet p,.missionSheet li { font-size: 14px; }.missionSheet ul { gap: 7px; }.missionSheet li { padding-left: 16px; }.missionSheet li::before { top: 5px; width: 8px; height: 8px; } }
+
+/* Filled mission notes keep natural wrapping and remain readable above the dialogue. */
+.stage .missionSheet { width:34%; max-height:61%; overscroll-behavior:contain; }
+.stage .missionSheet p,.stage .missionSheet li { font-size:clamp(13px,1.25vw,20px); }
+.stage .missionSheet li { display:block; white-space:normal; line-height:1.35; }
+.stage .missionSheet li::after { display:none; }
+@media(max-width:650px) { .stage .missionSheet { width:48%; max-height:53%; padding:12px; }.stage .missionSheet p,.stage .missionSheet li { font-size:12px; } }

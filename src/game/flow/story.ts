@@ -58,7 +58,6 @@ export const story = [
   {"kind":"narrative","id":"legacy-title","sceneId":"legacy-title"},
   {"kind":"narrative","id":"legacy-return-to-tv","sceneId":"legacy-return-to-tv"},
   {"kind":"narrative","id":"legacy-rover-evolution","sceneId":"legacy-rover-evolution"},
-  {"kind":"activity","id":"legacy-findings","activityId":"legacy-findings","title":"What the mission left behind","sourcePage":93,"category":"historical","description":"Historical/credits team handoff: mission findings, technological legacy and source credits. Team research notes are not automatically approved final copy.","references":[]},
   {"kind":"narrative","id":"legacy-museum","sceneId":"legacy-museum"},
 ] as const satisfies readonly StoryStep[];
 
@@ -67,6 +66,7 @@ export function firstShot(step: StoryStep): Checkpoint {
  return { stepId: step.id, shotId: step.kind === "narrative" ? getScene(step.sceneId).shots[0].id : null };
 }
 export function resolveCheckpoint(saved: Checkpoint | null): Checkpoint {
+ if (saved?.stepId === "legacy-findings") return firstShot(getStep("legacy-museum"));
  if (saved?.stepId === "ch01-first-look" && saved.shotId === "camera-eyes") return { stepId: "ch01-pathfinder-friendship", shotId: "sojo-question" };
  // Retired pre-landing reveal resumes at landing, before the arrival shots.
  if (saved?.stepId === "ch01-window-transition") return { stepId: "landing", shotId: null };

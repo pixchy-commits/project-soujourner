@@ -24,8 +24,8 @@ export const scene = {
       "missionSheet": {
         "title": "MISSION DESCRIPTION",
         "duration": "DURATION: 7 SOLS",
-        "note": "1 Sol is a Martian day.",
-        "items": ["Sol 1", "Sol 2", "Sol 3"]
+        "note": "1 Sol is a Martian day ? about 24 hours and 39 minutes.",
+        "items": ["Sol 1?2 ? Land safely and roll onto Mars", "Sol 3 ? Meet Barnacle Bill and analyse a rock", "Sol 4 ? Test the soil with my wheels", "Sol 5?6 ? Travel to Yogi and study its surroundings", "Sol 7 ? Approach Yogi, recover and send our findings home"]
       },
       "dialogue": {
         "speaker": "SOJOURNER",

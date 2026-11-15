@@ -19,6 +19,7 @@ export const score = {
 export type ScoreCue = keyof typeof score;
 export function sceneScore(step: string, shot: string | null, title: boolean): ScoreCue {
  if (title) return "title";
+ if (step.startsWith("legacy-") || step === "complete") return "memory";
  if (step.startsWith("prologue")) return "archive";
  if (step === "ch01-atmospheric-entry") return shot === "heat-shield" ? "quiet" : "descent";
  if (step === "landing" || step === "hardware-activation") return "quiet";
